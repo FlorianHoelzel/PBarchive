@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const protocol =
     requestHeaders.get("x-forwarded-proto") ??
     (host.startsWith("localhost") ? "http" : "https");
-  const image = `${protocol}://${host}/og.png`;
+  const image = `${protocol}://${host}/og-v2.png`;
   const title = "Volpey — Personal Best Archive";
   const description =
     "A playable history of Volpey's speedrunning personal bests, including obsolete runs.";

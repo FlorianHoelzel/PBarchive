@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T05:44:37.383Z",
+  "generatedAt": "2026-07-29T06:06:53.154Z",
   "source": "https://www.speedrun.com/users/Volpey",
   "profile": {
     "id": "zx7q5087",
@@ -10,20 +10,20 @@
   },
   "stats": {
     "verifiedRuns": 155,
-    "pbRuns": 153,
+    "pbRuns": 152,
     "games": 27,
-    "histories": 67
+    "histories": 63
   },
   "histories": [
     {
-      "id": "o1y9j9v6|7kjpl1gk|full-game|38do9y4l:p12wv871",
+      "id": "o1y9j9v6|7kjpl1gk|full-game",
       "gameId": "o1y9j9v6",
       "gameName": "Celeste",
       "gameAbbreviation": "celeste",
       "gameCover": "https://www.speedrun.com/static/game/o1y9j9v6/cover?v=9003452",
       "categoryName": "Any%",
       "levelName": null,
-      "variant": "1.2.6.1",
+      "variant": null,
       "runs": [
         {
           "id": "y43p7n3z",
@@ -35,6 +35,7 @@
           "runUrl": "https://www.speedrun.com/celeste/runs/y43p7n3z",
           "platform": "PC",
           "emulated": false,
+          "detail": "1.2.6.1",
           "current": false
         },
         {
@@ -47,6 +48,7 @@
           "runUrl": "https://www.speedrun.com/celeste/runs/y6pk0djm",
           "platform": "PC",
           "emulated": false,
+          "detail": "1.2.6.1",
           "current": false
         },
         {
@@ -59,20 +61,9 @@
           "runUrl": "https://www.speedrun.com/celeste/runs/mr83rggy",
           "platform": "PC",
           "emulated": false,
-          "current": true
-        }
-      ]
-    },
-    {
-      "id": "o1y9j9v6|7kjpl1gk|full-game|38do9y4l:9qjxmo0l",
-      "gameId": "o1y9j9v6",
-      "gameName": "Celeste",
-      "gameAbbreviation": "celeste",
-      "gameCover": "https://www.speedrun.com/static/game/o1y9j9v6/cover?v=9003452",
-      "categoryName": "Any%",
-      "levelName": null,
-      "variant": "1.3.1.2",
-      "runs": [
+          "detail": "1.2.6.1",
+          "current": false
+        },
         {
           "id": "yjlp3v3z",
           "date": "2020-06-06",
@@ -83,6 +74,7 @@
           "runUrl": "https://www.speedrun.com/celeste/runs/yjlp3v3z",
           "platform": "PC",
           "emulated": false,
+          "detail": "1.3.1.2",
           "current": true
         }
       ]
@@ -107,19 +99,20 @@
           "runUrl": "https://www.speedrun.com/chocobo_racing/runs/8y8x43wm",
           "platform": "PlayStation TV",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
     },
     {
-      "id": "m1mxl7p6|vdoy4wy2|full-game|38dj7z48:jq6ger71|6nj5kg5l:gq73d8vl|kn0v0q0l:jqz2ejgq",
+      "id": "m1mxl7p6|vdoy4wy2|full-game|6nj5kg5l:gq73d8vl|kn0v0q0l:jqz2ejgq",
       "gameId": "m1mxl7p6",
       "gameName": "Final Fantasy VII Remake",
       "gameAbbreviation": "ff7r",
       "gameCover": "https://www.speedrun.com/static/game/m1mxl7p6/cover?v=b91b713",
       "categoryName": "Intermission",
       "levelName": null,
-      "variant": "Intergrade (Console) · Normal · SSD",
+      "variant": "Intergrade (Console) · Normal",
       "runs": [
         {
           "id": "m7w5lrez",
@@ -131,6 +124,7 @@
           "runUrl": "https://www.speedrun.com/ff7r/runs/m7w5lrez",
           "platform": "PlayStation 5",
           "emulated": false,
+          "detail": "SSD",
           "current": false
         },
         {
@@ -143,19 +137,20 @@
           "runUrl": "https://www.speedrun.com/ff7r/runs/y9l1e4ky",
           "platform": "PlayStation 5",
           "emulated": false,
+          "detail": "SSD",
           "current": true
         }
       ]
     },
     {
-      "id": "kdk5e2dm|jdrpj7x2|full-game|0nw54dnq:21g993mq|dlozyrno:jq6vymj1|ql6k7jn9:jqzgv98l",
+      "id": "kdk5e2dm|jdrpj7x2|full-game|0nw54dnq:21g993mq|dlozyrno:jq6vymj1",
       "gameId": "kdk5e2dm",
       "gameName": "Kingdom Hearts Birth by Sleep 0.2: A Fragmentary Passage",
       "gameAbbreviation": "khbbs02",
       "gameCover": "https://www.speedrun.com/static/game/kdk5e2dm/cover?v=3bd0c9b",
       "categoryName": "Any%",
       "levelName": null,
-      "variant": "PS4 · Beginner · HDD",
+      "variant": "PS4 · Beginner",
       "runs": [
         {
           "id": "0zn6958y",
@@ -167,6 +162,7 @@
           "runUrl": "https://www.speedrun.com/khbbs02/runs/0zn6958y",
           "platform": "PlayStation 4",
           "emulated": false,
+          "detail": "HDD",
           "current": false
         },
         {
@@ -179,6 +175,7 @@
           "runUrl": "https://www.speedrun.com/khbbs02/runs/0zn66w3y",
           "platform": "PlayStation 4",
           "emulated": false,
+          "detail": "HDD",
           "current": false
         },
         {
@@ -191,6 +188,7 @@
           "runUrl": "https://www.speedrun.com/khbbs02/runs/8m7jjd4m",
           "platform": "PlayStation 4",
           "emulated": false,
+          "detail": "HDD",
           "current": false
         },
         {
@@ -203,6 +201,7 @@
           "runUrl": "https://www.speedrun.com/khbbs02/runs/8m7j435m",
           "platform": "PlayStation 4",
           "emulated": false,
+          "detail": "HDD",
           "current": false
         },
         {
@@ -215,6 +214,7 @@
           "runUrl": "https://www.speedrun.com/khbbs02/runs/7yl2genz",
           "platform": "PlayStation 4",
           "emulated": false,
+          "detail": "HDD",
           "current": false
         },
         {
@@ -227,6 +227,7 @@
           "runUrl": "https://www.speedrun.com/khbbs02/runs/1zqordry",
           "platform": "PlayStation 4",
           "emulated": false,
+          "detail": "HDD",
           "current": false
         },
         {
@@ -239,6 +240,7 @@
           "runUrl": "https://www.speedrun.com/khbbs02/runs/oy24v25z",
           "platform": "PlayStation 4",
           "emulated": false,
+          "detail": "HDD",
           "current": false
         },
         {
@@ -251,6 +253,7 @@
           "runUrl": "https://www.speedrun.com/khbbs02/runs/0y64d86m",
           "platform": "PlayStation 4",
           "emulated": false,
+          "detail": "HDD",
           "current": false
         },
         {
@@ -263,6 +266,7 @@
           "runUrl": "https://www.speedrun.com/khbbs02/runs/wzpe26gy",
           "platform": "PlayStation 4",
           "emulated": false,
+          "detail": "HDD",
           "current": true
         }
       ]
@@ -287,6 +291,7 @@
           "runUrl": "https://www.speedrun.com/khfm/runs/1zxloqzx",
           "platform": "PlayStation 3",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -311,19 +316,20 @@
           "runUrl": "https://www.speedrun.com/khfm/runs/2ywjdpz4",
           "platform": "PlayStation 3",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
     },
     {
-      "id": "46w2wo76|w20no45d|full-game|e8mgzem8:1gnd2exl|j84gx7y8:klrom92l|p85d7vvl:4qygrm7q|rn1px7vn:21dxwnjq",
+      "id": "46w2wo76|w20no45d|full-game|e8mgzem8:1gnd2exl",
       "gameId": "46w2wo76",
       "gameName": "Kirby and the Forgotten Land",
       "gameAbbreviation": "kfl",
       "gameCover": "https://www.speedrun.com/static/game/46w2wo76/cover?v=a0fa3c2",
       "categoryName": "Any%",
       "levelName": null,
-      "variant": "Spring Breeze · Physical · 1P · Switch",
+      "variant": "Switch",
       "runs": [
         {
           "id": "mejrp93y",
@@ -335,19 +341,20 @@
           "runUrl": "https://www.speedrun.com/kfl/runs/mejrp93y",
           "platform": "Switch",
           "emulated": false,
+          "detail": "Spring Breeze · Physical · 1P",
           "current": true
         }
       ]
     },
     {
-      "id": "l3dxny1y|wkpy9wkr|full-game|wl39j4vl:013knnrq",
+      "id": "l3dxny1y|wkpy9wkr|full-game",
       "gameId": "l3dxny1y",
       "gameName": "Kirby Super Star",
       "gameAbbreviation": "kss",
       "gameCover": "https://www.speedrun.com/static/game/l3dxny1y/cover?v=04b9f5e",
       "categoryName": "Any%",
       "levelName": null,
-      "variant": "No",
+      "variant": null,
       "runs": [
         {
           "id": "8yv9864z",
@@ -359,6 +366,7 @@
           "runUrl": "https://www.speedrun.com/kss/runs/8yv9864z",
           "platform": "Wii Virtual Console",
           "emulated": false,
+          "detail": "No",
           "current": true
         }
       ]
@@ -383,6 +391,7 @@
           "runUrl": "https://www.speedrun.com/mmx/runs/yl90xxry",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -407,6 +416,7 @@
           "runUrl": "https://www.speedrun.com/nsuns3fb/runs/7z03lnez",
           "platform": "PC",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -431,6 +441,7 @@
           "runUrl": "https://www.speedrun.com/pm64memes/runs/y69rdv6y",
           "platform": "Nintendo 64",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -443,30 +454,7 @@
           "runUrl": "https://www.speedrun.com/pm64memes/runs/yde0v9xm",
           "platform": "Nintendo 64",
           "emulated": false,
-          "current": true
-        }
-      ]
-    },
-    {
-      "id": "4pd0n31e|7wkp6v2r|full-game|kn0mz7ol:jq6nxjnl|ylpe568g:21drm5qe",
-      "gameId": "4pd0n31e",
-      "gameName": "Portal",
-      "gameAbbreviation": "portal",
-      "gameCover": "https://www.speedrun.com/static/game/4pd0n31e/cover?v=1d3445a",
-      "categoryName": "Inbounds",
-      "levelName": null,
-      "variant": "No · PC",
-      "runs": [
-        {
-          "id": "7z0e16em",
-          "date": "2013-08-12",
-          "submitted": "2014-12-09T07:50:31Z",
-          "seconds": 1240,
-          "time": "20:40",
-          "video": "http://www.youtube.com/watch?v=vjMiWhIEyuQ",
-          "runUrl": "https://www.speedrun.com/portal/runs/7z0e16em",
-          "platform": null,
-          "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -482,15 +470,16 @@
       "variant": "PC",
       "runs": [
         {
-          "id": "2ywdv8pz",
+          "id": "7z0e16em",
           "date": "2013-08-12",
-          "submitted": "2015-07-16T23:07:57Z",
+          "submitted": "2014-12-09T07:50:31Z",
           "seconds": 1240,
           "time": "20:40",
-          "video": "https://www.youtube.com/watch?v=vjMiWhIEyuQ",
-          "runUrl": "https://www.speedrun.com/portal/runs/2ywdv8pz",
+          "video": "http://www.youtube.com/watch?v=vjMiWhIEyuQ",
+          "runUrl": "https://www.speedrun.com/portal/runs/7z0e16em",
           "platform": null,
           "emulated": false,
+          "detail": "No",
           "current": true
         }
       ]
@@ -515,19 +504,20 @@
           "runUrl": "https://www.speedrun.com/steamed_hams_smw/runs/y6dw0xqm",
           "platform": null,
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
     },
     {
-      "id": "o1y9wo6q|n2y55mko|full-game|e8m7em86:jq6540ol|kn04ewol:5q8e86rq",
+      "id": "o1y9wo6q|n2y55mko|full-game|e8m7em86:jq6540ol",
       "gameId": "o1y9wo6q",
       "gameName": "Super Mario 64",
       "gameAbbreviation": "sm64",
       "gameCover": "https://www.speedrun.com/static/game/o1y9wo6q/cover?v=82fa0a4",
       "categoryName": "16 Star",
       "levelName": null,
-      "variant": "VC · Yes",
+      "variant": "VC",
       "runs": [
         {
           "id": "1zq6r4xy",
@@ -539,6 +529,7 @@
           "runUrl": "https://www.speedrun.com/sm64/runs/1zq6r4xy",
           "platform": "Wii Virtual Console",
           "emulated": false,
+          "detail": "Yes",
           "current": false
         },
         {
@@ -551,6 +542,7 @@
           "runUrl": "https://www.speedrun.com/sm64/runs/0y6p89jm",
           "platform": "Wii Virtual Console",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
@@ -575,6 +567,7 @@
           "runUrl": "https://www.speedrun.com/smb1/runs/8y8jerdz",
           "platform": "Nintendo Entertainment System",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -587,6 +580,7 @@
           "runUrl": "https://www.speedrun.com/smb1/runs/8y8jen5z",
           "platform": "Nintendo Entertainment System",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -599,6 +593,7 @@
           "runUrl": "https://www.speedrun.com/smb1/runs/0y6nn2qz",
           "platform": "Nintendo Entertainment System",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -611,6 +606,7 @@
           "runUrl": "https://www.speedrun.com/smb1/runs/z0ndexjm",
           "platform": "Nintendo Entertainment System",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -635,19 +631,20 @@
           "runUrl": "https://www.speedrun.com/smb3/runs/yl07913y",
           "platform": "Nintendo Entertainment System",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
     },
     {
-      "id": "kdkzlgdm|wk67rxd1|full-game|dwley4n6:g814yv1d|jlz5e5l2:mln37nqp|wl3vmdy8:qkej0pdq",
+      "id": "kdkzlgdm|wk67rxd1|full-game|jlz5e5l2:mln37nqp|wl3vmdy8:qkej0pdq",
       "gameId": "kdkzlgdm",
       "gameName": "Super Mario Galaxy 2",
       "gameAbbreviation": "smg2",
       "gameCover": "https://www.speedrun.com/static/game/kdkzlgdm/cover?v=5955170",
       "categoryName": "Any%",
       "levelName": null,
-      "variant": "Banktoad · Original · 1P",
+      "variant": "Original · 1P",
       "runs": [
         {
           "id": "0y67l6pm",
@@ -659,6 +656,7 @@
           "runUrl": "https://www.speedrun.com/smg2/runs/0y67l6pm",
           "platform": "Wii",
           "emulated": false,
+          "detail": "Banktoad",
           "current": true
         }
       ]
@@ -683,6 +681,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/7z0pgk9y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -707,6 +706,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/0y6210z7",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -719,6 +719,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/8yvg388y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -731,6 +732,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/9mrq577y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -743,6 +745,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/7ylkg2rz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -755,6 +758,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/jy91ol2m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -767,6 +771,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/1zq4945m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -779,6 +784,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/9yo92njy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -791,6 +797,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/9mr14p2z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -803,6 +810,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/emk5nevm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -815,6 +823,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/8y8x4r5m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -827,6 +836,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/8yvp70oy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -839,6 +849,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/dy46ge3z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -851,6 +862,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/oy22jd5y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -863,6 +875,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/0y68610z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -887,6 +900,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/8y8vlw1z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -899,6 +913,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/yd66v3xz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -911,6 +926,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/zx78weky",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -923,6 +939,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/y880rgwy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -935,6 +952,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/yw3npjnm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -959,6 +977,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/pyd0n00z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -983,6 +1002,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/7yl907xy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -1007,6 +1027,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/dy4w452m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -1031,6 +1052,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/dy42k4qm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1043,6 +1065,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/1zx6x28z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1055,6 +1078,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/1zx6joqz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1067,6 +1091,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/1zx5np5m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1079,6 +1104,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/8y8n6w5y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1091,6 +1117,7 @@
           "runUrl": "https://www.speedrun.com/smw/runs/0zn5en3z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -1115,6 +1142,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/9yojkl5m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1127,6 +1155,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/mk4npv5y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1139,6 +1168,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/yw17x2pz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1151,6 +1181,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/ydqxx1xm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -1175,6 +1206,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/oy23qnjm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -1199,6 +1231,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/mredd7gy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -1223,6 +1256,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/8y89ndwm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1235,6 +1269,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/wzp05grm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1247,6 +1282,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/8y894k5m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1259,6 +1295,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/9mrej07y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1271,6 +1308,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/8y81podz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1283,6 +1321,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/8yvn4lom",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1295,6 +1334,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/9men7l9m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1307,6 +1347,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/oy2n7o5y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1319,6 +1360,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/emkw9xlm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1331,6 +1373,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/yl0nvx3y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1343,6 +1386,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/m776764m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1355,6 +1399,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/y27e596z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1367,6 +1412,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/zxonk2ez",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1379,6 +1425,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/mrnor2gy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1391,19 +1438,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/yo6nokjy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|owojrv96|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|owojrv96|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "1-2: Watch Out Below!",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "dy4repdz",
@@ -1415,19 +1463,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/dy4repdz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|o9xgp6dl|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|o9xgp6dl|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "1-3: The Cave Of Chomp Rock",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "1zxg6oky",
@@ -1439,6 +1488,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/1zxg6oky",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": false
         },
         {
@@ -1451,20 +1501,9 @@
           "runUrl": "https://www.speedrun.com/yi/runs/yv830e6m",
           "platform": "Super Nintendo",
           "emulated": false,
-          "current": true
-        }
-      ]
-    },
-    {
-      "id": "o6gnxo12|9d8q63dn|o9xgp6dl|wl3319l1:5leewmlo|yn2jx2e8:gq7pnvdq",
-      "gameId": "o6gnxo12",
-      "gameName": "Super Mario World 2: Yoshi's Island",
-      "gameAbbreviation": "yi",
-      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
-      "categoryName": "Any%",
-      "levelName": "1-3: The Cave Of Chomp Rock",
-      "variant": "No · SNES",
-      "runs": [
+          "detail": "Yes",
+          "current": false
+        },
         {
           "id": "yv83l9om",
           "date": "2022-12-21",
@@ -1475,19 +1514,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/yv83l9om",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "No",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|4952729p|5lyy52l4:rqvvrw5q|wl3319l1:5leewmlo|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|4952729p|5lyy52l4:rqvvrw5q|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "1-4: Burt The Bashful's Fort",
-      "variant": "Warps · No · SNES",
+      "variant": "Warps · SNES",
       "runs": [
         {
           "id": "9yo79o1m",
@@ -1499,19 +1539,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/9yo79o1m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "No",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|rdq8xmdx|wl3319l1:5leewmlo|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|rdq8xmdx|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "1-5: Hop! Hop! Donut Lifts",
-      "variant": "No · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "m3l107gm",
@@ -1523,6 +1564,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/m3l107gm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "No",
           "current": false
         },
         {
@@ -1535,19 +1577,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/zpgr3vxz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "No",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|5d71o5dy|j841jdy8:10v8np2l|wl3319l1:5leewmlo|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|5d71o5dy|j841jdy8:10v8np2l|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "1-6: Shy-Guys On Stilts",
-      "variant": "Warpless · No · SNES",
+      "variant": "Warpless · SNES",
       "runs": [
         {
           "id": "0zn1ow3m",
@@ -1559,19 +1602,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/0zn1ow3m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "No",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|kwjgnrwg|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|kwjgnrwg|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "1-7: Touch Fuzzy, Get Dizzy",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "0y6d63pm",
@@ -1583,19 +1627,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/0y6d63pm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|ewp3gldn|e8mgoe86:0q5v5erl|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|ewp3gldn|e8mgoe86:0q5v5erl|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "2-1: Visit Koopa And Para-Koopa",
-      "variant": "Warps · Yes · SNES",
+      "variant": "Warps · SNES",
       "runs": [
         {
           "id": "7z0r67oz",
@@ -1607,19 +1652,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/7z0r67oz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|y9m6llw5|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|y9m6llw5|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "2-2: The Baseball Boys",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "kz5r0djy",
@@ -1631,19 +1677,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/kz5r0djy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|29v641wv|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|29v641wv|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "2-5: Watch Out For Lakitu",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "oy2xdl9m",
@@ -1655,19 +1702,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/oy2xdl9m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|n931vnd0|dloekmno:81py0oe1|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|n931vnd0|dloekmno:81py0oe1|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "3-1: Welcome To Monkey World!",
-      "variant": "Warpless · Yes · SNES",
+      "variant": "Warpless · SNES",
       "runs": [
         {
           "id": "0y6d6qqm",
@@ -1679,19 +1727,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/0y6d6qqm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|nwl5q0dv|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|nwl5q0dv|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "3-6: The Cave Of Harry Hedgehog",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "8y8dvkwz",
@@ -1703,19 +1752,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/8y8dvkwz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|yweyrydl|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|yweyrydl|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "3-7: Monkeys' Favorite Lake",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "8yv12o8y",
@@ -1727,19 +1777,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/8yv12o8y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|rdq8pkdx|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|rdq8pkdx|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "4-3: Don't Look Back!",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "1zxgde5y",
@@ -1751,6 +1802,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/1zxgde5y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": false
         },
         {
@@ -1763,19 +1815,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/8yv12vxy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|kwjgxnwg|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|kwjgxnwg|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "4-5: Chomp Rock Zone",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "0zn1oe9m",
@@ -1787,19 +1840,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/0zn1oe9m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|xd1mkedo|wl3319l1:rqvmnrq6|yn26ejl5:jqzn5e4q|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|xd1mkedo|yn26ejl5:jqzn5e4q|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "4-7: Ride Like The Wind",
-      "variant": "Warpless · Yes · SNES",
+      "variant": "Warpless · SNES",
       "runs": [
         {
           "id": "7ylqol2z",
@@ -1811,19 +1865,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/7ylqol2z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|592kgo96|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|592kgo96|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "5-2: Ride The Ski Lifts",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "pzggx80z",
@@ -1835,19 +1890,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/pzggx80z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|29v6e3wv|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|29v6e3wv|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "5-3: Danger - Icy Conditions Ahead",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "9mr14n8z",
@@ -1859,19 +1915,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/9mr14n8z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|xd01rxwq|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|xd01rxwq|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "5-5: Goonie Rides!",
-      "variant": "Yes · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "jy991rvy",
@@ -1883,19 +1940,20 @@
           "runUrl": "https://www.speedrun.com/yi/runs/jy991rvy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "Yes",
           "current": true
         }
       ]
     },
     {
-      "id": "o6gnxo12|9d8q63dn|ldyx7k93|wl3319l1:5leewmlo|yn2jx2e8:gq7pnvdq",
+      "id": "o6gnxo12|9d8q63dn|ldyx7k93|yn2jx2e8:gq7pnvdq",
       "gameId": "o6gnxo12",
       "gameName": "Super Mario World 2: Yoshi's Island",
       "gameAbbreviation": "yi",
       "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
       "categoryName": "Any%",
       "levelName": "6-1: Scary Skeleton Goonies!",
-      "variant": "No · SNES",
+      "variant": "SNES",
       "runs": [
         {
           "id": "7ylqvgrz",
@@ -1907,6 +1965,7 @@
           "runUrl": "https://www.speedrun.com/yi/runs/7ylqvgrz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "No",
           "current": true
         }
       ]
@@ -1931,6 +1990,7 @@
           "runUrl": "https://www.speedrun.com/smwext/runs/z0n0089m",
           "platform": "Switch",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -1943,6 +2003,7 @@
           "runUrl": "https://www.speedrun.com/smwext/runs/y6o8pnqy",
           "platform": "Switch",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -1967,6 +2028,7 @@
           "runUrl": "https://www.speedrun.com/smwext/runs/pm36kldm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -1991,6 +2053,7 @@
           "runUrl": "https://www.speedrun.com/smwext/runs/zn8lw2vz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2015,6 +2078,7 @@
           "runUrl": "https://www.speedrun.com/smwext/runs/8yvrnpoz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2039,6 +2103,7 @@
           "runUrl": "https://www.speedrun.com/smb/runs/9mekv28m",
           "platform": "PC",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2051,6 +2116,7 @@
           "runUrl": "https://www.speedrun.com/smb/runs/6yj68l3z",
           "platform": "PC",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2075,6 +2141,7 @@
           "runUrl": "https://www.speedrun.com/takumi_5/runs/emkx41lz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2087,6 +2154,7 @@
           "runUrl": "https://www.speedrun.com/takumi_5/runs/8y84x5dz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2099,6 +2167,7 @@
           "runUrl": "https://www.speedrun.com/takumi_5/runs/m79gjp9y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2111,19 +2180,20 @@
           "runUrl": "https://www.speedrun.com/takumi_5/runs/y970rv2m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
     },
     {
-      "id": "9d3rr0dl|n2y180m2|full-game|68kzoq82:p129ogdl|rn1wzdlj:gq7298p1",
+      "id": "9d3rr0dl|n2y180m2|full-game|68kzoq82:p129ogdl",
       "gameId": "9d3rr0dl",
       "gameName": "The Legend of Zelda: A Link to the Past",
       "gameAbbreviation": "alttp",
       "gameCover": "https://www.speedrun.com/static/game/9d3rr0dl/cover?v=60c3d10",
       "categoryName": "Major Glitches",
       "levelName": null,
-      "variant": "Any% · -",
+      "variant": "Any%",
       "runs": [
         {
           "id": "pm35476y",
@@ -2135,6 +2205,7 @@
           "runUrl": "https://www.speedrun.com/alttp/runs/pm35476y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "-",
           "current": false
         },
         {
@@ -2147,6 +2218,7 @@
           "runUrl": "https://www.speedrun.com/alttp/runs/ywk5qqny",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "-",
           "current": false
         },
         {
@@ -2159,6 +2231,7 @@
           "runUrl": "https://www.speedrun.com/alttp/runs/y93wvrvy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "-",
           "current": false
         },
         {
@@ -2171,6 +2244,7 @@
           "runUrl": "https://www.speedrun.com/alttp/runs/ywj9q8nz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": "-",
           "current": true
         }
       ]
@@ -2195,6 +2269,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/8yv21vxm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2207,6 +2282,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/1zqgvwxm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2219,6 +2295,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/8m7w1oez",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2231,6 +2308,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/zxvv64qy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2243,6 +2321,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/ydqj2x0m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2255,6 +2334,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/zgneoxdy",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2279,6 +2359,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/1zxg7gey",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2291,6 +2372,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/emkk675m",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2315,6 +2397,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/7ylvnkkm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2327,6 +2410,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/pyd028qz",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2339,6 +2423,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/pm3nn94y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2351,6 +2436,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/0zno1e9y",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2363,6 +2449,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/7ylor0ry",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2375,6 +2462,7 @@
           "runUrl": "https://www.speedrun.com/ttabbl/runs/dy4q4xdm",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2399,6 +2487,7 @@
           "runUrl": "https://www.speedrun.com/yiext/runs/ywvpl72z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2423,6 +2512,7 @@
           "runUrl": "https://www.speedrun.com/yiext/runs/yw4vkg9z",
           "platform": "Super Nintendo",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2447,6 +2537,7 @@
           "runUrl": "https://www.speedrun.com/sma3/runs/mkqrkx3m",
           "platform": "Switch Virtual Console",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2471,6 +2562,7 @@
           "runUrl": "https://www.speedrun.com/yoshis_story/runs/6yj91vdz",
           "platform": "Wii Virtual Console",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2483,6 +2575,7 @@
           "runUrl": "https://www.speedrun.com/yoshis_story/runs/1zxxoqqz",
           "platform": "Wii Virtual Console",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2507,6 +2600,7 @@
           "runUrl": "https://www.speedrun.com/yoshis_story/runs/yvojvd6z",
           "platform": "Nintendo 64",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2519,6 +2613,7 @@
           "runUrl": "https://www.speedrun.com/yoshis_story/runs/yo62o1dy",
           "platform": "Nintendo 64",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2531,6 +2626,7 @@
           "runUrl": "https://www.speedrun.com/yoshis_story/runs/zxo45nkz",
           "platform": "Nintendo 64",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2543,6 +2639,7 @@
           "runUrl": "https://www.speedrun.com/yoshis_story/runs/yde65nvm",
           "platform": "Nintendo 64",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2555,6 +2652,7 @@
           "runUrl": "https://www.speedrun.com/yoshis_story/runs/mrne6r2y",
           "platform": "Nintendo 64",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2567,6 +2665,7 @@
           "runUrl": "https://www.speedrun.com/yoshis_story/runs/ywk4npny",
           "platform": "Nintendo 64",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2579,6 +2678,7 @@
           "runUrl": "https://www.speedrun.com/yoshis_story/runs/y8e1nddy",
           "platform": "Nintendo 64",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2591,6 +2691,7 @@
           "runUrl": "https://www.speedrun.com/yoshis_story/runs/zqvrx35m",
           "platform": "Nintendo 64",
           "emulated": false,
+          "detail": null,
           "current": true
         }
       ]
@@ -2615,6 +2716,7 @@
           "runUrl": "https://www.speedrun.com/yww/runs/0y6r3wpy",
           "platform": "Wii U",
           "emulated": false,
+          "detail": null,
           "current": false
         },
         {
@@ -2627,20 +2729,9 @@
           "runUrl": "https://www.speedrun.com/yww/runs/kz53ovdy",
           "platform": "Wii U",
           "emulated": false,
-          "current": true
-        }
-      ]
-    },
-    {
-      "id": "pd040w6e|z27g7gz2|full-game|ql64vk89:81wd26q4|r8r7mwne:21dww4le",
-      "gameId": "pd040w6e",
-      "gameName": "Yoshi's Woolly World",
-      "gameAbbreviation": "yww",
-      "gameCover": "https://www.speedrun.com/static/game/pd040w6e/cover?v=9849a88",
-      "categoryName": "Any% (Classic Mode)",
-      "levelName": null,
-      "variant": "1 Controller · Normal",
-      "runs": [
+          "detail": null,
+          "current": false
+        },
         {
           "id": "emk84rvm",
           "date": "2015-06-28",
@@ -2651,6 +2742,7 @@
           "runUrl": "https://www.speedrun.com/yww/runs/emk84rvm",
           "platform": "Wii U",
           "emulated": false,
+          "detail": "1 Controller",
           "current": true
         }
       ]

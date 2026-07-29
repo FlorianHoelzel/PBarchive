@@ -82,13 +82,18 @@ for (const run of runs) {
   const level = run.level ? levels[run.level] : null;
   const variables = variablesByGame[run.game] ?? [];
   const valueLabels = [];
+  const runDetails = [];
   const rulesetValues = [];
 
   for (const [variableId, valueId] of Object.entries(run.values ?? {})) {
     const variable = variables.find((item) => item.id === variableId);
     const value = variable?.values?.values?.[valueId];
-    rulesetValues.push(`${variableId}:${valueId}`);
-    if (value?.label) valueLabels.push(value.label);
+    if (variable?.["is-subcategory"]) {
+      rulesetValues.push(`${variableId}:${valueId}`);
+      if (value?.label) valueLabels.push(value.label);
+    } else if (value?.label) {
+      runDetails.push(value.label);
+    }
   }
 
   const key = [
@@ -126,6 +131,7 @@ for (const run of runs) {
     runUrl: run.weblink,
     platform: platforms[run.system?.platform]?.name ?? null,
     emulated: Boolean(run.system?.emulated),
+    detail: runDetails.join(" · ") || null,
   });
 }
 
@@ -136,8 +142,16 @@ for (const history of grouped.values()) {
     return dateOrder || (a.submitted ?? "").localeCompare(b.submitted ?? "");
   });
 
+  const seen = new Set();
+  const uniqueRuns = history.runs.filter((run) => {
+    const fingerprint = `${run.date}|${run.seconds}`;
+    if (seen.has(fingerprint)) return false;
+    seen.add(fingerprint);
+    return true;
+  });
+
   let best = Number.POSITIVE_INFINITY;
-  const progression = history.runs.filter((run) => {
+  const progression = uniqueRuns.filter((run) => {
     if (run.seconds < best) {
       best = run.seconds;
       return true;

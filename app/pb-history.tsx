@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Run = {
   id: string;
@@ -11,6 +11,7 @@ type Run = {
   runUrl: string;
   platform: string | null;
   emulated: boolean;
+  detail: string | null;
   current: boolean;
 };
 
@@ -100,15 +101,20 @@ function ProgressChart({
   runs,
   selected,
   onSelect,
+  gameName,
+  categoryLabel,
 }: {
   runs: Run[];
   selected: number;
   onSelect: (index: number) => void;
+  gameName: string;
+  categoryLabel: string;
 }) {
+  const [hovered, setHovered] = useState<number | null>(null);
   const width = 700;
-  const height = 210;
+  const height = 250;
   const padX = 28;
-  const padY = 26;
+  const padY = 30;
   const values = runs.map((run) => run.seconds);
   const min = Math.min(...values);
   const max = Math.max(...values);
@@ -118,7 +124,7 @@ function ProgressChart({
       runs.length === 1
         ? width / 2
         : padX + (index / (runs.length - 1)) * (width - padX * 2),
-    y: padY + ((run.seconds - min) / span) * (height - padY * 2),
+    y: padY + ((max - run.seconds) / span) * (height - padY * 2),
   }));
   const path = points
     .map((point, index) => `${index ? "L" : "M"}${point.x},${point.y}`)
@@ -130,32 +136,52 @@ function ProgressChart({
         <span>TIME</span>
         <span>{runs.length} PB{runs.length === 1 ? "" : "S"}</span>
       </div>
-      <svg
-        className="chart"
-        viewBox={`0 0 ${width} ${height}`}
-        role="img"
-        aria-label="Personal best time progression"
-      >
-        <line x1="28" y1="26" x2="28" y2="184" className="axis" />
-        <line x1="28" y1="184" x2="672" y2="184" className="axis" />
-        <path d={path} className="chart-line" />
-        {points.map((point, index) => (
-          <circle
-            key={runs[index].id}
-            cx={point.x}
-            cy={point.y}
-            r={selected === index ? 8 : 5}
-            className={selected === index ? "chart-dot active" : "chart-dot"}
-            role="button"
-            tabIndex={0}
-            aria-label={`${longDate(runs[index].date)}, ${runs[index].time}`}
-            onClick={() => onSelect(index)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") onSelect(index);
+      <div className="chart-stage">
+        <svg
+          className="chart"
+          viewBox={`0 0 ${width} ${height}`}
+          role="img"
+          aria-label="Personal best time progression"
+        >
+          <line x1="28" y1="30" x2="28" y2="220" className="axis" />
+          <line x1="28" y1="220" x2="672" y2="220" className="axis" />
+          <path d={path} className="chart-line" />
+          {points.map((point, index) => (
+            <circle
+              key={runs[index].id}
+              cx={point.x}
+              cy={point.y}
+              r={selected === index ? 8 : 5}
+              className={selected === index ? "chart-dot active" : "chart-dot"}
+              role="button"
+              tabIndex={0}
+              aria-label={`${longDate(runs[index].date)}, ${runs[index].time}`}
+              onClick={() => onSelect(index)}
+              onMouseEnter={() => setHovered(index)}
+              onMouseLeave={() => setHovered(null)}
+              onFocus={() => setHovered(index)}
+              onBlur={() => setHovered(null)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") onSelect(index);
+              }}
+            />
+          ))}
+        </svg>
+        {hovered !== null && (
+          <div
+            className="chart-tooltip"
+            style={{
+              left: `${(points[hovered].x / width) * 100}%`,
+              top: `${(points[hovered].y / height) * 100}%`,
             }}
-          />
-        ))}
-      </svg>
+          >
+            <b>{gameName}</b>
+            <span>{runs[hovered].detail ?? categoryLabel}</span>
+            <strong>{runs[hovered].time}</strong>
+            <small>{longDate(runs[hovered].date)}</small>
+          </div>
+        )}
+      </div>
       <div className="chart-range">
         <span>{longDate(runs[0].date)}</span>
         <span>{longDate(runs[runs.length - 1].date)}</span>
@@ -231,7 +257,13 @@ function HistoryBlock({ history, index }: { history: History; index: number }) {
         </section>
 
         <div className="history-data">
-          <ProgressChart runs={history.runs} selected={selected} onSelect={chooseRun} />
+          <ProgressChart
+            runs={history.runs}
+            selected={selected}
+            onSelect={chooseRun}
+            gameName={history.gameName}
+            categoryLabel={title}
+          />
           <section className="runs-panel">
             <div className="table-heading">
               <span>PB HISTORY</span>
@@ -250,7 +282,10 @@ function HistoryBlock({ history, index }: { history: History; index: number }) {
                     aria-pressed={runIndex === selected}
                   >
                     <span className="row-dot" />
-                    <span className="row-date">{longDate(item.date)}</span>
+                    <span className="row-date">
+                      <span>{longDate(item.date)}</span>
+                      {item.detail && <small>{item.detail}</small>}
+                    </span>
                     <strong>{item.time}</strong>
                     <span className="row-action">PLAY ↗</span>
                   </button>
@@ -263,7 +298,48 @@ function HistoryBlock({ history, index }: { history: History; index: number }) {
   );
 }
 
+function LevelCollection({ histories }: { histories: History[] }) {
+  const [activeId, setActiveId] = useState(histories[0].id);
+  const active =
+    histories.find((history) => history.id === activeId) ?? histories[0];
+
+  return (
+    <section className="level-collection">
+      <div className="level-picker">
+        <span>
+          <b>INDIVIDUAL LEVELS</b>
+          {histories.length} leaderboards grouped here
+        </span>
+        <label>
+          <span>SELECT LEVEL</span>
+          <select
+            value={activeId}
+            onChange={(event) => setActiveId(event.target.value)}
+            aria-label="Select an individual level"
+          >
+            {histories.map((history) => (
+              <option key={history.id} value={history.id}>
+                {[history.levelName, history.variant].filter(Boolean).join(" · ")}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <HistoryBlock history={active} index={0} key={active.id} />
+    </section>
+  );
+}
+
 export default function PBHistory({ data }: { data: SiteData }) {
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    const update = () => setShowTop(window.scrollY > 500);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
   const games = useMemo(() => {
     const grouped = new Map<string, History[]>();
     for (const history of data.histories) {
@@ -271,12 +347,20 @@ export default function PBHistory({ data }: { data: SiteData }) {
       existing.push(history);
       grouped.set(history.gameName, existing);
     }
-    return [...grouped.entries()].map(([name, histories]) => ({
-      name,
-      id: toId(name),
-      cover: histories[0].gameCover,
-      histories,
-    }));
+    return [...grouped.entries()].map(([name, histories]) => {
+      const groupedLevels =
+        name === "Super Mario World 2: Yoshi's Island"
+          ? histories.filter((history) => history.levelName)
+          : [];
+      return {
+        name,
+        id: toId(name),
+        cover: histories[0].gameCover,
+        histories,
+        displayCount:
+          histories.length - groupedLevels.length + (groupedLevels.length ? 1 : 0),
+      };
+    });
   }, [data.histories]);
 
   const latest = Math.max(
@@ -355,15 +439,24 @@ export default function PBHistory({ data }: { data: SiteData }) {
             <a href={`#${game.id}`} key={game.id}>
               <span>{String(index + 1).padStart(2, "0")}</span>
               {game.name}
-              <b>{game.histories.length}</b>
+              <b>{game.displayCount}</b>
             </a>
           ))}
         </div>
       </section>
 
       <div className="games">
-        {games.map((game, gameIndex) => (
-          <section className="game-section" id={game.id} key={game.id}>
+        {games.map((game, gameIndex) => {
+          const groupedLevels =
+            game.name === "Super Mario World 2: Yoshi's Island"
+              ? game.histories.filter((history) => history.levelName)
+              : [];
+          const standaloneHistories = groupedLevels.length
+            ? game.histories.filter((history) => !history.levelName)
+            : game.histories;
+
+          return (
+            <section className="game-section" id={game.id} key={game.id}>
             <header className="game-heading">
               <span className="game-number">
                 {String(gameIndex + 1).padStart(2, "0")}
@@ -380,13 +473,26 @@ export default function PBHistory({ data }: { data: SiteData }) {
               )}
             </header>
             <div className="game-histories">
-              {game.histories.map((history, index) => (
+              {standaloneHistories.map((history, index) => (
                 <HistoryBlock history={history} index={index} key={history.id} />
               ))}
+              {groupedLevels.length > 0 && (
+                <LevelCollection histories={groupedLevels} />
+              )}
             </div>
           </section>
-        ))}
+          );
+        })}
       </div>
+
+      <button
+        className={showTop ? "back-to-top visible" : "back-to-top"}
+        type="button"
+        aria-label="Back to top"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        ↑ <span>TOP</span>
+      </button>
 
       <footer>
         <span>PB / ARCHIVE</span>
