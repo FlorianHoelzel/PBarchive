@@ -55,6 +55,16 @@ function toId(value: string) {
     .replace(/(^-|-$)/g, "");
 }
 
+function historyAnchor(history: History) {
+  return `history-${toId(history.id)}`;
+}
+
+function historyLabel(history: History) {
+  return [history.categoryName, history.levelName, history.variant]
+    .filter(Boolean)
+    .join(" · ");
+}
+
 function longDate(value: string) {
   if (value === "Unknown") return value;
   return new Intl.DateTimeFormat("en", {
@@ -255,6 +265,8 @@ function HistoryBlock({
   return (
     <article
       className="history-card"
+      id={historyAnchor(history)}
+      data-archive-id={historyAnchor(history)}
       style={{ "--delay": `${Math.min(index % 5, 4) * 70}ms` } as React.CSSProperties}
     >
       <div className="history-heading">
@@ -459,6 +471,29 @@ function LevelCollection({
   const active =
     histories.find((history) => history.id === activeId) ?? histories[0];
 
+  useEffect(() => {
+    function selectHashTarget() {
+      const target = window.location.hash.slice(1);
+      const selectedHistory = histories.find(
+        (history) => historyAnchor(history) === target,
+      );
+      if (selectedHistory) setActiveId(selectedHistory.id);
+    }
+
+    selectHashTarget();
+    window.addEventListener("hashchange", selectHashTarget);
+    return () => window.removeEventListener("hashchange", selectHashTarget);
+  }, [histories]);
+
+  useEffect(() => {
+    if (window.location.hash !== `#${historyAnchor(active)}`) return;
+    requestAnimationFrame(() => {
+      document
+        .getElementById(historyAnchor(active))
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [active]);
+
   return (
     <section className="level-collection">
       <div className="level-picker">
@@ -488,6 +523,130 @@ function LevelCollection({
         key={active.id}
       />
     </section>
+  );
+}
+
+type ArchiveGame = {
+  name: string;
+  id: string;
+  cover: string | null;
+  histories: History[];
+  displayCount: number;
+};
+
+function ArchiveNavigator({ games }: { games: ArchiveGame[] }) {
+  const [activeId, setActiveId] = useState("overview");
+
+  useEffect(() => {
+    let frame = 0;
+
+    function updateActiveSection() {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const sections = Array.from(
+          document.querySelectorAll<HTMLElement>("[data-archive-id]"),
+        );
+        let current = sections[0]?.dataset.archiveId ?? "overview";
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top > 150) break;
+          current = section.dataset.archiveId ?? current;
+        }
+        setActiveId(current);
+      });
+    }
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("hashchange", updateActiveSection);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("hashchange", updateActiveSection);
+    };
+  }, []);
+
+  const activeGame =
+    games.find(
+      (game) =>
+        activeId === game.id ||
+        game.histories.some((history) => historyAnchor(history) === activeId),
+    )?.id ?? null;
+
+  function jumpTo(id: string) {
+    window.location.hash = id;
+    const target = document.getElementById(id);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  return (
+    <>
+      <aside className="archive-navigator" aria-label="Archive navigator">
+        <div className="archive-navigator-heading">
+          <span>ARCHIVE NAVIGATOR</span>
+          <b>{games.length} GAMES</b>
+        </div>
+        <nav>
+          <a
+            className={activeId === "overview" ? "active" : ""}
+            href="#overview"
+          >
+            <span>00</span>
+            OVERVIEW
+          </a>
+          <a className={activeId === "games" ? "active" : ""} href="#games">
+            <span>→</span>
+            GAME INDEX
+          </a>
+          {games.map((game, gameIndex) => (
+            <div
+              className={activeGame === game.id ? "navigator-game active" : "navigator-game"}
+              key={game.id}
+            >
+              <a href={`#${game.id}`}>
+                <span>{String(gameIndex + 1).padStart(2, "0")}</span>
+                <b>{game.name}</b>
+              </a>
+              <div className="navigator-categories">
+                {game.histories.map((history) => {
+                  const anchor = historyAnchor(history);
+                  return (
+                    <a
+                      className={activeId === anchor ? "active" : ""}
+                      href={`#${anchor}`}
+                      key={history.id}
+                    >
+                      {historyLabel(history)}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </nav>
+      </aside>
+
+      <label className="archive-navigator-mobile">
+        <span>JUMP TO</span>
+        <select
+          aria-label="Jump to a game or category"
+          value={activeId}
+          onChange={(event) => jumpTo(event.target.value)}
+        >
+          <option value="overview">Archive overview</option>
+          <option value="games">Game index</option>
+          {games.map((game) => (
+            <optgroup label={game.name} key={game.id}>
+              <option value={game.id}>{game.name}</option>
+              {game.histories.map((history) => (
+                <option value={historyAnchor(history)} key={history.id}>
+                  {historyLabel(history)}
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+      </label>
+    </>
   );
 }
 
@@ -545,7 +704,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
   }, [histories]);
 
   return (
-    <section className="archive-overview" id="overview">
+    <section className="archive-overview" id="overview" data-archive-id="overview">
       <div className="section-label">
         <span>01</span>
         <h2>ARCHIVE OVERVIEW</h2>
@@ -718,6 +877,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
 
   return (
     <main style={archiveStyle}>
+      <ArchiveNavigator games={games} />
       <header className="site-header">
         <a
           className="brand"
@@ -803,7 +963,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
 
       <ArchiveOverview histories={data.histories} />
 
-      <section className="game-index" id="games">
+      <section className="game-index" id="games" data-archive-id="games">
         <div className="section-label">
           <span>02</span>
           <h2>GAME INDEX</h2>
@@ -832,7 +992,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
 
           return (
             <section className="game-section" id={game.id} key={game.id}>
-            <header className="game-heading">
+            <header className="game-heading" data-archive-id={game.id}>
               <span className="game-number">
                 {String(gameIndex + 1).padStart(2, "0")}
               </span>

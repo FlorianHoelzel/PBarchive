@@ -627,6 +627,144 @@ footer a:hover {
   scroll-margin-top: 76px;
 }
 
+.archive-navigator {
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
+  border: 1px solid var(--line);
+  bottom: 72px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 16px;
+  top: 84px;
+  width: 236px;
+  z-index: 35;
+}
+
+.archive-navigator-heading {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 0 12px;
+}
+
+.archive-navigator-heading span,
+.archive-navigator-heading b,
+.archive-navigator > nav > a,
+.navigator-game > a {
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.archive-navigator-heading span {
+  color: var(--acid);
+}
+
+.archive-navigator-heading b {
+  color: var(--muted);
+}
+
+.archive-navigator nav {
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-color: var(--acid) transparent;
+  scrollbar-width: thin;
+}
+
+.archive-navigator > nav > a,
+.navigator-game > a {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 22px minmax(0, 1fr);
+  min-height: 36px;
+  padding: 0 11px;
+}
+
+.archive-navigator > nav > a:hover,
+.archive-navigator > nav > a.active,
+.navigator-game.active > a {
+  color: var(--acid);
+}
+
+.navigator-game > a span {
+  color: var(--muted);
+}
+
+.navigator-game > a b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navigator-categories {
+  border-bottom: 1px solid var(--line);
+  display: none;
+  padding: 5px 8px 8px 41px;
+}
+
+.navigator-game.active .navigator-categories {
+  display: block;
+}
+
+.navigator-categories a {
+  color: var(--muted);
+  display: block;
+  font-size: 9px;
+  line-height: 1.25;
+  padding: 6px 4px;
+}
+
+.navigator-categories a:hover,
+.navigator-categories a.active {
+  color: var(--acid);
+}
+
+.navigator-categories a.active {
+  font-weight: 800;
+}
+
+.archive-navigator-mobile {
+  align-items: center;
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--ink) 94%, transparent);
+  border: 1px solid var(--line);
+  display: none;
+  gap: 10px;
+  padding: 7px;
+  position: fixed;
+  right: 16px;
+  top: 78px;
+  z-index: 35;
+}
+
+.archive-navigator-mobile > span {
+  color: var(--acid);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  padding-left: 4px;
+}
+
+.archive-navigator-mobile select {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--paper);
+  cursor: pointer;
+  font: 800 10px/1.2 inherit;
+  max-width: 260px;
+  padding: 8px 28px 8px 9px;
+}
+
+.history-card {
+  scroll-margin-top: 90px;
+}
+
 .game-heading {
   align-items: center;
   background: var(--paper);
@@ -2064,7 +2202,28 @@ footer p {
   }
 }
 
+@media (max-width: 1779px) {
+  .archive-navigator {
+    display: none;
+  }
+
+  .archive-navigator-mobile {
+    display: flex;
+  }
+}
+
 @media (max-width: 700px) {
+  .archive-navigator-mobile {
+    left: 12px;
+    right: 12px;
+  }
+
+  .archive-navigator-mobile select {
+    flex: 1;
+    max-width: none;
+    min-width: 0;
+  }
+
   .landing-header .brand > span:last-child {
     display: none;
   }
