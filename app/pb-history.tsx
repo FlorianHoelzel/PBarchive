@@ -600,7 +600,10 @@ export default function PBHistory({ data }: { data: SiteData }) {
             </span>
           )}
           <span>
-            {data.profile.name.toUpperCase()} / PB ARCHIVE
+            <span className="accent-name">
+              {data.profile.name.toUpperCase()}
+            </span>{" "}
+            / PB ARCHIVE
           </span>
         </a>
         <nav aria-label="Primary">
