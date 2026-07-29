@@ -422,15 +422,15 @@ export default function PBHistory({ data }: { data: SiteData }) {
             <span>PERSONAL BESTS</span>
           </div>
           <div>
-            <strong>{data.stats.verifiedRuns}</strong>
-            <span>VERIFIED RUNS</span>
+            <strong>{data.stats.pbRuns - data.stats.histories}</strong>
+            <span>OBSOLETE PBS</span>
           </div>
           <div>
             <strong>{yearsTracked}</strong>
             <span>YEARS TRACKED</span>
           </div>
           <div>
-            <strong className="stat-time">
+            <strong>
               {totalHours}H {totalMinutes}M
             </strong>
             <span>TOTAL RUN TIME</span>
