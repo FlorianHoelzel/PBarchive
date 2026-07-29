@@ -239,7 +239,7 @@ function HistoryBlock({
     typeof window === "undefined"
       ? embedPath
       : `${window.location.origin}${embedPath}`;
-  const embedCode = `<iframe src="${embedSource}" width="960" height="540" title="${history.gameName} PB history" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+  const embedCode = `<iframe src="${embedSource}" width="960" height="540" title="${history.gameName} PB history" loading="lazy"></iframe>`;
   const title = [history.categoryName, history.levelName, history.variant]
     .filter(Boolean)
     .join(" · ");
@@ -381,7 +381,8 @@ function HistoryBlock({
               </button>
             </div>
             <p>
-              Paste this iframe into a website to show the playable PB history.
+              Paste this iframe into a website to show the interactive PB graph
+              and history.
             </p>
             <textarea
               readOnly

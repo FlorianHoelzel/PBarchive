@@ -1,7 +1,7 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
-import type { History, SiteData } from "./pb-history";
+import { CSSProperties, useId, useState } from "react";
+import type { History, Run, SiteData } from "./pb-history";
 
 function displayDate(value: string) {
   if (value === "Unknown") return value;
@@ -13,39 +13,87 @@ function displayDate(value: string) {
   }).format(new Date(`${value}T00:00:00Z`));
 }
 
-function videoEmbed(url: string | null, autoplay: boolean) {
-  if (!url) return null;
-  try {
-    const parsed = new URL(url);
-    const host = parsed.hostname.replace("www.", "");
-    if (host === "youtu.be") {
-      return `https://www.youtube-nocookie.com/embed/${parsed.pathname.slice(1)}?autoplay=${autoplay ? 1 : 0}&rel=0`;
-    }
-    if (host.includes("youtube.com")) {
-      const id =
-        parsed.searchParams.get("v") ??
-        parsed.pathname.match(/\/(?:embed|shorts|live)\/([^/?]+)/)?.[1];
-      return id
-        ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&rel=0`
-        : null;
-    }
-    if (host.includes("twitch.tv") && typeof window !== "undefined") {
-      const parent = window.location.hostname;
-      const vod = parsed.pathname.match(/\/videos\/(\d+)/)?.[1];
-      if (vod) {
-        return `https://player.twitch.tv/?video=v${vod}&parent=${parent}&autoplay=${autoplay}`;
-      }
-      const clip = host.startsWith("clips.")
-        ? parsed.pathname.split("/").filter(Boolean)[0]
-        : parsed.pathname.match(/\/clip\/([^/?]+)/)?.[1];
-      if (clip) {
-        return `https://clips.twitch.tv/embed?clip=${clip}&parent=${parent}&autoplay=${autoplay}`;
-      }
-    }
-  } catch {
-    return null;
-  }
-  return null;
+function EmbedChart({
+  runs,
+  selected,
+  onSelect,
+}: {
+  runs: Run[];
+  selected: number;
+  onSelect: (index: number) => void;
+}) {
+  const gradientId = `embed-gradient-${useId().replace(/:/g, "")}`;
+  const gradientPaint = `url(#${gradientId})`;
+  const width = 620;
+  const height = 250;
+  const padX = 24;
+  const padY = 24;
+  const values = runs.map((run) => run.seconds);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const span = Math.max(max - min, 1);
+  const points = runs.map((run, index) => ({
+    x:
+      runs.length === 1
+        ? width / 2
+        : padX + (index / (runs.length - 1)) * (width - padX * 2),
+    y: padY + ((max - run.seconds) / span) * (height - padY * 2),
+  }));
+  const path = points
+    .map((point, index) => `${index ? "L" : "M"}${point.x},${point.y}`)
+    .join(" ");
+
+  return (
+    <div className="embed-chart-stage">
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        role="img"
+        aria-label="Personal best progression graph"
+      >
+        <defs>
+          <linearGradient
+            id={gradientId}
+            gradientUnits="userSpaceOnUse"
+            x1={padX}
+            y1="0"
+            x2={width - padX}
+            y2="0"
+          >
+            <stop offset="0%" stopColor="var(--acid)" />
+            <stop offset="100%" stopColor="var(--acid-secondary)" />
+          </linearGradient>
+        </defs>
+        <line
+          x1={padX}
+          y1={height - padY}
+          x2={width - padX}
+          y2={height - padY}
+          className="axis"
+        />
+        <path d={path} className="chart-line" style={{ stroke: gradientPaint }} />
+        {points.map((point, index) => (
+          <circle
+            key={runs[index].id}
+            cx={point.x}
+            cy={point.y}
+            r={selected === index ? 6 : 3.5}
+            className="chart-dot"
+            style={{
+              stroke: gradientPaint,
+              fill: selected === index ? gradientPaint : "var(--panel)",
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={`${displayDate(runs[index].date)}, ${runs[index].time}`}
+            onClick={() => onSelect(index)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") onSelect(index);
+            }}
+          />
+        ))}
+      </svg>
+    </div>
+  );
 }
 
 export default function EmbedViewer({
@@ -56,9 +104,7 @@ export default function EmbedViewer({
   history: History;
 }) {
   const [selected, setSelected] = useState(history.runs.length - 1);
-  const [autoplay, setAutoplay] = useState(false);
   const run = history.runs[selected];
-  const embed = videoEmbed(run.video, autoplay);
   const title = [history.categoryName, history.levelName, history.variant]
     .filter(Boolean)
     .join(" · ");
@@ -91,43 +137,33 @@ export default function EmbedViewer({
       </header>
 
       <div className="embed-layout">
-        <section className="embed-video">
-          <div className="video-frame">
-            {embed ? (
-              <iframe
-                key={`${run.id}-${autoplay}`}
-                src={embed}
-                title={`${history.gameName} ${title} in ${run.time}`}
-                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-                allowFullScreen
-              />
-            ) : (
-              <div className="video-fallback">
-                <p>
-                  {run.video
-                    ? "This video cannot be embedded."
-                    : "No video was attached to this run."}
-                </p>
-                <a href={run.video ?? run.runUrl} target="_blank" rel="noreferrer">
-                  OPEN RUN ↗
-                </a>
-              </div>
-            )}
+        <section className="embed-chart-panel">
+          <div className="embed-runs-heading">
+            <span>PB PROGRESSION</span>
+            <span>{history.runs.length} PB{history.runs.length === 1 ? "" : "S"}</span>
           </div>
-          <div className="embed-now-playing">
+          <EmbedChart
+            runs={history.runs}
+            selected={selected}
+            onSelect={setSelected}
+          />
+          <div className="embed-chart-range">
+            <span>{displayDate(history.runs[0].date)}</span>
+            <span>{displayDate(history.runs.at(-1)!.date)}</span>
+          </div>
+          <div className="embed-selected-run">
             <span>{displayDate(run.date)}</span>
             <strong>{run.time}</strong>
-            <span>
-              {run.platform}
-              {run.emulated ? " · EMU" : ""}
-            </span>
+            <a href={run.runUrl} target="_blank" rel="noreferrer">
+              VIEW RUN ↗
+            </a>
           </div>
         </section>
 
         <section className="embed-runs" aria-label="Personal best history">
           <div className="embed-runs-heading">
             <span>PB HISTORY</span>
-            <span>{history.runs.length} RUNS</span>
+            <span>SELECT A RUN</span>
           </div>
           <div className="embed-run-list">
             {history.runs
@@ -138,15 +174,12 @@ export default function EmbedViewer({
                   type="button"
                   className={selected === index ? "active" : ""}
                   key={item.id}
-                  onClick={() => {
-                    setSelected(index);
-                    setAutoplay(true);
-                  }}
+                  onClick={() => setSelected(index)}
                   aria-pressed={selected === index}
                 >
                   <span>{displayDate(item.date)}</span>
                   <strong>{item.time}</strong>
-                  <small>{item.video ? "PLAY ↗" : "VIEW ↗"}</small>
+                  <small>SELECT</small>
                 </button>
               ))}
           </div>
