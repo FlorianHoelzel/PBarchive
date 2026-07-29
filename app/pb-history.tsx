@@ -536,6 +536,151 @@ type ArchiveGame = {
   displayCount: number;
 };
 
+type GamePalette = {
+  backgroundA: string;
+  backgroundB: string;
+  accent: string;
+};
+
+function coverImageUrl(url: string) {
+  return `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=240&h=320&fit=cover&output=webp`;
+}
+
+function coverPalette(image: HTMLImageElement): GamePalette | null {
+  try {
+    const canvas = document.createElement("canvas");
+    canvas.width = 28;
+    canvas.height = 28;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    if (!context) return null;
+
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    const buckets = Array.from({ length: 12 }, () => ({
+      red: 0,
+      green: 0,
+      blue: 0,
+      weight: 0,
+    }));
+
+    for (let index = 0; index < pixels.length; index += 4) {
+      if (pixels[index + 3] < 180) continue;
+      const red = pixels[index] / 255;
+      const green = pixels[index + 1] / 255;
+      const blue = pixels[index + 2] / 255;
+      const maximum = Math.max(red, green, blue);
+      const minimum = Math.min(red, green, blue);
+      const range = maximum - minimum;
+      const lightness = (maximum + minimum) / 2;
+      if (lightness < 0.08 || lightness > 0.92) continue;
+
+      const saturation =
+        range === 0 ? 0 : range / (1 - Math.abs(2 * lightness - 1));
+      let hue = 0;
+      if (range !== 0) {
+        if (maximum === red) hue = ((green - blue) / range) % 6;
+        else if (maximum === green) hue = (blue - red) / range + 2;
+        else hue = (red - green) / range + 4;
+        hue = (hue * 60 + 360) % 360;
+      }
+
+      const weight = 0.2 + saturation * 1.8;
+      const bucket = buckets[Math.floor(hue / 30) % buckets.length];
+      bucket.red += pixels[index] * weight;
+      bucket.green += pixels[index + 1] * weight;
+      bucket.blue += pixels[index + 2] * weight;
+      bucket.weight += weight;
+    }
+
+    const ranked = buckets
+      .map((bucket, index) => ({ ...bucket, index }))
+      .filter((bucket) => bucket.weight > 0)
+      .sort((first, second) => second.weight - first.weight);
+    if (!ranked.length) return null;
+
+    const primary = ranked[0];
+    const secondary =
+      ranked.find((bucket) => {
+        const distance = Math.abs(bucket.index - primary.index);
+        return Math.min(distance, 12 - distance) >= 2;
+      }) ?? ranked[1] ?? primary;
+
+    const rgb = (bucket: (typeof ranked)[number]) => [
+      Math.round(bucket.red / bucket.weight),
+      Math.round(bucket.green / bucket.weight),
+      Math.round(bucket.blue / bucket.weight),
+    ];
+    const blendWithPaper = (color: number[], amount: number) => {
+      const paper = [244, 242, 237];
+      return `rgb(${color
+        .map((channel, index) =>
+          Math.round(channel * amount + paper[index] * (1 - amount)),
+        )
+        .join(" ")})`;
+    };
+
+    const primaryRgb = rgb(primary);
+    const secondaryRgb = rgb(secondary);
+    return {
+      backgroundA: blendWithPaper(primaryRgb, 0.34),
+      backgroundB: blendWithPaper(secondaryRgb, 0.24),
+      accent: blendWithPaper(primaryRgb, 0.92),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function GameHeading({
+  game,
+  index,
+}: {
+  game: ArchiveGame;
+  index: number;
+}) {
+  const [palette, setPalette] = useState<GamePalette | null>(null);
+  const style = palette
+    ? ({
+        "--game-background-a": palette.backgroundA,
+        "--game-background-b": palette.backgroundB,
+        "--game-cover-accent": palette.accent,
+      } as CSSProperties)
+    : undefined;
+
+  return (
+    <header
+      className="game-heading"
+      data-archive-id={game.id}
+      style={style}
+    >
+      <span className="game-number">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+      <div>
+        <span className="eyebrow">
+          {game.histories.length} CATEGOR
+          {game.histories.length === 1 ? "Y" : "IES"}
+        </span>
+        <h2>{game.name}</h2>
+      </div>
+      {game.cover && (
+        <img
+          src={coverImageUrl(game.cover)}
+          alt=""
+          width="78"
+          height="104"
+          loading="lazy"
+          crossOrigin="anonymous"
+          onLoad={(event) => {
+            const nextPalette = coverPalette(event.currentTarget);
+            if (nextPalette) setPalette(nextPalette);
+          }}
+        />
+      )}
+    </header>
+  );
+}
+
 function ArchiveNavigator({ games }: { games: ArchiveGame[] }) {
   const [activeId, setActiveId] = useState("overview");
 
@@ -985,21 +1130,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
 
           return (
             <section className="game-section" id={game.id} key={game.id}>
-            <header className="game-heading" data-archive-id={game.id}>
-              <span className="game-number">
-                {String(gameIndex + 1).padStart(2, "0")}
-              </span>
-              <div>
-                <span className="eyebrow">
-                  {game.histories.length} CATEGOR
-                  {game.histories.length === 1 ? "Y" : "IES"}
-                </span>
-                <h2>{game.name}</h2>
-              </div>
-              {game.cover && (
-                <img src={game.cover} alt="" width="78" height="104" loading="lazy" />
-              )}
-            </header>
+            <GameHeading game={game} index={gameIndex} />
             <div className="game-histories">
               {standaloneHistories.map((history, index) => (
                 <HistoryBlock

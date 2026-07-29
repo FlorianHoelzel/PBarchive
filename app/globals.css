@@ -820,12 +820,17 @@ footer a:hover {
 
 .game-heading {
   align-items: center;
-  background: var(--paper);
+  background: linear-gradient(
+    110deg,
+    var(--game-background-a, var(--paper)),
+    var(--game-background-b, var(--paper))
+  );
   color: var(--ink);
   display: grid;
   grid-template-columns: 100px 1fr auto;
   min-height: 175px;
   padding: 32px clamp(20px, 6vw, 96px);
+  transition: background 500ms ease;
 }
 
 .game-heading .eyebrow {
@@ -848,9 +853,10 @@ footer a:hover {
 }
 
 .game-heading img {
-  box-shadow: 10px 10px 0 var(--acid);
+  box-shadow: 10px 10px 0 var(--game-cover-accent, var(--acid));
   height: 92px;
   object-fit: cover;
+  transition: box-shadow 500ms ease;
   width: 69px;
 }
 
