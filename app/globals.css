@@ -4,6 +4,8 @@
   --ink: #0d0e0c;
   --paper: #f1efe9;
   --acid: #d8ff45;
+  --acid-secondary: #d8ff45;
+  --accent-gradient: var(--acid);
   --muted: #9d9f98;
   --line: #30322d;
   --panel: #171916;
@@ -68,7 +70,7 @@ button {
 
 .brand-mark {
   align-items: center;
-  background: var(--acid);
+  background: var(--accent-gradient);
   box-shadow: 4px 4px 0 #3b411f;
   color: var(--ink);
   display: flex;
@@ -89,7 +91,7 @@ button {
 .brand-avatar-fallback,
 .hero-avatar-fallback {
   align-items: center;
-  background: var(--acid);
+  background: var(--accent-gradient);
   color: var(--ink);
   display: flex;
   font-weight: 900;
@@ -340,7 +342,7 @@ footer a:hover {
 
 .year-bar {
   align-self: end;
-  background: var(--acid);
+  background: var(--accent-gradient);
   min-height: 8px;
   transition: opacity 160ms ease, transform 160ms ease;
   width: 100%;
@@ -394,7 +396,7 @@ footer a:hover {
 }
 
 .ranked-games i {
-  background: var(--acid);
+  background: var(--accent-gradient);
   display: block;
   height: 2px;
   max-width: 100%;
@@ -419,7 +421,7 @@ footer a:hover {
 }
 
 .tone-0 {
-  background: var(--acid);
+  background: var(--accent-gradient);
 }
 
 .tone-1 {
@@ -931,7 +933,7 @@ footer a:hover {
 
 .run-row:hover,
 .run-row.active {
-  background: var(--acid);
+  background: var(--accent-gradient);
   color: var(--ink);
 }
 
@@ -1038,7 +1040,7 @@ footer a:hover {
 
 .back-to-top {
   align-items: center;
-  background: var(--acid);
+  background: var(--accent-gradient);
   border: 0;
   bottom: 22px;
   color: var(--ink);
@@ -1072,7 +1074,7 @@ footer a:hover {
 
 footer {
   align-items: center;
-  background: var(--acid);
+  background: var(--accent-gradient);
   color: var(--ink);
   display: grid;
   font-size: 10px;
@@ -1212,7 +1214,7 @@ footer p {
 
 .search-field button {
   align-self: stretch;
-  background: var(--acid);
+  background: var(--accent-gradient);
   border: 0;
   color: var(--ink);
   cursor: pointer;
@@ -1266,7 +1268,7 @@ footer p {
 
 .lookup-initial {
   align-items: center;
-  background: var(--acid);
+  background: var(--accent-gradient);
   color: var(--ink);
   display: flex;
   font-size: 20px;
@@ -1374,7 +1376,7 @@ footer p {
 }
 
 .example-history i {
-  background: var(--acid);
+  background: var(--accent-gradient);
   height: 78%;
   opacity: 0.9;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useEffect, useMemo, useState } from "react";
+import { CSSProperties, useEffect, useId, useMemo, useState } from "react";
 
 export type Run = {
   id: string;
@@ -114,6 +114,8 @@ function ProgressChart({
   categoryLabel: string;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
+  const gradientId = `chart-accent-${useId().replace(/:/g, "")}`;
+  const gradientPaint = `url(#${gradientId})`;
   const width = 700;
   const height = 250;
   const padX = 28;
@@ -146,9 +148,26 @@ function ProgressChart({
           role="img"
           aria-label="Personal best time progression"
         >
+          <defs>
+            <linearGradient
+              id={gradientId}
+              gradientUnits="userSpaceOnUse"
+              x1="28"
+              y1="0"
+              x2="672"
+              y2="0"
+            >
+              <stop offset="0%" stopColor="var(--acid)" />
+              <stop offset="100%" stopColor="var(--acid-secondary)" />
+            </linearGradient>
+          </defs>
           <line x1="28" y1="30" x2="28" y2="220" className="axis" />
           <line x1="28" y1="220" x2="672" y2="220" className="axis" />
-          <path d={path} className="chart-line" />
+          <path
+            d={path}
+            className="chart-line"
+            style={{ stroke: gradientPaint }}
+          />
           {points.map((point, index) => (
             <circle
               key={runs[index].id}
@@ -156,6 +175,13 @@ function ProgressChart({
               cy={point.y}
               r={selected === index ? 6 : 3.5}
               className={selected === index ? "chart-dot active" : "chart-dot"}
+              style={{
+                stroke: gradientPaint,
+                fill:
+                  selected === index || hovered === index
+                    ? gradientPaint
+                    : "var(--panel)",
+              }}
               role="button"
               tabIndex={0}
               aria-label={`${longDate(runs[index].date)}, ${runs[index].time}`}
@@ -542,6 +568,13 @@ export default function PBHistory({ data }: { data: SiteData }) {
   const archiveStyle = data.profile.nameColor?.from
     ? ({
         "--acid": data.profile.nameColor.from,
+        "--acid-secondary":
+          data.profile.nameColor.to ?? data.profile.nameColor.from,
+        "--accent-gradient":
+          data.profile.nameColor.to &&
+          data.profile.nameColor.to !== data.profile.nameColor.from
+            ? `linear-gradient(135deg, ${data.profile.nameColor.from}, ${data.profile.nameColor.to})`
+            : data.profile.nameColor.from,
       } as CSSProperties)
     : undefined;
 
