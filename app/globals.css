@@ -1504,15 +1504,32 @@ footer a:hover {
 .fallback-mark {
   align-items: center;
   border: 1px solid var(--line);
-  color: var(--acid);
   display: flex;
-  font-size: 28px;
-  font-weight: 900;
   height: 62px;
   justify-content: center;
   margin-bottom: 12px;
+  position: relative;
   transform: rotate(4deg);
   width: 62px;
+}
+
+.fallback-play {
+  border-bottom: 9px solid transparent;
+  border-left: 15px solid var(--acid);
+  border-top: 9px solid transparent;
+  display: block;
+  transform: translateX(2px) rotate(-4deg);
+}
+
+.fallback-mark::after {
+  background: var(--acid);
+  content: "";
+  height: 2px;
+  left: 12px;
+  position: absolute;
+  top: 30px;
+  transform: rotate(-44deg);
+  width: 38px;
 }
 
 .video-fallback p {

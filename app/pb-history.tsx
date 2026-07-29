@@ -313,7 +313,9 @@ function HistoryBlock({
               />
             ) : (
               <div className="video-fallback">
-                <span className="fallback-mark">V</span>
+                <span className="fallback-mark" aria-hidden="true">
+                  <span className="fallback-play" />
+                </span>
                 <p>{run.video ? "This video can’t be embedded." : "No video was attached to this run."}</p>
                 <a href={run.video ?? run.runUrl} target="_blank" rel="noreferrer">
                   {run.video ? "Open video" : "View run"}
