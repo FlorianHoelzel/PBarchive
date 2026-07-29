@@ -363,11 +363,22 @@ export default function PBHistory({ data }: { data: SiteData }) {
     });
   }, [data.histories]);
 
-  const latest = Math.max(
-    ...data.histories.flatMap((history) =>
-      history.runs.map((run) => new Date(`${run.date}T00:00:00Z`).getTime()),
-    ),
+  const datedRuns = data.histories
+    .flatMap((history) => history.runs)
+    .filter((run) => run.date !== "Unknown");
+  const earliestYear = Math.min(
+    ...datedRuns.map((run) => new Date(`${run.date}T00:00:00Z`).getUTCFullYear()),
   );
+  const latestYear = Math.max(
+    ...datedRuns.map((run) => new Date(`${run.date}T00:00:00Z`).getUTCFullYear()),
+  );
+  const yearsTracked = latestYear - earliestYear + 1;
+  const secondsSaved = data.histories.reduce((total, history) => {
+    if (history.runs.length < 2) return total;
+    return total + history.runs[0].seconds - history.runs.at(-1)!.seconds;
+  }, 0);
+  const savedHours = Math.floor(secondsSaved / 3600);
+  const savedMinutes = Math.floor((secondsSaved % 3600) / 60);
 
   return (
     <main>
@@ -413,6 +424,20 @@ export default function PBHistory({ data }: { data: SiteData }) {
             <strong>{data.stats.pbRuns}</strong>
             <span>PERSONAL BESTS</span>
           </div>
+          <div>
+            <strong>{data.stats.verifiedRuns}</strong>
+            <span>VERIFIED RUNS</span>
+          </div>
+          <div>
+            <strong>{yearsTracked}</strong>
+            <span>YEARS TRACKED</span>
+          </div>
+          <div>
+            <strong className="stat-time">
+              {savedHours}H {savedMinutes}M
+            </strong>
+            <span>TIME SAVED</span>
+          </div>
           <div className="profile-chip">
             {data.profile.avatar && (
               <img src={data.profile.avatar} alt="" width="54" height="54" />
@@ -423,9 +448,6 @@ export default function PBHistory({ data }: { data: SiteData }) {
             </span>
           </div>
         </div>
-        <span className="hero-year">
-          {new Date(latest).getUTCFullYear()}
-        </span>
       </section>
 
       <section className="game-index" id="games">

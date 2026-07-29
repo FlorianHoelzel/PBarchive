@@ -198,6 +198,12 @@ footer a:hover {
   letter-spacing: -0.06em;
 }
 
+.hero-stats .stat-time {
+  font-size: clamp(27px, 2.5vw, 43px);
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+
 .hero-stats span {
   color: var(--muted);
   font-size: 9px;
@@ -232,18 +238,6 @@ footer a:hover {
 .profile-chip b {
   color: var(--paper);
   font-size: 14px;
-}
-
-.hero-year {
-  bottom: -0.12em;
-  color: rgba(255, 255, 255, 0.025);
-  font-size: clamp(240px, 38vw, 650px);
-  font-weight: 900;
-  letter-spacing: -0.1em;
-  line-height: 0.8;
-  pointer-events: none;
-  position: absolute;
-  right: -0.05em;
 }
 
 .game-index {
