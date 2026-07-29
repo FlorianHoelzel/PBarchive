@@ -332,6 +332,163 @@ function LevelCollection({ histories }: { histories: History[] }) {
   );
 }
 
+function ArchiveOverview({ histories }: { histories: History[] }) {
+  const overview = useMemo(() => {
+    const runs = histories
+      .flatMap((history) =>
+        history.runs.map((run) => ({
+          ...run,
+          gameName: history.gameName,
+        })),
+      )
+      .filter((run) => run.date !== "Unknown");
+
+    const years = new Map<number, number>();
+    const games = new Map<string, number>();
+    const platforms = new Map<string, number>();
+
+    for (const run of runs) {
+      const year = new Date(`${run.date}T00:00:00Z`).getUTCFullYear();
+      years.set(year, (years.get(year) ?? 0) + 1);
+      games.set(run.gameName, (games.get(run.gameName) ?? 0) + 1);
+      if (run.platform) {
+        platforms.set(run.platform, (platforms.get(run.platform) ?? 0) + 1);
+      }
+    }
+
+    const observedYears = [...years.keys()];
+    const firstYear = Math.min(...observedYears);
+    const lastYear = Math.max(...observedYears);
+    const yearEntries = Array.from(
+      { length: lastYear - firstYear + 1 },
+      (_, index) => {
+        const year = firstYear + index;
+        return [year, years.get(year) ?? 0] as [number, number];
+      },
+    );
+    const gameEntries = [...games.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+    const platformEntries = [...platforms.entries()].sort((a, b) => b[1] - a[1]);
+    const peakYear = [...yearEntries].sort((a, b) => b[1] - a[1])[0];
+    const latest = [...runs].sort((a, b) => b.date.localeCompare(a.date))[0];
+
+    return {
+      years: yearEntries,
+      games: gameEntries,
+      platforms: platformEntries,
+      peakYear,
+      latest,
+      maxYear: Math.max(...yearEntries.map((entry) => entry[1])),
+      maxGame: gameEntries[0]?.[1] ?? 1,
+      platformTotal: platformEntries.reduce((sum, entry) => sum + entry[1], 0),
+    };
+  }, [histories]);
+
+  return (
+    <section className="archive-overview" id="overview">
+      <div className="section-label">
+        <span>01</span>
+        <h2>ARCHIVE OVERVIEW</h2>
+        <span>
+          {overview.years[0]?.[0]}—{overview.years.at(-1)?.[0]}
+        </span>
+      </div>
+
+      <div className="overview-grid">
+        <article className="overview-card activity-card">
+          <div className="overview-card-heading">
+            <span>PB ACTIVITY</span>
+            <span>IMPROVEMENTS BY YEAR</span>
+          </div>
+          <div
+            className="year-bars"
+            aria-label="Personal bests by year"
+            style={
+              { "--year-count": overview.years.length } as React.CSSProperties
+            }
+          >
+            {overview.years.map(([year, count]) => (
+              <div className="year-column" key={year}>
+                <strong>{count}</strong>
+                <span
+                  className="year-bar"
+                  style={{ height: `${Math.max(8, (count / overview.maxYear) * 100)}%` }}
+                  title={`${year}: ${count} personal bests`}
+                />
+                <small>{String(year).slice(2)}</small>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="overview-card top-games-card">
+          <div className="overview-card-heading">
+            <span>TOP GAMES</span>
+            <span>BY PB MILESTONES</span>
+          </div>
+          <div className="ranked-games">
+            {overview.games.map(([name, count], index) => (
+              <a href={`#${toId(name)}`} key={name}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <b>{name}</b>
+                  <i style={{ width: `${(count / overview.maxGame) * 100}%` }} />
+                </div>
+                <strong>{count}</strong>
+              </a>
+            ))}
+          </div>
+        </article>
+
+        <article className="overview-card platforms-card">
+          <div className="overview-card-heading">
+            <span>PLATFORM MIX</span>
+            <span>{overview.platforms.length} PLATFORMS</span>
+          </div>
+          <div className="platform-strip" aria-label="PB distribution by platform">
+            {overview.platforms.map(([name, count], index) => (
+              <span
+                key={name}
+                className={`platform-segment tone-${index % 5}`}
+                style={{ width: `${(count / overview.platformTotal) * 100}%` }}
+                title={`${name}: ${count} PBs`}
+              />
+            ))}
+          </div>
+          <div className="platform-legend">
+            {overview.platforms.slice(0, 6).map(([name, count], index) => (
+              <div key={name}>
+                <span className={`legend-dot tone-${index % 5}`} />
+                <b>{name}</b>
+                <small>{count} PBs</small>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="overview-card peak-card">
+          <div className="overview-card-heading">
+            <span>PEAK ACTIVITY</span>
+            <span>ARCHIVE PULSE</span>
+          </div>
+          <div className="peak-year">
+            <strong>{overview.peakYear?.[0]}</strong>
+            <span>{overview.peakYear?.[1]} personal bests</span>
+          </div>
+          {overview.latest && (
+            <div className="latest-pb">
+              <span>LATEST ENTRY</span>
+              <b>{overview.latest.gameName}</b>
+              <small>{longDate(overview.latest.date)}</small>
+            </div>
+          )}
+        </article>
+      </div>
+    </section>
+  );
+}
+
 export default function PBHistory({ data }: { data: SiteData }) {
   const [showTop, setShowTop] = useState(false);
 
@@ -386,6 +543,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
           <span>PB / ARCHIVE</span>
         </a>
         <nav aria-label="Primary">
+          <a href="#overview">OVERVIEW</a>
           <a href="#games">THE RUNS</a>
           <a href={data.profile.profileUrl} target="_blank" rel="noreferrer">
             SPEEDRUN.COM ↗
@@ -448,9 +606,11 @@ export default function PBHistory({ data }: { data: SiteData }) {
         </div>
       </section>
 
+      <ArchiveOverview histories={data.histories} />
+
       <section className="game-index" id="games">
         <div className="section-label">
-          <span>01</span>
+          <span>02</span>
           <h2>GAME INDEX</h2>
           <span>{String(games.length).padStart(2, "0")} TITLES</span>
         </div>

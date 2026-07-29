@@ -235,6 +235,257 @@ footer a:hover {
   font-size: 14px;
 }
 
+.archive-overview {
+  border-bottom: 1px solid var(--line);
+  padding: 72px clamp(20px, 6vw, 96px) 88px;
+  scroll-margin-top: 64px;
+}
+
+.overview-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 7fr) minmax(320px, 5fr);
+  margin-top: 28px;
+}
+
+.overview-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  min-height: 310px;
+}
+
+.overview-card-heading {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  display: flex;
+  font-size: 9px;
+  font-weight: 800;
+  height: 42px;
+  justify-content: space-between;
+  letter-spacing: 0.15em;
+  padding: 0 16px;
+}
+
+.activity-card {
+  padding-bottom: 18px;
+}
+
+.activity-card .overview-card-heading {
+  margin-bottom: 18px;
+}
+
+.year-bars {
+  align-items: end;
+  display: grid;
+  gap: clamp(5px, 1vw, 14px);
+  grid-template-columns: repeat(var(--year-count), minmax(0, 1fr));
+  height: 230px;
+  padding: 20px 18px 0;
+}
+
+.year-column {
+  align-items: center;
+  display: grid;
+  grid-template-rows: 18px minmax(0, 1fr) 18px;
+  height: 100%;
+  justify-items: stretch;
+  min-width: 0;
+}
+
+.year-column strong,
+.year-column small {
+  color: var(--muted);
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.year-bar {
+  align-self: end;
+  background: var(--acid);
+  min-height: 8px;
+  transition: opacity 160ms ease, transform 160ms ease;
+  width: 100%;
+}
+
+.year-column:hover .year-bar {
+  opacity: 0.75;
+  transform: translateY(-3px);
+}
+
+.ranked-games {
+  padding: 2px 16px;
+}
+
+.ranked-games a {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 24px 1fr auto;
+  min-height: 52px;
+}
+
+.ranked-games a:last-child {
+  border-bottom: 0;
+}
+
+.ranked-games a > span,
+.ranked-games a > strong {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.ranked-games a > strong {
+  color: var(--acid);
+  font-size: 12px;
+}
+
+.ranked-games a div {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.ranked-games b {
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ranked-games i {
+  background: var(--acid);
+  display: block;
+  height: 2px;
+  max-width: 100%;
+  transition: width 240ms ease;
+}
+
+.platforms-card {
+  min-height: 250px;
+  padding-bottom: 20px;
+}
+
+.platform-strip {
+  display: flex;
+  height: 34px;
+  margin: 28px 18px 24px;
+  overflow: hidden;
+}
+
+.platform-segment {
+  display: block;
+  min-width: 2px;
+}
+
+.tone-0 {
+  background: var(--acid);
+}
+
+.tone-1 {
+  background: #f1efe9;
+}
+
+.tone-2 {
+  background: #8d9571;
+}
+
+.tone-3 {
+  background: #555a4b;
+}
+
+.tone-4 {
+  background: #30332c;
+}
+
+.platform-legend {
+  display: grid;
+  gap: 12px 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 0 18px;
+}
+
+.platform-legend div {
+  align-items: center;
+  display: grid;
+  gap: 7px;
+  grid-template-columns: 7px 1fr;
+  min-width: 0;
+}
+
+.legend-dot {
+  border-radius: 50%;
+  display: block;
+  height: 7px;
+  width: 7px;
+}
+
+.platform-legend b {
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.platform-legend small {
+  color: var(--muted);
+  font-size: 8px;
+  grid-column: 2;
+  letter-spacing: 0.06em;
+}
+
+.peak-card {
+  display: grid;
+  grid-template-rows: 42px 1fr auto;
+  min-height: 250px;
+}
+
+.peak-year {
+  align-content: center;
+  display: grid;
+  padding: 18px;
+}
+
+.peak-year strong {
+  color: var(--acid);
+  font-size: clamp(54px, 6vw, 88px);
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+}
+
+.peak-year span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-top: 12px;
+  text-transform: uppercase;
+}
+
+.latest-pb {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 5px;
+  padding: 14px 18px;
+}
+
+.latest-pb span,
+.latest-pb small {
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.latest-pb b {
+  font-size: 11px;
+}
+
 .game-index {
   padding: 68px clamp(20px, 6vw, 96px) 88px;
 }
@@ -815,6 +1066,10 @@ footer p {
     max-width: 580px;
   }
 
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
   .history-layout {
     grid-template-columns: 1fr;
   }
@@ -866,6 +1121,30 @@ footer p {
   .game-index {
     padding-bottom: 80px;
     padding-top: 70px;
+  }
+
+  .archive-overview {
+    padding-bottom: 70px;
+    padding-top: 60px;
+  }
+
+  .overview-card {
+    min-height: 0;
+  }
+
+  .year-bars {
+    gap: 4px;
+    height: 190px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .year-column strong {
+    font-size: 7px;
+  }
+
+  .platform-legend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .section-label,
