@@ -191,6 +191,8 @@ const output = {
   },
   stats: {
     verifiedRuns: runs.length,
+    platforms: new Set(runs.map((run) => run.system?.platform).filter(Boolean))
+      .size,
     totalRunSeconds: Math.round(
       runs.reduce((total, run) => total + run.times.primary_t, 0),
     ),

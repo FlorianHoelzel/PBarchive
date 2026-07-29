@@ -38,6 +38,7 @@ type SiteData = {
   };
   stats: {
     verifiedRuns: number;
+    platforms: number;
     totalRunSeconds: number;
     pbRuns: number;
     games: number;
@@ -422,8 +423,8 @@ export default function PBHistory({ data }: { data: SiteData }) {
             <span>PERSONAL BESTS</span>
           </div>
           <div>
-            <strong>{data.stats.pbRuns - data.stats.histories}</strong>
-            <span>OBSOLETE PBS</span>
+            <strong>{data.stats.platforms}</strong>
+            <span>PLATFORMS USED</span>
           </div>
           <div>
             <strong>{yearsTracked}</strong>
