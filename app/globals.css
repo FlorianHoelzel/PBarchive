@@ -639,17 +639,17 @@ footer a:hover {
   right: 16px;
   top: 84px;
   transition: width 180ms ease, border-color 180ms ease;
-  width: 52px;
+  width: 42px;
   z-index: 35;
 }
 
 .archive-navigator::after {
   color: var(--acid);
   content: "NAVIGATOR";
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 900;
   left: 50%;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.18em;
   position: absolute;
   top: 18px;
   transform: translateX(-50%);
@@ -660,7 +660,7 @@ footer a:hover {
 .archive-navigator:hover,
 .archive-navigator:focus-within {
   border-color: color-mix(in srgb, var(--acid) 45%, var(--line));
-  width: 236px;
+  width: 260px;
 }
 
 .archive-navigator:hover::after,
@@ -676,7 +676,7 @@ footer a:hover {
   flex: 0 0 auto;
   justify-content: space-between;
   min-height: 42px;
-  min-width: 234px;
+  min-width: 258px;
   opacity: 0;
   padding: 0 12px;
   pointer-events: none;
@@ -685,12 +685,17 @@ footer a:hover {
 }
 
 .archive-navigator-heading span,
-.archive-navigator-heading b,
-.archive-navigator > nav > a,
-.navigator-game > a {
+.archive-navigator-heading b {
   font-size: 9px;
   font-weight: 900;
   letter-spacing: 0.12em;
+}
+
+.archive-navigator > nav > a,
+.navigator-game > a {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
 }
 
 .archive-navigator-heading span {
@@ -703,7 +708,7 @@ footer a:hover {
 
 .archive-navigator nav {
   min-height: 0;
-  min-width: 234px;
+  min-width: 258px;
   opacity: 0;
   overflow-y: auto;
   pointer-events: none;
@@ -730,8 +735,8 @@ footer a:hover {
   display: grid;
   gap: 8px;
   grid-template-columns: 22px minmax(0, 1fr);
-  min-height: 36px;
-  padding: 0 11px;
+  min-height: 40px;
+  padding: 0 13px;
 }
 
 .archive-navigator > nav > a:hover,
