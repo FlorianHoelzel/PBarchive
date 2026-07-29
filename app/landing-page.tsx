@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import speedrunData from "./data/speedruns.json";
 
 export default function LandingPage() {
   const [username, setUsername] = useState("");
@@ -73,7 +74,13 @@ export default function LandingPage() {
         <aside className="landing-example">
           <span className="example-label">EXAMPLE ARCHIVE</span>
           <a href="/volpey" className="example-profile">
-            <span className="example-avatar">V</span>
+            <img
+              className="example-avatar"
+              src={speedrunData.profile.avatar}
+              alt=""
+              width="46"
+              height="46"
+            />
             <span>
               <b>Volpey’s PB Archive</b>
               <small>pbarchive.gg/volpey</small>

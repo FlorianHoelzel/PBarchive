@@ -539,7 +539,15 @@ export default function PBHistory({ data }: { data: SiteData }) {
     <main>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Volpey PB History home">
-          <span className="brand-mark">V</span>
+          {data.profile.avatar && (
+            <img
+              className="brand-avatar"
+              src={data.profile.avatar}
+              alt=""
+              width="34"
+              height="34"
+            />
+          )}
           <span>VOLPEY / PB ARCHIVE</span>
         </a>
         <nav aria-label="Primary">
