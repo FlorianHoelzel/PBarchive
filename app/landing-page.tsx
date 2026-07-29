@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import speedrunData from "./data/speedruns.json";
 
 export default function LandingPage() {
   const [username, setUsername] = useState("");
@@ -76,7 +75,7 @@ export default function LandingPage() {
           <a href="/volpey" className="example-profile">
             <img
               className="example-avatar"
-              src={speedrunData.profile.avatar}
+              src="/volpey-avatar.png"
               alt=""
               width="46"
               height="46"

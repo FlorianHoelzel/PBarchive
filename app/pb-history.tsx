@@ -542,7 +542,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
           {data.profile.avatar && (
             <img
               className="brand-avatar"
-              src={data.profile.avatar}
+              src="/volpey-avatar.png"
               alt=""
               width="34"
               height="34"
@@ -563,7 +563,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
         <div className="hero-intro">
           <div className="hero-profile">
             {data.profile.avatar && (
-              <img src={data.profile.avatar} alt="" width="64" height="64" />
+              <img src="/volpey-avatar.png" alt="" width="64" height="64" />
             )}
             <span>
               <b>@{data.profile.name}</b>
