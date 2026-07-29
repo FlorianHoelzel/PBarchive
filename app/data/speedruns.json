@@ -6,6 +6,10 @@
     "name": "Volpey",
     "country": "Germany",
     "avatar": "https://www.speedrun.com/static/user/zx7q5087/image?v=b266479",
+    "nameColor": {
+      "from": "#FFB3F3",
+      "to": "#FFB3F3"
+    },
     "profileUrl": "https://www.speedrun.com/users/Volpey"
   },
   "stats": {

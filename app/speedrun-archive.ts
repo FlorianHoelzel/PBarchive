@@ -214,6 +214,19 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
   });
 
   const gameIds = new Set(histories.map((history) => history.gameId));
+  const rawNameStyle = user["name-style"];
+  const nameColor = rawNameStyle
+    ? {
+        from:
+          rawNameStyle["color-from"]?.dark ??
+          rawNameStyle.color?.dark ??
+          null,
+        to:
+          rawNameStyle["color-to"]?.dark ??
+          rawNameStyle.color?.dark ??
+          null,
+      }
+    : null;
 
   return {
     generatedAt: new Date().toISOString(),
@@ -222,6 +235,7 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
       name: user.names.international,
       country: user.location?.country?.names?.international ?? null,
       avatar: user.assets?.image?.uri ?? user.assets?.icon?.uri ?? null,
+      nameColor,
       profileUrl: user.weblink,
     },
     stats: {

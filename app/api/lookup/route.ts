@@ -8,6 +8,12 @@ type SpeedrunUser = {
     image?: { uri?: string };
     icon?: { uri?: string };
   };
+  "name-style"?: {
+    style?: string;
+    color?: { dark?: string };
+    "color-from"?: { dark?: string };
+    "color-to"?: { dark?: string };
+  };
   location?: {
     country?: {
       names?: { international?: string };
@@ -62,6 +68,19 @@ export async function GET(request: Request) {
     const avatar = sourceAvatar
       ? `https://images.weserv.nl/?url=${encodeURIComponent(sourceAvatar)}&w=128&h=128&fit=cover&output=webp`
       : null;
+    const rawNameStyle = user["name-style"];
+    const nameColor = rawNameStyle
+      ? {
+          from:
+            rawNameStyle["color-from"]?.dark ??
+            rawNameStyle.color?.dark ??
+            null,
+          to:
+            rawNameStyle["color-to"]?.dark ??
+            rawNameStyle.color?.dark ??
+            null,
+        }
+      : null;
 
     return NextResponse.json(
       {
@@ -69,6 +88,7 @@ export async function GET(request: Request) {
         name,
         country,
         avatar,
+        nameColor,
         profileUrl: user.weblink ?? `https://www.speedrun.com/users/${name}`,
         archiveUrl: `/${encodeURIComponent(name)}`,
       },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { CSSProperties, useEffect, useMemo, useState } from "react";
 
 export type Run = {
   id: string;
@@ -34,6 +34,7 @@ export type SiteData = {
     name: string;
     country: string | null;
     avatar: string | null;
+    nameColor?: { from: string | null; to: string | null } | null;
     profileUrl: string;
   };
   stats: {
@@ -538,6 +539,14 @@ export default function PBHistory({ data }: { data: SiteData }) {
     data.profile.name.toLowerCase() === "volpey"
       ? "/volpey-avatar.png"
       : data.profile.avatar;
+  const nameStyle = data.profile.nameColor?.from
+    ? ({
+        backgroundImage: `linear-gradient(90deg, ${data.profile.nameColor.from}, ${data.profile.nameColor.to ?? data.profile.nameColor.from})`,
+        backgroundClip: "text",
+        WebkitBackgroundClip: "text",
+        color: "transparent",
+      } satisfies CSSProperties)
+    : undefined;
 
   return (
     <main>
@@ -560,7 +569,10 @@ export default function PBHistory({ data }: { data: SiteData }) {
               {data.profile.name.slice(0, 1).toUpperCase()}
             </span>
           )}
-          <span>{data.profile.name.toUpperCase()} / PB ARCHIVE</span>
+          <span>
+            <span style={nameStyle}>{data.profile.name.toUpperCase()}</span> / PB
+            ARCHIVE
+          </span>
         </a>
         <nav aria-label="Primary">
           <a href="#overview">OVERVIEW</a>
@@ -582,14 +594,16 @@ export default function PBHistory({ data }: { data: SiteData }) {
               </span>
             )}
             <span>
-              <b>@{data.profile.name}</b>
+              <b style={nameStyle}>@{data.profile.name}</b>
               <small>{data.profile.country} · speedrunning since {earliestYear}</small>
             </span>
           </div>
 
-          <h1>{data.profile.name}’s PB Archive</h1>
+          <h1>
+            <span style={nameStyle}>{data.profile.name}</span>’s PB Archive
+          </h1>
           <p className="hero-lede">
-            A complete history of {data.profile.name}’s verified speedruns.
+            A complete history of {data.profile.name}’s speedruns.
             Current records, obsolete PBs, and every improvement in between.
           </p>
           <p>
