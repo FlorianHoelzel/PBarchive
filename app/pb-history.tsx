@@ -219,11 +219,27 @@ function ProgressChart({
   );
 }
 
-function HistoryBlock({ history, index }: { history: History; index: number }) {
+function HistoryBlock({
+  history,
+  index,
+  username,
+}: {
+  history: History;
+  index: number;
+  username: string;
+}) {
   const [selected, setSelected] = useState(history.runs.length - 1);
   const [shouldAutoplay, setShouldAutoplay] = useState(false);
+  const [showEmbed, setShowEmbed] = useState(false);
+  const [copied, setCopied] = useState(false);
   const run = history.runs[selected];
   const embed = embedUrl(run.video, shouldAutoplay);
+  const embedPath = `/${encodeURIComponent(username)}/embed?history=${encodeURIComponent(history.id)}`;
+  const embedSource =
+    typeof window === "undefined"
+      ? embedPath
+      : `${window.location.origin}${embedPath}`;
+  const embedCode = `<iframe src="${embedSource}" width="960" height="540" title="${history.gameName} PB history" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
   const title = [history.categoryName, history.levelName, history.variant]
     .filter(Boolean)
     .join(" · ");
@@ -245,11 +261,23 @@ function HistoryBlock({ history, index }: { history: History; index: number }) {
           </span>
           <h3>{title}</h3>
         </div>
-        <span className="improvement">
-          {history.runs.length > 1
-            ? `−${Math.round(history.runs[0].seconds - history.runs.at(-1)!.seconds)}s`
-            : "CURRENT PB"}
-        </span>
+        <div className="history-actions">
+          <button
+            className="embed-trigger"
+            type="button"
+            onClick={() => {
+              setCopied(false);
+              setShowEmbed(true);
+            }}
+          >
+            EMBED
+          </button>
+          <span className="improvement">
+            {history.runs.length > 1
+              ? `−${Math.round(history.runs[0].seconds - history.runs.at(-1)!.seconds)}s`
+              : "CURRENT PB"}
+          </span>
+        </div>
       </div>
 
       <div className="history-layout">
@@ -323,11 +351,72 @@ function HistoryBlock({ history, index }: { history: History; index: number }) {
           </section>
         </div>
       </div>
+      {showEmbed && (
+        <div
+          className="embed-overlay"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setShowEmbed(false);
+          }}
+        >
+          <section
+            className="embed-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Embed ${history.gameName} ${title}`}
+          >
+            <div className="embed-dialog-heading">
+              <div>
+                <span>EMBED THIS CATEGORY</span>
+                <h4>
+                  {history.gameName} · {title}
+                </h4>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowEmbed(false)}
+                aria-label="Close embed dialog"
+              >
+                ×
+              </button>
+            </div>
+            <p>
+              Paste this iframe into a website to show the playable PB history.
+            </p>
+            <textarea
+              readOnly
+              value={embedCode}
+              aria-label="Embed code"
+              onFocus={(event) => event.currentTarget.select()}
+            />
+            <div className="embed-dialog-actions">
+              <button
+                type="button"
+                onClick={async () => {
+                  await navigator.clipboard.writeText(embedCode);
+                  setCopied(true);
+                }}
+              >
+                {copied ? "COPIED" : "COPY CODE"}
+              </button>
+              <a href={embedPath} target="_blank" rel="noreferrer">
+                OPEN PREVIEW ↗
+              </a>
+            </div>
+          </section>
+        </div>
+      )}
     </article>
   );
 }
 
-function LevelCollection({ histories }: { histories: History[] }) {
+function LevelCollection({
+  histories,
+  username,
+}: {
+  histories: History[];
+  username: string;
+}) {
   const [activeId, setActiveId] = useState(histories[0].id);
   const active =
     histories.find((history) => history.id === activeId) ?? histories[0];
@@ -354,7 +443,12 @@ function LevelCollection({ histories }: { histories: History[] }) {
           </select>
         </label>
       </div>
-      <HistoryBlock history={active} index={0} key={active.id} />
+      <HistoryBlock
+        history={active}
+        index={0}
+        username={username}
+        key={active.id}
+      />
     </section>
   );
 }
@@ -717,10 +811,18 @@ export default function PBHistory({ data }: { data: SiteData }) {
             </header>
             <div className="game-histories">
               {standaloneHistories.map((history, index) => (
-                <HistoryBlock history={history} index={index} key={history.id} />
+                <HistoryBlock
+                  history={history}
+                  index={index}
+                  username={data.profile.name}
+                  key={history.id}
+                />
               ))}
               {groupedLevels.length > 0 && (
-                <LevelCollection histories={groupedLevels} />
+                <LevelCollection
+                  histories={groupedLevels}
+                  username={data.profile.name}
+                />
               )}
             </div>
           </section>
