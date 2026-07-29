@@ -808,15 +808,6 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
 }
 
 export default function PBHistory({ data }: { data: SiteData }) {
-  const [showTop, setShowTop] = useState(false);
-
-  useEffect(() => {
-    const update = () => setShowTop(window.scrollY > 500);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
-
   const games = useMemo(() => {
     const grouped = new Map<string, History[]>();
     for (const history of data.histories) {
@@ -1027,15 +1018,6 @@ export default function PBHistory({ data }: { data: SiteData }) {
           );
         })}
       </div>
-
-      <button
-        className={showTop ? "back-to-top visible" : "back-to-top"}
-        type="button"
-        aria-label="Back to top"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        ↑ <span>TOP</span>
-      </button>
 
       <footer>
         <span>PB / ARCHIVE</span>

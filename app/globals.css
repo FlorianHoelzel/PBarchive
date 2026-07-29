@@ -1793,40 +1793,6 @@ footer a:hover {
   border-color: var(--acid);
 }
 
-.back-to-top {
-  align-items: center;
-  background: var(--accent-gradient);
-  border: 0;
-  bottom: 22px;
-  color: var(--ink);
-  cursor: pointer;
-  display: flex;
-  font-size: 17px;
-  font-weight: 900;
-  gap: 8px;
-  height: 48px;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  position: fixed;
-  right: 22px;
-  transform: translateY(14px);
-  transition: opacity 180ms ease, transform 180ms ease;
-  width: 68px;
-  z-index: 18;
-}
-
-.back-to-top span {
-  font-size: 8px;
-  letter-spacing: 0.12em;
-}
-
-.back-to-top.visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
 footer {
   align-items: center;
   background: var(--accent-gradient);
