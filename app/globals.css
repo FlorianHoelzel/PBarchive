@@ -820,17 +820,39 @@ footer a:hover {
 
 .game-heading {
   align-items: center;
-  background: linear-gradient(
-    110deg,
-    var(--game-background-a, var(--paper)),
-    var(--game-background-b, var(--paper))
-  );
+  background: var(--paper);
   color: var(--ink);
   display: grid;
   grid-template-columns: 100px 1fr auto;
+  isolation: isolate;
   min-height: 175px;
+  overflow: hidden;
   padding: 32px clamp(20px, 6vw, 96px);
-  transition: background 500ms ease;
+  position: relative;
+}
+
+.game-heading::before,
+.game-heading::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+}
+
+.game-heading::before {
+  background-image: var(--game-cover-image, none);
+  background-position: center 40%;
+  background-size: cover;
+  filter: blur(48px) saturate(1.45);
+  inset: -45%;
+  opacity: 0.48;
+  transform: scale(1.08);
+  z-index: -2;
+}
+
+.game-heading::after {
+  background: rgba(244, 242, 237, 0.62);
+  inset: 0;
+  z-index: -1;
 }
 
 .game-heading .eyebrow {
@@ -853,10 +875,9 @@ footer a:hover {
 }
 
 .game-heading img {
-  box-shadow: 10px 10px 0 var(--game-cover-accent, var(--acid));
+  box-shadow: 10px 10px 0 rgba(8, 9, 8, 0.2);
   height: 92px;
   object-fit: cover;
-  transition: box-shadow 500ms ease;
   width: 69px;
 }
 
