@@ -1,0 +1,2659 @@
+{
+  "generatedAt": "2026-07-29T05:44:37.383Z",
+  "source": "https://www.speedrun.com/users/Volpey",
+  "profile": {
+    "id": "zx7q5087",
+    "name": "Volpey",
+    "country": "Germany",
+    "avatar": "https://www.speedrun.com/static/user/zx7q5087/image?v=b266479",
+    "profileUrl": "https://www.speedrun.com/users/Volpey"
+  },
+  "stats": {
+    "verifiedRuns": 155,
+    "pbRuns": 153,
+    "games": 27,
+    "histories": 67
+  },
+  "histories": [
+    {
+      "id": "o1y9j9v6|7kjpl1gk|full-game|38do9y4l:p12wv871",
+      "gameId": "o1y9j9v6",
+      "gameName": "Celeste",
+      "gameAbbreviation": "celeste",
+      "gameCover": "https://www.speedrun.com/static/game/o1y9j9v6/cover?v=9003452",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "1.2.6.1",
+      "runs": [
+        {
+          "id": "y43p7n3z",
+          "date": "2019-05-05",
+          "submitted": "2019-05-05T19:57:04Z",
+          "seconds": 5001.06,
+          "time": "1:23:21.060",
+          "video": "https://www.youtube.com/watch?v=L8KRR4EbShg",
+          "runUrl": "https://www.speedrun.com/celeste/runs/y43p7n3z",
+          "platform": "PC",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "y6pk0djm",
+          "date": "2019-05-06",
+          "submitted": "2019-05-06T17:52:19Z",
+          "seconds": 4249.252,
+          "time": "1:10:49.252",
+          "video": "https://www.youtube.com/watch?v=0oj6MIzmEPI",
+          "runUrl": "https://www.speedrun.com/celeste/runs/y6pk0djm",
+          "platform": "PC",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "mr83rggy",
+          "date": "2019-05-07",
+          "submitted": "2019-05-07T18:30:16Z",
+          "seconds": 3598.458,
+          "time": "59:58.458",
+          "video": "https://www.youtube.com/watch?v=NBGkSp_P6Ng",
+          "runUrl": "https://www.speedrun.com/celeste/runs/mr83rggy",
+          "platform": "PC",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o1y9j9v6|7kjpl1gk|full-game|38do9y4l:9qjxmo0l",
+      "gameId": "o1y9j9v6",
+      "gameName": "Celeste",
+      "gameAbbreviation": "celeste",
+      "gameCover": "https://www.speedrun.com/static/game/o1y9j9v6/cover?v=9003452",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "1.3.1.2",
+      "runs": [
+        {
+          "id": "yjlp3v3z",
+          "date": "2020-06-06",
+          "submitted": "2020-06-06T02:51:12Z",
+          "seconds": 3445.339,
+          "time": "57:25.339",
+          "video": "https://youtu.be/gDulldULwA4",
+          "runUrl": "https://www.speedrun.com/celeste/runs/yjlp3v3z",
+          "platform": "PC",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "46w32l1r|q25yg8do|full-game",
+      "gameId": "46w32l1r",
+      "gameName": "Chocobo Racing",
+      "gameAbbreviation": "chocobo_racing",
+      "gameCover": "https://www.speedrun.com/static/game/46w32l1r/cover?v=728855c",
+      "categoryName": "Story Mode",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "8y8x43wm",
+          "date": "2016-04-14",
+          "submitted": "2016-04-14T17:54:52Z",
+          "seconds": 1087.26,
+          "time": "18:07.260",
+          "video": "https://www.youtube.com/watch?v=b6bbxtz8Gas",
+          "runUrl": "https://www.speedrun.com/chocobo_racing/runs/8y8x43wm",
+          "platform": "PlayStation TV",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "m1mxl7p6|vdoy4wy2|full-game|38dj7z48:jq6ger71|6nj5kg5l:gq73d8vl|kn0v0q0l:jqz2ejgq",
+      "gameId": "m1mxl7p6",
+      "gameName": "Final Fantasy VII Remake",
+      "gameAbbreviation": "ff7r",
+      "gameCover": "https://www.speedrun.com/static/game/m1mxl7p6/cover?v=b91b713",
+      "categoryName": "Intermission",
+      "levelName": null,
+      "variant": "Intergrade (Console) · Normal · SSD",
+      "runs": [
+        {
+          "id": "m7w5lrez",
+          "date": "2021-07-01",
+          "submitted": "2021-12-31T00:59:00Z",
+          "seconds": 7243,
+          "time": "2:00:43",
+          "video": "https://www.youtube.com/watch?v=IfIB8e2Rl2w",
+          "runUrl": "https://www.speedrun.com/ff7r/runs/m7w5lrez",
+          "platform": "PlayStation 5",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "y9l1e4ky",
+          "date": "2021-07-07",
+          "submitted": "2021-12-31T00:58:27Z",
+          "seconds": 6705,
+          "time": "1:51:45",
+          "video": "https://www.youtube.com/watch?v=glULvWmoKCI",
+          "runUrl": "https://www.speedrun.com/ff7r/runs/y9l1e4ky",
+          "platform": "PlayStation 5",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "kdk5e2dm|jdrpj7x2|full-game|0nw54dnq:21g993mq|dlozyrno:jq6vymj1|ql6k7jn9:jqzgv98l",
+      "gameId": "kdk5e2dm",
+      "gameName": "Kingdom Hearts Birth by Sleep 0.2: A Fragmentary Passage",
+      "gameAbbreviation": "khbbs02",
+      "gameCover": "https://www.speedrun.com/static/game/kdk5e2dm/cover?v=3bd0c9b",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "PS4 · Beginner · HDD",
+      "runs": [
+        {
+          "id": "0zn6958y",
+          "date": "2017-01-25",
+          "submitted": "2017-01-25T17:40:19Z",
+          "seconds": 2183,
+          "time": "36:23",
+          "video": "https://www.youtube.com/watch?v=VDGiniiDND4",
+          "runUrl": "https://www.speedrun.com/khbbs02/runs/0zn6958y",
+          "platform": "PlayStation 4",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "0zn66w3y",
+          "date": "2017-01-27",
+          "submitted": "2017-01-27T19:47:39Z",
+          "seconds": 1889,
+          "time": "31:29",
+          "video": "https://www.youtube.com/watch?v=l8o2c-h_Sj4",
+          "runUrl": "https://www.speedrun.com/khbbs02/runs/0zn66w3y",
+          "platform": "PlayStation 4",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8m7jjd4m",
+          "date": "2017-01-28",
+          "submitted": "2017-01-28T00:39:53Z",
+          "seconds": 1800,
+          "time": "30:00",
+          "video": "https://www.youtube.com/watch?v=XVr0xD2VnPk",
+          "runUrl": "https://www.speedrun.com/khbbs02/runs/8m7jjd4m",
+          "platform": "PlayStation 4",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8m7j435m",
+          "date": "2017-01-28",
+          "submitted": "2017-01-28T22:30:53Z",
+          "seconds": 1722,
+          "time": "28:42",
+          "video": "https://www.youtube.com/watch?v=a96iR8JiUvw",
+          "runUrl": "https://www.speedrun.com/khbbs02/runs/8m7j435m",
+          "platform": "PlayStation 4",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "7yl2genz",
+          "date": "2017-01-30",
+          "submitted": "2017-01-30T01:42:00Z",
+          "seconds": 1676,
+          "time": "27:56",
+          "video": "https://www.youtube.com/watch?v=OtXaWxGzX_w",
+          "runUrl": "https://www.speedrun.com/khbbs02/runs/7yl2genz",
+          "platform": "PlayStation 4",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "1zqordry",
+          "date": "2017-02-02",
+          "submitted": "2017-02-02T18:26:04Z",
+          "seconds": 1655,
+          "time": "27:35",
+          "video": "https://www.youtube.com/watch?v=wX5TWSeAqaY",
+          "runUrl": "https://www.speedrun.com/khbbs02/runs/1zqordry",
+          "platform": "PlayStation 4",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "oy24v25z",
+          "date": "2017-02-05",
+          "submitted": "2017-02-05T04:04:08Z",
+          "seconds": 1601,
+          "time": "26:41",
+          "video": "https://www.youtube.com/watch?v=hjawR_UlFe0",
+          "runUrl": "https://www.speedrun.com/khbbs02/runs/oy24v25z",
+          "platform": "PlayStation 4",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "0y64d86m",
+          "date": "2017-02-06",
+          "submitted": "2017-02-06T02:35:44Z",
+          "seconds": 1580,
+          "time": "26:20",
+          "video": "https://www.youtube.com/watch?v=zYCd-D_K4pI",
+          "runUrl": "https://www.speedrun.com/khbbs02/runs/0y64d86m",
+          "platform": "PlayStation 4",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "wzpe26gy",
+          "date": "2017-02-07",
+          "submitted": "2017-02-07T20:52:23Z",
+          "seconds": 1568,
+          "time": "26:08",
+          "video": "https://www.youtube.com/watch?v=46kGKHfB0eI",
+          "runUrl": "https://www.speedrun.com/khbbs02/runs/wzpe26gy",
+          "platform": "PlayStation 4",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "4pd0k21e|xd1m68d8|full-game|j84dvj89:5lep9m1o|r8rmewne:0q547wvl",
+      "gameId": "4pd0k21e",
+      "gameName": "Kingdom Hearts Final Mix",
+      "gameAbbreviation": "khfm",
+      "gameCover": "https://www.speedrun.com/static/game/4pd0k21e/cover?v=8a4ed1d",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "PS3 · Beginner",
+      "runs": [
+        {
+          "id": "1zxloqzx",
+          "date": "2014-03-23",
+          "submitted": null,
+          "seconds": 12414,
+          "time": "3:26:54",
+          "video": "https://www.youtube.com/watch?v=WSM04ramcX4",
+          "runUrl": "https://www.speedrun.com/khfm/runs/1zxloqzx",
+          "platform": "PlayStation 3",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "4pd0k21e|9kvxw02g|full-game|68kddxzl:4qyyzk4q|p855p08g:gq7y0pqp",
+      "gameId": "4pd0k21e",
+      "gameName": "Kingdom Hearts Final Mix",
+      "gameAbbreviation": "khfm",
+      "gameCover": "https://www.speedrun.com/static/game/4pd0k21e/cover?v=8a4ed1d",
+      "categoryName": "JJ 100%",
+      "levelName": null,
+      "variant": "PS3 · Beginner",
+      "runs": [
+        {
+          "id": "2ywjdpz4",
+          "date": "2014-02-07",
+          "submitted": null,
+          "seconds": 46483,
+          "time": "12:54:43",
+          "video": null,
+          "runUrl": "https://www.speedrun.com/khfm/runs/2ywjdpz4",
+          "platform": "PlayStation 3",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "46w2wo76|w20no45d|full-game|e8mgzem8:1gnd2exl|j84gx7y8:klrom92l|p85d7vvl:4qygrm7q|rn1px7vn:21dxwnjq",
+      "gameId": "46w2wo76",
+      "gameName": "Kirby and the Forgotten Land",
+      "gameAbbreviation": "kfl",
+      "gameCover": "https://www.speedrun.com/static/game/46w2wo76/cover?v=a0fa3c2",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "Spring Breeze · Physical · 1P · Switch",
+      "runs": [
+        {
+          "id": "mejrp93y",
+          "date": "2022-03-30",
+          "submitted": "2022-04-01T19:12:37Z",
+          "seconds": 8082,
+          "time": "2:14:42",
+          "video": "https://www.youtube.com/watch?v=6eINF3aqMwI",
+          "runUrl": "https://www.speedrun.com/kfl/runs/mejrp93y",
+          "platform": "Switch",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "l3dxny1y|wkpy9wkr|full-game|wl39j4vl:013knnrq",
+      "gameId": "l3dxny1y",
+      "gameName": "Kirby Super Star",
+      "gameAbbreviation": "kss",
+      "gameCover": "https://www.speedrun.com/static/game/l3dxny1y/cover?v=04b9f5e",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "No",
+      "runs": [
+        {
+          "id": "8yv9864z",
+          "date": "2014-10-27",
+          "submitted": "2015-07-16T23:05:37Z",
+          "seconds": 5553,
+          "time": "1:32:33",
+          "video": "https://www.youtube.com/watch?v=8muWAoCyGNw",
+          "runUrl": "https://www.speedrun.com/kss/runs/8yv9864z",
+          "platform": "Wii Virtual Console",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pdv95o1w|rklemw82|full-game",
+      "gameId": "pdv95o1w",
+      "gameName": "Mega Man X",
+      "gameAbbreviation": "mmx",
+      "gameCover": "https://www.speedrun.com/static/game/pdv95o1w/cover?v=5823e5c",
+      "categoryName": "100%",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "yl90xxry",
+          "date": "2014-10-30",
+          "submitted": "2017-06-13T18:00:32Z",
+          "seconds": 2609,
+          "time": "43:29",
+          "video": "https://www.youtube.com/watch?v=zYUHv1Dk1Fk",
+          "runUrl": "https://www.speedrun.com/mmx/runs/yl90xxry",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pdvj9vdw|wk6r6rk1|full-game|jlzgpj5n:21g0kyxq",
+      "gameId": "pdvj9vdw",
+      "gameName": "Naruto Shippuden: Ultimate Ninja Storm 3 Full Burst",
+      "gameAbbreviation": "nsuns3fb",
+      "gameCover": "https://www.speedrun.com/static/game/pdvj9vdw/cover?v=3b41955",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "PC",
+      "runs": [
+        {
+          "id": "7z03lnez",
+          "date": "2013-12-03",
+          "submitted": "2015-02-18T10:30:13Z",
+          "seconds": 13545,
+          "time": "3:45:45",
+          "video": "https://www.youtube.com/watch?v=VmjM6mx5Uj8",
+          "runUrl": "https://www.speedrun.com/nsuns3fb/runs/7z03lnez",
+          "platform": "PC",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pdvz9k96|7kjpw44k|full-game",
+      "gameId": "pdvz9k96",
+      "gameName": "Paper Mario Category Extensions",
+      "gameAbbreviation": "pm64memes",
+      "gameCover": "https://www.speedrun.com/static/game/pdvz9k96/cover?v=669e5d4",
+      "categoryName": "5 Golden Li'l Oinks",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "y69rdv6y",
+          "date": "2021-08-18",
+          "submitted": "2021-08-18T17:28:33Z",
+          "seconds": 1013,
+          "time": "16:53",
+          "video": "https://www.youtube.com/watch?v=NIeQEGyNxpU",
+          "runUrl": "https://www.speedrun.com/pm64memes/runs/y69rdv6y",
+          "platform": "Nintendo 64",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "yde0v9xm",
+          "date": "2021-08-20",
+          "submitted": "2021-08-20T17:54:51Z",
+          "seconds": 855,
+          "time": "14:15",
+          "video": "https://www.youtube.com/watch?v=QtwPPgcH0eI",
+          "runUrl": "https://www.speedrun.com/pm64memes/runs/yde0v9xm",
+          "platform": "Nintendo 64",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "4pd0n31e|7wkp6v2r|full-game|kn0mz7ol:jq6nxjnl|ylpe568g:21drm5qe",
+      "gameId": "4pd0n31e",
+      "gameName": "Portal",
+      "gameAbbreviation": "portal",
+      "gameCover": "https://www.speedrun.com/static/game/4pd0n31e/cover?v=1d3445a",
+      "categoryName": "Inbounds",
+      "levelName": null,
+      "variant": "No · PC",
+      "runs": [
+        {
+          "id": "7z0e16em",
+          "date": "2013-08-12",
+          "submitted": "2014-12-09T07:50:31Z",
+          "seconds": 1240,
+          "time": "20:40",
+          "video": "http://www.youtube.com/watch?v=vjMiWhIEyuQ",
+          "runUrl": "https://www.speedrun.com/portal/runs/7z0e16em",
+          "platform": null,
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "4pd0n31e|7wkp6v2r|full-game|kn0mz7ol:jq6nxjnl",
+      "gameId": "4pd0n31e",
+      "gameName": "Portal",
+      "gameAbbreviation": "portal",
+      "gameCover": "https://www.speedrun.com/static/game/4pd0n31e/cover?v=1d3445a",
+      "categoryName": "Inbounds",
+      "levelName": null,
+      "variant": "PC",
+      "runs": [
+        {
+          "id": "2ywdv8pz",
+          "date": "2013-08-12",
+          "submitted": "2015-07-16T23:07:57Z",
+          "seconds": 1240,
+          "time": "20:40",
+          "video": "https://www.youtube.com/watch?v=vjMiWhIEyuQ",
+          "runUrl": "https://www.speedrun.com/portal/runs/2ywdv8pz",
+          "platform": null,
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "9d3r770d|vdoor91d|full-game",
+      "gameId": "9d3r770d",
+      "gameName": "Steamed Hams but it's a Super Mario World ROM Hack",
+      "gameAbbreviation": "steamed_hams_smw",
+      "gameCover": "https://www.speedrun.com/images/blankcover.png",
+      "categoryName": "Burger%",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "y6dw0xqm",
+          "date": "2021-07-07",
+          "submitted": "2021-07-07T01:27:28Z",
+          "seconds": 98,
+          "time": "1:38",
+          "video": "https://www.youtube.com/watch?v=0wZwsJKjOak",
+          "runUrl": "https://www.speedrun.com/steamed_hams_smw/runs/y6dw0xqm",
+          "platform": null,
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o1y9wo6q|n2y55mko|full-game|e8m7em86:jq6540ol|kn04ewol:5q8e86rq",
+      "gameId": "o1y9wo6q",
+      "gameName": "Super Mario 64",
+      "gameAbbreviation": "sm64",
+      "gameCover": "https://www.speedrun.com/static/game/o1y9wo6q/cover?v=82fa0a4",
+      "categoryName": "16 Star",
+      "levelName": null,
+      "variant": "VC · Yes",
+      "runs": [
+        {
+          "id": "1zq6r4xy",
+          "date": "2014-08-09",
+          "submitted": "2014-12-09T07:48:55Z",
+          "seconds": 1515,
+          "time": "25:15",
+          "video": "http://www.twitch.tv/volpegaming/c/4867184",
+          "runUrl": "https://www.speedrun.com/sm64/runs/1zq6r4xy",
+          "platform": "Wii Virtual Console",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "0y6p89jm",
+          "date": "2015-04-05",
+          "submitted": "2015-03-03T07:54:23Z",
+          "seconds": 1336,
+          "time": "22:16",
+          "video": "https://www.twitch.tv/volpey/v/40759119",
+          "runUrl": "https://www.speedrun.com/sm64/runs/0y6p89jm",
+          "platform": "Wii Virtual Console",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "om1m3625|w20p0zkn|full-game|onvvdymn:013zwgxq",
+      "gameId": "om1m3625",
+      "gameName": "Super Mario Bros.",
+      "gameAbbreviation": "smb1",
+      "gameCover": "https://www.speedrun.com/static/game/om1m3625/cover?v=cac17c7",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "NTSC",
+      "runs": [
+        {
+          "id": "8y8jerdz",
+          "date": "2016-01-14",
+          "submitted": "2016-01-14T17:26:00Z",
+          "seconds": 401,
+          "time": "6:41",
+          "video": "https://www.youtube.com/watch?v=Xg2pgh6SHV8",
+          "runUrl": "https://www.speedrun.com/smb1/runs/8y8jerdz",
+          "platform": "Nintendo Entertainment System",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8y8jen5z",
+          "date": "2016-01-15",
+          "submitted": "2016-01-15T18:01:03Z",
+          "seconds": 372,
+          "time": "6:12",
+          "video": "https://www.youtube.com/watch?v=kXjgv8Li08E",
+          "runUrl": "https://www.speedrun.com/smb1/runs/8y8jen5z",
+          "platform": "Nintendo Entertainment System",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "0y6nn2qz",
+          "date": "2016-01-16",
+          "submitted": "2016-01-16T19:11:36Z",
+          "seconds": 332,
+          "time": "5:32",
+          "video": "https://www.youtube.com/watch?v=VRvpJAevpog",
+          "runUrl": "https://www.speedrun.com/smb1/runs/0y6nn2qz",
+          "platform": "Nintendo Entertainment System",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "z0ndexjm",
+          "date": "2023-02-26",
+          "submitted": "2023-02-26T18:59:25Z",
+          "seconds": 321,
+          "time": "5:21",
+          "video": "https://www.youtube.com/watch?v=509DID9nlX0",
+          "runUrl": "https://www.speedrun.com/smb1/runs/z0ndexjm",
+          "platform": "Nintendo Entertainment System",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "l3dx51yv|wkpjpvkr|full-game",
+      "gameId": "l3dx51yv",
+      "gameName": "Super Mario Bros. 3",
+      "gameAbbreviation": "smb3",
+      "gameCover": "https://www.speedrun.com/static/game/l3dx51yv/cover?v=da3ab12",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "yl07913y",
+          "date": "2019-09-27",
+          "submitted": "2019-09-27T17:12:45Z",
+          "seconds": 234,
+          "time": "3:54",
+          "video": "https://www.youtube.com/watch?v=z_j7-TOOYME",
+          "runUrl": "https://www.speedrun.com/smb3/runs/yl07913y",
+          "platform": "Nintendo Entertainment System",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "kdkzlgdm|wk67rxd1|full-game|dwley4n6:g814yv1d|jlz5e5l2:mln37nqp|wl3vmdy8:qkej0pdq",
+      "gameId": "kdkzlgdm",
+      "gameName": "Super Mario Galaxy 2",
+      "gameAbbreviation": "smg2",
+      "gameCover": "https://www.speedrun.com/static/game/kdkzlgdm/cover?v=5955170",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "Banktoad · Original · 1P",
+      "runs": [
+        {
+          "id": "0y67l6pm",
+          "date": "2013-11-30",
+          "submitted": "2014-12-09T07:57:24Z",
+          "seconds": 21442,
+          "time": "5:57:22",
+          "video": "https://www.twitch.tv/volpey/v/45721053",
+          "runUrl": "https://www.speedrun.com/smg2/runs/0y67l6pm",
+          "platform": "Wii",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pd0wq31e|n2y1y72o|full-game|yn2wxjn5:p12j3dqx",
+      "gameId": "pd0wq31e",
+      "gameName": "Super Mario World",
+      "gameAbbreviation": "smw",
+      "gameCover": "https://www.speedrun.com/static/game/pd0wq31e/cover?v=f20e093",
+      "categoryName": "11 Exit",
+      "levelName": null,
+      "variant": "Orb",
+      "runs": [
+        {
+          "id": "7z0pgk9y",
+          "date": "2014-05-01",
+          "submitted": "2016-03-07T17:53:47Z",
+          "seconds": 632.83,
+          "time": "10:32.830",
+          "video": "https://www.youtube.com/watch?v=M4i0YuMkOdE",
+          "runUrl": "https://www.speedrun.com/smw/runs/7z0pgk9y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pd0wq31e|n2y1y72o|full-game|yn2wxjn5:z19e7yq4",
+      "gameId": "pd0wq31e",
+      "gameName": "Super Mario World",
+      "gameAbbreviation": "smw",
+      "gameCover": "https://www.speedrun.com/static/game/pd0wq31e/cover?v=f20e093",
+      "categoryName": "11 Exit",
+      "levelName": null,
+      "variant": "Cloud",
+      "runs": [
+        {
+          "id": "0y6210z7",
+          "date": "2014-08-29",
+          "submitted": "2014-11-17T16:43:58Z",
+          "seconds": 608.3,
+          "time": "10:08.300",
+          "video": "https://www.youtube.com/watch?v=OI1c_mI6prY",
+          "runUrl": "https://www.speedrun.com/smw/runs/0y6210z7",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8yvg388y",
+          "date": "2014-12-09",
+          "submitted": "2014-12-09T21:07:28Z",
+          "seconds": 603.76,
+          "time": "10:03.760",
+          "video": "https://www.youtube.com/watch?v=RywkY8KcrzA",
+          "runUrl": "https://www.speedrun.com/smw/runs/8yvg388y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "9mrq577y",
+          "date": "2014-12-23",
+          "submitted": "2015-01-24T12:35:27Z",
+          "seconds": 599.07,
+          "time": "9:59.070",
+          "video": "https://www.youtube.com/watch?v=scLtlYRpOXE",
+          "runUrl": "https://www.speedrun.com/smw/runs/9mrq577y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "7ylkg2rz",
+          "date": "2015-06-24",
+          "submitted": "2015-06-24T18:45:28Z",
+          "seconds": 599,
+          "time": "9:59",
+          "video": "https://www.youtube.com/watch?v=EJLyi36VnpE",
+          "runUrl": "https://www.speedrun.com/smw/runs/7ylkg2rz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "jy91ol2m",
+          "date": "2015-06-25",
+          "submitted": "2015-06-25T21:32:36Z",
+          "seconds": 598.09,
+          "time": "9:58.090",
+          "video": "https://www.youtube.com/watch?v=mKOnCN943PA",
+          "runUrl": "https://www.speedrun.com/smw/runs/jy91ol2m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "1zq4945m",
+          "date": "2015-07-15",
+          "submitted": "2015-07-15T17:23:55Z",
+          "seconds": 596.4,
+          "time": "9:56.400",
+          "video": "https://www.youtube.com/watch?v=k77mcB6EVFs",
+          "runUrl": "https://www.speedrun.com/smw/runs/1zq4945m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "9yo92njy",
+          "date": "2015-08-11",
+          "submitted": "2015-08-11T17:01:30Z",
+          "seconds": 595.46,
+          "time": "9:55.460",
+          "video": "https://www.youtube.com/watch?v=zppvGuBPvAM",
+          "runUrl": "https://www.speedrun.com/smw/runs/9yo92njy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "9mr14p2z",
+          "date": "2015-10-05",
+          "submitted": "2015-10-05T16:22:19Z",
+          "seconds": 595.226,
+          "time": "9:55.226",
+          "video": "https://www.youtube.com/watch?v=qLmbxxbnxow",
+          "runUrl": "https://www.speedrun.com/smw/runs/9mr14p2z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "emk5nevm",
+          "date": "2015-12-29",
+          "submitted": "2015-12-29T21:21:13Z",
+          "seconds": 593.667,
+          "time": "9:53.667",
+          "video": "https://www.youtube.com/watch?v=1dzCfm8tUy8",
+          "runUrl": "https://www.speedrun.com/smw/runs/emk5nevm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8y8x4r5m",
+          "date": "2016-04-15",
+          "submitted": "2016-04-15T00:42:09Z",
+          "seconds": 592.4,
+          "time": "9:52.400",
+          "video": "https://www.youtube.com/watch?v=8RYodueRHrg",
+          "runUrl": "https://www.speedrun.com/smw/runs/8y8x4r5m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8yvp70oy",
+          "date": "2016-06-26",
+          "submitted": "2016-06-26T22:11:53Z",
+          "seconds": 590.4,
+          "time": "9:50.400",
+          "video": "https://www.youtube.com/watch?v=BfS62DCpqiw",
+          "runUrl": "https://www.speedrun.com/smw/runs/8yvp70oy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "dy46ge3z",
+          "date": "2016-08-22",
+          "submitted": "2016-08-22T19:41:27Z",
+          "seconds": 589.42,
+          "time": "9:49.420",
+          "video": "https://www.youtube.com/watch?v=P42KC9iO6Mo",
+          "runUrl": "https://www.speedrun.com/smw/runs/dy46ge3z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "oy22jd5y",
+          "date": "2016-08-22",
+          "submitted": "2016-08-22T19:43:31Z",
+          "seconds": 589.21,
+          "time": "9:49.210",
+          "video": "https://www.youtube.com/watch?v=eTTcsNVDOSs",
+          "runUrl": "https://www.speedrun.com/smw/runs/oy22jd5y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "0y68610z",
+          "date": "2016-12-18",
+          "submitted": "2016-12-18T00:26:27Z",
+          "seconds": 588.766,
+          "time": "9:48.766",
+          "video": "https://www.youtube.com/watch?v=rG8GlCTbWxE",
+          "runUrl": "https://www.speedrun.com/smw/runs/0y68610z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pd0wq31e|n2y1y72o|full-game|yn2wxjn5:81pk8vl7",
+      "gameId": "pd0wq31e",
+      "gameName": "Super Mario World",
+      "gameAbbreviation": "smw",
+      "gameCover": "https://www.speedrun.com/static/game/pd0wq31e/cover?v=f20e093",
+      "categoryName": "11 Exit",
+      "levelName": null,
+      "variant": "Glitchless",
+      "runs": [
+        {
+          "id": "8y8vlw1z",
+          "date": "2015-08-30",
+          "submitted": "2015-09-14T19:55:46Z",
+          "seconds": 647.6,
+          "time": "10:47.600",
+          "video": "https://www.youtube.com/watch?v=26yb7Kax5f4",
+          "runUrl": "https://www.speedrun.com/smw/runs/8y8vlw1z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "yd66v3xz",
+          "date": "2019-07-03",
+          "submitted": "2019-07-03T17:02:48Z",
+          "seconds": 646.05,
+          "time": "10:46.050",
+          "video": "https://www.youtube.com/watch?v=lwPKn_WoAzo",
+          "runUrl": "https://www.speedrun.com/smw/runs/yd66v3xz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "zx78weky",
+          "date": "2022-06-05",
+          "submitted": "2022-06-04T23:43:47Z",
+          "seconds": 645.65,
+          "time": "10:45.650",
+          "video": "https://www.youtube.com/watch?v=YX6pL_fYw2I",
+          "runUrl": "https://www.speedrun.com/smw/runs/zx78weky",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "y880rgwy",
+          "date": "2022-06-08",
+          "submitted": "2022-06-08T02:33:28Z",
+          "seconds": 645.2,
+          "time": "10:45.200",
+          "video": "https://www.youtube.com/watch?v=hq2yxDCiOPg",
+          "runUrl": "https://www.speedrun.com/smw/runs/y880rgwy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "yw3npjnm",
+          "date": "2022-06-18",
+          "submitted": "2022-06-18T00:54:37Z",
+          "seconds": 645.183,
+          "time": "10:45.183",
+          "video": "https://www.youtube.com/watch?v=jn8xOgWs3UA",
+          "runUrl": "https://www.speedrun.com/smw/runs/yw3npjnm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pd0wq31e|mkeyen26|full-game|wl3z46n1:z19xj0k1",
+      "gameId": "pd0wq31e",
+      "gameName": "Super Mario World",
+      "gameAbbreviation": "smw",
+      "gameCover": "https://www.speedrun.com/static/game/pd0wq31e/cover?v=f20e093",
+      "categoryName": "11 Exit, No Cape",
+      "levelName": null,
+      "variant": "Orb",
+      "runs": [
+        {
+          "id": "pyd0n00z",
+          "date": "2014-05-01",
+          "submitted": "2015-07-22T20:04:36Z",
+          "seconds": 703,
+          "time": "11:43",
+          "video": "https://www.youtube.com/watch?v=Rz4bBZGyTgo",
+          "runUrl": "https://www.speedrun.com/smw/runs/pyd0n00z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pd0wq31e|7kjrn323|full-game",
+      "gameId": "pd0wq31e",
+      "gameName": "Super Mario World",
+      "gameAbbreviation": "smw",
+      "gameCover": "https://www.speedrun.com/static/game/pd0wq31e/cover?v=f20e093",
+      "categoryName": "96 Exit",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "7yl907xy",
+          "date": "2014-12-09",
+          "submitted": "2014-12-09T12:24:43Z",
+          "seconds": 6098,
+          "time": "1:41:38",
+          "video": null,
+          "runUrl": "https://www.speedrun.com/smw/runs/7yl907xy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pd0wq31e|zdn1jxkq|full-game",
+      "gameId": "pd0wq31e",
+      "gameName": "Super Mario World",
+      "gameAbbreviation": "smw",
+      "gameCover": "https://www.speedrun.com/static/game/pd0wq31e/cover?v=f20e093",
+      "categoryName": "No Starworld",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "dy4w452m",
+          "date": "2013-10-27",
+          "submitted": "2015-06-18T18:56:23Z",
+          "seconds": 2232,
+          "time": "37:12",
+          "video": "http://www.youtube.com/watch?v=iaFyJ8FHlPA",
+          "runUrl": "https://www.speedrun.com/smw/runs/dy4w452m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pd0wq31e|n2y301do|full-game",
+      "gameId": "pd0wq31e",
+      "gameName": "Super Mario World",
+      "gameAbbreviation": "smw",
+      "gameCover": "https://www.speedrun.com/static/game/pd0wq31e/cover?v=f20e093",
+      "categoryName": "Small Only",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "dy42k4qm",
+          "date": "2015-09-02",
+          "submitted": "2015-09-02T20:15:28Z",
+          "seconds": 2531,
+          "time": "42:11",
+          "video": "https://www.youtube.com/watch?v=TCYNg41E3y0",
+          "runUrl": "https://www.speedrun.com/smw/runs/dy42k4qm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "1zx6x28z",
+          "date": "2015-09-05",
+          "submitted": "2015-09-05T15:48:37Z",
+          "seconds": 1689,
+          "time": "28:09",
+          "video": "https://www.youtube.com/watch?v=1DfU_AAgnRY",
+          "runUrl": "https://www.speedrun.com/smw/runs/1zx6x28z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "1zx6joqz",
+          "date": "2015-09-07",
+          "submitted": "2015-09-07T17:27:10Z",
+          "seconds": 1186,
+          "time": "19:46",
+          "video": "https://www.youtube.com/watch?v=sTHy35DTA7w",
+          "runUrl": "https://www.speedrun.com/smw/runs/1zx6joqz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "1zx5np5m",
+          "date": "2016-12-25",
+          "submitted": "2016-12-25T19:37:40Z",
+          "seconds": 1182,
+          "time": "19:42",
+          "video": "https://www.youtube.com/watch?v=K5jARme9OD0",
+          "runUrl": "https://www.speedrun.com/smw/runs/1zx5np5m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8y8n6w5y",
+          "date": "2016-12-27",
+          "submitted": "2016-12-27T01:20:01Z",
+          "seconds": 1047,
+          "time": "17:27",
+          "video": "https://www.youtube.com/watch?v=G9kcW2GRveM",
+          "runUrl": "https://www.speedrun.com/smw/runs/8y8n6w5y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "0zn5en3z",
+          "date": "2016-12-28",
+          "submitted": "2016-12-28T17:49:22Z",
+          "seconds": 984,
+          "time": "16:24",
+          "video": "https://www.youtube.com/watch?v=rd71Uw_6O5E",
+          "runUrl": "https://www.speedrun.com/smw/runs/0zn5en3z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|zd37zv2n|full-game|onvxxw58:q75pnjy1|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "All Main Stages",
+      "levelName": null,
+      "variant": "Warpless · SNES",
+      "runs": [
+        {
+          "id": "9yojkl5m",
+          "date": "2014-07-24",
+          "submitted": "2015-03-23T07:40:26Z",
+          "seconds": 7072,
+          "time": "1:57:52",
+          "video": "https://www.youtube.com/watch?v=IkjVrmeSZ4M",
+          "runUrl": "https://www.speedrun.com/yi/runs/9yojkl5m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "mk4npv5y",
+          "date": "2018-04-12",
+          "submitted": "2018-04-12T17:15:00Z",
+          "seconds": 6993,
+          "time": "1:56:33",
+          "video": "https://www.youtube.com/watch?v=zEfmMAv3plM",
+          "runUrl": "https://www.speedrun.com/yi/runs/mk4npv5y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "yw17x2pz",
+          "date": "2018-04-13",
+          "submitted": "2018-04-13T15:55:11Z",
+          "seconds": 6816,
+          "time": "1:53:36",
+          "video": "https://www.youtube.com/watch?v=rmhchE9HgkQ",
+          "runUrl": "https://www.speedrun.com/yi/runs/yw17x2pz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "ydqxx1xm",
+          "date": "2018-04-16",
+          "submitted": "2018-04-16T17:52:24Z",
+          "seconds": 6655,
+          "time": "1:50:55",
+          "video": "https://www.youtube.com/watch?v=xCjsebZIvNQ",
+          "runUrl": "https://www.speedrun.com/yi/runs/ydqxx1xm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|zd37zv2n|full-game|onvxxw58:1gn5jvnl|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "All Main Stages",
+      "levelName": null,
+      "variant": "Magical Journey · SNES",
+      "runs": [
+        {
+          "id": "oy23qnjm",
+          "date": "2014-06-14",
+          "submitted": "2026-05-24T00:47:30Z",
+          "seconds": 5573,
+          "time": "1:32:53",
+          "video": "https://www.twitch.tv/videos/48950863",
+          "runUrl": "https://www.speedrun.com/yi/runs/oy23qnjm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|zd37zv2n|full-game|onvxxw58:qke5rjyq|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "All Main Stages",
+      "levelName": null,
+      "variant": "Warps · SNES",
+      "runs": [
+        {
+          "id": "mredd7gy",
+          "date": "2020-01-26",
+          "submitted": "2020-01-26T18:58:05Z",
+          "seconds": 6735,
+          "time": "1:52:15",
+          "video": "https://www.youtube.com/watch?v=HBiVcDpAN2c",
+          "runUrl": "https://www.speedrun.com/yi/runs/mredd7gy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|z27qx5k0|full-game|jlz0r082:klr3ydwl|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "No ACE · SNES",
+      "runs": [
+        {
+          "id": "8y89ndwm",
+          "date": "2015-03-02",
+          "submitted": "2015-03-03T04:47:42Z",
+          "seconds": 2135,
+          "time": "35:35",
+          "video": "http://www.twitch.tv/volpegaming/c/6239944",
+          "runUrl": "https://www.speedrun.com/yi/runs/8y89ndwm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "wzp05grm",
+          "date": "2015-03-03",
+          "submitted": "2015-03-03T22:07:15Z",
+          "seconds": 1859,
+          "time": "30:59",
+          "video": "http://www.twitch.tv/volpegaming/c/6243765",
+          "runUrl": "https://www.speedrun.com/yi/runs/wzp05grm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8y894k5m",
+          "date": "2015-03-08",
+          "submitted": "2015-03-08T18:08:20Z",
+          "seconds": 1739,
+          "time": "28:59",
+          "video": "http://www.twitch.tv/volpegaming/c/6278898",
+          "runUrl": "https://www.speedrun.com/yi/runs/8y894k5m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "9mrej07y",
+          "date": "2015-03-15",
+          "submitted": "2015-03-15T16:54:29Z",
+          "seconds": 1691,
+          "time": "28:11",
+          "video": "http://www.twitch.tv/volpegaming/c/6326792",
+          "runUrl": "https://www.speedrun.com/yi/runs/9mrej07y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8y81podz",
+          "date": "2015-04-18",
+          "submitted": "2015-04-18T22:50:07Z",
+          "seconds": 1680,
+          "time": "28:00",
+          "video": "https://www.youtube.com/watch?v=ZGM_3MsRB7Q",
+          "runUrl": "https://www.speedrun.com/yi/runs/8y81podz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8yvn4lom",
+          "date": "2016-10-09",
+          "submitted": "2016-10-09T16:25:45Z",
+          "seconds": 1669,
+          "time": "27:49",
+          "video": "https://www.youtube.com/watch?v=caWkTtWOQEg",
+          "runUrl": "https://www.speedrun.com/yi/runs/8yvn4lom",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "9men7l9m",
+          "date": "2016-10-18",
+          "submitted": "2016-10-18T14:34:47Z",
+          "seconds": 1657,
+          "time": "27:37",
+          "video": "https://www.youtube.com/watch?v=dS2F3QjARQE",
+          "runUrl": "https://www.speedrun.com/yi/runs/9men7l9m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "oy2n7o5y",
+          "date": "2016-10-20",
+          "submitted": "2016-10-20T17:43:34Z",
+          "seconds": 1643,
+          "time": "27:23",
+          "video": "https://www.youtube.com/watch?v=e7hbxryvlTI",
+          "runUrl": "https://www.speedrun.com/yi/runs/oy2n7o5y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "emkw9xlm",
+          "date": "2016-11-12",
+          "submitted": "2016-11-12T17:26:05Z",
+          "seconds": 1635,
+          "time": "27:15",
+          "video": "https://www.youtube.com/watch?v=c2iD8C8jrGQ",
+          "runUrl": "https://www.speedrun.com/yi/runs/emkw9xlm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "yl0nvx3y",
+          "date": "2019-10-31",
+          "submitted": "2019-10-31T17:59:31Z",
+          "seconds": 1614,
+          "time": "26:54",
+          "video": "https://www.youtube.com/watch?v=EQxSMENEjIY",
+          "runUrl": "https://www.speedrun.com/yi/runs/yl0nvx3y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "m776764m",
+          "date": "2021-09-11",
+          "submitted": "2021-09-11T17:06:17Z",
+          "seconds": 1592,
+          "time": "26:32",
+          "video": "https://www.youtube.com/watch?v=YUfMeUr4Cb4",
+          "runUrl": "https://www.speedrun.com/yi/runs/m776764m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "y27e596z",
+          "date": "2021-09-16",
+          "submitted": "2021-09-16T03:55:06Z",
+          "seconds": 1583,
+          "time": "26:23",
+          "video": "https://www.youtube.com/watch?v=a5GtvyE3-sQ",
+          "runUrl": "https://www.speedrun.com/yi/runs/y27e596z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "zxonk2ez",
+          "date": "2021-09-21",
+          "submitted": "2021-09-21T17:36:15Z",
+          "seconds": 1560,
+          "time": "26:00",
+          "video": "https://www.youtube.com/watch?v=Ek4Oo6Hnm0Q",
+          "runUrl": "https://www.speedrun.com/yi/runs/zxonk2ez",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "mrnor2gy",
+          "date": "2021-09-23",
+          "submitted": "2021-09-23T16:24:21Z",
+          "seconds": 1556,
+          "time": "25:56",
+          "video": "https://www.youtube.com/watch?v=NRpHfRnR8VA",
+          "runUrl": "https://www.speedrun.com/yi/runs/mrnor2gy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "yo6nokjy",
+          "date": "2021-09-29",
+          "submitted": "2021-09-29T16:15:46Z",
+          "seconds": 1542,
+          "time": "25:42",
+          "video": "https://www.youtube.com/watch?v=_6DlpOwpD60",
+          "runUrl": "https://www.speedrun.com/yi/runs/yo6nokjy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|owojrv96|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "1-2: Watch Out Below!",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "dy4repdz",
+          "date": "2015-10-03",
+          "submitted": "2015-10-03T19:41:23Z",
+          "seconds": 22.783,
+          "time": "0:22.783",
+          "video": "https://youtu.be/HRY0laCDCjY",
+          "runUrl": "https://www.speedrun.com/yi/runs/dy4repdz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|o9xgp6dl|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "1-3: The Cave Of Chomp Rock",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "1zxg6oky",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T16:21:07Z",
+          "seconds": 42.001,
+          "time": "0:42.001",
+          "video": "https://youtu.be/qHCxqakJxko",
+          "runUrl": "https://www.speedrun.com/yi/runs/1zxg6oky",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "yv830e6m",
+          "date": "2022-12-21",
+          "submitted": "2022-12-20T23:35:25Z",
+          "seconds": 40.367,
+          "time": "0:40.367",
+          "video": "https://www.youtube.com/watch?v=3gr_pGfjTkU",
+          "runUrl": "https://www.speedrun.com/yi/runs/yv830e6m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|o9xgp6dl|wl3319l1:5leewmlo|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "1-3: The Cave Of Chomp Rock",
+      "variant": "No · SNES",
+      "runs": [
+        {
+          "id": "yv83l9om",
+          "date": "2022-12-21",
+          "submitted": "2022-12-21T23:21:35Z",
+          "seconds": 40.217,
+          "time": "0:40.217",
+          "video": "https://www.youtube.com/watch?v=UEm-dB5rNJU",
+          "runUrl": "https://www.speedrun.com/yi/runs/yv83l9om",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|4952729p|5lyy52l4:rqvvrw5q|wl3319l1:5leewmlo|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "1-4: Burt The Bashful's Fort",
+      "variant": "Warps · No · SNES",
+      "runs": [
+        {
+          "id": "9yo79o1m",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T23:55:38Z",
+          "seconds": 76.75,
+          "time": "1:16.750",
+          "video": "https://youtu.be/TUY2avY4VII",
+          "runUrl": "https://www.speedrun.com/yi/runs/9yo79o1m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|rdq8xmdx|wl3319l1:5leewmlo|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "1-5: Hop! Hop! Donut Lifts",
+      "variant": "No · SNES",
+      "runs": [
+        {
+          "id": "m3l107gm",
+          "date": "2022-12-21",
+          "submitted": "2022-12-22T00:02:10Z",
+          "seconds": 148.15,
+          "time": "2:28.150",
+          "video": "https://www.youtube.com/watch?v=LWnLmPEskXU",
+          "runUrl": "https://www.speedrun.com/yi/runs/m3l107gm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "zpgr3vxz",
+          "date": "2022-12-26",
+          "submitted": "2022-12-26T17:08:12Z",
+          "seconds": 148.05,
+          "time": "2:28.050",
+          "video": "https://www.youtube.com/watch?v=scFw2q0YQNg",
+          "runUrl": "https://www.speedrun.com/yi/runs/zpgr3vxz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|5d71o5dy|j841jdy8:10v8np2l|wl3319l1:5leewmlo|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "1-6: Shy-Guys On Stilts",
+      "variant": "Warpless · No · SNES",
+      "runs": [
+        {
+          "id": "0zn1ow3m",
+          "date": "2015-10-03",
+          "submitted": "2015-10-03T20:02:24Z",
+          "seconds": 55.617,
+          "time": "0:55.617",
+          "video": "https://youtu.be/o-sgxICm-lk",
+          "runUrl": "https://www.speedrun.com/yi/runs/0zn1ow3m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|kwjgnrwg|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "1-7: Touch Fuzzy, Get Dizzy",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "0y6d63pm",
+          "date": "2015-10-03",
+          "submitted": "2015-10-03T19:51:06Z",
+          "seconds": 33.333,
+          "time": "0:33.333",
+          "video": "https://youtu.be/IEsTAhoLe1M",
+          "runUrl": "https://www.speedrun.com/yi/runs/0y6d63pm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|ewp3gldn|e8mgoe86:0q5v5erl|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "2-1: Visit Koopa And Para-Koopa",
+      "variant": "Warps · Yes · SNES",
+      "runs": [
+        {
+          "id": "7z0r67oz",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T16:57:39Z",
+          "seconds": 38.25,
+          "time": "0:38.250",
+          "video": "https://youtu.be/bEtat3GfENw",
+          "runUrl": "https://www.speedrun.com/yi/runs/7z0r67oz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|y9m6llw5|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "2-2: The Baseball Boys",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "kz5r0djy",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T16:21:42Z",
+          "seconds": 103.534,
+          "time": "1:43.534",
+          "video": "https://youtu.be/FCUc2__OUFA",
+          "runUrl": "https://www.speedrun.com/yi/runs/kz5r0djy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|29v641wv|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "2-5: Watch Out For Lakitu",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "oy2xdl9m",
+          "date": "2015-10-03",
+          "submitted": "2015-10-03T18:33:09Z",
+          "seconds": 42.017,
+          "time": "0:42.017",
+          "video": "https://youtu.be/0X2-utjAf74",
+          "runUrl": "https://www.speedrun.com/yi/runs/oy2xdl9m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|n931vnd0|dloekmno:81py0oe1|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "3-1: Welcome To Monkey World!",
+      "variant": "Warpless · Yes · SNES",
+      "runs": [
+        {
+          "id": "0y6d6qqm",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T23:51:47Z",
+          "seconds": 61.234,
+          "time": "1:01.234",
+          "video": "https://youtu.be/-YPOX5KqnRI",
+          "runUrl": "https://www.speedrun.com/yi/runs/0y6d6qqm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|nwl5q0dv|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "3-6: The Cave Of Harry Hedgehog",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "8y8dvkwz",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T23:52:32Z",
+          "seconds": 44.133,
+          "time": "0:44.133",
+          "video": "https://youtu.be/zP8TL75PJq0",
+          "runUrl": "https://www.speedrun.com/yi/runs/8y8dvkwz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|yweyrydl|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "3-7: Monkeys' Favorite Lake",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "8yv12o8y",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T17:20:45Z",
+          "seconds": 71.084,
+          "time": "1:11.084",
+          "video": "https://youtu.be/4WvOPWqn1Qg",
+          "runUrl": "https://www.speedrun.com/yi/runs/8yv12o8y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|rdq8pkdx|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "4-3: Don't Look Back!",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "1zxgde5y",
+          "date": "2015-10-03",
+          "submitted": "2015-10-03T19:28:46Z",
+          "seconds": 58.516,
+          "time": "0:58.516",
+          "video": "https://www.youtube.com/watch?v=c8utBlziOik&feature=youtu.be",
+          "runUrl": "https://www.speedrun.com/yi/runs/1zxgde5y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8yv12vxy",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T23:53:09Z",
+          "seconds": 58.15,
+          "time": "0:58.150",
+          "video": "https://youtu.be/GPhZ9M40ws4",
+          "runUrl": "https://www.speedrun.com/yi/runs/8yv12vxy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|kwjgxnwg|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "4-5: Chomp Rock Zone",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "0zn1oe9m",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T23:53:40Z",
+          "seconds": 50.833,
+          "time": "0:50.833",
+          "video": "https://youtu.be/HyO3CAhCpro",
+          "runUrl": "https://www.speedrun.com/yi/runs/0zn1oe9m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|xd1mkedo|wl3319l1:rqvmnrq6|yn26ejl5:jqzn5e4q|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "4-7: Ride Like The Wind",
+      "variant": "Warpless · Yes · SNES",
+      "runs": [
+        {
+          "id": "7ylqol2z",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T23:54:11Z",
+          "seconds": 55.617,
+          "time": "0:55.617",
+          "video": "https://youtu.be/GqAnv62aAfg",
+          "runUrl": "https://www.speedrun.com/yi/runs/7ylqol2z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|592kgo96|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "5-2: Ride The Ski Lifts",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "pzggx80z",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T23:54:59Z",
+          "seconds": 67.367,
+          "time": "1:07.367",
+          "video": "https://youtu.be/nwPrI7zvEqI",
+          "runUrl": "https://www.speedrun.com/yi/runs/pzggx80z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|29v6e3wv|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "5-3: Danger - Icy Conditions Ahead",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "9mr14n8z",
+          "date": "2015-10-04",
+          "submitted": "2015-10-04T16:20:35Z",
+          "seconds": 151.35,
+          "time": "2:31.350",
+          "video": "https://youtu.be/veixP9gCf6Q",
+          "runUrl": "https://www.speedrun.com/yi/runs/9mr14n8z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|xd01rxwq|wl3319l1:rqvmnrq6|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "5-5: Goonie Rides!",
+      "variant": "Yes · SNES",
+      "runs": [
+        {
+          "id": "jy991rvy",
+          "date": "2015-10-03",
+          "submitted": "2015-10-03T18:00:10Z",
+          "seconds": 85.225,
+          "time": "1:25.225",
+          "video": "https://www.youtube.com/watch?v=dlAVyQIWpT0&feature=youtu.be",
+          "runUrl": "https://www.speedrun.com/yi/runs/jy991rvy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "o6gnxo12|9d8q63dn|ldyx7k93|wl3319l1:5leewmlo|yn2jx2e8:gq7pnvdq",
+      "gameId": "o6gnxo12",
+      "gameName": "Super Mario World 2: Yoshi's Island",
+      "gameAbbreviation": "yi",
+      "gameCover": "https://www.speedrun.com/static/game/o6gnxo12/cover?v=e3568be",
+      "categoryName": "Any%",
+      "levelName": "6-1: Scary Skeleton Goonies!",
+      "variant": "No · SNES",
+      "runs": [
+        {
+          "id": "7ylqvgrz",
+          "date": "2015-10-03",
+          "submitted": "2015-10-03T18:50:47Z",
+          "seconds": 82.034,
+          "time": "1:22.034",
+          "video": "https://youtu.be/2H_G-TtsujY",
+          "runUrl": "https://www.speedrun.com/yi/runs/7ylqvgrz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "268n5y6p|9kvp0gek|full-game",
+      "gameId": "268n5y6p",
+      "gameName": "Super Mario World Extra Categories",
+      "gameAbbreviation": "smwext",
+      "gameCover": "https://www.speedrun.com/static/game/268n5y6p/cover?v=dd3469f",
+      "categoryName": "11 Exit, Co-op",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "z0n0089m",
+          "date": "2023-03-20",
+          "submitted": "2023-03-20T16:19:59Z",
+          "seconds": 728,
+          "time": "12:08",
+          "video": "https://www.youtube.com/watch?v=CL-yDi6fuCI",
+          "runUrl": "https://www.speedrun.com/smwext/runs/z0n0089m",
+          "platform": "Switch",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "y6o8pnqy",
+          "date": "2023-03-22",
+          "submitted": "2023-03-22T17:13:46Z",
+          "seconds": 718,
+          "time": "11:58",
+          "video": "https://www.youtube.com/watch?v=mYkPSqCBA3E",
+          "runUrl": "https://www.speedrun.com/smwext/runs/y6o8pnqy",
+          "platform": "Switch",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "268n5y6p|9d8p0p3k|full-game",
+      "gameId": "268n5y6p",
+      "gameName": "Super Mario World Extra Categories",
+      "gameAbbreviation": "smwext",
+      "gameCover": "https://www.speedrun.com/static/game/268n5y6p/cover?v=dd3469f",
+      "categoryName": "11 Exit, Pacifist",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "pm36kldm",
+          "date": "2014-03-30",
+          "submitted": "2016-01-22T20:22:50Z",
+          "seconds": 706,
+          "time": "11:46",
+          "video": "https://www.youtube.com/watch?v=HQ2k4fc6v2c",
+          "runUrl": "https://www.speedrun.com/smwext/runs/pm36kldm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "268n5y6p|rklqro82|full-game|0nw2d7xn:0q5open1",
+      "gameId": "268n5y6p",
+      "gameName": "Super Mario World Extra Categories",
+      "gameAbbreviation": "smwext",
+      "gameCover": "https://www.speedrun.com/static/game/268n5y6p/cover?v=dd3469f",
+      "categoryName": "In the 6",
+      "levelName": null,
+      "variant": "No ACE",
+      "runs": [
+        {
+          "id": "zn8lw2vz",
+          "date": "2017-12-27",
+          "submitted": "2018-04-03T06:28:41Z",
+          "seconds": 497.4,
+          "time": "8:17.400",
+          "video": null,
+          "runUrl": "https://www.speedrun.com/smwext/runs/zn8lw2vz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "268n5y6p|rklx1xnk|full-game",
+      "gameId": "268n5y6p",
+      "gameName": "Super Mario World Extra Categories",
+      "gameAbbreviation": "smwext",
+      "gameCover": "https://www.speedrun.com/static/game/268n5y6p/cover?v=dd3469f",
+      "categoryName": "World 2",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "8yvrnpoz",
+          "date": "2013-01-01",
+          "submitted": "2016-02-28T15:49:17Z",
+          "seconds": 500,
+          "time": "8:20",
+          "video": null,
+          "runUrl": "https://www.speedrun.com/smwext/runs/8yvrnpoz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "v1pxxz68|9kvy6jkg|full-game",
+      "gameId": "v1pxxz68",
+      "gameName": "Super Meat Boy",
+      "gameAbbreviation": "smb",
+      "gameCover": "https://www.speedrun.com/static/game/v1pxxz68/cover?v=d504d11",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "9mekv28m",
+          "date": "2013-07-24",
+          "submitted": "2014-12-06T22:05:52Z",
+          "seconds": 1447,
+          "time": "24:07",
+          "video": "http://www.twitch.tv/volpegaming/c/2632929",
+          "runUrl": "https://www.speedrun.com/smb/runs/9mekv28m",
+          "platform": "PC",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "6yj68l3z",
+          "date": "2013-07-24",
+          "submitted": "2015-07-16T23:09:27Z",
+          "seconds": 1443,
+          "time": "24:03",
+          "video": "https://www.youtube.com/watch?v=Kh_Ih8IcS0Q",
+          "runUrl": "https://www.speedrun.com/smb/runs/6yj68l3z",
+          "platform": "PC",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "9d3xeedl|zd3ynl82|full-game",
+      "gameId": "9d3xeedl",
+      "gameName": "Takumi V",
+      "gameAbbreviation": "takumi_5",
+      "gameCover": "https://www.speedrun.com/static/game/9d3xeedl/cover?v=33d94e5",
+      "categoryName": "46 Exit",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "emkx41lz",
+          "date": "2017-01-07",
+          "submitted": "2017-01-09T23:07:56Z",
+          "seconds": 19875,
+          "time": "5:31:15",
+          "video": "https://www.youtube.com/watch?v=1fQoEk63h48",
+          "runUrl": "https://www.speedrun.com/takumi_5/runs/emkx41lz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8y84x5dz",
+          "date": "2017-02-09",
+          "submitted": "2017-02-09T19:28:09Z",
+          "seconds": 8563,
+          "time": "2:22:43",
+          "video": "https://www.youtube.com/watch?v=R0F0AFSYeDw",
+          "runUrl": "https://www.speedrun.com/takumi_5/runs/8y84x5dz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "m79gjp9y",
+          "date": "2017-07-06",
+          "submitted": "2017-07-06T00:39:46Z",
+          "seconds": 6568,
+          "time": "1:49:28",
+          "video": "https://www.youtube.com/watch?v=SKNxxYGiSZg",
+          "runUrl": "https://www.speedrun.com/takumi_5/runs/m79gjp9y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "y970rv2m",
+          "date": "2017-07-07",
+          "submitted": "2017-07-07T23:40:25Z",
+          "seconds": 4690,
+          "time": "1:18:10",
+          "video": "https://youtu.be/ZhYwA-DNhvE",
+          "runUrl": "https://www.speedrun.com/takumi_5/runs/y970rv2m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "9d3rr0dl|n2y180m2|full-game|68kzoq82:p129ogdl|rn1wzdlj:gq7298p1",
+      "gameId": "9d3rr0dl",
+      "gameName": "The Legend of Zelda: A Link to the Past",
+      "gameAbbreviation": "alttp",
+      "gameCover": "https://www.speedrun.com/static/game/9d3rr0dl/cover?v=60c3d10",
+      "categoryName": "Major Glitches",
+      "levelName": null,
+      "variant": "Any% · -",
+      "runs": [
+        {
+          "id": "pm35476y",
+          "date": "2015-06-18",
+          "submitted": "2015-06-19T10:43:12Z",
+          "seconds": 173.93,
+          "time": "2:53.930",
+          "video": "https://www.youtube.com/watch?v=k08vgAPdeBU",
+          "runUrl": "https://www.speedrun.com/alttp/runs/pm35476y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "ywk5qqny",
+          "date": "2021-11-02",
+          "submitted": "2021-11-02T18:12:06Z",
+          "seconds": 144,
+          "time": "2:24",
+          "video": "https://www.youtube.com/watch?v=PF-_-eRBAlo",
+          "runUrl": "https://www.speedrun.com/alttp/runs/ywk5qqny",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "y93wvrvy",
+          "date": "2021-11-03",
+          "submitted": "2021-11-03T16:56:10Z",
+          "seconds": 123,
+          "time": "2:03",
+          "video": "https://www.youtube.com/watch?v=7rcRH5wcGl0",
+          "runUrl": "https://www.speedrun.com/alttp/runs/y93wvrvy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "ywj9q8nz",
+          "date": "2022-03-23",
+          "submitted": "2022-03-23T20:29:20Z",
+          "seconds": 117,
+          "time": "1:57",
+          "video": "https://www.youtube.com/watch?v=Bdx_ekZm2U8",
+          "runUrl": "https://www.speedrun.com/alttp/runs/ywj9q8nz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "w6jlo5dj|wdmz8v52|full-game",
+      "gameId": "w6jlo5dj",
+      "gameName": "Tiny Toon Adventures: Buster Busts Loose!",
+      "gameAbbreviation": "ttabbl",
+      "gameCover": "https://www.speedrun.com/static/game/w6jlo5dj/cover?v=019b24c",
+      "categoryName": "Easy Mode",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "8yv21vxm",
+          "date": "2015-08-20",
+          "submitted": "2015-08-20T18:18:12Z",
+          "seconds": 611,
+          "time": "10:11",
+          "video": "https://www.youtube.com/watch?v=FEsjf8qAGUA",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/8yv21vxm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "1zqgvwxm",
+          "date": "2015-08-21",
+          "submitted": "2015-08-21T20:46:18Z",
+          "seconds": 503,
+          "time": "8:23",
+          "video": "https://www.youtube.com/watch?v=Y6of30VfObM",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/1zqgvwxm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "8m7w1oez",
+          "date": "2016-01-03",
+          "submitted": "2016-01-03T01:01:00Z",
+          "seconds": 498,
+          "time": "8:18",
+          "video": "https://www.youtube.com/watch?v=0oS-EzmcZmc",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/8m7w1oez",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "zxvv64qy",
+          "date": "2017-04-25",
+          "submitted": "2017-04-25T23:51:12Z",
+          "seconds": 470,
+          "time": "7:50",
+          "video": "https://youtu.be/7-aZvTO2Fqw",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/zxvv64qy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "ydqj2x0m",
+          "date": "2017-12-21",
+          "submitted": "2017-12-21T05:27:26Z",
+          "seconds": 454,
+          "time": "7:34",
+          "video": "https://www.youtube.com/watch?v=FyMCbCbgkNs",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/ydqj2x0m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "zgneoxdy",
+          "date": "2017-12-22",
+          "submitted": "2017-12-22T04:06:27Z",
+          "seconds": 448.833,
+          "time": "7:28.833",
+          "video": "https://www.youtube.com/watch?v=n6oOj5N9BtE",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/zgneoxdy",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "w6jlo5dj|vdo03xyd|full-game",
+      "gameId": "w6jlo5dj",
+      "gameName": "Tiny Toon Adventures: Buster Busts Loose!",
+      "gameAbbreviation": "ttabbl",
+      "gameCover": "https://www.speedrun.com/static/game/w6jlo5dj/cover?v=019b24c",
+      "categoryName": "Hard Mode",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "1zxg7gey",
+          "date": "2015-10-13",
+          "submitted": "2015-10-13T17:11:13Z",
+          "seconds": 1956,
+          "time": "32:36",
+          "video": "https://www.youtube.com/watch?v=0A42HWXWgcg",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/1zxg7gey",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "emkk675m",
+          "date": "2016-03-06",
+          "submitted": "2016-03-06T19:49:00Z",
+          "seconds": 1689,
+          "time": "28:09",
+          "video": "https://www.youtube.com/watch?v=b5KRBTcKNRU",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/emkk675m",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "w6jlo5dj|rklg88dn|full-game",
+      "gameId": "w6jlo5dj",
+      "gameName": "Tiny Toon Adventures: Buster Busts Loose!",
+      "gameAbbreviation": "ttabbl",
+      "gameCover": "https://www.speedrun.com/static/game/w6jlo5dj/cover?v=019b24c",
+      "categoryName": "Normal Mode",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "7ylvnkkm",
+          "date": "2015-02-01",
+          "submitted": "2015-07-16T23:10:24Z",
+          "seconds": 1749,
+          "time": "29:09",
+          "video": "https://www.youtube.com/watch?v=0WVCRwKN3zc",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/7ylvnkkm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "pyd028qz",
+          "date": "2015-07-20",
+          "submitted": "2015-07-20T17:20:29Z",
+          "seconds": 1677,
+          "time": "27:57",
+          "video": "https://www.youtube.com/watch?v=E79CkHhRrA4",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/pyd028qz",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "pm3nn94y",
+          "date": "2015-08-17",
+          "submitted": "2015-08-17T19:13:11Z",
+          "seconds": 1587,
+          "time": "26:27",
+          "video": "https://www.youtube.com/watch?v=7f2C09hLtV8",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/pm3nn94y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "0zno1e9y",
+          "date": "2015-08-20",
+          "submitted": "2015-08-20T18:18:49Z",
+          "seconds": 1569,
+          "time": "26:09",
+          "video": "https://www.youtube.com/watch?v=fjv9n0z3Hyg",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/0zno1e9y",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "7ylor0ry",
+          "date": "2015-08-21",
+          "submitted": "2015-08-21T17:59:36Z",
+          "seconds": 1475,
+          "time": "24:35",
+          "video": "https://www.youtube.com/watch?v=hOPoqjT5ZNE",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/7ylor0ry",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "dy4q4xdm",
+          "date": "2016-03-05",
+          "submitted": "2016-03-05T17:35:27Z",
+          "seconds": 1444,
+          "time": "24:04",
+          "video": "https://www.youtube.com/watch?v=4T59k7FyIgU",
+          "runUrl": "https://www.speedrun.com/ttabbl/runs/dy4q4xdm",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "j1ll43z1|n2y53v8k|full-game|9l7x40pn:gq7prvnq|ylpve4rl:rqv6jpwl",
+      "gameId": "j1ll43z1",
+      "gameName": "Yoshi's Island Category Extensions",
+      "gameAbbreviation": "yiext",
+      "gameCover": "https://www.speedrun.com/static/game/j1ll43z1/cover?v=4a83580",
+      "categoryName": "Individual Worlds",
+      "levelName": null,
+      "variant": "World 1 · Warps",
+      "runs": [
+        {
+          "id": "ywvpl72z",
+          "date": "2022-12-17",
+          "submitted": "2022-12-17T15:49:15Z",
+          "seconds": 667,
+          "time": "11:07",
+          "video": "https://www.youtube.com/watch?v=_m4zERlFLA8",
+          "runUrl": "https://www.speedrun.com/yiext/runs/ywvpl72z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "j1ll43z1|q25q7x82|full-game",
+      "gameId": "j1ll43z1",
+      "gameName": "Yoshi's Island Category Extensions",
+      "gameAbbreviation": "yiext",
+      "gameCover": "https://www.speedrun.com/static/game/j1ll43z1/cover?v=4a83580",
+      "categoryName": "Left+Right",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "yw4vkg9z",
+          "date": "2014-07-21",
+          "submitted": "2019-11-02T14:01:49Z",
+          "seconds": 446,
+          "time": "7:26",
+          "video": "https://www.youtube.com/watch?v=jdRMbWW5QgI",
+          "runUrl": "https://www.speedrun.com/yiext/runs/yw4vkg9z",
+          "platform": "Super Nintendo",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "4d7e0l67|xk9005gk|full-game",
+      "gameId": "4d7e0l67",
+      "gameName": "Yoshi's Island: Super Mario Advance 3",
+      "gameAbbreviation": "sma3",
+      "gameCover": "https://www.speedrun.com/static/game/4d7e0l67/cover?v=bfd1de9",
+      "categoryName": "Warpless",
+      "levelName": null,
+      "variant": null,
+      "runs": [
+        {
+          "id": "mkqrkx3m",
+          "date": "2024-01-17",
+          "submitted": "2024-01-17T03:15:33Z",
+          "seconds": 8819,
+          "time": "2:26:59",
+          "video": "https://www.youtube.com/watch?v=DLw3JyXomGs",
+          "runUrl": "https://www.speedrun.com/sma3/runs/mkqrkx3m",
+          "platform": "Switch Virtual Console",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "nd280rd0|q25g0jdo|full-game|j84ok2l9:jq6vp071",
+      "gameId": "nd280rd0",
+      "gameName": "Yoshi's Story",
+      "gameAbbreviation": "yoshis_story",
+      "gameCover": "https://www.speedrun.com/static/game/nd280rd0/cover?v=1489ff7",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "US/EU",
+      "runs": [
+        {
+          "id": "6yj91vdz",
+          "date": "2016-09-16",
+          "submitted": "2016-09-16T15:38:05Z",
+          "seconds": 906,
+          "time": "15:06",
+          "video": "https://www.youtube.com/watch?v=eg_ap9bVcFM",
+          "runUrl": "https://www.speedrun.com/yoshis_story/runs/6yj91vdz",
+          "platform": "Wii Virtual Console",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "1zxxoqqz",
+          "date": "2016-09-18",
+          "submitted": "2016-09-18T16:46:11Z",
+          "seconds": 877,
+          "time": "14:37",
+          "video": "https://www.youtube.com/watch?v=6nl4getXeHM",
+          "runUrl": "https://www.speedrun.com/yoshis_story/runs/1zxxoqqz",
+          "platform": "Wii Virtual Console",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "nd280rd0|q25g0jdo|full-game|j84ok2l9:5lm2pk4q",
+      "gameId": "nd280rd0",
+      "gameName": "Yoshi's Story",
+      "gameAbbreviation": "yoshis_story",
+      "gameCover": "https://www.speedrun.com/static/game/nd280rd0/cover?v=1489ff7",
+      "categoryName": "Any%",
+      "levelName": null,
+      "variant": "JP (N64)",
+      "runs": [
+        {
+          "id": "yvojvd6z",
+          "date": "2021-08-05",
+          "submitted": "2021-08-05T17:15:38Z",
+          "seconds": 1377,
+          "time": "22:57",
+          "video": "https://www.youtube.com/watch?v=8wvovgmBT6k",
+          "runUrl": "https://www.speedrun.com/yoshis_story/runs/yvojvd6z",
+          "platform": "Nintendo 64",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "yo62o1dy",
+          "date": "2021-08-05",
+          "submitted": "2021-08-05T17:27:32Z",
+          "seconds": 1180,
+          "time": "19:40",
+          "video": "https://www.youtube.com/watch?v=H0wXRyBfU6Q",
+          "runUrl": "https://www.speedrun.com/yoshis_story/runs/yo62o1dy",
+          "platform": "Nintendo 64",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "zxo45nkz",
+          "date": "2021-08-06",
+          "submitted": "2021-08-06T16:59:08Z",
+          "seconds": 1026,
+          "time": "17:06",
+          "video": "https://www.youtube.com/watch?v=wP0HuA2_96w",
+          "runUrl": "https://www.speedrun.com/yoshis_story/runs/zxo45nkz",
+          "platform": "Nintendo 64",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "yde65nvm",
+          "date": "2021-08-08",
+          "submitted": "2021-08-08T15:46:53Z",
+          "seconds": 1007,
+          "time": "16:47",
+          "video": "https://www.youtube.com/watch?v=Pyuwzp_gJCU",
+          "runUrl": "https://www.speedrun.com/yoshis_story/runs/yde65nvm",
+          "platform": "Nintendo 64",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "mrne6r2y",
+          "date": "2021-08-09",
+          "submitted": "2021-08-09T15:11:24Z",
+          "seconds": 983,
+          "time": "16:23",
+          "video": "https://www.youtube.com/watch?v=QhfdSKiPpUM",
+          "runUrl": "https://www.speedrun.com/yoshis_story/runs/mrne6r2y",
+          "platform": "Nintendo 64",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "ywk4npny",
+          "date": "2021-08-10",
+          "submitted": "2021-08-10T14:26:37Z",
+          "seconds": 972,
+          "time": "16:12",
+          "video": "https://www.youtube.com/watch?v=-8_aJ_g68ug",
+          "runUrl": "https://www.speedrun.com/yoshis_story/runs/ywk4npny",
+          "platform": "Nintendo 64",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "y8e1nddy",
+          "date": "2021-08-11",
+          "submitted": "2021-08-11T17:41:30Z",
+          "seconds": 969,
+          "time": "16:09",
+          "video": "https://www.youtube.com/watch?v=-wBMXWXYjPc",
+          "runUrl": "https://www.speedrun.com/yoshis_story/runs/y8e1nddy",
+          "platform": "Nintendo 64",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "zqvrx35m",
+          "date": "2021-08-12",
+          "submitted": "2021-08-12T13:20:16Z",
+          "seconds": 965,
+          "time": "16:05",
+          "video": "https://www.youtube.com/watch?v=uzF-aPmMvxU",
+          "runUrl": "https://www.speedrun.com/yoshis_story/runs/zqvrx35m",
+          "platform": "Nintendo 64",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pd040w6e|z27g7gz2|full-game|r8r7mwne:21dww4le",
+      "gameId": "pd040w6e",
+      "gameName": "Yoshi's Woolly World",
+      "gameAbbreviation": "yww",
+      "gameCover": "https://www.speedrun.com/static/game/pd040w6e/cover?v=9849a88",
+      "categoryName": "Any% (Classic Mode)",
+      "levelName": null,
+      "variant": "Normal",
+      "runs": [
+        {
+          "id": "0y6r3wpy",
+          "date": "2015-06-26",
+          "submitted": "2015-06-26T19:40:48Z",
+          "seconds": 22286,
+          "time": "6:11:26",
+          "video": "http://www.twitch.tv/volpey/b/672732961",
+          "runUrl": "https://www.speedrun.com/yww/runs/0y6r3wpy",
+          "platform": "Wii U",
+          "emulated": false,
+          "current": false
+        },
+        {
+          "id": "kz53ovdy",
+          "date": "2015-06-27",
+          "submitted": "2015-06-27T21:48:14Z",
+          "seconds": 13181,
+          "time": "3:39:41",
+          "video": "http://www.twitch.tv/volpey/c/6890495",
+          "runUrl": "https://www.speedrun.com/yww/runs/kz53ovdy",
+          "platform": "Wii U",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "pd040w6e|z27g7gz2|full-game|ql64vk89:81wd26q4|r8r7mwne:21dww4le",
+      "gameId": "pd040w6e",
+      "gameName": "Yoshi's Woolly World",
+      "gameAbbreviation": "yww",
+      "gameCover": "https://www.speedrun.com/static/game/pd040w6e/cover?v=9849a88",
+      "categoryName": "Any% (Classic Mode)",
+      "levelName": null,
+      "variant": "1 Controller · Normal",
+      "runs": [
+        {
+          "id": "emk84rvm",
+          "date": "2015-06-28",
+          "submitted": "2015-06-28T22:01:06Z",
+          "seconds": 11291,
+          "time": "3:08:11",
+          "video": "http://youtu.be/6il1-Yb0prs",
+          "runUrl": "https://www.speedrun.com/yww/runs/emk84rvm",
+          "platform": "Wii U",
+          "emulated": false,
+          "current": true
+        }
+      ]
+    }
+  ]
+}
