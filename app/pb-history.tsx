@@ -234,7 +234,7 @@ function HistoryBlock({
   const [copied, setCopied] = useState(false);
   const run = history.runs[selected];
   const embed = embedUrl(run.video, shouldAutoplay);
-  const embedPath = `/${encodeURIComponent(username)}/embed?history=${encodeURIComponent(history.id)}`;
+  const embedPath = `/${encodeURIComponent(username)}/embed/${encodeURIComponent(history.id)}`;
   const embedSource =
     typeof window === "undefined"
       ? embedPath
