@@ -8,17 +8,27 @@ const requestHeaders = {
 
 type ApiRecord = Record<string, any>;
 
-async function get(path: string) {
+async function request(path: string, allowNotFound = false) {
   const response = await fetch(`${API}${path}`, {
     cache: "no-store",
     headers: requestHeaders,
   });
+
+  if (allowNotFound && response.status === 404) return null;
 
   if (!response.ok) {
     throw new Error(`speedrun.com returned ${response.status} for ${path}`);
   }
 
   return response.json() as Promise<ApiRecord>;
+}
+
+async function get(path: string) {
+  return (await request(path))!;
+}
+
+async function getOptional(path: string) {
+  return request(path, true);
 }
 
 async function getAllRuns(userId: string) {
@@ -47,12 +57,14 @@ async function mapById(
   pathForId: (id: string) => string,
 ) {
   const unique = [...new Set(ids.filter(Boolean))] as string[];
-  const entries = await Promise.all(
-    unique.map(async (id) => {
-      const payload = await get(pathForId(id));
-      return [id, payload.data] as const;
-    }),
-  );
+  const entries = (
+    await Promise.all(
+      unique.map(async (id) => {
+        const payload = await getOptional(pathForId(id));
+        return payload?.data ? ([id, payload.data] as const) : null;
+      }),
+    )
+  ).filter((entry): entry is readonly [string, ApiRecord] => entry !== null);
   return Object.fromEntries(entries) as Record<string, ApiRecord>;
 }
 
