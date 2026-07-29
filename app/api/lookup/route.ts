@@ -57,13 +57,18 @@ export async function GET(request: Request) {
 
     const name = user.names?.international ?? username;
     const country = user.location?.country?.names?.international ?? null;
+    const sourceAvatar =
+      user.assets?.image?.uri ?? user.assets?.icon?.uri ?? null;
+    const avatar = sourceAvatar
+      ? `https://images.weserv.nl/?url=${encodeURIComponent(sourceAvatar)}&w=128&h=128&fit=cover&output=webp`
+      : null;
 
     return NextResponse.json(
       {
         id: user.id,
         name,
         country,
-        avatar: user.assets?.image?.uri ?? user.assets?.icon?.uri ?? null,
+        avatar,
         profileUrl: user.weblink ?? `https://www.speedrun.com/users/${name}`,
         archiveUrl: `/${encodeURIComponent(name)}`,
       },
