@@ -587,22 +587,21 @@ export default function PBHistory({ data }: { data: SiteData }) {
             </span>
           </div>
 
-          <h1>Hi, I’m {data.profile.name}.</h1>
+          <h1>{data.profile.name}’s PB Archive</h1>
           <p className="hero-lede">
-            I made this site to keep all of my speedrun PBs in one place.
+            A complete history of {data.profile.name}’s verified speedruns.
+            Current records, obsolete PBs, and every improvement in between.
           </p>
           <p>
-            Pick a game and you can watch how the times changed—right back to
-            the old, obsolete runs I probably thought were pretty good at the
-            time.
+            Choose a game to explore the timeline and watch the available runs.
           </p>
           <a className="primary-link" href="#games">
-            BROWSE MY RUNS <span>↓</span>
+            EXPLORE THE RUNS <span>↓</span>
           </a>
         </div>
 
         <aside className="hero-note" aria-label="A note about the archive">
-          <span className="note-label">WHAT’S IN HERE</span>
+          <span className="note-label">ARCHIVE AT A GLANCE</span>
           <p>
             <strong>{data.stats.games} games</strong>,{" "}
             <strong>{data.stats.histories} categories</strong>, and{" "}
@@ -613,7 +612,6 @@ export default function PBHistory({ data }: { data: SiteData }) {
             That adds up to {totalHours} hours and {totalMinutes} minutes of
             finished runs across {data.stats.platforms} platforms.
           </p>
-          <small>Yes, I kept the bad runs too.</small>
         </aside>
       </section>
 
