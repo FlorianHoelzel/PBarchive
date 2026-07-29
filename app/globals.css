@@ -192,11 +192,12 @@ footer a:hover {
 }
 
 .hero h1 {
-  font-size: clamp(52px, 6.3vw, 96px);
+  font-size: clamp(44px, 5.6vw, 84px);
   font-weight: 800;
   letter-spacing: -0.065em;
   line-height: 0.92;
   margin: 0 0 30px;
+  white-space: nowrap;
 }
 
 .accent-name {
@@ -1569,7 +1570,8 @@ footer p {
   }
 
   .hero h1 {
-    font-size: clamp(48px, 14vw, 68px);
+    font-size: clamp(42px, 8vw, 50px);
+    white-space: normal;
   }
 
   .hero-profile {
