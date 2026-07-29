@@ -259,7 +259,7 @@ footer a:hover {
   border-bottom: 1px solid var(--line);
   color: var(--muted);
   display: flex;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   height: 42px;
   justify-content: space-between;
@@ -296,7 +296,7 @@ footer a:hover {
 .year-column strong,
 .year-column small {
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   font-style: normal;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -336,13 +336,13 @@ footer a:hover {
 .ranked-games a > span,
 .ranked-games a > strong {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
 }
 
 .ranked-games a > strong {
   color: var(--acid);
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .ranked-games a div {
@@ -352,7 +352,7 @@ footer a:hover {
 }
 
 .ranked-games b {
-  font-size: 11px;
+  font-size: 14px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -426,7 +426,7 @@ footer a:hover {
 }
 
 .platform-legend b {
-  font-size: 10px;
+  font-size: 13px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -434,7 +434,7 @@ footer a:hover {
 
 .platform-legend small {
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   grid-column: 2;
   letter-spacing: 0.06em;
 }
@@ -460,7 +460,7 @@ footer a:hover {
 
 .peak-year span {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.12em;
   margin-top: 12px;
@@ -477,13 +477,13 @@ footer a:hover {
 .latest-pb span,
 .latest-pb small {
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 
 .latest-pb b {
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .game-index {
@@ -1140,7 +1140,7 @@ footer p {
   }
 
   .year-column strong {
-    font-size: 7px;
+    font-size: 9px;
   }
 
   .platform-legend {
