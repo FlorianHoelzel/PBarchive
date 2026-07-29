@@ -552,88 +552,45 @@ export default function PBHistory({ data }: { data: SiteData }) {
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-file">
-          <div className="file-bar">
-            <span>PLAYER FILE / 01</span>
-            <span className="file-status">
-              <i aria-hidden="true" /> SAVE DATA FOUND
+        <div className="hero-intro">
+          <div className="hero-profile">
+            {data.profile.avatar && (
+              <img src={data.profile.avatar} alt="" width="64" height="64" />
+            )}
+            <span>
+              <b>@{data.profile.name}</b>
+              <small>{data.profile.country} · speedrunning since {earliestYear}</small>
             </span>
           </div>
 
-          <div className="hero-file-content">
-            <div className="hero-copy">
-              <div className="player-card">
-                {data.profile.avatar && (
-                  <img src={data.profile.avatar} alt="" width="58" height="58" />
-                )}
-                <span>
-                  <small>PLAYER 01</small>
-                  <b>@{data.profile.name}</b>
-                  <small>{data.profile.country}</small>
-                </span>
-              </div>
-              <span className="eyebrow">A PERSONAL SPEEDRUN TIMELINE</span>
-              <h1>
-                Every second
-                <br />
-                <em>earned.</em>
-              </h1>
-              <p>
-                Current records, retired runs, and every tiny improvement in
-                between. Pick a game, press play, and rewind the whole journey.
-              </p>
-              <a className="primary-link" href="#games">
-                OPEN THE ARCHIVE <span>↓</span>
-              </a>
-            </div>
-
-            <aside className="save-data" aria-label="Archive statistics">
-              <div className="save-data-heading">
-                <span>SAVE DATA</span>
-                <b>★ ACTIVE</b>
-              </div>
-              <dl>
-                <div>
-                  <dt>GAMES LOGGED</dt>
-                  <dd>{data.stats.games}</dd>
-                </div>
-                <div>
-                  <dt>CATEGORIES</dt>
-                  <dd>{data.stats.histories}</dd>
-                </div>
-                <div>
-                  <dt>PB MILESTONES</dt>
-                  <dd>{data.stats.pbRuns}</dd>
-                </div>
-                <div>
-                  <dt>PLATFORMS</dt>
-                  <dd>{data.stats.platforms}</dd>
-                </div>
-                <div>
-                  <dt>YEARS TRACKED</dt>
-                  <dd>{yearsTracked}</dd>
-                </div>
-                <div>
-                  <dt>TOTAL RUN TIME</dt>
-                  <dd>
-                    {totalHours}H {totalMinutes}M
-                  </dd>
-                </div>
-              </dl>
-              <div className="save-slots" aria-hidden="true">
-                {Array.from({ length: 12 }, (_, index) => (
-                  <i key={index} />
-                ))}
-              </div>
-            </aside>
-          </div>
-
-          <div className="file-footer">
-            <span>EST. {earliestYear}</span>
-            <span>NO RESET / FULL HISTORY</span>
-            <span>{yearsTracked} YEARS TRACKED</span>
-          </div>
+          <h1>Hi, I’m Volpey.</h1>
+          <p className="hero-lede">
+            I made this site to keep all of my speedrun PBs in one place.
+          </p>
+          <p>
+            Pick a game and you can watch how the times changed—right back to
+            the old, obsolete runs I probably thought were pretty good at the
+            time.
+          </p>
+          <a className="primary-link" href="#games">
+            BROWSE MY RUNS <span>↓</span>
+          </a>
         </div>
+
+        <aside className="hero-note" aria-label="A note about the archive">
+          <span className="note-label">WHAT’S IN HERE</span>
+          <p>
+            <strong>{data.stats.games} games</strong>,{" "}
+            <strong>{data.stats.histories} categories</strong>, and{" "}
+            <strong>{data.stats.pbRuns} PBs</strong> collected over{" "}
+            <strong>{yearsTracked} years</strong>.
+          </p>
+          <p>
+            That adds up to {totalHours} hours and {totalMinutes} minutes of
+            finished runs across {data.stats.platforms} platforms.
+          </p>
+          <small>Yes, I kept the bad runs too.</small>
+        </aside>
       </section>
 
       <ArchiveOverview histories={data.histories} />
