@@ -536,6 +536,87 @@ type ArchiveGame = {
   displayCount: number;
 };
 
+type CoverPalette = {
+  first: string;
+  second: string;
+  accent: string;
+};
+
+function extractCoverPalette(image: HTMLImageElement): CoverPalette | null {
+  try {
+    const canvas = document.createElement("canvas");
+    canvas.width = 32;
+    canvas.height = 32;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    if (!context) return null;
+
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    const colors = new Map<
+      string,
+      { red: number; green: number; blue: number; score: number }
+    >();
+
+    for (let index = 0; index < pixels.length; index += 4) {
+      if (pixels[index + 3] < 200) continue;
+      const red = Math.round(pixels[index] / 32) * 32;
+      const green = Math.round(pixels[index + 1] / 32) * 32;
+      const blue = Math.round(pixels[index + 2] / 32) * 32;
+      const maximum = Math.max(red, green, blue);
+      const minimum = Math.min(red, green, blue);
+      const saturation = maximum - minimum;
+      const lightness = (maximum + minimum) / 2;
+      if (lightness < 36 || lightness > 230 || saturation < 24) continue;
+
+      const key = `${red}-${green}-${blue}`;
+      const current = colors.get(key);
+      const weight = 1 + saturation / 80;
+      if (current) current.score += weight;
+      else colors.set(key, { red, green, blue, score: weight });
+    }
+
+    const ranked = [...colors.values()].sort(
+      (first, second) => second.score - first.score,
+    );
+    if (!ranked.length) return null;
+
+    const primary = ranked[0];
+    const distance = (
+      first: (typeof ranked)[number],
+      second: (typeof ranked)[number],
+    ) =>
+      Math.hypot(
+        first.red - second.red,
+        first.green - second.green,
+        first.blue - second.blue,
+      );
+    const secondary =
+      ranked.find((color) => distance(primary, color) > 105) ??
+      ranked[1] ??
+      primary;
+
+    const paper = [244, 242, 237];
+    const mix = (color: (typeof ranked)[number], strength: number) =>
+      `rgb(${[color.red, color.green, color.blue]
+        .map((channel, channelIndex) =>
+          Math.round(
+            channel * strength + paper[channelIndex] * (1 - strength),
+          ),
+        )
+        .join(" ")})`;
+    const solid = (color: (typeof ranked)[number]) =>
+      `rgb(${color.red} ${color.green} ${color.blue})`;
+
+    return {
+      first: mix(primary, 0.58),
+      second: mix(secondary, 0.5),
+      accent: solid(primary),
+    };
+  } catch {
+    return null;
+  }
+}
+
 function GameHeading({
   game,
   index,
@@ -543,9 +624,12 @@ function GameHeading({
   game: ArchiveGame;
   index: number;
 }) {
-  const style = game.cover
+  const [palette, setPalette] = useState<CoverPalette | null>(null);
+  const style = palette
     ? ({
-        "--game-cover-image": `url("${game.cover.replaceAll('"', "%22")}")`,
+        "--game-color-first": palette.first,
+        "--game-color-second": palette.second,
+        "--game-cover-accent": palette.accent,
       } as CSSProperties)
     : undefined;
 
@@ -572,6 +656,14 @@ function GameHeading({
           width="78"
           height="104"
           loading="lazy"
+          onLoad={() => {
+            const paletteImage = new Image();
+            paletteImage.onload = () => {
+              const nextPalette = extractCoverPalette(paletteImage);
+              if (nextPalette) setPalette(nextPalette);
+            };
+            paletteImage.src = `/api/cover?url=${encodeURIComponent(game.cover!)}`;
+          }}
         />
       )}
     </header>
