@@ -192,12 +192,36 @@ footer a:hover {
 }
 
 .hero h1 {
-  font-size: clamp(44px, 5.6vw, 84px);
+  --hero-title-fluid: 5.6vw;
+  --hero-title-max: 84px;
+  --hero-title-min: 44px;
+  font-size: clamp(
+    var(--hero-title-min),
+    var(--hero-title-fluid),
+    var(--hero-title-max)
+  );
   font-weight: 800;
   letter-spacing: -0.065em;
   line-height: 0.92;
   margin: 0 0 30px;
   white-space: nowrap;
+}
+
+.hero h1.hero-title-medium {
+  --hero-title-fluid: 3.7vw;
+  --hero-title-max: 56px;
+  --hero-title-min: 40px;
+}
+
+.hero h1.hero-title-long {
+  --hero-title-fluid: 3.4vw;
+  --hero-title-max: 52px;
+  --hero-title-min: 36px;
+  white-space: normal;
+}
+
+.hero-title-long .accent-name {
+  overflow-wrap: anywhere;
 }
 
 .accent-name {

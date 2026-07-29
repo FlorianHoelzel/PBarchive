@@ -577,6 +577,12 @@ export default function PBHistory({ data }: { data: SiteData }) {
             : data.profile.nameColor.from,
       } as CSSProperties)
     : undefined;
+  const heroTitleMode =
+    data.profile.name.length <= 10
+      ? "short"
+      : data.profile.name.length <= 18
+        ? "medium"
+        : "long";
 
   return (
     <main style={archiveStyle}>
@@ -631,8 +637,9 @@ export default function PBHistory({ data }: { data: SiteData }) {
             </span>
           </div>
 
-          <h1>
+          <h1 className={`hero-title-${heroTitleMode}`}>
             <span className="accent-name">{data.profile.name}’s</span>{" "}
+            {heroTitleMode === "long" && <br />}
             PB Archive
           </h1>
           <p className="hero-lede">
