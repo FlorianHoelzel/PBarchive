@@ -634,27 +634,61 @@ footer a:hover {
   bottom: 72px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   position: fixed;
   right: 16px;
   top: 84px;
-  width: 236px;
+  transition: width 180ms ease, border-color 180ms ease;
+  width: 42px;
   z-index: 35;
+}
+
+.archive-navigator::after {
+  color: var(--acid);
+  content: "ARCHIVE";
+  font-size: 9px;
+  font-weight: 900;
+  left: 50%;
+  letter-spacing: 0.18em;
+  position: absolute;
+  top: 18px;
+  transform: translateX(-50%);
+  transition: opacity 100ms ease;
+  writing-mode: vertical-rl;
+}
+
+.archive-navigator:hover,
+.archive-navigator:focus-within {
+  border-color: color-mix(in srgb, var(--acid) 45%, var(--line));
+  width: 236px;
+}
+
+.archive-navigator:hover::after,
+.archive-navigator:focus-within::after {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .archive-navigator-heading {
   align-items: center;
   border-bottom: 1px solid var(--line);
   display: flex;
+  flex: 0 0 auto;
   justify-content: space-between;
   min-height: 42px;
+  min-width: 234px;
+  opacity: 0;
   padding: 0 12px;
+  pointer-events: none;
+  transform: translateX(8px);
+  transition: opacity 120ms ease 20ms, transform 160ms ease;
 }
 
 .archive-navigator-heading span,
 .archive-navigator-heading b,
 .archive-navigator > nav > a,
 .navigator-game > a {
-  font-size: 8px;
+  font-size: 9px;
   font-weight: 900;
   letter-spacing: 0.12em;
 }
@@ -669,9 +703,23 @@ footer a:hover {
 
 .archive-navigator nav {
   min-height: 0;
+  min-width: 234px;
+  opacity: 0;
   overflow-y: auto;
+  pointer-events: none;
   scrollbar-color: var(--acid) transparent;
   scrollbar-width: thin;
+  transform: translateX(8px);
+  transition: opacity 120ms ease 20ms, transform 160ms ease;
+}
+
+.archive-navigator:hover .archive-navigator-heading,
+.archive-navigator:hover nav,
+.archive-navigator:focus-within .archive-navigator-heading,
+.archive-navigator:focus-within nav {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
 }
 
 .archive-navigator > nav > a,
@@ -715,7 +763,7 @@ footer a:hover {
 .navigator-categories a {
   color: var(--muted);
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.25;
   padding: 6px 4px;
 }
@@ -745,7 +793,7 @@ footer a:hover {
 
 .archive-navigator-mobile > span {
   color: var(--acid);
-  font-size: 8px;
+  font-size: 9px;
   font-weight: 900;
   letter-spacing: 0.12em;
   padding-left: 4px;
@@ -756,7 +804,7 @@ footer a:hover {
   border: 1px solid var(--line);
   color: var(--paper);
   cursor: pointer;
-  font: 800 10px/1.2 inherit;
+  font: 800 11px/1.2 inherit;
   max-width: 260px;
   padding: 8px 28px 8px 9px;
 }
