@@ -625,6 +625,20 @@ function GameHeading({
   index: number;
 }) {
   const [palette, setPalette] = useState<CoverPalette | null>(null);
+  useEffect(() => {
+    if (!game.cover) return;
+    let active = true;
+    const paletteImage = new Image();
+    paletteImage.onload = () => {
+      const nextPalette = extractCoverPalette(paletteImage);
+      if (active && nextPalette) setPalette(nextPalette);
+    };
+    paletteImage.src = `/api/cover?url=${encodeURIComponent(game.cover)}`;
+    return () => {
+      active = false;
+    };
+  }, [game.cover]);
+
   const style = palette
     ? ({
         "--game-color-first": palette.first,
@@ -656,14 +670,6 @@ function GameHeading({
           width="78"
           height="104"
           loading="lazy"
-          onLoad={() => {
-            const paletteImage = new Image();
-            paletteImage.onload = () => {
-              const nextPalette = extractCoverPalette(paletteImage);
-              if (nextPalette) setPalette(nextPalette);
-            };
-            paletteImage.src = `/api/cover?url=${encodeURIComponent(game.cover!)}`;
-          }}
         />
       )}
     </header>
