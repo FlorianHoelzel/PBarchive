@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 
 type LookupResult = {
   id: string;
@@ -18,14 +18,6 @@ export default function LandingPage() {
   const [result, setResult] = useState<LookupResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [avatarFailed, setAvatarFailed] = useState(false);
-  const nameStyle = result?.nameColor?.from
-    ? ({
-        backgroundImage: `linear-gradient(90deg, ${result.nameColor.from}, ${result.nameColor.to ?? result.nameColor.from})`,
-        backgroundClip: "text",
-        WebkitBackgroundClip: "text",
-        color: "transparent",
-      } satisfies CSSProperties)
-    : undefined;
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -129,7 +121,7 @@ export default function LandingPage() {
                   </span>
                 )}
                 <span className="lookup-identity">
-                  <b style={nameStyle}>{result.name}</b>
+                  <b>{result.name}</b>
                   <small>{result.country ?? "speedrun.com user"}</small>
                 </span>
                 <span className="lookup-actions">

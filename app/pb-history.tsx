@@ -539,17 +539,14 @@ export default function PBHistory({ data }: { data: SiteData }) {
     data.profile.name.toLowerCase() === "volpey"
       ? "/volpey-avatar.png"
       : data.profile.avatar;
-  const nameStyle = data.profile.nameColor?.from
+  const archiveStyle = data.profile.nameColor?.from
     ? ({
-        backgroundImage: `linear-gradient(90deg, ${data.profile.nameColor.from}, ${data.profile.nameColor.to ?? data.profile.nameColor.from})`,
-        backgroundClip: "text",
-        WebkitBackgroundClip: "text",
-        color: "transparent",
-      } satisfies CSSProperties)
+        "--acid": data.profile.nameColor.from,
+      } as CSSProperties)
     : undefined;
 
   return (
-    <main>
+    <main style={archiveStyle}>
       <header className="site-header">
         <a
           className="brand"
@@ -570,8 +567,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
             </span>
           )}
           <span>
-            <span style={nameStyle}>{data.profile.name.toUpperCase()}</span> / PB
-            ARCHIVE
+            {data.profile.name.toUpperCase()} / PB ARCHIVE
           </span>
         </a>
         <nav aria-label="Primary">
@@ -594,14 +590,12 @@ export default function PBHistory({ data }: { data: SiteData }) {
               </span>
             )}
             <span>
-              <b style={nameStyle}>@{data.profile.name}</b>
+              <b>@{data.profile.name}</b>
               <small>{data.profile.country} · speedrunning since {earliestYear}</small>
             </span>
           </div>
 
-          <h1>
-            <span style={nameStyle}>{data.profile.name}</span>’s PB Archive
-          </h1>
+          <h1>{data.profile.name}’s PB Archive</h1>
           <p className="hero-lede">
             A complete history of {data.profile.name}’s speedruns.
             Current records, obsolete PBs, and every improvement in between.
