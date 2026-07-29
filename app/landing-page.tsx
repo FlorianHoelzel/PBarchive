@@ -97,7 +97,7 @@ export default function LandingPage() {
             </p>
             {result && (
               <div className="lookup-result">
-                {result.archiveUrl ? (
+                {result.name.toLowerCase() === "volpey" ? (
                   <img
                     src="/volpey-avatar.png"
                     alt=""
