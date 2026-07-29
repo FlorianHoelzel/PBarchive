@@ -2,27 +2,55 @@
 
 import { FormEvent, useState } from "react";
 
+type LookupResult = {
+  id: string;
+  name: string;
+  country: string | null;
+  profileUrl: string;
+  archiveUrl: string | null;
+};
+
 export default function LandingPage() {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
+  const [result, setResult] = useState<LookupResult | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const cleanUsername = username.trim().replace(/^@/, "");
 
     if (!cleanUsername) {
       setMessage("Enter a speedrun.com username first.");
+      setResult(null);
       return;
     }
 
-    if (cleanUsername.toLowerCase() === "volpey") {
-      window.location.href = "/volpey";
-      return;
-    }
+    setIsLoading(true);
+    setMessage("");
+    setResult(null);
 
-    setMessage(
-      `${cleanUsername} isn’t loaded in this prototype yet. Try “Volpey” to see a complete archive.`,
-    );
+    try {
+      const response = await fetch(
+        `/api/lookup?username=${encodeURIComponent(cleanUsername)}`,
+        { cache: "no-store" },
+      );
+      const payload = (await response.json()) as LookupResult & {
+        error?: string;
+      };
+
+      if (!response.ok) {
+        setMessage(payload.error ?? "That username could not be found.");
+        return;
+      }
+
+      setResult(payload);
+      setMessage("Profile found. This result was fetched live from speedrun.com.");
+    } catch {
+      setMessage("The lookup failed. Check your connection and try again.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -57,16 +85,51 @@ export default function LandingPage() {
                 onChange={(event) => {
                   setUsername(event.target.value);
                   setMessage("");
+                  setResult(null);
                 }}
                 placeholder="Volpey"
                 autoComplete="off"
                 spellCheck="false"
               />
-              <button type="submit">FIND MY RUNS →</button>
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "LOOKING…" : "FIND USER →"}
+              </button>
             </div>
             <p className="search-message" aria-live="polite">
-              {message || "Prototype tip: try Volpey"}
+              {message || "Try any public speedrun.com username"}
             </p>
+            {result && (
+              <div className="lookup-result">
+                {result.archiveUrl ? (
+                  <img
+                    src="/volpey-avatar.png"
+                    alt=""
+                    width="54"
+                    height="54"
+                  />
+                ) : (
+                  <span className="lookup-initial" aria-hidden="true">
+                    {result.name.slice(0, 1).toUpperCase()}
+                  </span>
+                )}
+                <span className="lookup-identity">
+                  <b>{result.name}</b>
+                  <small>{result.country ?? "speedrun.com user"}</small>
+                </span>
+                <span className="lookup-actions">
+                  {result.archiveUrl && (
+                    <a href={result.archiveUrl}>VIEW ARCHIVE</a>
+                  )}
+                  <a
+                    href={result.profileUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    SPEEDRUN.COM ↗
+                  </a>
+                </span>
+              </div>
+            )}
           </form>
         </div>
 
