@@ -540,7 +540,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Volpey PB History home">
           <span className="brand-mark">V</span>
-          <span>PB / ARCHIVE</span>
+          <span>VOLPEY / PB ARCHIVE</span>
         </a>
         <nav aria-label="Primary">
           <a href="#overview">OVERVIEW</a>
@@ -552,56 +552,86 @@ export default function PBHistory({ data }: { data: SiteData }) {
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-copy">
-          <span className="eyebrow">VOLPEY’S SPEEDRUN TIMELINE</span>
-          <h1>
-            Every second
-            <br />
-            <em>earned.</em>
-          </h1>
-          <p>
-            A complete, playable archive of personal bests—current records,
-            obsolete runs, and every improvement in between.
-          </p>
-          <a className="primary-link" href="#games">
-            EXPLORE THE ARCHIVE <span>↓</span>
-          </a>
-        </div>
-        <div className="hero-stats">
-          <div>
-            <strong>{data.stats.games}</strong>
-            <span>GAMES</span>
-          </div>
-          <div>
-            <strong>{data.stats.histories}</strong>
-            <span>CATEGORIES</span>
-          </div>
-          <div>
-            <strong>{data.stats.pbRuns}</strong>
-            <span>PERSONAL BESTS</span>
-          </div>
-          <div>
-            <strong>{data.stats.platforms}</strong>
-            <span>PLATFORMS USED</span>
-          </div>
-          <div>
-            <strong>{yearsTracked}</strong>
-            <span>YEARS TRACKED</span>
-          </div>
-          <div>
-            <strong>
-              {totalHours}H {totalMinutes}M
-            </strong>
-            <span>TOTAL RUN TIME</span>
-          </div>
-          <div className="profile-chip">
-            {data.profile.avatar && (
-              <img src={data.profile.avatar} alt="" width="54" height="54" />
-            )}
-            <span>
-              <b>@{data.profile.name}</b>
-              {data.profile.country}
+        <div className="hero-file">
+          <div className="file-bar">
+            <span>PLAYER FILE / 01</span>
+            <span className="file-status">
+              <i aria-hidden="true" /> SAVE DATA FOUND
             </span>
+          </div>
+
+          <div className="hero-file-content">
+            <div className="hero-copy">
+              <div className="player-card">
+                {data.profile.avatar && (
+                  <img src={data.profile.avatar} alt="" width="58" height="58" />
+                )}
+                <span>
+                  <small>PLAYER 01</small>
+                  <b>@{data.profile.name}</b>
+                  <small>{data.profile.country}</small>
+                </span>
+              </div>
+              <span className="eyebrow">A PERSONAL SPEEDRUN TIMELINE</span>
+              <h1>
+                Every second
+                <br />
+                <em>earned.</em>
+              </h1>
+              <p>
+                Current records, retired runs, and every tiny improvement in
+                between. Pick a game, press play, and rewind the whole journey.
+              </p>
+              <a className="primary-link" href="#games">
+                OPEN THE ARCHIVE <span>↓</span>
+              </a>
+            </div>
+
+            <aside className="save-data" aria-label="Archive statistics">
+              <div className="save-data-heading">
+                <span>SAVE DATA</span>
+                <b>★ ACTIVE</b>
+              </div>
+              <dl>
+                <div>
+                  <dt>GAMES LOGGED</dt>
+                  <dd>{data.stats.games}</dd>
+                </div>
+                <div>
+                  <dt>CATEGORIES</dt>
+                  <dd>{data.stats.histories}</dd>
+                </div>
+                <div>
+                  <dt>PB MILESTONES</dt>
+                  <dd>{data.stats.pbRuns}</dd>
+                </div>
+                <div>
+                  <dt>PLATFORMS</dt>
+                  <dd>{data.stats.platforms}</dd>
+                </div>
+                <div>
+                  <dt>YEARS TRACKED</dt>
+                  <dd>{yearsTracked}</dd>
+                </div>
+                <div>
+                  <dt>TOTAL RUN TIME</dt>
+                  <dd>
+                    {totalHours}H {totalMinutes}M
+                  </dd>
+                </div>
+              </dl>
+              <div className="save-slots" aria-hidden="true">
+                {Array.from({ length: 12 }, (_, index) => (
+                  <i key={index} />
+                ))}
+              </div>
+            </aside>
+          </div>
+
+          <div className="file-footer">
+            <span>EST. {earliestYear}</span>
+            <span>NO RESET / FULL HISTORY</span>
+            <span>{yearsTracked} YEARS TRACKED</span>
           </div>
         </div>
       </section>

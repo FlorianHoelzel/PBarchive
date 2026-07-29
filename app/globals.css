@@ -69,6 +69,7 @@ button {
 .brand-mark {
   align-items: center;
   background: var(--acid);
+  box-shadow: 4px 4px 0 #3b411f;
   color: var(--ink);
   display: flex;
   font-size: 18px;
@@ -100,19 +101,147 @@ footer a:hover {
 
 .hero {
   border-bottom: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.7fr);
-  min-height: min(820px, calc(88vh - 64px));
+  min-height: min(840px, calc(92vh - 64px));
   overflow: hidden;
-  padding: clamp(58px, 7vw, 105px) clamp(20px, 6vw, 96px);
+  padding: clamp(38px, 5vw, 72px) clamp(20px, 5vw, 80px);
   position: relative;
 }
 
+.hero::before {
+  color: rgba(216, 255, 69, 0.035);
+  content: "PB";
+  font-family: "Courier New", monospace;
+  font-size: min(40vw, 580px);
+  font-weight: 900;
+  line-height: 0.7;
+  pointer-events: none;
+  position: absolute;
+  right: -0.08em;
+  top: 0.12em;
+}
+
+.hero-file {
+  background: rgba(18, 20, 17, 0.94);
+  border: 1px solid #494c43;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.28);
+  margin: 0 auto;
+  max-width: 1440px;
+  min-height: 690px;
+  position: relative;
+  width: 100%;
+}
+
+.hero-file::before,
+.hero-file::after {
+  background: var(--acid);
+  content: "";
+  height: 7px;
+  position: absolute;
+  width: 7px;
+  z-index: 3;
+}
+
+.hero-file::before {
+  left: -4px;
+  top: -4px;
+}
+
+.hero-file::after {
+  bottom: -4px;
+  right: -4px;
+}
+
+.file-bar,
+.file-footer {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  justify-content: space-between;
+  letter-spacing: 0.12em;
+  padding: 0 18px;
+}
+
+.file-bar {
+  border-bottom: 1px solid var(--line);
+  height: 42px;
+}
+
+.file-status {
+  align-items: center;
+  color: var(--acid);
+  display: flex;
+  gap: 8px;
+}
+
+.file-status i {
+  animation: save-blink 1.8s steps(2, end) infinite;
+  background: var(--acid);
+  display: inline-block;
+  height: 7px;
+  width: 7px;
+}
+
+@keyframes save-blink {
+  50% {
+    opacity: 0.28;
+  }
+}
+
+.hero-file-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(340px, 0.7fr);
+  min-height: 600px;
+}
+
 .hero-copy {
-  align-self: center;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-width: 880px;
+  padding: clamp(44px, 6vw, 88px);
   position: relative;
   z-index: 2;
+}
+
+.player-card {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  margin-bottom: 48px;
+  width: max-content;
+}
+
+.player-card img {
+  border: 1px solid #626658;
+  box-shadow: 5px 5px 0 var(--acid);
+  height: 58px;
+  image-rendering: pixelated;
+  object-fit: cover;
+  transform: rotate(-1.5deg);
+  width: 58px;
+}
+
+.player-card span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.player-card b {
+  font-family: "Courier New", monospace;
+  font-size: 15px;
+}
+
+.player-card small {
+  color: var(--muted);
+  font-family: "Courier New", monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
 }
 
 .eyebrow,
@@ -129,13 +258,14 @@ footer a:hover {
 
 .eyebrow {
   color: var(--acid);
+  font-family: "Courier New", monospace;
 }
 
 .hero h1 {
-  font-size: clamp(58px, 8.5vw, 132px);
-  letter-spacing: -0.075em;
-  line-height: 0.78;
-  margin: 26px 0 34px;
+  font-size: clamp(58px, 7.1vw, 112px);
+  letter-spacing: -0.07em;
+  line-height: 0.8;
+  margin: 22px 0 30px;
   max-width: 1000px;
 }
 
@@ -174,65 +304,87 @@ footer a:hover {
   transform: translateY(4px);
 }
 
-.hero-stats {
-  align-self: end;
-  border-left: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-left: clamp(0px, 4vw, 90px);
+.save-data {
+  align-self: center;
+  background: #10120f;
+  border: 1px solid #4a4e43;
+  box-shadow: 7px 7px 0 rgba(216, 255, 69, 0.13);
+  margin: 42px clamp(30px, 4vw, 64px) 42px 0;
   position: relative;
   z-index: 2;
 }
 
-.hero-stats > div {
-  border-right: 1px solid var(--line);
-  border-top: 1px solid var(--line);
+.save-data-heading {
+  align-items: center;
+  background: var(--acid);
+  color: var(--ink);
   display: flex;
-  flex-direction: column;
-  min-height: 108px;
-  padding: 18px;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  font-weight: 900;
+  justify-content: space-between;
+  letter-spacing: 0.12em;
+  min-height: 42px;
+  padding: 0 16px;
 }
 
-.hero-stats strong {
-  font-size: clamp(34px, 3.3vw, 54px);
-  letter-spacing: -0.06em;
+.save-data-heading b {
+  font-size: 9px;
+}
+
+.save-data dl {
+  margin: 0;
+  padding: 8px 18px 10px;
+}
+
+.save-data dl > div {
+  align-items: baseline;
+  border-bottom: 1px dashed #383b34;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0 12px;
+}
+
+.save-data dt {
+  color: var(--muted);
+  font-family: "Courier New", monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.save-data dd {
+  font-family: "Courier New", monospace;
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  margin: 0;
   white-space: nowrap;
 }
 
-.hero-stats span {
-  color: var(--muted);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  margin-top: auto;
+.save-slots {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(12, 1fr);
+  padding: 6px 18px 18px;
 }
 
-.hero-stats .profile-chip {
-  align-items: center;
-  background: var(--panel);
-  flex-direction: row;
-  gap: 16px;
-  grid-column: 1 / -1;
-  min-height: 80px;
+.save-slots i {
+  background: #30332c;
+  height: 5px;
 }
 
-.profile-chip img {
-  border: 1px solid var(--line);
-  height: 54px;
-  object-fit: cover;
-  width: 54px;
+.save-slots i:nth-child(-n + 9) {
+  background: var(--acid);
 }
 
-.profile-chip span {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  margin: 0;
+.file-footer {
+  border-top: 1px solid var(--line);
+  height: 46px;
 }
 
-.profile-chip b {
+.file-footer span:nth-child(2) {
   color: var(--paper);
-  font-size: 14px;
 }
 
 .archive-overview {
@@ -1057,13 +1209,13 @@ footer p {
 }
 
 @media (max-width: 980px) {
-  .hero {
+  .hero-file-content {
     grid-template-columns: 1fr;
   }
 
-  .hero-stats {
-    margin: 70px 0 0;
-    max-width: 580px;
+  .save-data {
+    margin: 0 clamp(32px, 7vw, 72px) 64px;
+    max-width: 620px;
   }
 
   .overview-grid {
@@ -1097,25 +1249,40 @@ footer p {
 
   .hero {
     min-height: auto;
-    padding-bottom: 80px;
-    padding-top: 80px;
+    padding: 24px 14px 54px;
   }
 
   .hero h1 {
     font-size: clamp(54px, 18vw, 84px);
   }
 
-  .hero-stats {
-    grid-template-columns: 1fr 1fr;
+  .hero-file {
+    min-height: 0;
   }
 
-  .hero-stats > div {
-    min-height: 105px;
-    padding: 16px;
+  .hero-file-content {
+    min-height: 0;
   }
 
-  .hero-stats strong {
-    font-size: 38px;
+  .hero-copy {
+    padding: 42px 24px 52px;
+  }
+
+  .player-card {
+    margin-bottom: 40px;
+  }
+
+  .save-data {
+    margin: 0 20px 44px;
+  }
+
+  .file-footer {
+    font-size: 8px;
+    padding: 0 12px;
+  }
+
+  .file-footer span:nth-child(2) {
+    display: none;
   }
 
   .game-index {
