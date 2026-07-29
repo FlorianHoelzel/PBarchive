@@ -12,9 +12,9 @@ export async function generateMetadata(): Promise<Metadata> {
     requestHeaders.get("x-forwarded-proto") ??
     (host.startsWith("localhost") ? "http" : "https");
   const image = `${protocol}://${host}/og-v2.png`;
-  const title = "Volpey — Personal Best Archive";
+  const title = "PB Archive — Your Speedrun History";
   const description =
-    "A playable history of Volpey's speedrunning personal bests, including obsolete runs.";
+    "Turn a speedrun.com profile into a playable history of personal bests, including obsolete runs.";
 
   return {
     title,

@@ -1,6 +1,5 @@
-import speedrunData from "./data/speedruns.json";
-import PBHistory from "./pb-history";
+import LandingPage from "./landing-page";
 
 export default function Home() {
-  return <PBHistory data={speedrunData} />;
+  return <LandingPage />;
 }
