@@ -623,12 +623,15 @@ export default function PBHistory({ data }: { data: SiteData }) {
               </span>
             )}
             <span>
-              <b>@{data.profile.name}</b>
+              <b className="accent-name">@{data.profile.name}</b>
               <small>{data.profile.country} · speedrunning since {earliestYear}</small>
             </span>
           </div>
 
-          <h1>{data.profile.name}’s PB Archive</h1>
+          <h1>
+            <span className="accent-name">{data.profile.name}’s</span>{" "}
+            PB Archive
+          </h1>
           <p className="hero-lede">
             A complete history of {data.profile.name}’s speedruns.
             Current records, obsolete PBs, and every improvement in between.
