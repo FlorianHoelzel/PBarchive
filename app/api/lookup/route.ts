@@ -4,6 +4,10 @@ type SpeedrunUser = {
   id: string;
   names?: { international?: string };
   weblink?: string;
+  assets?: {
+    image?: { uri?: string };
+    icon?: { uri?: string };
+  };
   location?: {
     country?: {
       names?: { international?: string };
@@ -59,6 +63,7 @@ export async function GET(request: Request) {
         id: user.id,
         name,
         country,
+        avatar: user.assets?.image?.uri ?? user.assets?.icon?.uri ?? null,
         profileUrl: user.weblink ?? `https://www.speedrun.com/users/${name}`,
         archiveUrl: `/${encodeURIComponent(name)}`,
       },

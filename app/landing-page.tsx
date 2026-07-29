@@ -6,6 +6,7 @@ type LookupResult = {
   id: string;
   name: string;
   country: string | null;
+  avatar: string | null;
   profileUrl: string;
   archiveUrl: string | null;
 };
@@ -15,6 +16,7 @@ export default function LandingPage() {
   const [message, setMessage] = useState("");
   const [result, setResult] = useState<LookupResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [avatarFailed, setAvatarFailed] = useState(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,6 +31,7 @@ export default function LandingPage() {
     setIsLoading(true);
     setMessage("");
     setResult(null);
+    setAvatarFailed(false);
 
     try {
       const response = await fetch(
@@ -83,6 +86,7 @@ export default function LandingPage() {
                   setUsername(event.target.value);
                   setMessage("");
                   setResult(null);
+                  setAvatarFailed(false);
                 }}
                 placeholder="username"
                 autoComplete="off"
@@ -97,12 +101,18 @@ export default function LandingPage() {
             </p>
             {result && (
               <div className="lookup-result">
-                {result.name.toLowerCase() === "volpey" ? (
+                {(result.name.toLowerCase() === "volpey" || result.avatar) &&
+                !avatarFailed ? (
                   <img
-                    src="/volpey-avatar.png"
+                    src={
+                      result.name.toLowerCase() === "volpey"
+                        ? "/volpey-avatar.png"
+                        : result.avatar!
+                    }
                     alt=""
                     width="54"
                     height="54"
+                    onError={() => setAvatarFailed(true)}
                   />
                 ) : (
                   <span className="lookup-initial" aria-hidden="true">
