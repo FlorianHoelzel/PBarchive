@@ -38,6 +38,7 @@ type SiteData = {
   };
   stats: {
     verifiedRuns: number;
+    totalRunSeconds: number;
     pbRuns: number;
     games: number;
     histories: number;
@@ -373,12 +374,8 @@ export default function PBHistory({ data }: { data: SiteData }) {
     ...datedRuns.map((run) => new Date(`${run.date}T00:00:00Z`).getUTCFullYear()),
   );
   const yearsTracked = latestYear - earliestYear + 1;
-  const secondsSaved = data.histories.reduce((total, history) => {
-    if (history.runs.length < 2) return total;
-    return total + history.runs[0].seconds - history.runs.at(-1)!.seconds;
-  }, 0);
-  const savedHours = Math.floor(secondsSaved / 3600);
-  const savedMinutes = Math.floor((secondsSaved % 3600) / 60);
+  const totalHours = Math.floor(data.stats.totalRunSeconds / 3600);
+  const totalMinutes = Math.floor((data.stats.totalRunSeconds % 3600) / 60);
 
   return (
     <main>
@@ -434,9 +431,9 @@ export default function PBHistory({ data }: { data: SiteData }) {
           </div>
           <div>
             <strong className="stat-time">
-              {savedHours}H {savedMinutes}M
+              {totalHours}H {totalMinutes}M
             </strong>
-            <span>TIME SAVED</span>
+            <span>TOTAL RUN TIME</span>
           </div>
           <div className="profile-chip">
             {data.profile.avatar && (

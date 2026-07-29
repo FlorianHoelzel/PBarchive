@@ -191,6 +191,9 @@ const output = {
   },
   stats: {
     verifiedRuns: runs.length,
+    totalRunSeconds: Math.round(
+      runs.reduce((total, run) => total + run.times.primary_t, 0),
+    ),
     pbRuns: histories.reduce((sum, history) => sum + history.runs.length, 0),
     games: gamesSummary.length,
     histories: histories.length,

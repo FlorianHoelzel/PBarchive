@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T06:06:53.154Z",
+  "generatedAt": "2026-07-29T06:38:05.877Z",
   "source": "https://www.speedrun.com/users/Volpey",
   "profile": {
     "id": "zx7q5087",
@@ -10,6 +10,7 @@
   },
   "stats": {
     "verifiedRuns": 155,
+    "totalRunSeconds": 399664,
     "pbRuns": 152,
     "games": 27,
     "histories": 63
