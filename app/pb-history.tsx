@@ -443,7 +443,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
                   style={{ height: `${Math.max(8, (count / overview.maxYear) * 100)}%` }}
                   title={`${year}: ${count} personal bests`}
                 />
-                <small>{String(year).slice(2)}</small>
+                <small>{year}</small>
               </div>
             ))}
           </div>
