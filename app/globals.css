@@ -822,7 +822,7 @@ footer a:hover {
 }
 
 .embed-live-preview-heading span,
-.embed-live-preview-heading small {
+.embed-preview-switcher button {
   font-size: 8px;
   font-weight: 900;
   letter-spacing: 0.14em;
@@ -832,8 +832,23 @@ footer a:hover {
   color: var(--acid);
 }
 
-.embed-live-preview-heading small {
+.embed-preview-switcher {
+  display: flex;
+  gap: 5px;
+}
+
+.embed-preview-switcher button {
+  background: transparent;
+  border: 1px solid var(--line);
   color: var(--muted);
+  cursor: pointer;
+  padding: 6px 8px;
+}
+
+.embed-preview-switcher button.active {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: var(--ink);
 }
 
 .embed-live-preview iframe {
@@ -842,6 +857,24 @@ footer a:hover {
   border: 0;
   display: block;
   width: 100%;
+}
+
+.embed-live-preview.twitch {
+  background: #18181b;
+  padding-bottom: 20px;
+}
+
+.embed-live-preview.twitch iframe {
+  aspect-ratio: auto;
+  border: 1px solid #303034;
+  height: 496px;
+  margin: 20px auto 0;
+  max-width: calc(100% - 24px);
+  width: 318px;
+}
+
+.embed-twitch-note {
+  margin: -4px 0 16px !important;
 }
 
 .embed-dialog textarea {
@@ -1117,6 +1150,109 @@ footer a:hover {
 
   .embed-current {
     display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .embed-page {
+    height: 100vh;
+    min-height: 0;
+    overflow: hidden;
+    padding: 10px;
+  }
+
+  .embed-header {
+    align-items: start;
+    margin-bottom: 8px;
+  }
+
+  .embed-kicker,
+  .embed-current span,
+  .embed-runs-heading,
+  .embed-footer {
+    font-size: 7px;
+  }
+
+  .embed-header h1 {
+    font-size: 23px;
+    margin: 7px 0 4px;
+  }
+
+  .embed-header p {
+    font-size: 9px;
+  }
+
+  .embed-layout {
+    flex: 1;
+    gap: 8px;
+    grid-template-rows: minmax(190px, 0.9fr) minmax(0, 1.1fr);
+    height: auto;
+    min-height: 0;
+  }
+
+  .embed-chart-panel {
+    min-height: 0;
+    padding: 0 8px 6px;
+  }
+
+  .embed-chart-panel .embed-runs-heading {
+    margin: 0 -8px;
+  }
+
+  .embed-runs-heading {
+    min-height: 28px;
+    padding: 0 8px;
+  }
+
+  .embed-chart-stage {
+    min-height: 0;
+    padding-top: 3px;
+  }
+
+  .embed-chart-range {
+    font-size: 7px;
+    padding: 0 2px 5px;
+  }
+
+  .embed-selected-run {
+    font-size: 8px;
+    gap: 7px;
+    min-height: 32px;
+    padding: 0 2px;
+  }
+
+  .embed-selected-run strong {
+    font-size: 12px;
+  }
+
+  .embed-selected-run a {
+    font-size: 6px;
+  }
+
+  .embed-runs {
+    height: auto;
+    max-height: none;
+    min-height: 0;
+  }
+
+  .embed-run-list button {
+    font-size: 8px;
+    gap: 6px;
+    min-height: 34px;
+    padding: 0 8px;
+  }
+
+  .embed-run-list button strong {
+    font-size: 10px;
+  }
+
+  .embed-run-list button small {
+    font-size: 6px;
+  }
+
+  .embed-footer {
+    font-size: 6px;
+    margin-top: 7px;
   }
 }
 
