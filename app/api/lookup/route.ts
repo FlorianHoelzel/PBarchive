@@ -60,7 +60,7 @@ export async function GET(request: Request) {
         name,
         country,
         profileUrl: user.weblink ?? `https://www.speedrun.com/users/${name}`,
-        archiveUrl: name.toLowerCase() === "volpey" ? "/volpey" : null,
+        archiveUrl: `/${encodeURIComponent(name)}`,
       },
       { headers: { "Cache-Control": "no-store, max-age=0" } },
     );

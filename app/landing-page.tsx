@@ -60,9 +60,6 @@ export default function LandingPage() {
           <span className="brand-mark">PB</span>
           <span>PB ARCHIVE</span>
         </a>
-        <a className="demo-link" href="/volpey">
-          VIEW AN EXAMPLE
-        </a>
       </header>
 
       <section className="landing-main">
@@ -87,7 +84,7 @@ export default function LandingPage() {
                   setMessage("");
                   setResult(null);
                 }}
-                placeholder="Volpey"
+                placeholder="username"
                 autoComplete="off"
                 spellCheck="false"
               />
@@ -133,34 +130,6 @@ export default function LandingPage() {
           </form>
         </div>
 
-        <aside className="landing-example">
-          <span className="example-label">EXAMPLE ARCHIVE</span>
-          <a href="/volpey" className="example-profile">
-            <img
-              className="example-avatar"
-              src="/volpey-avatar.png"
-              alt=""
-              width="46"
-              height="46"
-            />
-            <span>
-              <b>Volpey’s PB Archive</b>
-              <small>pbarchive.gg/volpey</small>
-            </span>
-            <i>↗</i>
-          </a>
-          <p>
-            Games, categories, improvement graphs, old runs, and their videos—
-            all collected from one public profile.
-          </p>
-          <div className="example-history" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-            <i />
-            <i />
-          </div>
-        </aside>
       </section>
 
       <footer className="landing-footer">

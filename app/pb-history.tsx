@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-type Run = {
+export type Run = {
   id: string;
   date: string;
   seconds: number;
@@ -15,7 +15,7 @@ type Run = {
   current: boolean;
 };
 
-type History = {
+export type History = {
   id: string;
   gameId: string;
   gameName: string;
@@ -27,7 +27,7 @@ type History = {
   runs: Run[];
 };
 
-type SiteData = {
+export type SiteData = {
   generatedAt: string;
   source: string;
   profile: {
@@ -534,21 +534,33 @@ export default function PBHistory({ data }: { data: SiteData }) {
   const yearsTracked = latestYear - earliestYear + 1;
   const totalHours = Math.floor(data.stats.totalRunSeconds / 3600);
   const totalMinutes = Math.floor((data.stats.totalRunSeconds % 3600) / 60);
+  const profileAvatar =
+    data.profile.name.toLowerCase() === "volpey"
+      ? "/volpey-avatar.png"
+      : data.profile.avatar;
 
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Volpey PB History home">
-          {data.profile.avatar && (
+        <a
+          className="brand"
+          href="#top"
+          aria-label={`${data.profile.name} PB History home`}
+        >
+          {profileAvatar ? (
             <img
               className="brand-avatar"
-              src="/volpey-avatar.png"
+              src={profileAvatar}
               alt=""
               width="34"
               height="34"
             />
+          ) : (
+            <span className="brand-avatar-fallback" aria-hidden="true">
+              {data.profile.name.slice(0, 1).toUpperCase()}
+            </span>
           )}
-          <span>VOLPEY / PB ARCHIVE</span>
+          <span>{data.profile.name.toUpperCase()} / PB ARCHIVE</span>
         </a>
         <nav aria-label="Primary">
           <a href="#overview">OVERVIEW</a>
@@ -562,8 +574,12 @@ export default function PBHistory({ data }: { data: SiteData }) {
       <section className="hero" id="top">
         <div className="hero-intro">
           <div className="hero-profile">
-            {data.profile.avatar && (
-              <img src="/volpey-avatar.png" alt="" width="64" height="64" />
+            {profileAvatar ? (
+              <img src={profileAvatar} alt="" width="64" height="64" />
+            ) : (
+              <span className="hero-avatar-fallback" aria-hidden="true">
+                {data.profile.name.slice(0, 1).toUpperCase()}
+              </span>
             )}
             <span>
               <b>@{data.profile.name}</b>
@@ -571,7 +587,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
             </span>
           </div>
 
-          <h1>Hi, I’m Volpey.</h1>
+          <h1>Hi, I’m {data.profile.name}.</h1>
           <p className="hero-lede">
             I made this site to keep all of my speedrun PBs in one place.
           </p>

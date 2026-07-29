@@ -86,6 +86,28 @@ button {
   width: 36px;
 }
 
+.brand-avatar-fallback,
+.hero-avatar-fallback {
+  align-items: center;
+  background: var(--acid);
+  color: var(--ink);
+  display: flex;
+  font-weight: 900;
+  justify-content: center;
+}
+
+.brand-avatar-fallback {
+  font-size: 14px;
+  height: 36px;
+  width: 36px;
+}
+
+.hero-avatar-fallback {
+  font-size: 22px;
+  height: 64px;
+  width: 64px;
+}
+
 .site-header nav {
   display: flex;
   font-size: 11px;
@@ -1108,10 +1130,9 @@ footer p {
 
 .landing-main {
   align-items: center;
-  display: grid;
+  display: flex;
   flex: 1;
-  gap: clamp(64px, 10vw, 170px);
-  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.65fr);
+  justify-content: center;
   margin: 0 auto;
   max-width: 1600px;
   padding: clamp(70px, 9vw, 140px) clamp(24px, 7vw, 110px);
@@ -1119,7 +1140,8 @@ footer p {
 }
 
 .landing-copy {
-  max-width: 800px;
+  max-width: 920px;
+  width: 100%;
 }
 
 .landing-kicker,
@@ -1389,17 +1411,57 @@ footer p {
   color: var(--paper);
 }
 
+.empty-archive {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: clamp(24px, 5vw, 72px);
+}
+
+.empty-brand {
+  color: var(--acid);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.empty-archive section {
+  margin: auto 0;
+  max-width: 760px;
+}
+
+.empty-archive section > span {
+  color: var(--acid);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+.empty-archive h1 {
+  font-size: clamp(58px, 10vw, 132px);
+  letter-spacing: -0.07em;
+  margin: 20px 0 30px;
+}
+
+.empty-archive p {
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1.6;
+  margin: 0 0 34px;
+}
+
+.empty-archive section a {
+  border-bottom: 1px solid var(--acid);
+  color: var(--acid);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  padding-bottom: 7px;
+}
+
 @media (max-width: 980px) {
   .landing-main {
-    gap: 76px;
-    grid-template-columns: 1fr;
-  }
-
-  .landing-example {
-    border-left: 0;
-    border-top: 1px solid #4b4e45;
-    max-width: 680px;
-    padding: 42px 0 0;
+    display: flex;
   }
 
   .hero {
