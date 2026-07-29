@@ -384,6 +384,17 @@ function HistoryBlock({
               Paste this iframe into a website to show the interactive PB graph
               and history.
             </p>
+            <div className="embed-live-preview">
+              <div className="embed-live-preview-heading">
+                <span>LIVE EMBED PREVIEW</span>
+                <small>16:9 · INTERACTIVE</small>
+              </div>
+              <iframe
+                src={embedPath}
+                title={`Preview of ${history.gameName} ${title} PB history`}
+                loading="lazy"
+              />
+            </div>
             <textarea
               readOnly
               value={embedCode}
@@ -401,7 +412,7 @@ function HistoryBlock({
                 {copied ? "COPIED" : "COPY CODE"}
               </button>
               <a href={embedPath} target="_blank" rel="noreferrer">
-                OPEN PREVIEW ↗
+                OPEN FULL SIZE ↗
               </a>
             </div>
           </section>
