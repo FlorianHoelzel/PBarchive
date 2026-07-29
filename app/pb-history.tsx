@@ -151,7 +151,7 @@ function ProgressChart({
               key={runs[index].id}
               cx={point.x}
               cy={point.y}
-              r={selected === index ? 8 : 5}
+              r={selected === index ? 6 : 3.5}
               className={selected === index ? "chart-dot active" : "chart-dot"}
               role="button"
               tabIndex={0}

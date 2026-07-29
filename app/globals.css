@@ -358,6 +358,10 @@ footer a:hover {
 
 .history-card {
   border-bottom: 1px solid var(--line);
+  container-type: inline-size;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1440px;
   padding: clamp(42px, 4.5vw, 70px) 0;
   animation: reveal 600ms both;
   animation-delay: var(--delay);
@@ -407,9 +411,10 @@ footer a:hover {
 }
 
 .history-layout {
+  align-items: start;
   display: grid;
   gap: 12px;
-  grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr);
+  grid-template-columns: minmax(0, 3fr) minmax(340px, 2fr);
 }
 
 .video-panel,
@@ -417,6 +422,11 @@ footer a:hover {
 .runs-panel {
   background: var(--panel);
   border: 1px solid var(--line);
+}
+
+.video-panel {
+  align-self: start;
+  width: 100%;
 }
 
 .video-topline,
@@ -509,6 +519,7 @@ footer a:hover {
   display: grid;
   gap: 12px;
   grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  height: calc((60cqi - 8px) * 0.5625 + 96px);
   min-height: 0;
 }
 
@@ -590,14 +601,14 @@ footer a:hover {
   stroke: var(--acid);
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 4;
+  stroke-width: 2.5;
 }
 
 .chart-dot {
   cursor: pointer;
   fill: var(--panel);
   stroke: var(--acid);
-  stroke-width: 4;
+  stroke-width: 2.5;
   transition: r 160ms ease, fill 160ms ease;
 }
 
@@ -612,6 +623,7 @@ footer a:hover {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  overflow: hidden;
 }
 
 .table-heading {
@@ -819,6 +831,7 @@ footer p {
   }
 
   .history-data {
+    height: auto;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
   }
