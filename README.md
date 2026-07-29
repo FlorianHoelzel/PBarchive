@@ -1,59 +1,24 @@
 # PB Archive
 
-PB Archive turns a [speedrun.com](https://www.speedrun.com) profile into an
-interactive history of the runner's personal bests.
+PB Archive turns a speedrun.com profile into a visual history of the runner's
+personal bests.
 
-Enter a username to browse their games, categories, current records, and
-obsolete runs in one place. Each category combines its progression graph, run
-history, and available video footage.
+Enter a speedrun.com username and PB Archive collects their games, categories,
+current records, and obsolete runs into one browsable archive. Each category
+shows how the runner's time improved over the years, with an interactive graph,
+a dated PB history, and the available run videos.
 
-## Features
+## What you can explore
 
-- Live speedrun.com username lookup
-- Current and obsolete PB history
-- Game and category grouping
-- Interactive progression graphs
-- Selectable run footage
-- Profile-specific accent colors and gradients
-- Responsive archive navigator
-- Category embed previews
-- Twitch Panel Extension-sized preview
+- Every game and category in a runner's history
+- Current personal bests and the runs they replaced
+- Progression graphs showing how times improved
+- Dates, times, platforms, and available videos
+- Shareable category views and compact embed previews
 
-## Status
+PB Archive started as a personal project for preserving the full story behind
+a speedrunner's records—not only the fastest time at the end.
 
-PB Archive is currently a personal prototype. The interface and data-grouping
-rules are still being refined before public hosting.
-
-## Development
-
-PB Archive requires Node.js 22.13 or newer.
-
-```bash
-npm install
-npm run dev
-```
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-Run the project checks:
-
-```bash
-npm test
-```
-
-## Project structure
-
-- `app/` — routes, interface components, and styles
-- `app/api/lookup/` — live speedrun.com profile lookup
-- `app/speedrun-archive.ts` — archive construction and grouping
-- `app/data/` — bundled prototype archive data
-- `public/` — static assets
-
-## Data
-
-Run and profile data is sourced from the public speedrun.com API. PB Archive is
-an independent project and is not affiliated with speedrun.com.
+Run and profile information comes from
+[speedrun.com](https://www.speedrun.com). PB Archive is an independent project
+and is not affiliated with speedrun.com.
