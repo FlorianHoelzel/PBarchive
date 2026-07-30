@@ -740,9 +740,34 @@ footer a:hover {
 .heatmap-day {
   aspect-ratio: 1;
   background: #292c27;
+  border: 0;
+  border-radius: 0;
   display: block;
   min-width: 9px;
+  padding: 0;
   width: 100%;
+}
+
+.heatmap-grid button.heatmap-day {
+  cursor: pointer;
+  transition:
+    filter 140ms ease,
+    outline-color 140ms ease,
+    transform 140ms ease;
+}
+
+.heatmap-grid button.heatmap-day:hover {
+  filter: brightness(1.24);
+  outline: 1px solid var(--paper);
+  outline-offset: 2px;
+  transform: scale(1.16);
+  z-index: 1;
+}
+
+.heatmap-grid button.heatmap-day:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+  z-index: 2;
 }
 
 .heatmap-day.blank {
@@ -783,6 +808,141 @@ footer a:hover {
   height: 9px;
   min-width: 9px;
   width: 9px;
+}
+
+.heatmap-popup-overlay {
+  align-items: center;
+  background: rgb(7 8 7 / 82%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 20px;
+  position: fixed;
+  z-index: 100;
+}
+
+.heatmap-popup {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 12px 12px 0 rgb(0 0 0 / 35%);
+  max-height: min(620px, calc(100vh - 40px));
+  max-width: 560px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.heatmap-popup-heading {
+  align-items: flex-start;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  padding: 18px;
+}
+
+.heatmap-popup-heading span {
+  color: var(--acid);
+  display: block;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  margin-bottom: 5px;
+}
+
+.heatmap-popup-heading h3 {
+  font-size: clamp(22px, 4vw, 34px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.heatmap-popup-heading > button {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--paper);
+  cursor: pointer;
+  flex: 0 0 34px;
+  font-size: 22px;
+  height: 34px;
+  line-height: 1;
+}
+
+.heatmap-popup-heading > button:hover,
+.heatmap-popup-heading > button:focus-visible {
+  border-color: var(--acid);
+  color: var(--acid);
+}
+
+.heatmap-popup > p {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin: 0;
+  padding: 13px 18px;
+  text-transform: uppercase;
+}
+
+.heatmap-popup-runs {
+  max-height: min(430px, calc(100vh - 190px));
+  overflow-y: auto;
+  scrollbar-color: var(--acid) transparent;
+  scrollbar-width: thin;
+}
+
+.heatmap-popup-runs > button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--line);
+  color: var(--paper);
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) auto 18px;
+  padding: 15px 18px;
+  text-align: left;
+  width: 100%;
+}
+
+.heatmap-popup-runs > button:hover,
+.heatmap-popup-runs > button:focus-visible {
+  background: color-mix(in srgb, var(--acid) 9%, transparent);
+  outline: 0;
+}
+
+.heatmap-popup-runs > button span {
+  min-width: 0;
+}
+
+.heatmap-popup-runs > button b,
+.heatmap-popup-runs > button small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.heatmap-popup-runs > button b {
+  font-size: 13px;
+}
+
+.heatmap-popup-runs > button small {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+.heatmap-popup-runs > button strong {
+  color: var(--acid);
+  font-size: 16px;
+  letter-spacing: -0.02em;
+}
+
+.heatmap-popup-runs > button i {
+  color: var(--acid);
+  font-style: normal;
 }
 
 .achievements-card {

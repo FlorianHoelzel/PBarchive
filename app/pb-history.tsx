@@ -362,6 +362,7 @@ function HistoryBlock({
                     className={runIndex === selected ? "run-row active" : "run-row"}
                     key={item.id}
                     type="button"
+                    data-pb-run-id={item.id}
                     onClick={() => chooseRun(runIndex)}
                     aria-pressed={runIndex === selected}
                   >
@@ -495,6 +496,21 @@ function LevelCollection({
     selectHashTarget();
     window.addEventListener("hashchange", selectHashTarget);
     return () => window.removeEventListener("hashchange", selectHashTarget);
+  }, [histories]);
+
+  useEffect(() => {
+    function selectRunHistory(event: Event) {
+      const { historyId } = (
+        event as CustomEvent<{ historyId: string }>
+      ).detail;
+      if (histories.some((history) => history.id === historyId)) {
+        setActiveId(historyId);
+      }
+    }
+
+    window.addEventListener("pbarchive:select-run", selectRunHistory);
+    return () =>
+      window.removeEventListener("pbarchive:select-run", selectRunHistory);
   }, [histories]);
 
   useEffect(() => {
@@ -808,6 +824,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
       .flatMap((history) =>
         history.runs.map((run) => ({
           ...run,
+          historyId: history.id,
           gameName: history.gameName,
           categoryLabel: historyLabel(history),
         })),
@@ -958,6 +975,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
                 : "ON THE HUNT";
 
     return {
+      runs,
       years: yearEntries,
       games: gameEntries,
       platforms: platformEntries,
@@ -1019,6 +1037,60 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
   const [heatmapYear, setHeatmapYear] = useState(
     overview.years.at(-1)?.[0] ?? new Date().getUTCFullYear(),
   );
+  const [selectedHeatmapDate, setSelectedHeatmapDate] = useState<string | null>(
+    null,
+  );
+  const selectedDayRuns = useMemo(
+    () =>
+      selectedHeatmapDate
+        ? overview.runs.filter((run) => run.date === selectedHeatmapDate)
+        : [],
+    [overview.runs, selectedHeatmapDate],
+  );
+
+  useEffect(() => {
+    if (!selectedHeatmapDate) return;
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setSelectedHeatmapDate(null);
+    }
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [selectedHeatmapDate]);
+
+  function jumpToRun(historyId: string, runId: string) {
+    setSelectedHeatmapDate(null);
+    const history = histories.find((item) => item.id === historyId);
+    if (!history) return;
+
+    window.location.assign(`#${historyAnchor(history)}`);
+    window.dispatchEvent(
+      new CustomEvent("pbarchive:select-run", {
+        detail: { historyId, runId },
+      }),
+    );
+
+    let attempts = 0;
+    function selectAndScroll() {
+      const target = Array.from(
+        document.querySelectorAll<HTMLButtonElement>("[data-pb-run-id]"),
+      ).find((element) => element.dataset.pbRunId === runId);
+
+      if (target) {
+        target.click();
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+        target.focus({ preventScroll: true });
+        return;
+      }
+
+      attempts += 1;
+      if (attempts < 4) requestAnimationFrame(selectAndScroll);
+    }
+
+    requestAnimationFrame(selectAndScroll);
+  }
+
   const heatmap = useMemo(() => {
     const first = new Date(Date.UTC(heatmapYear, 0, 1));
     const last = new Date(Date.UTC(heatmapYear, 11, 31));
@@ -1153,12 +1225,24 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
             </div>
             <div
               className="heatmap-grid"
-              role="img"
               aria-label={`${heatmap.total} personal best milestones during ${heatmapYear}`}
             >
               {heatmap.cells.map((cell, index) =>
                 cell.blank ? (
                   <span className="heatmap-day blank" key={`blank-${index}`} />
+                ) : cell.count ? (
+                  <button
+                    className={`heatmap-day level-${cell.level}`}
+                    type="button"
+                    title={`${longDate(cell.date)}: ${cell.count} PB${
+                      cell.count === 1 ? "" : "s"
+                    }`}
+                    aria-label={`View ${cell.count} PB${
+                      cell.count === 1 ? "" : "s"
+                    } from ${longDate(cell.date)}`}
+                    onClick={() => setSelectedHeatmapDate(cell.date)}
+                    key={cell.date}
+                  />
                 ) : (
                   <span
                     className={`heatmap-day level-${cell.level}`}
@@ -1178,6 +1262,60 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
             ))}
             <span>MORE</span>
           </div>
+          {selectedHeatmapDate && (
+            <div
+              className="heatmap-popup-overlay"
+              role="presentation"
+              onMouseDown={(event) => {
+                if (event.target === event.currentTarget) {
+                  setSelectedHeatmapDate(null);
+                }
+              }}
+            >
+              <section
+                className="heatmap-popup"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="heatmap-popup-title"
+              >
+                <div className="heatmap-popup-heading">
+                  <div>
+                    <span>PB ACTIVITY</span>
+                    <h3 id="heatmap-popup-title">
+                      {longDate(selectedHeatmapDate)}
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedHeatmapDate(null)}
+                    aria-label="Close PB activity popup"
+                  >
+                    ×
+                  </button>
+                </div>
+                <p>
+                  {selectedDayRuns.length} PB
+                  {selectedDayRuns.length === 1 ? "" : "s"} set on this day
+                </p>
+                <div className="heatmap-popup-runs">
+                  {selectedDayRuns.map((run) => (
+                    <button
+                      type="button"
+                      key={`${run.historyId}-${run.id}`}
+                      onClick={() => jumpToRun(run.historyId, run.id)}
+                    >
+                      <span>
+                        <b>{run.gameName}</b>
+                        <small>{run.categoryLabel}</small>
+                      </span>
+                      <strong>{run.time}</strong>
+                      <i aria-hidden="true">↓</i>
+                    </button>
+                  ))}
+                </div>
+              </section>
+            </div>
+          )}
         </article>
 
         <article className="overview-card platforms-card">
