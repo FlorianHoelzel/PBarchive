@@ -868,6 +868,47 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
     const platformEntries = [...platforms.entries()].sort((a, b) => b[1] - a[1]);
     const peakYear = [...yearEntries].sort((a, b) => b[1] - a[1])[0];
     const latest = [...runs].sort((a, b) => b.date.localeCompare(a.date))[0];
+    const peakYearValue = peakYear?.[0];
+    const peakRuns = peakYearValue
+      ? runs.filter(
+          (run) =>
+            new Date(`${run.date}T00:00:00Z`).getUTCFullYear() ===
+            peakYearValue,
+        )
+      : [];
+    const peakMonths = Array.from({ length: 12 }, () => 0);
+    const peakGames = new Map<string, number>();
+    for (const run of peakRuns) {
+      const month = new Date(`${run.date}T00:00:00Z`).getUTCMonth();
+      peakMonths[month] += 1;
+      peakGames.set(run.gameName, (peakGames.get(run.gameName) ?? 0) + 1);
+    }
+    const busiestMonthIndex = peakMonths.indexOf(Math.max(...peakMonths));
+    const topPeakGame = [...peakGames.entries()].sort((a, b) => b[1] - a[1])[0];
+    let peakBiggestSave = {
+      seconds: 0,
+      gameName: "",
+      categoryLabel: "",
+    };
+    for (const history of histories) {
+      for (let index = 1; index < history.runs.length; index += 1) {
+        const run = history.runs[index];
+        if (
+          run.date === "Unknown" ||
+          new Date(`${run.date}T00:00:00Z`).getUTCFullYear() !== peakYearValue
+        ) {
+          continue;
+        }
+        const saved = history.runs[index - 1].seconds - run.seconds;
+        if (saved > peakBiggestSave.seconds) {
+          peakBiggestSave = {
+            seconds: saved,
+            gameName: history.gameName,
+            categoryLabel: historyLabel(history),
+          };
+        }
+      }
+    }
     const monthKeys = [...activeMonths.keys()].sort((a, b) => a - b);
     let currentStreak = monthKeys.length ? 1 : 0;
     let longestStreak = currentStreak;
@@ -939,6 +980,19 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
       maxGame: gameEntries[0]?.[1] ?? 1,
       platformTotal: platformEntries.reduce((sum, entry) => sum + entry[1], 0),
       days,
+      peakBreakdown: {
+        months: peakMonths,
+        maxMonth: Math.max(1, ...peakMonths),
+        activeMonths: peakMonths.filter(Boolean).length,
+        busiestMonth: new Intl.DateTimeFormat("en", {
+          month: "long",
+          timeZone: "UTC",
+        }).format(new Date(Date.UTC(2020, Math.max(0, busiestMonthIndex), 1))),
+        busiestMonthCount: Math.max(...peakMonths),
+        topGame: topPeakGame?.[0] ?? "No game data",
+        topGameCount: topPeakGame?.[1] ?? 0,
+        biggestSave: peakBiggestSave,
+      },
       achievements: [
         {
           name: milestoneName,
@@ -1176,17 +1230,89 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
             <span>PEAK ACTIVITY</span>
             <span>ARCHIVE PULSE</span>
           </div>
-          <div className="peak-year">
-            <strong>{overview.peakYear?.[0]}</strong>
-            <span>{overview.peakYear?.[1]} personal bests</span>
-          </div>
-          {overview.latest && (
-            <div className="latest-pb">
-              <span>LATEST ENTRY</span>
-              <b>{overview.latest.gameName}</b>
-              <small>{longDate(overview.latest.date)}</small>
+          <div className="peak-body">
+            <div className="peak-year">
+              <strong>{overview.peakYear?.[0]}</strong>
+              <span>{overview.peakYear?.[1]} personal bests</span>
             </div>
-          )}
+            <div className="peak-monthly">
+              <div className="peak-monthly-heading">
+                <span>MONTHLY RHYTHM</span>
+                <span>{overview.peakBreakdown.activeMonths} ACTIVE MONTHS</span>
+              </div>
+              <div
+                className="peak-month-bars"
+                role="img"
+                aria-label={`Personal bests by month during ${overview.peakYear?.[0]}`}
+              >
+                {overview.peakBreakdown.months.map((count, index) => (
+                  <div
+                    className="peak-month"
+                    title={`${new Intl.DateTimeFormat("en", {
+                      month: "long",
+                      timeZone: "UTC",
+                    }).format(new Date(Date.UTC(2020, index, 1)))}: ${count} PB${
+                      count === 1 ? "" : "s"
+                    }`}
+                    key={index}
+                  >
+                    <strong>{count || ""}</strong>
+                    <i
+                      style={{
+                        height: `${Math.max(
+                          count ? 7 : 2,
+                          (count / overview.peakBreakdown.maxMonth) * 100,
+                        )}%`,
+                      }}
+                    />
+                    <small>
+                      {
+                        [
+                          "J",
+                          "F",
+                          "M",
+                          "A",
+                          "M",
+                          "J",
+                          "J",
+                          "A",
+                          "S",
+                          "O",
+                          "N",
+                          "D",
+                        ][index]
+                      }
+                    </small>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="peak-facts">
+            <div>
+              <span>BUSIEST MONTH</span>
+              <strong>{overview.peakBreakdown.busiestMonth}</strong>
+              <small>
+                {overview.peakBreakdown.busiestMonthCount} personal bests
+              </small>
+            </div>
+            <div>
+              <span>TOP GAME</span>
+              <strong>{overview.peakBreakdown.topGame}</strong>
+              <small>{overview.peakBreakdown.topGameCount} milestones</small>
+            </div>
+            <div>
+              <span>BIGGEST LEAP</span>
+              <strong>
+                −{compactDuration(overview.peakBreakdown.biggestSave.seconds)}
+              </strong>
+              <small>
+                {overview.peakBreakdown.biggestSave.gameName
+                  ? `${overview.peakBreakdown.biggestSave.gameName} · ${overview.peakBreakdown.biggestSave.categoryLabel}`
+                  : "No prior PB to compare"}
+              </small>
+            </div>
+          </div>
         </article>
 
         <article className="overview-card achievements-card">

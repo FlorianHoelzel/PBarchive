@@ -513,13 +513,20 @@ footer a:hover {
 .peak-card {
   display: grid;
   grid-template-rows: 42px 1fr auto;
-  min-height: 250px;
+  min-height: 390px;
+}
+
+.peak-body {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(320px, 1.8fr);
+  min-height: 225px;
 }
 
 .peak-year {
   align-content: center;
+  border-right: 1px solid var(--line);
   display: grid;
-  padding: 18px;
+  padding: 28px 20px;
 }
 
 .peak-year strong {
@@ -538,23 +545,92 @@ footer a:hover {
   text-transform: uppercase;
 }
 
-.latest-pb {
-  border-top: 1px solid var(--line);
+.peak-monthly {
   display: grid;
-  gap: 5px;
-  padding: 14px 18px;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  padding: 24px 20px 22px;
 }
 
-.latest-pb span,
-.latest-pb small {
+.peak-monthly-heading {
   color: var(--muted);
+  display: flex;
   font-size: 10px;
   font-weight: 800;
+  justify-content: space-between;
   letter-spacing: 0.12em;
 }
 
-.latest-pb b {
-  font-size: 14px;
+.peak-month-bars {
+  align-items: end;
+  display: grid;
+  gap: clamp(4px, 0.7vw, 10px);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  margin-top: 18px;
+  min-height: 145px;
+}
+
+.peak-month {
+  display: grid;
+  grid-template-rows: 16px minmax(2px, 1fr) 14px;
+  height: 100%;
+  min-width: 0;
+}
+
+.peak-month strong,
+.peak-month small {
+  color: var(--muted);
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 800;
+  text-align: center;
+}
+
+.peak-month i {
+  align-self: end;
+  background: var(--accent-gradient);
+  display: block;
+  min-height: 2px;
+  width: 100%;
+}
+
+.peak-facts {
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.peak-facts > div {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 16px 18px;
+}
+
+.peak-facts > div:not(:last-child) {
+  border-right: 1px solid var(--line);
+}
+
+.peak-facts span,
+.peak-facts small {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.peak-facts strong {
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.peak-facts small {
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .overview-feature-grid {
@@ -2578,6 +2654,29 @@ footer p {
   .heatmap-card,
   .achievements-card {
     min-height: 0;
+  }
+
+  .peak-body {
+    grid-template-columns: 1fr;
+  }
+
+  .peak-year {
+    border-bottom: 1px solid var(--line);
+    border-right: 0;
+    min-height: 160px;
+  }
+
+  .peak-monthly {
+    min-height: 230px;
+  }
+
+  .peak-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .peak-facts > div:not(:last-child) {
+    border-bottom: 1px solid var(--line);
+    border-right: 0;
   }
 
   .achievement-list {
