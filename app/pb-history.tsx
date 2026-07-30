@@ -87,33 +87,33 @@ function compactDuration(totalSeconds: number) {
   return `${remainder}s`;
 }
 
-function embedUrl(url: string | null, autoplay: boolean) {
+function embedUrl(url: string | null) {
   if (!url) return null;
   try {
     const parsed = new URL(url);
     const host = parsed.hostname.replace("www.", "");
     if (host === "youtu.be") {
-      return `https://www.youtube-nocookie.com/embed/${parsed.pathname.slice(1)}?autoplay=${autoplay ? 1 : 0}&rel=0`;
+      return `https://www.youtube-nocookie.com/embed/${parsed.pathname.slice(1)}?autoplay=0&rel=0`;
     }
     if (host.includes("youtube.com")) {
       const id =
         parsed.searchParams.get("v") ??
         parsed.pathname.match(/\/(?:embed|shorts|live)\/([^/?]+)/)?.[1];
       return id
-        ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&rel=0`
+        ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=0&rel=0`
         : null;
     }
     if (host.includes("twitch.tv") && typeof window !== "undefined") {
       const parent = window.location.hostname;
       const vod = parsed.pathname.match(/\/videos\/(\d+)/)?.[1];
       if (vod) {
-        return `https://player.twitch.tv/?video=v${vod}&parent=${parent}&autoplay=${autoplay}`;
+        return `https://player.twitch.tv/?video=v${vod}&parent=${parent}&autoplay=false`;
       }
       const clip = host.startsWith("clips.")
         ? parsed.pathname.split("/").filter(Boolean)[0]
         : parsed.pathname.match(/\/clip\/([^/?]+)/)?.[1];
       if (clip) {
-        return `https://clips.twitch.tv/embed?clip=${clip}&parent=${parent}&autoplay=${autoplay}`;
+        return `https://clips.twitch.tv/embed?clip=${clip}&parent=${parent}&autoplay=false`;
       }
     }
   } catch {
@@ -251,14 +251,13 @@ function HistoryBlock({
   username: string;
 }) {
   const [selected, setSelected] = useState(history.runs.length - 1);
-  const [shouldAutoplay, setShouldAutoplay] = useState(false);
   const [showEmbed, setShowEmbed] = useState(false);
   const [copied, setCopied] = useState(false);
   const [embedPreviewMode, setEmbedPreviewMode] = useState<"widescreen" | "twitch">(
     "widescreen",
   );
   const run = history.runs[selected];
-  const embed = embedUrl(run.video, shouldAutoplay);
+  const embed = embedUrl(run.video);
   const embedPath = `/${encodeURIComponent(username)}/embed/${encodeURIComponent(history.id)}`;
   const embedSource =
     typeof window === "undefined"
@@ -271,7 +270,6 @@ function HistoryBlock({
 
   function chooseRun(runIndex: number) {
     setSelected(runIndex);
-    setShouldAutoplay(true);
   }
 
   return (
@@ -316,10 +314,10 @@ function HistoryBlock({
           <div className="video-frame">
             {embed ? (
               <iframe
-                key={`${run.id}-${shouldAutoplay}`}
+                key={run.id}
                 src={embed}
                 title={`${history.gameName} ${title} in ${run.time}`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 loading="lazy"
               />
