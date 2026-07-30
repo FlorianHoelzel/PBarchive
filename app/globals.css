@@ -2940,7 +2940,7 @@ footer p {
 
 .username-search {
   margin-top: clamp(48px, 6vw, 78px);
-  max-width: 760px;
+  max-width: 920px;
 }
 
 .username-search label {
