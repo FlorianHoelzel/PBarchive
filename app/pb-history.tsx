@@ -562,6 +562,163 @@ type ArchiveGame = {
   displayCount: number;
 };
 
+type PassportGame = ArchiveGame & {
+  firstYear: number | null;
+  latestYear: number | null;
+  platforms: string[];
+  pbCount: number;
+  worldRecords: number;
+  totalSaved: number;
+  biggestSave: {
+    seconds: number;
+    category: string;
+  } | null;
+};
+
+function passportGame(game: ArchiveGame): PassportGame {
+  const datedRuns = game.histories
+    .flatMap((history) => history.runs)
+    .filter((run) => run.date !== "Unknown");
+  const years = datedRuns.map((run) =>
+    new Date(`${run.date}T00:00:00Z`).getUTCFullYear(),
+  );
+  const platforms = [
+    ...new Set(
+      game.histories
+        .flatMap((history) => history.runs)
+        .map((run) => run.platform)
+        .filter((platform): platform is string => Boolean(platform)),
+    ),
+  ];
+  let totalSaved = 0;
+  let biggestSave: PassportGame["biggestSave"] = null;
+
+  for (const history of game.histories) {
+    if (history.runs.length > 1) {
+      totalSaved += history.runs[0].seconds - history.runs.at(-1)!.seconds;
+    }
+    for (let index = 1; index < history.runs.length; index += 1) {
+      const seconds =
+        history.runs[index - 1].seconds - history.runs[index].seconds;
+      if (!biggestSave || seconds > biggestSave.seconds) {
+        biggestSave = {
+          seconds,
+          category: historyLabel(history),
+        };
+      }
+    }
+  }
+
+  return {
+    ...game,
+    firstYear: years.length ? Math.min(...years) : null,
+    latestYear: years.length ? Math.max(...years) : null,
+    platforms,
+    pbCount: game.histories.reduce(
+      (total, history) => total + history.runs.length,
+      0,
+    ),
+    worldRecords: game.histories.reduce(
+      (total, history) =>
+        total + history.runs.filter((run) => run.worldRecordAtTime).length,
+      0,
+    ),
+    totalSaved,
+    biggestSave,
+  };
+}
+
+function SpeedrunPassport({ games }: { games: ArchiveGame[] }) {
+  const entries = games.map(passportGame);
+
+  return (
+    <div className="passport">
+      <div className="passport-intro">
+        <span>ISSUED BY PB ARCHIVE</span>
+        <p>
+          Every game leaves a stamp. Open an entry to revisit its categories,
+          landmark improvements, and surviving personal bests.
+        </p>
+      </div>
+      <div className="passport-grid">
+        {entries.map((game, index) => (
+          <a
+            className="passport-entry"
+            href={`#${game.id}`}
+            aria-label={`Open ${game.name}, ${game.pbCount} personal bests`}
+            key={game.id}
+          >
+            <div className="passport-entry-topline">
+              <span>ENTRY {String(index + 1).padStart(2, "0")}</span>
+              <span>
+                {game.firstYear && game.latestYear
+                  ? game.firstYear === game.latestYear
+                    ? game.firstYear
+                    : `${game.firstYear}—${game.latestYear}`
+                  : "DATE UNKNOWN"}
+              </span>
+            </div>
+            <div className="passport-identity">
+              <div className="passport-cover" aria-hidden="true">
+                {game.cover ? (
+                  <img src={game.cover} alt="" loading="lazy" />
+                ) : (
+                  <span>{game.name.slice(0, 2).toUpperCase()}</span>
+                )}
+              </div>
+              <div>
+                <span className="passport-kicker">SPEEDRUN VISA</span>
+                <h3>{game.name}</h3>
+                <small>
+                  {game.displayCount} categor
+                  {game.displayCount === 1 ? "y" : "ies"} ·{" "}
+                  {game.platforms.length
+                    ? game.platforms.slice(0, 2).join(" / ")
+                    : "platform unknown"}
+                </small>
+              </div>
+            </div>
+            <div className="passport-stats">
+              <div>
+                <span>PB STAMPS</span>
+                <strong>{game.pbCount}</strong>
+              </div>
+              <div>
+                <span>TIME CUT</span>
+                <strong>{compactDuration(game.totalSaved)}</strong>
+              </div>
+              <div>
+                <span>HISTORIC WRS</span>
+                <strong>{game.worldRecords}</strong>
+              </div>
+            </div>
+            <div className="passport-landmark">
+              <span>BIGGEST LEAP</span>
+              <strong>
+                {game.biggestSave
+                  ? `−${compactDuration(game.biggestSave.seconds)}`
+                  : "FIRST PB"}
+              </strong>
+              <small>
+                {game.biggestSave?.category ?? "The journey starts here"}
+              </small>
+            </div>
+            <div
+              className={`passport-stamp stamp-${index % 4}`}
+              aria-hidden="true"
+            >
+              <span>PB</span>
+              <b>{game.latestYear ?? "RUN"}</b>
+              <small>ARCHIVED</small>
+            </div>
+            <span className="passport-open">OPEN ENTRY ↓</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 type CoverPalette = {
   first: string;
   second: string;
@@ -763,7 +920,7 @@ function ArchiveNavigator({ games }: { games: ArchiveGame[] }) {
           </a>
           <a className={activeId === "games" ? "active" : ""} href="#games">
             <span>→</span>
-            GAME INDEX
+            PASSPORT
           </a>
           {games.map((game, gameIndex) => (
             <div
@@ -1619,18 +1776,10 @@ export default function PBHistory({ data }: { data: SiteData }) {
       <section className="game-index" id="games" data-archive-id="games">
         <div className="section-label">
           <span>02</span>
-          <h2>GAME INDEX</h2>
-          <span>{String(games.length).padStart(2, "0")} TITLES</span>
+          <h2>SPEEDRUN PASSPORT</h2>
+          <span>{String(games.length).padStart(2, "0")} STAMPS</span>
         </div>
-        <div className="game-links">
-          {games.map((game, index) => (
-            <a href={`#${game.id}`} key={game.id}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              {game.name}
-              <b>{game.displayCount}</b>
-            </a>
-          ))}
-        </div>
+        <SpeedrunPassport games={games} />
       </section>
 
       <div className="games">
