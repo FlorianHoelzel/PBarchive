@@ -633,17 +633,19 @@ footer a:hover {
 .heatmap-grid {
   display: grid;
   gap: 4px;
-  grid-auto-columns: 9px;
+  grid-auto-columns: minmax(9px, 1fr);
   grid-auto-flow: column;
-  grid-template-rows: repeat(7, 9px);
-  min-width: max-content;
+  grid-template-rows: repeat(7, auto);
+  min-width: 660px;
+  width: 100%;
 }
 
 .heatmap-day {
+  aspect-ratio: 1;
   background: #292c27;
   display: block;
-  height: 9px;
-  width: 9px;
+  min-width: 9px;
+  width: 100%;
 }
 
 .heatmap-day.blank {
@@ -679,7 +681,11 @@ footer a:hover {
 }
 
 .heatmap-legend .heatmap-day {
+  aspect-ratio: auto;
   flex: 0 0 9px;
+  height: 9px;
+  min-width: 9px;
+  width: 9px;
 }
 
 .achievements-card {
