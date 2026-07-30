@@ -1068,52 +1068,6 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
           </div>
         </article>
 
-        <article className="overview-card platforms-card">
-          <div className="overview-card-heading">
-            <span>PLATFORM MIX</span>
-            <span>{overview.platforms.length} PLATFORMS</span>
-          </div>
-          <div className="platform-strip" aria-label="PB distribution by platform">
-            {overview.platforms.map(([name, count], index) => (
-              <span
-                key={name}
-                className={`platform-segment tone-${index % 5}`}
-                style={{ width: `${(count / overview.platformTotal) * 100}%` }}
-                title={`${name}: ${count} PBs`}
-              />
-            ))}
-          </div>
-          <div className="platform-legend">
-            {overview.platforms.slice(0, 6).map(([name, count], index) => (
-              <div key={name}>
-                <span className={`legend-dot tone-${index % 5}`} />
-                <b>{name}</b>
-                <small>{count} PBs</small>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article className="overview-card peak-card">
-          <div className="overview-card-heading">
-            <span>PEAK ACTIVITY</span>
-            <span>ARCHIVE PULSE</span>
-          </div>
-          <div className="peak-year">
-            <strong>{overview.peakYear?.[0]}</strong>
-            <span>{overview.peakYear?.[1]} personal bests</span>
-          </div>
-          {overview.latest && (
-            <div className="latest-pb">
-              <span>LATEST ENTRY</span>
-              <b>{overview.latest.gameName}</b>
-              <small>{longDate(overview.latest.date)}</small>
-            </div>
-          )}
-        </article>
-      </div>
-
-      <div className="overview-feature-grid">
         <article className="overview-card heatmap-card">
           <div className="overview-card-heading">
             <span>ACTIVITY HEATMAP</span>
@@ -1187,6 +1141,52 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
             ))}
             <span>MORE</span>
           </div>
+        </article>
+
+        <article className="overview-card platforms-card">
+          <div className="overview-card-heading">
+            <span>PLATFORM MIX</span>
+            <span>{overview.platforms.length} PLATFORMS</span>
+          </div>
+          <div className="platform-strip" aria-label="PB distribution by platform">
+            {overview.platforms.map(([name, count], index) => (
+              <span
+                key={name}
+                className={`platform-segment tone-${index % 5}`}
+                style={{ width: `${(count / overview.platformTotal) * 100}%` }}
+                title={`${name}: ${count} PBs`}
+              />
+            ))}
+          </div>
+          <div className="platform-legend">
+            {overview.platforms.slice(0, 6).map(([name, count], index) => (
+              <div key={name}>
+                <span className={`legend-dot tone-${index % 5}`} />
+                <b>{name}</b>
+                <small>{count} PBs</small>
+              </div>
+            ))}
+          </div>
+        </article>
+      </div>
+
+      <div className="overview-feature-grid">
+        <article className="overview-card peak-card">
+          <div className="overview-card-heading">
+            <span>PEAK ACTIVITY</span>
+            <span>ARCHIVE PULSE</span>
+          </div>
+          <div className="peak-year">
+            <strong>{overview.peakYear?.[0]}</strong>
+            <span>{overview.peakYear?.[1]} personal bests</span>
+          </div>
+          {overview.latest && (
+            <div className="latest-pb">
+              <span>LATEST ENTRY</span>
+              <b>{overview.latest.gameName}</b>
+              <small>{longDate(overview.latest.date)}</small>
+            </div>
+          )}
         </article>
 
         <article className="overview-card achievements-card">
