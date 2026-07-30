@@ -22,6 +22,8 @@ html {
 
 body {
   margin: 0;
+  max-width: 100%;
+  overflow-x: clip;
   background:
     linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
@@ -344,6 +346,7 @@ footer a:hover {
   background: var(--panel);
   border: 1px solid var(--line);
   min-height: 310px;
+  min-width: 0;
 }
 
 .overview-card-heading {
@@ -2789,7 +2792,23 @@ footer p {
   }
 
   .site-header {
-    height: 64px;
+    align-items: stretch;
+    display: grid;
+    gap: 12px;
+    height: auto;
+    padding: 12px 20px 13px;
+  }
+
+  .site-header .brand {
+    min-width: 0;
+  }
+
+  .site-header nav {
+    border-top: 1px solid var(--line);
+    gap: 0;
+    justify-content: space-between;
+    padding-top: 12px;
+    width: 100%;
   }
 
   .site-header nav a:first-child {
@@ -2837,6 +2856,12 @@ footer p {
 
   .overview-card {
     min-height: 0;
+    width: 100%;
+  }
+
+  .overview-grid,
+  .overview-feature-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .year-bars {
