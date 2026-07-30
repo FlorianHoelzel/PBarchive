@@ -2969,6 +2969,7 @@ footer p {
 
 .feed-row-copy h2 {
   font-size: clamp(18px, 2vw, 28px);
+  font-weight: 800;
   letter-spacing: -0.04em;
   margin: 0 0 6px;
   overflow: hidden;
@@ -3084,7 +3085,9 @@ footer p {
 .feed-embed-list {
   min-height: 0;
   overflow-y: auto;
+  padding-right: 10px;
   scrollbar-color: var(--acid) var(--panel);
+  scrollbar-gutter: stable;
   scrollbar-width: thin;
 }
 
