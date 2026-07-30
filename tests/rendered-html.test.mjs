@@ -71,6 +71,9 @@ test("shows the tiered historical world-record achievement", async () => {
   assert.match(html, /href="\/">PB ARCHIVE<\/a>/);
   assert.match(html, /class="accent-name" href="#top">VOLPEY<\/a>/);
   assert.match(html, /SPEEDRUN PASSPORT/);
+  assert.match(html, /ENTRY RECORD/);
+  assert.match(html, /PREVIOUS/);
+  assert.match(html, /NEXT/);
   assert.match(html, /PB STAMPS/);
   assert.match(html, /HISTORIC WRS/);
   assert.match(html, /BIGGEST LEAP/);

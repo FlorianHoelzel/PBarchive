@@ -557,6 +557,7 @@ function LevelCollection({
 type ArchiveGame = {
   name: string;
   id: string;
+  gameAbbreviation: string;
   cover: string | null;
   histories: History[];
   displayCount: number;
@@ -628,92 +629,192 @@ function passportGame(game: ArchiveGame): PassportGame {
   };
 }
 
-function SpeedrunPassport({ games }: { games: ArchiveGame[] }) {
-  const entries = games.map(passportGame);
+function SpeedrunPassport({
+  games,
+  owner,
+}: {
+  games: ArchiveGame[];
+  owner: string;
+}) {
+  const entries = useMemo(() => games.map(passportGame), [games]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [turnDirection, setTurnDirection] = useState<"next" | "previous">(
+    "next",
+  );
+  const game = entries[activeIndex];
+
+  function turnTo(index: number) {
+    if (index < 0 || index >= entries.length || index === activeIndex) return;
+    setTurnDirection(index > activeIndex ? "next" : "previous");
+    setActiveIndex(index);
+  }
 
   return (
-    <div className="passport">
-      <div className="passport-intro">
-        <span>ISSUED BY PB ARCHIVE</span>
-        <p>
-          Every game leaves a stamp. Open an entry to revisit its categories,
-          landmark improvements, and surviving personal bests.
-        </p>
+    <div
+      className="passport"
+      role="region"
+      aria-label={`${owner}'s speedrun passport`}
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === "ArrowLeft") turnTo(activeIndex - 1);
+        if (event.key === "ArrowRight") turnTo(activeIndex + 1);
+      }}
+    >
+      <div className="passport-book-topline">
+        <span>PB ARCHIVE · SPEEDRUN PASSPORT</span>
+        <b>{owner.toUpperCase()}</b>
       </div>
-      <div className="passport-grid">
-        {entries.map((game, index) => (
-          <a
-            className="passport-entry"
-            href={`#${game.id}`}
-            aria-label={`Open ${game.name}, ${game.pbCount} personal bests`}
-            key={game.id}
-          >
-            <div className="passport-entry-topline">
-              <span>ENTRY {String(index + 1).padStart(2, "0")}</span>
-              <span>
+
+      <div
+        className={`passport-spread turn-${turnDirection}`}
+        aria-live="polite"
+        key={game.id}
+      >
+        <section className="passport-page passport-page-identity">
+          <div className="passport-page-heading">
+            <span>GAME ENTRY</span>
+            <b>{String(activeIndex + 1).padStart(2, "0")}</b>
+          </div>
+          <div className="passport-identity">
+            <div className="passport-cover" aria-hidden="true">
+              {game.cover ? (
+                <img src={game.cover} alt="" loading="lazy" />
+              ) : (
+                <span>{game.name.slice(0, 2).toUpperCase()}</span>
+              )}
+            </div>
+            <div>
+              <span className="passport-kicker">SPEEDRUN VISA</span>
+              <h3>{game.name}</h3>
+              <small>VALID FOR VERIFIED PERSONAL BESTS</small>
+            </div>
+          </div>
+
+          <div className="passport-fields">
+            <div>
+              <span>HOLDER</span>
+              <strong>{owner}</strong>
+            </div>
+            <div>
+              <span>ACTIVE YEARS</span>
+              <strong>
                 {game.firstYear && game.latestYear
                   ? game.firstYear === game.latestYear
                     ? game.firstYear
                     : `${game.firstYear}—${game.latestYear}`
-                  : "DATE UNKNOWN"}
-              </span>
-            </div>
-            <div className="passport-identity">
-              <div className="passport-cover" aria-hidden="true">
-                {game.cover ? (
-                  <img src={game.cover} alt="" loading="lazy" />
-                ) : (
-                  <span>{game.name.slice(0, 2).toUpperCase()}</span>
-                )}
-              </div>
-              <div>
-                <span className="passport-kicker">SPEEDRUN VISA</span>
-                <h3>{game.name}</h3>
-                <small>
-                  {game.displayCount} categor
-                  {game.displayCount === 1 ? "y" : "ies"} ·{" "}
-                  {game.platforms.length
-                    ? game.platforms.slice(0, 2).join(" / ")
-                    : "platform unknown"}
-                </small>
-              </div>
-            </div>
-            <div className="passport-stats">
-              <div>
-                <span>PB STAMPS</span>
-                <strong>{game.pbCount}</strong>
-              </div>
-              <div>
-                <span>TIME CUT</span>
-                <strong>{compactDuration(game.totalSaved)}</strong>
-              </div>
-              <div>
-                <span>HISTORIC WRS</span>
-                <strong>{game.worldRecords}</strong>
-              </div>
-            </div>
-            <div className="passport-landmark">
-              <span>BIGGEST LEAP</span>
-              <strong>
-                {game.biggestSave
-                  ? `−${compactDuration(game.biggestSave.seconds)}`
-                  : "FIRST PB"}
+                  : "UNKNOWN"}
               </strong>
-              <small>
-                {game.biggestSave?.category ?? "The journey starts here"}
-              </small>
             </div>
-            <div
-              className={`passport-stamp stamp-${index % 4}`}
-              aria-hidden="true"
-            >
-              <span>PB</span>
-              <b>{game.latestYear ?? "RUN"}</b>
-              <small>ARCHIVED</small>
+            <div>
+              <span>CATEGORIES</span>
+              <strong>{game.displayCount}</strong>
             </div>
-            <span className="passport-open">OPEN ENTRY ↓</span>
+            <div>
+              <span>PLATFORMS</span>
+              <strong>
+                {game.platforms.length
+                  ? game.platforms.slice(0, 3).join(" / ")
+                  : "UNKNOWN"}
+              </strong>
+            </div>
+          </div>
+
+          <div
+            className={`passport-stamp stamp-${activeIndex % 4}`}
+            aria-hidden="true"
+          >
+            <span>PB</span>
+            <b>{game.latestYear ?? "RUN"}</b>
+            <small>ADMITTED</small>
+          </div>
+          <span className="passport-page-number">
+            {String(activeIndex * 2 + 1).padStart(2, "0")}
+          </span>
+        </section>
+
+        <section className="passport-page passport-page-record">
+          <div className="passport-page-heading">
+            <span>ENTRY RECORD</span>
+            <b>{game.gameAbbreviation ?? "PB"}</b>
+          </div>
+          <div className="passport-record-title">
+            <span>ARCHIVE MARKS</span>
+            <h3>{game.pbCount} personal bests</h3>
+            <p>
+              A record of every verified step forward in this game, including
+              the runs that have since been replaced.
+            </p>
+          </div>
+
+          <div className="passport-stats">
+            <div>
+              <span>PB STAMPS</span>
+              <strong>{game.pbCount}</strong>
+            </div>
+            <div>
+              <span>TIME CUT</span>
+              <strong>{compactDuration(game.totalSaved)}</strong>
+            </div>
+            <div>
+              <span>HISTORIC WRS</span>
+              <strong>{game.worldRecords}</strong>
+            </div>
+          </div>
+
+          <div className="passport-landmark">
+            <span>BIGGEST LEAP</span>
+            <strong>
+              {game.biggestSave
+                ? `−${compactDuration(game.biggestSave.seconds)}`
+                : "FIRST PB"}
+            </strong>
+            <small>
+              {game.biggestSave?.category ?? "The journey starts here"}
+            </small>
+          </div>
+
+          <a className="passport-open" href={`#${game.id}`}>
+            OPEN {game.name.toUpperCase()} HISTORY ↓
           </a>
-        ))}
+          <span className="passport-page-number">
+            {String(activeIndex * 2 + 2).padStart(2, "0")}
+          </span>
+        </section>
+      </div>
+
+      <div className="passport-controls">
+        <button
+          type="button"
+          onClick={() => turnTo(activeIndex - 1)}
+          disabled={activeIndex === 0}
+        >
+          ← PREVIOUS
+        </button>
+        <div className="passport-progress" aria-label="Passport pages">
+          {entries.map((entry, index) => (
+            <button
+              type="button"
+              className={index === activeIndex ? "active" : ""}
+              onClick={() => turnTo(index)}
+              aria-label={`Turn to ${entry.name}`}
+              aria-current={index === activeIndex ? "page" : undefined}
+              key={entry.id}
+            >
+              <span />
+            </button>
+          ))}
+        </div>
+        <span className="passport-counter">
+          {String(activeIndex + 1).padStart(2, "0")} /{" "}
+          {String(entries.length).padStart(2, "0")}
+        </span>
+        <button
+          type="button"
+          onClick={() => turnTo(activeIndex + 1)}
+          disabled={activeIndex === entries.length - 1}
+        >
+          NEXT →
+        </button>
       </div>
     </div>
   );
@@ -1634,6 +1735,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
       return {
         name,
         id: toId(name),
+        gameAbbreviation: histories[0].gameAbbreviation,
         cover: histories[0].gameCover,
         histories,
         displayCount:
@@ -1779,7 +1881,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
           <h2>SPEEDRUN PASSPORT</h2>
           <span>{String(games.length).padStart(2, "0")} STAMPS</span>
         </div>
-        <SpeedrunPassport games={games} />
+        <SpeedrunPassport games={games} owner={data.profile.name} />
       </section>
 
       <div className="games">
