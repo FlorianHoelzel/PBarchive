@@ -41,6 +41,50 @@ async function mapById(ids, pathForId) {
   return Object.fromEntries(entries);
 }
 
+async function mapWithConcurrency(items, limit, callback) {
+  let nextIndex = 0;
+  const workers = Array.from(
+    { length: Math.min(limit, items.length) },
+    async () => {
+      while (nextIndex < items.length) {
+        const item = items[nextIndex];
+        nextIndex += 1;
+        await callback(item);
+      }
+    },
+  );
+  await Promise.all(workers);
+}
+
+async function markHistoricalWorldRecords(histories) {
+  const entries = histories.flatMap((history) =>
+    history.runs
+      .filter((run) => run.date !== "Unknown")
+      .map((run) => ({ history, run })),
+  );
+
+  await mapWithConcurrency(entries, 4, async ({ history, run }) => {
+    const leaderboardPath = run.levelId
+      ? `/leaderboards/${history.gameId}/level/${run.levelId}/${run.categoryId}`
+      : `/leaderboards/${history.gameId}/category/${run.categoryId}`;
+    const query = new URLSearchParams({ top: "1", date: run.date });
+    for (const [variableId, valueId] of Object.entries(
+      run.leaderboardValues,
+    )) {
+      query.set(`var-${variableId}`, valueId);
+    }
+
+    try {
+      const payload = await get(`${leaderboardPath}?${query}`);
+      run.worldRecordAtTime = payload.data.runs.some(
+        (entry) => entry.run.id === run.id,
+      );
+    } catch {
+      run.worldRecordAtTime = false;
+    }
+  });
+}
+
 function formatTime(totalSeconds) {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -84,12 +128,14 @@ for (const run of runs) {
   const valueLabels = [];
   const runDetails = [];
   const rulesetValues = [];
+  const leaderboardValues = {};
 
   for (const [variableId, valueId] of Object.entries(run.values ?? {})) {
     const variable = variables.find((item) => item.id === variableId);
     const value = variable?.values?.values?.[valueId];
     if (variable?.["is-subcategory"]) {
       rulesetValues.push(`${variableId}:${valueId}`);
+      leaderboardValues[variableId] = valueId;
       if (value?.label) valueLabels.push(value.label);
     } else if (value?.label) {
       runDetails.push(value.label);
@@ -132,6 +178,9 @@ for (const run of runs) {
     platform: platforms[run.system?.platform]?.name ?? null,
     emulated: Boolean(run.system?.emulated),
     detail: runDetails.join(" · ") || null,
+    categoryId: run.category,
+    levelId: run.level ?? null,
+    leaderboardValues,
   });
 }
 
@@ -178,7 +227,29 @@ histories.sort((a, b) => {
   return (a.levelName ?? "").localeCompare(b.levelName ?? "");
 });
 
+await markHistoricalWorldRecords(histories);
+for (const history of histories) {
+  for (const run of history.runs) {
+    delete run.categoryId;
+    delete run.levelId;
+    delete run.leaderboardValues;
+  }
+}
+
 const gamesSummary = [...new Set(histories.map((history) => history.gameId))];
+const rawNameStyle = user["name-style"];
+const nameColor = rawNameStyle
+  ? {
+      from:
+        rawNameStyle["color-from"]?.dark ??
+        rawNameStyle.color?.dark ??
+        null,
+      to:
+        rawNameStyle["color-to"]?.dark ??
+        rawNameStyle.color?.dark ??
+        null,
+    }
+  : null;
 const output = {
   generatedAt: new Date().toISOString(),
   source: user.weblink,
@@ -187,6 +258,7 @@ const output = {
     name: user.names.international,
     country: user.location?.country?.names?.international ?? null,
     avatar: user.assets?.image?.uri ?? user.assets?.icon?.uri ?? null,
+    nameColor,
     profileUrl: user.weblink,
   },
   stats: {

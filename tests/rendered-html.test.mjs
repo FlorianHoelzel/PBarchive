@@ -55,3 +55,13 @@ test("server-renders shareable PB feed routes", async () => {
   assert.equal(embed.status, 200);
   assert.match(await embed.text(), /RECENT PERSONAL BESTS/i);
 });
+
+test("shows the historical world-record achievement", async () => {
+  const response = await render("/volpey");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /WORLD RECORDS/);
+  assert.match(html, /Runs that held the world record when set/);
+  assert.doesNotMatch(html, /UNTOUCHABLE/);
+});

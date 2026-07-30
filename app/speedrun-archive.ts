@@ -52,6 +52,64 @@ async function getAllRuns(userId: string) {
   return runs;
 }
 
+async function mapWithConcurrency<T>(
+  items: T[],
+  limit: number,
+  callback: (item: T) => Promise<void>,
+) {
+  let nextIndex = 0;
+  const workers = Array.from(
+    { length: Math.min(limit, items.length) },
+    async () => {
+      while (nextIndex < items.length) {
+        const item = items[nextIndex];
+        nextIndex += 1;
+        await callback(item);
+      }
+    },
+  );
+  await Promise.all(workers);
+}
+
+type InternalRun = History["runs"][number] & {
+  categoryId?: string;
+  levelId?: string | null;
+  leaderboardValues?: Record<string, string>;
+};
+
+async function markHistoricalWorldRecords(histories: History[]) {
+  const entries = histories.flatMap((history) =>
+    history.runs
+      .filter((run) => run.date !== "Unknown")
+      .map((run) => ({ history, run: run as InternalRun })),
+  );
+
+  await mapWithConcurrency(entries, 4, async ({ history, run }) => {
+    if (!run.categoryId) return;
+
+    const leaderboardPath = run.levelId
+      ? `/leaderboards/${history.gameId}/level/${run.levelId}/${run.categoryId}`
+      : `/leaderboards/${history.gameId}/category/${run.categoryId}`;
+    const query = new URLSearchParams({ top: "1", date: run.date });
+    for (const [variableId, valueId] of Object.entries(
+      run.leaderboardValues ?? {},
+    )) {
+      query.set(`var-${variableId}`, valueId);
+    }
+
+    try {
+      const payload = await getOptional(`${leaderboardPath}?${query}`);
+      run.worldRecordAtTime = Boolean(
+        payload?.data?.runs?.some(
+          (entry: ApiRecord) => entry.run?.id === run.id,
+        ),
+      );
+    } catch {
+      run.worldRecordAtTime = false;
+    }
+  });
+}
+
 async function mapById(
   ids: Array<string | null | undefined>,
   pathForId: (id: string) => string,
@@ -127,6 +185,7 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
     const valueLabels: string[] = [];
     const runDetails: string[] = [];
     const rulesetValues: string[] = [];
+    const leaderboardValues: Record<string, string> = {};
 
     for (const [variableId, valueId] of Object.entries(run.values ?? {})) {
       const variable = variables.find(
@@ -136,6 +195,7 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
 
       if (variable?.["is-subcategory"]) {
         rulesetValues.push(`${variableId}:${valueId}`);
+        leaderboardValues[variableId] = valueId as string;
         if (value?.label) valueLabels.push(value.label);
       } else if (value?.label) {
         runDetails.push(value.label);
@@ -178,6 +238,9 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
       platform: platforms[run.system?.platform]?.name ?? null,
       emulated: Boolean(run.system?.emulated),
       detail: runDetails.join(" · ") || null,
+      categoryId: run.category,
+      levelId: run.level ?? null,
+      leaderboardValues,
     });
   }
 
@@ -224,6 +287,15 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
     if (categoryOrder) return categoryOrder;
     return (a.levelName ?? "").localeCompare(b.levelName ?? "");
   });
+
+  await markHistoricalWorldRecords(histories);
+  for (const history of histories) {
+    for (const run of history.runs as InternalRun[]) {
+      delete run.categoryId;
+      delete run.levelId;
+      delete run.leaderboardValues;
+    }
+  }
 
   const gameIds = new Set(histories.map((history) => history.gameId));
   const rawNameStyle = user["name-style"];

@@ -13,6 +13,7 @@ export type Run = {
   emulated: boolean;
   detail: string | null;
   current: boolean;
+  worldRecordAtTime?: boolean;
 };
 
 export type History = {
@@ -84,24 +85,6 @@ function compactDuration(totalSeconds: number) {
   if (hours) return `${hours}h ${minutes}m`;
   if (minutes) return `${minutes}m ${remainder}s`;
   return `${remainder}s`;
-}
-
-function elapsedLabel(from: string, to: string) {
-  const start = new Date(`${from}T00:00:00Z`);
-  const end = new Date(to);
-  const months = Math.max(
-    0,
-    (end.getUTCFullYear() - start.getUTCFullYear()) * 12 +
-      end.getUTCMonth() -
-      start.getUTCMonth(),
-  );
-  const years = Math.floor(months / 12);
-  const remainder = months % 12;
-
-  if (years && remainder) return `${years}y ${remainder}m`;
-  if (years) return `${years} ${years === 1 ? "year" : "years"}`;
-  if (months) return `${months} ${months === 1 ? "month" : "months"}`;
-  return "New";
 }
 
 function embedUrl(url: string | null, autoplay: boolean) {
@@ -942,15 +925,9 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
       }
     }
 
-    const oldestCurrent = histories
-      .map((history) => ({
-        run: history.runs.at(-1)!,
-        gameName: history.gameName,
-        categoryLabel: historyLabel(history),
-      }))
-      .filter((entry) => entry.run.date !== "Unknown")
-      .sort((a, b) => a.run.date.localeCompare(b.run.date))[0];
-    const generatedAt = new Date().toISOString();
+    const worldRecordsAtTime = runs.filter(
+      (run) => run.worldRecordAtTime,
+    ).length;
     const yearsActive =
       yearEntries.length > 0
         ? yearEntries.at(-1)![0] - yearEntries[0][0] + 1
@@ -1021,15 +998,11 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
           value: `${yearsActive} yr`,
           detail: "Calendar years represented",
         },
-        ...(oldestCurrent
-          ? [
-              {
-                name: "UNTOUCHABLE",
-                value: elapsedLabel(oldestCurrent.run.date, generatedAt),
-                detail: `${oldestCurrent.gameName} · ${oldestCurrent.categoryLabel}`,
-              },
-            ]
-          : []),
+        {
+          name: "WORLD RECORDS",
+          value: String(worldRecordsAtTime),
+          detail: "Runs that held the world record when set",
+        },
       ],
     };
   }, [histories]);
