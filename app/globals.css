@@ -819,9 +819,12 @@ footer a:hover {
   background: rgb(7 8 7 / 82%);
   display: flex;
   inset: 0;
+  isolation: isolate;
   justify-content: center;
+  overscroll-behavior: contain;
   padding: 20px;
   position: fixed;
+  transform: translateZ(0);
   z-index: 100;
 }
 
