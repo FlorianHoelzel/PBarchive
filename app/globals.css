@@ -68,6 +68,27 @@ button {
   letter-spacing: 0.13em;
 }
 
+.brand-avatar-link {
+  display: flex;
+  flex: none;
+}
+
+.brand-breadcrumb {
+  align-items: center;
+  display: flex;
+  gap: 0.65em;
+  white-space: nowrap;
+}
+
+.brand-breadcrumb a {
+  transition: opacity 180ms ease;
+}
+
+.brand-breadcrumb a:hover,
+.brand-breadcrumb a:focus-visible {
+  opacity: 0.7;
+}
+
 .brand-mark {
   align-items: center;
   background: var(--accent-gradient);

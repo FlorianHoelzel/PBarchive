@@ -1383,34 +1383,41 @@ export default function PBHistory({ data }: { data: SiteData }) {
         : "long";
 
   return (
-    <main style={archiveStyle}>
+    <main id="top" style={archiveStyle}>
       <ArchiveNavigator games={games} />
       <header className="site-header">
-        <a
-          className="brand"
-          href="/"
-          aria-label="PB Archive home"
-        >
-          {profileAvatar ? (
-            <img
-              className="brand-avatar"
-              src={profileAvatar}
-              alt=""
-              width="34"
-              height="34"
-            />
-          ) : (
-            <span className="brand-avatar-fallback" aria-hidden="true">
-              {data.profile.name.slice(0, 1).toUpperCase()}
-            </span>
-          )}
-          <span>
-            PB ARCHIVE /{" "}
-            <span className="accent-name">
+        <div className="brand">
+          <a
+            className="brand-avatar-link"
+            href="#top"
+            aria-label={`Back to the top of ${data.profile.name}'s archive`}
+          >
+            {profileAvatar ? (
+              <img
+                className="brand-avatar"
+                src={profileAvatar}
+                alt=""
+                width="34"
+                height="34"
+              />
+            ) : (
+              <span className="brand-avatar-fallback" aria-hidden="true">
+                {data.profile.name.slice(0, 1).toUpperCase()}
+              </span>
+            )}
+          </a>
+          <span
+            className="brand-breadcrumb"
+            role="navigation"
+            aria-label="Breadcrumb"
+          >
+            <a href="/">PB ARCHIVE</a>
+            <span aria-hidden="true">/</span>
+            <a className="accent-name" href="#top">
               {data.profile.name.toUpperCase()}
-            </span>
+            </a>
           </span>
-        </a>
+        </div>
         <nav aria-label="Primary">
           <a href="#overview">OVERVIEW</a>
           <a href="#games">THE RUNS</a>
@@ -1421,7 +1428,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
         </nav>
       </header>
 
-      <section className="hero" id="top">
+      <section className="hero">
         <div className="hero-intro">
           <div className="hero-profile">
             {profileAvatar ? (

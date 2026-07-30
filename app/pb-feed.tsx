@@ -197,29 +197,43 @@ export default function PBFeed({
   }
 
   return (
-    <main className="feed-page" style={archiveStyle(data.profile)}>
+    <main className="feed-page" id="top" style={archiveStyle(data.profile)}>
       <header className="site-header">
-        <a className="brand" href={archivePath}>
-          {profileAvatar && !avatarFailed ? (
-            <img
-              className="brand-avatar"
-              src={profileAvatar}
-              alt=""
-              width="34"
-              height="34"
-              onError={() => setAvatarFailed(true)}
-            />
-          ) : (
-            <span className="brand-avatar-fallback" aria-hidden="true">
-              {data.profile.name.slice(0, 1).toUpperCase()}
-            </span>
-          )}
-          <span>
-            PB ARCHIVE /{" "}
-            <span className="accent-name">{data.profile.name.toUpperCase()}</span>{" "}
-            / FEED
+        <div className="brand">
+          <a
+            className="brand-avatar-link"
+            href={archivePath}
+            aria-label={`${data.profile.name}'s PB archive`}
+          >
+            {profileAvatar && !avatarFailed ? (
+              <img
+                className="brand-avatar"
+                src={profileAvatar}
+                alt=""
+                width="34"
+                height="34"
+                onError={() => setAvatarFailed(true)}
+              />
+            ) : (
+              <span className="brand-avatar-fallback" aria-hidden="true">
+                {data.profile.name.slice(0, 1).toUpperCase()}
+              </span>
+            )}
+          </a>
+          <span
+            className="brand-breadcrumb"
+            role="navigation"
+            aria-label="Breadcrumb"
+          >
+            <a href="/">PB ARCHIVE</a>
+            <span aria-hidden="true">/</span>
+            <a className="accent-name" href={archivePath}>
+              {data.profile.name.toUpperCase()}
+            </a>
+            <span aria-hidden="true">/</span>
+            <a href="#top">FEED</a>
           </span>
-        </a>
+        </div>
         <nav aria-label="Feed actions">
           <button type="button" onClick={() => copy("share")}>
             {copied === "share" ? "LINK COPIED" : "SHARE"}

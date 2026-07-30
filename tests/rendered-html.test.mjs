@@ -50,10 +50,12 @@ test("server-renders shareable PB feed routes", async () => {
   const feedHtml = await feed.text();
   assert.match(feedHtml, /PB FEED/i);
   assert.match(feedHtml, /class="brand-avatar"[^>]+src="\/volpey-avatar\.png"/);
+  assert.match(feedHtml, /href="\/">PB ARCHIVE<\/a>/);
   assert.match(
     feedHtml,
-    /PB ARCHIVE\s*\/(?:<!-- -->)?\s*<span class="accent-name">VOLPEY<\/span>\s*(?:<!-- -->)?\s*\/ FEED/,
+    /class="accent-name" href="\/volpey">VOLPEY<\/a>/i,
   );
+  assert.match(feedHtml, /href="#top">FEED<\/a>/);
   assert.doesNotMatch(feedHtml, /FIRST PB IMPROVEMENT/i);
 
   const embed = await render("/volpey/embed/feed");
@@ -66,11 +68,8 @@ test("shows the tiered historical world-record achievement", async () => {
   assert.equal(response.status, 200);
 
   const html = await response.text();
-  assert.match(html, /class="brand" href="\/"/);
-  assert.match(
-    html,
-    /PB ARCHIVE\s*\/(?:<!-- -->)?\s*<span class="accent-name">VOLPEY<\/span>/,
-  );
+  assert.match(html, /href="\/">PB ARCHIVE<\/a>/);
+  assert.match(html, /class="accent-name" href="#top">VOLPEY<\/a>/);
   assert.match(html, /WORLD BEATER/);
   assert.match(html, /World records when set/);
   assert.doesNotMatch(html, /WORLD RECORDS/);
