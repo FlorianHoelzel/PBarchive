@@ -62,6 +62,6 @@ test("shows the historical world-record achievement", async () => {
 
   const html = await response.text();
   assert.match(html, /WORLD RECORDS/);
-  assert.match(html, /Runs that held the world record when set/);
+  assert.match(html, /World records when set/);
   assert.doesNotMatch(html, /UNTOUCHABLE/);
 });

@@ -1001,7 +1001,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
         {
           name: "WORLD RECORDS",
           value: String(worldRecordsAtTime),
-          detail: "Runs that held the world record when set",
+          detail: "World records when set",
         },
       ],
     };
