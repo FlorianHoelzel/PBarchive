@@ -2808,10 +2808,20 @@ footer p {
 
   .site-header nav {
     border-top: 1px solid var(--line);
-    gap: 0;
-    justify-content: space-between;
+    font-size: clamp(8px, 2.4vw, 10px);
+    gap: clamp(12px, 4vw, 20px);
+    justify-content: flex-start;
+    letter-spacing: 0.1em;
     padding-top: 12px;
     width: 100%;
+  }
+
+  .site-header nav a {
+    white-space: nowrap;
+  }
+
+  .site-header nav a:last-child {
+    margin-left: auto;
   }
 
   .site-header nav a:first-child {
