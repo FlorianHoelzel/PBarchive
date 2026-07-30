@@ -4,6 +4,7 @@ import {
   CSSProperties,
   useEffect,
   useId,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -1377,7 +1378,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
     [overview.runs, selectedHeatmapDate],
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!selectedHeatmapDate) return;
 
     const dialog = heatmapDialogRef.current;
@@ -1507,7 +1508,11 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
           </div>
         </article>
 
-        <article className="overview-card heatmap-card">
+        <article
+          className={`overview-card heatmap-card${
+            selectedHeatmapDate ? " popup-open" : ""
+          }`}
+        >
           <div className="overview-card-heading">
             <span>ACTIVITY HEATMAP</span>
             <label>

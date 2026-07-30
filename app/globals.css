@@ -774,6 +774,12 @@ footer a:hover {
   z-index: 2;
 }
 
+.heatmap-card.popup-open .heatmap-grid button.heatmap-day {
+  filter: none;
+  transform: none;
+  transition: none;
+}
+
 .heatmap-day.blank {
   background: transparent;
 }
