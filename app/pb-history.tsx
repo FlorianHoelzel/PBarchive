@@ -1390,8 +1390,8 @@ export default function PBHistory({ data }: { data: SiteData }) {
       <header className="site-header">
         <a
           className="brand"
-          href="#top"
-          aria-label={`${data.profile.name} PB History home`}
+          href="/"
+          aria-label="PB Archive home"
         >
           {profileAvatar ? (
             <img
@@ -1407,10 +1407,10 @@ export default function PBHistory({ data }: { data: SiteData }) {
             </span>
           )}
           <span>
+            PB ARCHIVE /{" "}
             <span className="accent-name">
               {data.profile.name.toUpperCase()}
-            </span>{" "}
-            / PB ARCHIVE
+            </span>
           </span>
         </a>
         <nav aria-label="Primary">
