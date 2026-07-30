@@ -816,16 +816,29 @@ footer a:hover {
 
 .heatmap-popup-overlay {
   align-items: center;
-  background: rgb(7 8 7 / 82%);
+  background: transparent;
+  border: 0;
+  color: var(--paper);
   display: flex;
+  height: 100dvh;
   inset: 0;
-  isolation: isolate;
   justify-content: center;
+  margin: 0;
+  max-height: none;
+  max-width: none;
   overscroll-behavior: contain;
   padding: 20px;
   position: fixed;
-  transform: translateZ(0);
+  width: 100vw;
   z-index: 100;
+}
+
+.heatmap-popup-overlay::backdrop {
+  background: rgb(7 8 7 / 82%);
+}
+
+.heatmap-popup-overlay:not([open]) {
+  display: none;
 }
 
 .heatmap-popup {

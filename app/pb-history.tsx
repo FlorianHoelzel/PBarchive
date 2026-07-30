@@ -1,7 +1,13 @@
 "use client";
 
-import { CSSProperties, useEffect, useId, useMemo, useState } from "react";
-import { createPortal } from "react-dom";
+import {
+  CSSProperties,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 export type Run = {
   id: string;
@@ -1362,6 +1368,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
   const [selectedHeatmapDate, setSelectedHeatmapDate] = useState<string | null>(
     null,
   );
+  const heatmapDialogRef = useRef<HTMLDialogElement>(null);
   const selectedDayRuns = useMemo(
     () =>
       selectedHeatmapDate
@@ -1373,12 +1380,13 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
   useEffect(() => {
     if (!selectedHeatmapDate) return;
 
-    function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") setSelectedHeatmapDate(null);
-    }
+    const dialog = heatmapDialogRef.current;
+    if (!dialog) return;
+    if (!dialog.open) dialog.showModal();
 
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
+    return () => {
+      if (dialog.open) dialog.close();
+    };
   }, [selectedHeatmapDate]);
 
   function jumpToRun(historyId: string, runId: string) {
@@ -1584,63 +1592,57 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
             ))}
             <span>MORE</span>
           </div>
-          {selectedHeatmapDate &&
-            typeof document !== "undefined" &&
-            createPortal(
-              <div
-                className="heatmap-popup-overlay"
-                role="presentation"
-                onMouseDown={(event) => {
-                  if (event.target === event.currentTarget) {
-                    setSelectedHeatmapDate(null);
-                  }
-                }}
-              >
-                <section
-                  className="heatmap-popup"
-                  role="dialog"
-                  aria-modal="true"
-                  aria-labelledby="heatmap-popup-title"
-                >
-                  <div className="heatmap-popup-heading">
-                    <div>
-                      <span>PB ACTIVITY</span>
-                      <h3 id="heatmap-popup-title">
-                        {longDate(selectedHeatmapDate)}
-                      </h3>
-                    </div>
+          {selectedHeatmapDate && (
+            <dialog
+              ref={heatmapDialogRef}
+              className="heatmap-popup-overlay"
+              aria-labelledby="heatmap-popup-title"
+              onCancel={() => setSelectedHeatmapDate(null)}
+              onMouseDown={(event) => {
+                if (event.target === event.currentTarget) {
+                  setSelectedHeatmapDate(null);
+                }
+              }}
+            >
+              <section className="heatmap-popup">
+                <div className="heatmap-popup-heading">
+                  <div>
+                    <span>PB ACTIVITY</span>
+                    <h3 id="heatmap-popup-title">
+                      {longDate(selectedHeatmapDate)}
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedHeatmapDate(null)}
+                    aria-label="Close PB activity popup"
+                  >
+                    ×
+                  </button>
+                </div>
+                <p>
+                  {selectedDayRuns.length} PB
+                  {selectedDayRuns.length === 1 ? "" : "s"} set on this day
+                </p>
+                <div className="heatmap-popup-runs">
+                  {selectedDayRuns.map((run) => (
                     <button
                       type="button"
-                      onClick={() => setSelectedHeatmapDate(null)}
-                      aria-label="Close PB activity popup"
+                      key={`${run.historyId}-${run.id}`}
+                      onClick={() => jumpToRun(run.historyId, run.id)}
                     >
-                      ×
+                      <span>
+                        <b>{run.gameName}</b>
+                        <small>{run.categoryLabel}</small>
+                      </span>
+                      <strong>{run.time}</strong>
+                      <i aria-hidden="true">↓</i>
                     </button>
-                  </div>
-                  <p>
-                    {selectedDayRuns.length} PB
-                    {selectedDayRuns.length === 1 ? "" : "s"} set on this day
-                  </p>
-                  <div className="heatmap-popup-runs">
-                    {selectedDayRuns.map((run) => (
-                      <button
-                        type="button"
-                        key={`${run.historyId}-${run.id}`}
-                        onClick={() => jumpToRun(run.historyId, run.id)}
-                      >
-                        <span>
-                          <b>{run.gameName}</b>
-                          <small>{run.categoryLabel}</small>
-                        </span>
-                        <strong>{run.time}</strong>
-                        <i aria-hidden="true">↓</i>
-                      </button>
-                    ))}
-                  </div>
-                </section>
-              </div>,
-              document.body,
-            )}
+                  ))}
+                </div>
+              </section>
+            </dialog>
+          )}
         </article>
 
         <article className="overview-card platforms-card">
