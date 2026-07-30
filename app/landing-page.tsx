@@ -58,53 +58,25 @@ export default function LandingPage() {
   }
 
   return (
-    <main className="landing" id="top">
-      <header className="site-header landing-header">
-        <div className="brand">
-          <a className="brand-mark" href="#top" aria-label="PB Archive home">
-            PB
-          </a>
-          <span className="brand-breadcrumb">
-            <a href="#top">PB ARCHIVE</a>
-          </span>
-        </div>
-        <nav aria-label="Primary">
-          <a href="#how-it-works">HOW IT WORKS</a>
-          <a href="https://www.speedrun.com" target="_blank" rel="noreferrer">
-            SPEEDRUN.COM ↗
-          </a>
-        </nav>
+    <main className="landing">
+      <header className="landing-header">
+        <a className="brand" href="/" aria-label="PB Archive home">
+          <span className="brand-mark">PB</span>
+          <span>PB ARCHIVE</span>
+        </a>
       </header>
 
-      <section className="hero landing-hero">
-        <div className="hero-intro">
-          <span className="landing-kicker">YOUR SPEEDRUN HISTORY</span>
-          <h1>
-            <span className="accent-name">Your</span> PB Archive
-          </h1>
-          <p className="hero-lede">
-            Every personal best tells part of the story. See the whole thing.
-          </p>
+      <section className="landing-main">
+        <div className="landing-copy">
+          <span className="landing-kicker">FOR SPEEDRUNNERS</span>
+          <h1>See how your PBs changed over time.</h1>
           <p>
             Enter your speedrun.com username to turn your current and obsolete
-            runs into a visual, playable history.
+            runs into one playable history.
           </p>
-          <a className="primary-link" href="#find-your-archive">
-            FIND YOUR ARCHIVE <span>↓</span>
-          </a>
-        </div>
 
-        <aside
-          className="hero-note landing-lookup"
-          id="find-your-archive"
-          aria-label="Find your PB archive"
-        >
-          <span className="note-label">FIND YOUR ARCHIVE</span>
-          <p>
-            Start with your public <strong>speedrun.com username</strong>.
-          </p>
           <form className="username-search" onSubmit={submit}>
-            <label htmlFor="speedrun-username">USERNAME</label>
+            <label htmlFor="speedrun-username">SPEEDRUN.COM USERNAME</label>
             <div className="search-field">
               <span aria-hidden="true">@</span>
               <input
@@ -122,7 +94,7 @@ export default function LandingPage() {
                 spellCheck="false"
               />
               <button type="submit" disabled={isLoading}>
-                {isLoading ? "LOOKING…" : "FIND →"}
+                {isLoading ? "LOOKING…" : "FIND USER →"}
               </button>
             </div>
             <p className="search-message" aria-live="polite">
@@ -156,92 +128,23 @@ export default function LandingPage() {
                   {result.archiveUrl && (
                     <a href={result.archiveUrl}>VIEW ARCHIVE</a>
                   )}
-                  <a href={result.profileUrl} target="_blank" rel="noreferrer">
+                  <a
+                    href={result.profileUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     SPEEDRUN.COM ↗
                   </a>
                 </span>
               </div>
             )}
           </form>
-        </aside>
+        </div>
+
       </section>
 
-      <section className="archive-overview landing-overview" id="how-it-works">
-        <div className="section-label">
-          <span>00</span>
-          <h2>WHAT’S IN AN ARCHIVE</h2>
-          <b>BUILT FROM YOUR PUBLIC RUNS</b>
-        </div>
-        <div className="landing-feature-grid">
-          <article className="overview-card landing-feature-card">
-            <div className="overview-card-heading">
-              <span>01 · PROGRESSION</span>
-              <span>EVERY PB</span>
-            </div>
-            <div className="landing-feature-body">
-              <strong>Watch the line move.</strong>
-              <p>
-                Follow each category from your first verified time to your
-                current personal best.
-              </p>
-              <div className="landing-mini-chart" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <i />
-                <i />
-              </div>
-            </div>
-          </article>
-          <article className="overview-card landing-feature-card">
-            <div className="overview-card-heading">
-              <span>02 · RUN FOOTAGE</span>
-              <span>PLAYABLE</span>
-            </div>
-            <div className="landing-feature-body">
-              <strong>Revisit the run.</strong>
-              <p>
-                Jump between PBs and watch attached videos without leaving the
-                timeline.
-              </p>
-              <div className="landing-video-preview" aria-hidden="true">
-                <span>▶</span>
-              </div>
-            </div>
-          </article>
-          <article className="overview-card landing-feature-card">
-            <div className="overview-card-heading">
-              <span>03 · THE BIG PICTURE</span>
-              <span>AT A GLANCE</span>
-            </div>
-            <div className="landing-feature-body">
-              <strong>See the years add up.</strong>
-              <p>
-                Explore your most active years, favorite games, platforms, and
-                speedrunning milestones.
-              </p>
-              <div className="landing-stat-preview" aria-hidden="true">
-                <span>
-                  <b>PBs</b>
-                  <strong>142</strong>
-                </span>
-                <span>
-                  <b>GAMES</b>
-                  <strong>12</strong>
-                </span>
-                <span>
-                  <b>YEARS</b>
-                  <strong>08</strong>
-                </span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <footer>
-        <span>PB / ARCHIVE</span>
-        <p>A SMALL PROJECT FOR PEOPLE WHO LIKE GOING FAST</p>
+      <footer className="landing-footer">
+        <span>A SMALL PROJECT FOR PEOPLE WHO LIKE GOING FAST</span>
         <a href="https://www.speedrun.com" target="_blank" rel="noreferrer">
           DATA FROM SPEEDRUN.COM ↗
         </a>
