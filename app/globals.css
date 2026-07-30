@@ -2734,6 +2734,7 @@ footer p {
   .archive-navigator-mobile {
     left: 12px;
     right: 12px;
+    top: 112px;
   }
 
   .archive-navigator-mobile select {
@@ -2796,6 +2797,7 @@ footer p {
     display: grid;
     gap: 12px;
     height: auto;
+    min-height: 100px;
     padding: 12px 20px 13px;
   }
 
@@ -2958,6 +2960,11 @@ footer p {
 
   .history-data {
     grid-template-columns: 1fr;
+  }
+
+  .game-section,
+  .history-card {
+    scroll-margin-top: 180px;
   }
 
   .chart-wrap {
