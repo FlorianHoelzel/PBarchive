@@ -49,6 +49,11 @@ test("server-renders shareable PB feed routes", async () => {
   assert.equal(feed.status, 200);
   const feedHtml = await feed.text();
   assert.match(feedHtml, /PB FEED/i);
+  assert.match(feedHtml, /class="brand-avatar"[^>]+src="\/volpey-avatar\.png"/);
+  assert.match(
+    feedHtml,
+    /PB ARCHIVE\s*\/(?:<!-- -->)?\s*<span class="accent-name">VOLPEY<\/span>\s*(?:<!-- -->)?\s*\/ FEED/,
+  );
   assert.doesNotMatch(feedHtml, /FIRST PB IMPROVEMENT/i);
 
   const embed = await render("/volpey/embed/feed");

@@ -124,6 +124,7 @@ export default function PBFeed({
   const [game, setGame] = useState("all");
   const [showEmbed, setShowEmbed] = useState(false);
   const [copied, setCopied] = useState<"share" | "embed" | null>(null);
+  const [avatarFailed, setAvatarFailed] = useState(false);
 
   const items = useMemo(
     () =>
@@ -153,6 +154,10 @@ export default function PBFeed({
   const archivePath = `/${encodeURIComponent(data.profile.name)}`;
   const feedPath = `${archivePath}/feed`;
   const embedPath = `${archivePath}/embed/feed`;
+  const profileAvatar =
+    data.profile.name.toLowerCase() === "volpey"
+      ? "/volpey-avatar.png"
+      : data.profile.avatar;
 
   async function copy(kind: "share" | "embed") {
     const origin = window.location.origin;
@@ -195,8 +200,22 @@ export default function PBFeed({
     <main className="feed-page" style={archiveStyle(data.profile)}>
       <header className="site-header">
         <a className="brand" href={archivePath}>
-          <span className="brand-mark">PB</span>
+          {profileAvatar && !avatarFailed ? (
+            <img
+              className="brand-avatar"
+              src={profileAvatar}
+              alt=""
+              width="34"
+              height="34"
+              onError={() => setAvatarFailed(true)}
+            />
+          ) : (
+            <span className="brand-avatar-fallback" aria-hidden="true">
+              {data.profile.name.slice(0, 1).toUpperCase()}
+            </span>
+          )}
           <span>
+            PB ARCHIVE /{" "}
             <span className="accent-name">{data.profile.name.toUpperCase()}</span>{" "}
             / FEED
           </span>
