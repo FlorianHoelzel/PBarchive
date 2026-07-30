@@ -946,6 +946,18 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
         : yearsActive >= 5
           ? "LONG HAUL"
           : "MOMENTUM";
+    const worldRecordName =
+      worldRecordsAtTime >= 50
+        ? "ALL-TIME GREAT"
+        : worldRecordsAtTime >= 25
+          ? "RECORD LEGEND"
+          : worldRecordsAtTime >= 10
+            ? "WORLD BEATER"
+            : worldRecordsAtTime >= 5
+              ? "RECORD BREAKER"
+              : worldRecordsAtTime >= 1
+                ? "RECORD SETTER"
+                : "ON THE HUNT";
 
     return {
       years: yearEntries,
@@ -999,7 +1011,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
           detail: "Calendar years represented",
         },
         {
-          name: "WORLD RECORDS",
+          name: worldRecordName,
           value: String(worldRecordsAtTime),
           detail: "World records when set",
         },
