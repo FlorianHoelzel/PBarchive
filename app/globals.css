@@ -737,6 +737,7 @@ footer a:hover {
   grid-auto-flow: column;
   grid-template-rows: repeat(7, auto);
   min-width: 660px;
+  padding-right: 16px;
   width: 100%;
 }
 
