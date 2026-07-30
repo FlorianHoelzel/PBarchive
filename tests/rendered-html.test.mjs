@@ -47,7 +47,9 @@ test("keeps the required public assets", async () => {
 test("server-renders shareable PB feed routes", async () => {
   const feed = await render("/volpey/feed");
   assert.equal(feed.status, 200);
-  assert.match(await feed.text(), /Every split-second/i);
+  const feedHtml = await feed.text();
+  assert.match(feedHtml, /PB FEED/i);
+  assert.doesNotMatch(feedHtml, /FIRST PB IMPROVEMENT/i);
 
   const embed = await render("/volpey/embed/feed");
   assert.equal(embed.status, 200);

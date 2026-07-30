@@ -83,7 +83,11 @@ function FeedRow({
       <div className="feed-row-copy">
         <h2>{item.history.gameName}</h2>
         <p>{label}</p>
-        <span>{savedTime(item.run, item.previous)} IMPROVEMENT</span>
+        <span>
+          {item.previous
+            ? `${savedTime(item.run, item.previous)} IMPROVEMENT`
+            : "FIRST PB"}
+        </span>
       </div>
       <div className="feed-row-time">
         <strong>{item.run.time}</strong>
@@ -164,10 +168,7 @@ export default function PBFeed({
     return (
       <main className="feed-embed" style={archiveStyle(data.profile)}>
         <header>
-          <div>
-            <span>PB ARCHIVE / LIVE FEED</span>
-            <h1>@{data.profile.name}</h1>
-          </div>
+          <span>PB FEED / @{data.profile.name}</span>
           <b>{items.length} PBS</b>
         </header>
         <div className="feed-embed-list">
@@ -212,18 +213,7 @@ export default function PBFeed({
       </header>
 
       <section className="feed-hero">
-        <div>
-          <span className="eyebrow">THE PB WIRE / @{data.profile.name}</span>
-          <h1>
-            Every split-second
-            <br />
-            <span>worth remembering.</span>
-          </h1>
-        </div>
-        <p>
-          A reverse-chronological record of every personal best, from the latest
-          finish back to the run that started it all.
-        </p>
+        <span className="eyebrow">PB FEED / @{data.profile.name}</span>
       </section>
 
       <section className="feed-controls" aria-label="Filter personal best feed">

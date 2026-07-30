@@ -2810,37 +2810,15 @@ footer p {
 }
 
 .feed-hero {
-  align-items: end;
   border-bottom: 1px solid var(--line);
-  display: grid;
-  gap: clamp(40px, 9vw, 160px);
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
   margin: 0 auto;
   max-width: 1600px;
-  padding: clamp(70px, 9vw, 140px) clamp(24px, 6vw, 96px) clamp(60px, 8vw, 110px);
+  padding: 42px clamp(24px, 6vw, 96px);
 }
 
 .feed-hero .eyebrow {
   color: var(--acid);
-}
-
-.feed-hero h1 {
-  font-size: clamp(54px, 8vw, 122px);
-  letter-spacing: -0.075em;
-  line-height: 0.82;
-  margin: 28px 0 0;
-}
-
-.feed-hero h1 span {
-  color: var(--muted);
-}
-
-.feed-hero > p {
-  color: var(--muted);
-  font-size: clamp(15px, 1.5vw, 19px);
-  line-height: 1.65;
-  margin: 0;
-  max-width: 450px;
+  font-size: 14px;
 }
 
 .feed-controls {
@@ -2863,7 +2841,7 @@ footer p {
   border-bottom: 2px solid transparent;
   color: var(--muted);
   cursor: pointer;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.13em;
   min-height: 68px;
@@ -2892,7 +2870,7 @@ footer p {
 
 .feed-controls label > span {
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.13em;
 }
@@ -2901,7 +2879,7 @@ footer p {
   background: var(--panel);
   border: 1px solid #444740;
   color: var(--paper);
-  font-size: 11px;
+  font-size: 13px;
   max-width: 260px;
   min-height: 38px;
   padding: 0 34px 0 12px;
@@ -2916,7 +2894,7 @@ footer p {
 .feed-stream-heading {
   color: var(--muted);
   display: flex;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 900;
   justify-content: space-between;
   letter-spacing: 0.14em;
@@ -2952,12 +2930,12 @@ footer p {
 
 .feed-row-date span {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .feed-row-date b {
   color: var(--acid);
-  font-size: 7px;
+  font-size: 9px;
   letter-spacing: 0.12em;
 }
 
@@ -3000,7 +2978,7 @@ footer p {
 
 .feed-row-copy p {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
   margin: 0 0 10px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3009,7 +2987,7 @@ footer p {
 
 .feed-row-copy > span {
   color: var(--acid);
-  font-size: 7px;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.11em;
 }
@@ -3029,7 +3007,7 @@ footer p {
 .feed-row-time a {
   border-bottom: 1px solid var(--acid);
   color: var(--acid);
-  font-size: 7px;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.1em;
   padding-bottom: 4px;
@@ -3074,7 +3052,7 @@ footer p {
   height: 100vh;
   min-height: 280px;
   overflow: hidden;
-  padding: 12px;
+  padding: 14px;
 }
 
 .feed-embed > header {
@@ -3082,25 +3060,21 @@ footer p {
   border-bottom: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
-  padding: 3px 2px 11px;
+  min-height: 54px;
+  padding: 4px 2px 13px;
 }
 
 .feed-embed > header span,
 .feed-embed > header b,
 .feed-embed > footer {
-  font-size: 6px;
+  font-size: 9px;
   font-weight: 900;
   letter-spacing: 0.12em;
 }
 
 .feed-embed > header span {
   color: var(--acid);
-}
-
-.feed-embed > header h1 {
-  font-size: 18px;
-  letter-spacing: -0.05em;
-  margin: 5px 0 0;
+  font-size: 12px;
 }
 
 .feed-embed > header b {
@@ -3115,58 +3089,58 @@ footer p {
 }
 
 .feed-embed .feed-row {
-  gap: 7px;
-  grid-template-columns: 52px 30px minmax(0, 1fr) auto;
-  min-height: 65px;
+  gap: 9px;
+  grid-template-columns: 58px 42px minmax(0, 1fr) auto;
+  min-height: 94px;
 }
 
 .feed-embed .feed-row-date {
-  gap: 4px;
+  gap: 6px;
 }
 
 .feed-embed .feed-row-date span {
-  font-size: 6px;
+  font-size: 9px;
 }
 
 .feed-embed .feed-row-date b {
-  font-size: 5px;
+  font-size: 7px;
 }
 
 .feed-embed .feed-cover,
 .feed-embed .feed-cover img {
-  height: 40px;
-  width: 28px;
+  height: 58px;
+  width: 40px;
 }
 
 .feed-embed .feed-cover span {
-  font-size: 6px;
+  font-size: 9px;
 }
 
 .feed-embed .feed-row-copy h2 {
-  font-size: 10px;
-  margin-bottom: 3px;
+  font-size: 14px;
+  margin-bottom: 6px;
 }
 
 .feed-embed .feed-row-copy p {
-  font-size: 6px;
-  margin-bottom: 5px;
+  font-size: 9px;
+  margin-bottom: 8px;
 }
 
 .feed-embed .feed-row-copy > span {
-  font-size: 5px;
+  font-size: 7px;
 }
 
 .feed-embed .feed-row-time {
-  gap: 6px;
+  gap: 9px;
 }
 
 .feed-embed .feed-row-time strong {
-  font-size: 11px;
+  font-size: 15px;
 }
 
 .feed-embed .feed-row-time a {
-  font-size: 5px;
-  padding-bottom: 2px;
+  font-size: 7px;
+  padding-bottom: 3px;
 }
 
 .feed-embed > footer {
@@ -3198,13 +3172,7 @@ footer p {
   }
 
   .feed-hero {
-    align-items: start;
-    grid-template-columns: 1fr;
-    padding: 68px 20px 58px;
-  }
-
-  .feed-hero h1 {
-    font-size: clamp(45px, 13vw, 68px);
+    padding: 32px 20px;
   }
 
   .feed-controls {
