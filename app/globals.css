@@ -1490,6 +1490,132 @@ footer a:hover {
   }
 }
 
+.passport-route-shell {
+  min-height: 100vh;
+}
+
+.passport-route-hero {
+  align-items: end;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 48px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: clamp(62px, 8vw, 110px) clamp(20px, 6vw, 96px) 46px;
+}
+
+.passport-route-hero > div:first-child {
+  max-width: 900px;
+}
+
+.passport-route-hero > div:first-child > span,
+.passport-route-actions button {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.passport-route-hero > div:first-child > span {
+  color: var(--acid);
+}
+
+.passport-route-hero h1 {
+  font-size: clamp(42px, 6vw, 84px);
+  letter-spacing: -0.06em;
+  line-height: 0.92;
+  margin: 18px 0 22px;
+}
+
+.passport-route-hero p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 670px;
+}
+
+.passport-route-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.passport-route-actions button {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--paper);
+  cursor: pointer;
+  min-height: 44px;
+  padding: 0 16px;
+}
+
+.passport-route-actions button:first-child {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.passport-route-actions button:hover {
+  border-color: var(--acid);
+  color: var(--acid);
+}
+
+.passport-route-actions button:first-child:hover {
+  color: var(--ink);
+  filter: brightness(1.1);
+}
+
+.passport-route-book {
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 34px clamp(20px, 6vw, 96px) 96px;
+  scroll-margin-top: 80px;
+}
+
+.passport-route-book .passport {
+  margin-top: 0;
+}
+
+.passport-embed-dialog {
+  width: min(1160px, calc(100vw - 32px));
+}
+
+.passport-embed-preview iframe {
+  aspect-ratio: 11 / 6.5;
+}
+
+.passport-embed-shell {
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 12px;
+}
+
+.passport-embed-shell .passport {
+  flex: 1;
+  margin-top: 0;
+}
+
+.passport-embed-shell > footer {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-top: 0;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 10px 14px;
+}
+
+.passport-embed-shell > footer a {
+  color: var(--acid);
+}
+
+.games {
+  scroll-margin-top: 76px;
+}
+
 .game-section {
   scroll-margin-top: 76px;
 }
@@ -3356,6 +3482,34 @@ footer p {
     grid-template-columns: 34px 1fr auto;
   }
 
+  .passport-route-hero {
+    align-items: start;
+    gap: 28px;
+    grid-template-columns: 1fr;
+    padding: 58px 20px 34px;
+  }
+
+  .passport-route-hero h1 {
+    font-size: clamp(42px, 13vw, 62px);
+  }
+
+  .passport-route-actions {
+    width: 100%;
+  }
+
+  .passport-route-actions button {
+    flex: 1;
+  }
+
+  .passport-route-book {
+    padding: 20px 12px 70px;
+  }
+
+  .passport-route-shell .brand-breadcrumb a:last-child,
+  .passport-route-shell .brand-breadcrumb > span:last-of-type {
+    display: none;
+  }
+
   .passport-spread {
     grid-template-columns: 1fr;
   }
@@ -3391,6 +3545,14 @@ footer p {
   .passport-counter {
     grid-column: 2;
     grid-row: 1;
+  }
+
+  .passport-embed-shell {
+    padding: 6px;
+  }
+
+  .passport-embed-shell .passport-page {
+    min-height: 390px;
   }
 
   .game-heading {

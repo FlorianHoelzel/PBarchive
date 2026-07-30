@@ -563,6 +563,33 @@ type ArchiveGame = {
   displayCount: number;
 };
 
+function archiveGames(histories: History[]): ArchiveGame[] {
+  const grouped = new Map<string, History[]>();
+  for (const history of histories) {
+    const existing = grouped.get(history.gameName) ?? [];
+    existing.push(history);
+    grouped.set(history.gameName, existing);
+  }
+
+  return [...grouped.entries()].map(([name, gameHistories]) => {
+    const groupedLevels =
+      name === "Super Mario World 2: Yoshi's Island"
+        ? gameHistories.filter((history) => history.levelName)
+        : [];
+    return {
+      name,
+      id: toId(name),
+      gameAbbreviation: gameHistories[0].gameAbbreviation,
+      cover: gameHistories[0].gameCover,
+      histories: gameHistories,
+      displayCount:
+        gameHistories.length -
+        groupedLevels.length +
+        (groupedLevels.length ? 1 : 0),
+    };
+  });
+}
+
 type PassportGame = ArchiveGame & {
   firstYear: number | null;
   latestYear: number | null;
@@ -629,13 +656,18 @@ function passportGame(game: ArchiveGame): PassportGame {
   };
 }
 
-function SpeedrunPassport({
-  games,
+export function SpeedrunPassport({
+  histories,
   owner,
+  archivePath,
+  embedded = false,
 }: {
-  games: ArchiveGame[];
+  histories: History[];
   owner: string;
+  archivePath: string;
+  embedded?: boolean;
 }) {
+  const games = useMemo(() => archiveGames(histories), [histories]);
   const entries = useMemo(() => games.map(passportGame), [games]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [pendingIndex, setPendingIndex] = useState<number | null>(null);
@@ -796,7 +828,12 @@ function SpeedrunPassport({
             </small>
           </div>
 
-          <a className="passport-open" href={`#${game.id}`}>
+          <a
+            className="passport-open"
+            href={`${archivePath}#${game.id}`}
+            target={embedded ? "_blank" : undefined}
+            rel={embedded ? "noreferrer" : undefined}
+          >
             OPEN {game.name.toUpperCase()} HISTORY ↓
           </a>
           <span className="passport-page-number">
@@ -1047,7 +1084,7 @@ function ArchiveNavigator({ games }: { games: ArchiveGame[] }) {
           </a>
           <a className={activeId === "games" ? "active" : ""} href="#games">
             <span>→</span>
-            PASSPORT
+            GAME INDEX
           </a>
           {games.map((game, gameIndex) => (
             <div
@@ -1746,29 +1783,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
 }
 
 export default function PBHistory({ data }: { data: SiteData }) {
-  const games = useMemo(() => {
-    const grouped = new Map<string, History[]>();
-    for (const history of data.histories) {
-      const existing = grouped.get(history.gameName) ?? [];
-      existing.push(history);
-      grouped.set(history.gameName, existing);
-    }
-    return [...grouped.entries()].map(([name, histories]) => {
-      const groupedLevels =
-        name === "Super Mario World 2: Yoshi's Island"
-          ? histories.filter((history) => history.levelName)
-          : [];
-      return {
-        name,
-        id: toId(name),
-        gameAbbreviation: histories[0].gameAbbreviation,
-        cover: histories[0].gameCover,
-        histories,
-        displayCount:
-          histories.length - groupedLevels.length + (groupedLevels.length ? 1 : 0),
-      };
-    });
-  }, [data.histories]);
+  const games = useMemo(() => archiveGames(data.histories), [data.histories]);
 
   const datedRuns = data.histories
     .flatMap((history) => history.runs)
@@ -1844,6 +1859,9 @@ export default function PBHistory({ data }: { data: SiteData }) {
         <nav aria-label="Primary">
           <a href="#overview">OVERVIEW</a>
           <a href="#games">THE RUNS</a>
+          <a href={`/${encodeURIComponent(data.profile.name)}/passport`}>
+            PASSPORT
+          </a>
           <a href={`/${encodeURIComponent(data.profile.name)}/feed`}>PB FEED</a>
           <a href={data.profile.profileUrl} target="_blank" rel="noreferrer">
             SPEEDRUN.COM ↗
@@ -1901,16 +1919,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
 
       <ArchiveOverview histories={data.histories} />
 
-      <section className="game-index" id="games" data-archive-id="games">
-        <div className="section-label">
-          <span>02</span>
-          <h2>SPEEDRUN PASSPORT</h2>
-          <span>{String(games.length).padStart(2, "0")} STAMPS</span>
-        </div>
-        <SpeedrunPassport games={games} owner={data.profile.name} />
-      </section>
-
-      <div className="games">
+      <div className="games" id="games" data-archive-id="games">
         {games.map((game, gameIndex) => {
           const groupedLevels =
             game.name === "Super Mario World 2: Yoshi's Island"

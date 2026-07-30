@@ -70,15 +70,28 @@ test("shows the tiered historical world-record achievement", async () => {
   const html = await response.text();
   assert.match(html, /href="\/">PB ARCHIVE<\/a>/);
   assert.match(html, /class="accent-name" href="#top">VOLPEY<\/a>/);
-  assert.match(html, /SPEEDRUN PASSPORT/);
-  assert.match(html, /ENTRY RECORD/);
-  assert.match(html, /PREVIOUS/);
-  assert.match(html, /NEXT/);
-  assert.match(html, /PB STAMPS/);
-  assert.match(html, /HISTORIC WRS/);
-  assert.match(html, /BIGGEST LEAP/);
+  assert.match(html, /href="\/volpey\/passport"/i);
+  assert.doesNotMatch(html, /PB STAMPS/);
   assert.match(html, /WORLD BEATER/);
   assert.match(html, /World records when set/);
   assert.doesNotMatch(html, /WORLD RECORDS/);
   assert.doesNotMatch(html, /UNTOUCHABLE/);
+});
+
+test("server-renders shareable and embeddable passport routes", async () => {
+  const passport = await render("/volpey/passport");
+  assert.equal(passport.status, 200);
+  const passportHtml = await passport.text();
+  assert.match(passportHtml, /SPEEDRUN PASSPORT/i);
+  assert.match(passportHtml, /SHARE PASSPORT/);
+  assert.match(passportHtml, /ENTRY RECORD/);
+  assert.match(passportHtml, /PB STAMPS/);
+  assert.match(passportHtml, /EMBED/);
+
+  const embed = await render("/volpey/embed/passport");
+  assert.equal(embed.status, 200);
+  const embedHtml = await embed.text();
+  assert.match(embedHtml, /SPEEDRUN PASSPORT/i);
+  assert.match(embedHtml, /OPEN PASSPORT/);
+  assert.doesNotMatch(embedHtml, /SHARE PASSPORT/);
 });
