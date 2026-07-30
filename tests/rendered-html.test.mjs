@@ -43,3 +43,13 @@ test("keeps the required public assets", async () => {
     access(new URL("public/volpey-avatar.png", projectRoot)),
   ]);
 });
+
+test("server-renders shareable PB feed routes", async () => {
+  const feed = await render("/volpey/feed");
+  assert.equal(feed.status, 200);
+  assert.match(await feed.text(), /Every split-second/i);
+
+  const embed = await render("/volpey/embed/feed");
+  assert.equal(embed.status, 200);
+  assert.match(await embed.text(), /RECENT PERSONAL BESTS/i);
+});

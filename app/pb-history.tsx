@@ -1431,6 +1431,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
         <nav aria-label="Primary">
           <a href="#overview">OVERVIEW</a>
           <a href="#games">THE RUNS</a>
+          <a href={`/${encodeURIComponent(data.profile.name)}/feed`}>PB FEED</a>
           <a href={data.profile.profileUrl} target="_blank" rel="noreferrer">
             SPEEDRUN.COM ↗
           </a>

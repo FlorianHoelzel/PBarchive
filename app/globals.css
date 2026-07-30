@@ -2782,3 +2782,484 @@ footer p {
     text-align: left;
   }
 }
+
+/* PB feed */
+.feed-page {
+  min-height: 100vh;
+}
+
+.feed-page .site-header nav {
+  align-items: center;
+}
+
+.feed-page .site-header nav button {
+  background: transparent;
+  border: 0;
+  color: var(--paper);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 0;
+  transition: color 180ms ease;
+}
+
+.feed-page .site-header nav button:hover,
+.feed-page .site-header nav button:focus-visible {
+  color: var(--acid);
+}
+
+.feed-hero {
+  align-items: end;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: clamp(40px, 9vw, 160px);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: clamp(70px, 9vw, 140px) clamp(24px, 6vw, 96px) clamp(60px, 8vw, 110px);
+}
+
+.feed-hero .eyebrow {
+  color: var(--acid);
+}
+
+.feed-hero h1 {
+  font-size: clamp(54px, 8vw, 122px);
+  letter-spacing: -0.075em;
+  line-height: 0.82;
+  margin: 28px 0 0;
+}
+
+.feed-hero h1 span {
+  color: var(--muted);
+}
+
+.feed-hero > p {
+  color: var(--muted);
+  font-size: clamp(15px, 1.5vw, 19px);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 450px;
+}
+
+.feed-controls {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 0 clamp(24px, 6vw, 96px);
+}
+
+.feed-filter-tabs {
+  display: flex;
+}
+
+.feed-filter-tabs button {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  min-height: 68px;
+  padding: 0 28px;
+}
+
+.feed-filter-tabs button:first-child {
+  padding-left: 0;
+}
+
+.feed-filter-tabs button.active {
+  border-color: var(--acid);
+  color: var(--paper);
+}
+
+.feed-filter-tabs button span {
+  color: var(--acid);
+  margin-left: 6px;
+}
+
+.feed-controls label {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.feed-controls label > span {
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+}
+
+.feed-controls select {
+  background: var(--panel);
+  border: 1px solid #444740;
+  color: var(--paper);
+  font-size: 11px;
+  max-width: 260px;
+  min-height: 38px;
+  padding: 0 34px 0 12px;
+}
+
+.feed-stream {
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 0 clamp(24px, 6vw, 96px) clamp(70px, 8vw, 120px);
+}
+
+.feed-stream-heading {
+  color: var(--muted);
+  display: flex;
+  font-size: 8px;
+  font-weight: 900;
+  justify-content: space-between;
+  letter-spacing: 0.14em;
+  padding: 28px 0 14px;
+}
+
+.feed-row {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: clamp(14px, 2vw, 32px);
+  grid-template-columns: 118px 64px minmax(0, 1fr) auto 34px;
+  min-height: 116px;
+  position: relative;
+  transition: background 160ms ease, padding 160ms ease;
+}
+
+.feed-stream .feed-row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.feed-stream .feed-row:hover {
+  background: rgba(255, 255, 255, 0.025);
+  padding-left: 10px;
+}
+
+.feed-row-date {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.feed-row-date span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.feed-row-date b {
+  color: var(--acid);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+}
+
+.feed-cover,
+.feed-cover img {
+  height: 76px;
+  width: 54px;
+}
+
+.feed-cover {
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid #444740;
+  display: flex;
+  justify-content: center;
+}
+
+.feed-cover img {
+  object-fit: cover;
+}
+
+.feed-cover span {
+  color: var(--acid);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.feed-row-copy {
+  min-width: 0;
+}
+
+.feed-row-copy h2 {
+  font-size: clamp(18px, 2vw, 28px);
+  letter-spacing: -0.04em;
+  margin: 0 0 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.feed-row-copy p {
+  color: var(--muted);
+  font-size: 11px;
+  margin: 0 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.feed-row-copy > span {
+  color: var(--acid);
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: 0.11em;
+}
+
+.feed-row-time {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feed-row-time strong {
+  font-size: clamp(19px, 2.5vw, 32px);
+  letter-spacing: -0.04em;
+}
+
+.feed-row-time a {
+  border-bottom: 1px solid var(--acid);
+  color: var(--acid);
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  padding-bottom: 4px;
+}
+
+.feed-row-detail {
+  color: var(--muted);
+  font-size: 20px;
+  text-align: right;
+}
+
+.feed-footer {
+  margin-top: 0;
+}
+
+.feed-embed-dialog {
+  max-width: 620px;
+}
+
+.feed-panel-preview {
+  background: #080908;
+  border: 1px solid var(--line);
+  height: 496px;
+  margin: 18px auto;
+  width: 318px;
+}
+
+.feed-panel-preview iframe {
+  border: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.feed-embed {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    var(--ink);
+  background-size: 26px 26px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100vh;
+  min-height: 280px;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.feed-embed > header {
+  align-items: end;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 2px 11px;
+}
+
+.feed-embed > header span,
+.feed-embed > header b,
+.feed-embed > footer {
+  font-size: 6px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.feed-embed > header span {
+  color: var(--acid);
+}
+
+.feed-embed > header h1 {
+  font-size: 18px;
+  letter-spacing: -0.05em;
+  margin: 5px 0 0;
+}
+
+.feed-embed > header b {
+  color: var(--muted);
+}
+
+.feed-embed-list {
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-color: var(--acid) var(--panel);
+  scrollbar-width: thin;
+}
+
+.feed-embed .feed-row {
+  gap: 7px;
+  grid-template-columns: 52px 30px minmax(0, 1fr) auto;
+  min-height: 65px;
+}
+
+.feed-embed .feed-row-date {
+  gap: 4px;
+}
+
+.feed-embed .feed-row-date span {
+  font-size: 6px;
+}
+
+.feed-embed .feed-row-date b {
+  font-size: 5px;
+}
+
+.feed-embed .feed-cover,
+.feed-embed .feed-cover img {
+  height: 40px;
+  width: 28px;
+}
+
+.feed-embed .feed-cover span {
+  font-size: 6px;
+}
+
+.feed-embed .feed-row-copy h2 {
+  font-size: 10px;
+  margin-bottom: 3px;
+}
+
+.feed-embed .feed-row-copy p {
+  font-size: 6px;
+  margin-bottom: 5px;
+}
+
+.feed-embed .feed-row-copy > span {
+  font-size: 5px;
+}
+
+.feed-embed .feed-row-time {
+  gap: 6px;
+}
+
+.feed-embed .feed-row-time strong {
+  font-size: 11px;
+}
+
+.feed-embed .feed-row-time a {
+  font-size: 5px;
+  padding-bottom: 2px;
+}
+
+.feed-embed > footer {
+  align-items: center;
+  background: transparent;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  min-height: 30px;
+  padding: 8px 2px 0;
+}
+
+.feed-embed > footer a {
+  color: var(--acid);
+}
+
+@media (max-width: 700px) {
+  .feed-page .site-header nav {
+    gap: 14px;
+  }
+
+  .feed-page .site-header nav button,
+  .feed-page .site-header nav a {
+    font-size: 8px;
+  }
+
+  .feed-page .site-header nav a:last-child {
+    display: none;
+  }
+
+  .feed-hero {
+    align-items: start;
+    grid-template-columns: 1fr;
+    padding: 68px 20px 58px;
+  }
+
+  .feed-hero h1 {
+    font-size: clamp(45px, 13vw, 68px);
+  }
+
+  .feed-controls {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 0 20px 18px;
+  }
+
+  .feed-filter-tabs button {
+    min-height: 58px;
+  }
+
+  .feed-controls label {
+    justify-content: space-between;
+  }
+
+  .feed-controls select {
+    flex: 1;
+    max-width: none;
+  }
+
+  .feed-stream {
+    padding: 0 20px 70px;
+  }
+
+  .feed-row {
+    gap: 10px;
+    grid-template-columns: 52px minmax(0, 1fr) auto;
+    min-height: 104px;
+  }
+
+  .feed-row-date {
+    grid-column: 1 / -1;
+    padding-top: 12px;
+  }
+
+  .feed-cover,
+  .feed-cover img {
+    height: 60px;
+    width: 42px;
+  }
+
+  .feed-row-copy h2 {
+    font-size: 17px;
+  }
+
+  .feed-row-time strong {
+    font-size: 17px;
+  }
+
+  .feed-row-detail {
+    display: none;
+  }
+
+  .feed-panel-preview {
+    max-width: 100%;
+  }
+}
