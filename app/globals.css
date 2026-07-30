@@ -1003,12 +1003,27 @@ footer a:hover {
   grid-template-columns: 22px minmax(0, 1fr);
   min-height: 40px;
   padding: 0 13px;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    padding 160ms ease;
 }
 
 .archive-navigator > nav > a:hover,
+.archive-navigator > nav > a:focus-visible,
 .archive-navigator > nav > a.active,
+.navigator-game > a:hover,
+.navigator-game > a:focus-visible,
 .navigator-game.active > a {
   color: var(--acid);
+}
+
+.archive-navigator > nav > a:hover,
+.archive-navigator > nav > a:focus-visible,
+.navigator-game > a:hover,
+.navigator-game > a:focus-visible {
+  background: rgba(255, 255, 255, 0.025);
+  padding-left: 18px;
 }
 
 .navigator-game > a span {
@@ -1037,11 +1052,18 @@ footer a:hover {
   font-size: 11px;
   line-height: 1.25;
   padding: 6px 4px;
+  transition: color 160ms ease, transform 160ms ease;
 }
 
 .navigator-categories a:hover,
+.navigator-categories a:focus-visible,
 .navigator-categories a.active {
   color: var(--acid);
+}
+
+.navigator-categories a:hover,
+.navigator-categories a:focus-visible {
+  transform: translateX(4px);
 }
 
 .navigator-categories a.active {
