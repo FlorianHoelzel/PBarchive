@@ -3089,12 +3089,19 @@ footer p {
 }
 
 .feed-embed .feed-row {
-  gap: 9px;
-  grid-template-columns: 58px 42px minmax(0, 1fr) auto;
-  min-height: 94px;
+  column-gap: 12px;
+  grid-template-areas:
+    "date date time"
+    "cover copy copy";
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  min-height: 132px;
+  padding: 14px 0;
+  row-gap: 12px;
 }
 
 .feed-embed .feed-row-date {
+  grid-area: date;
   gap: 6px;
 }
 
@@ -3108,30 +3115,49 @@ footer p {
 
 .feed-embed .feed-cover,
 .feed-embed .feed-cover img {
-  height: 58px;
-  width: 40px;
+  height: 62px;
+  width: 44px;
+}
+
+.feed-embed .feed-cover {
+  grid-area: cover;
 }
 
 .feed-embed .feed-cover span {
   font-size: 9px;
 }
 
+.feed-embed .feed-row-copy {
+  grid-area: copy;
+}
+
 .feed-embed .feed-row-copy h2 {
   font-size: 14px;
+  line-height: 1.15;
   margin-bottom: 6px;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
 }
 
 .feed-embed .feed-row-copy p {
   font-size: 9px;
+  line-height: 1.35;
   margin-bottom: 8px;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
 }
 
 .feed-embed .feed-row-copy > span {
   font-size: 7px;
+  line-height: 1.3;
 }
 
 .feed-embed .feed-row-time {
+  align-self: start;
   gap: 9px;
+  grid-area: time;
 }
 
 .feed-embed .feed-row-time strong {
