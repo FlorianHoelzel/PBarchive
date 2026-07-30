@@ -75,6 +75,35 @@ function longDate(value: string) {
   }).format(new Date(`${value}T00:00:00Z`));
 }
 
+function compactDuration(totalSeconds: number) {
+  const seconds = Math.max(0, Math.round(totalSeconds));
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainder = seconds % 60;
+
+  if (hours) return `${hours}h ${minutes}m`;
+  if (minutes) return `${minutes}m ${remainder}s`;
+  return `${remainder}s`;
+}
+
+function elapsedLabel(from: string, to: string) {
+  const start = new Date(`${from}T00:00:00Z`);
+  const end = new Date(to);
+  const months = Math.max(
+    0,
+    (end.getUTCFullYear() - start.getUTCFullYear()) * 12 +
+      end.getUTCMonth() -
+      start.getUTCMonth(),
+  );
+  const years = Math.floor(months / 12);
+  const remainder = months % 12;
+
+  if (years && remainder) return `${years}y ${remainder}m`;
+  if (years) return `${years} ${years === 1 ? "year" : "years"}`;
+  if (months) return `${months} ${months === 1 ? "month" : "months"}`;
+  return "New";
+}
+
 function embedUrl(url: string | null, autoplay: boolean) {
   if (!url) return null;
   try {
@@ -799,6 +828,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
         history.runs.map((run) => ({
           ...run,
           gameName: history.gameName,
+          categoryLabel: historyLabel(history),
         })),
       )
       .filter((run) => run.date !== "Unknown");
@@ -806,11 +836,17 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
     const years = new Map<number, number>();
     const games = new Map<string, number>();
     const platforms = new Map<string, number>();
+    const days = new Map<string, number>();
+    const activeMonths = new Map<number, number>();
 
     for (const run of runs) {
-      const year = new Date(`${run.date}T00:00:00Z`).getUTCFullYear();
+      const date = new Date(`${run.date}T00:00:00Z`);
+      const year = date.getUTCFullYear();
       years.set(year, (years.get(year) ?? 0) + 1);
       games.set(run.gameName, (games.get(run.gameName) ?? 0) + 1);
+      days.set(run.date, (days.get(run.date) ?? 0) + 1);
+      const monthKey = year * 12 + date.getUTCMonth();
+      activeMonths.set(monthKey, (activeMonths.get(monthKey) ?? 0) + 1);
       if (run.platform) {
         platforms.set(run.platform, (platforms.get(run.platform) ?? 0) + 1);
       }
@@ -832,6 +868,66 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
     const platformEntries = [...platforms.entries()].sort((a, b) => b[1] - a[1]);
     const peakYear = [...yearEntries].sort((a, b) => b[1] - a[1])[0];
     const latest = [...runs].sort((a, b) => b.date.localeCompare(a.date))[0];
+    const monthKeys = [...activeMonths.keys()].sort((a, b) => a - b);
+    let currentStreak = monthKeys.length ? 1 : 0;
+    let longestStreak = currentStreak;
+    for (let index = 1; index < monthKeys.length; index += 1) {
+      currentStreak =
+        monthKeys[index] === monthKeys[index - 1] + 1 ? currentStreak + 1 : 1;
+      longestStreak = Math.max(longestStreak, currentStreak);
+    }
+
+    let totalSaved = 0;
+    let biggestSave = {
+      seconds: 0,
+      gameName: "",
+      categoryLabel: "",
+    };
+    for (const history of histories) {
+      if (history.runs.length > 1) {
+        totalSaved +=
+          history.runs[0].seconds - history.runs.at(-1)!.seconds;
+      }
+      for (let index = 1; index < history.runs.length; index += 1) {
+        const saved =
+          history.runs[index - 1].seconds - history.runs[index].seconds;
+        if (saved > biggestSave.seconds) {
+          biggestSave = {
+            seconds: saved,
+            gameName: history.gameName,
+            categoryLabel: historyLabel(history),
+          };
+        }
+      }
+    }
+
+    const oldestCurrent = histories
+      .map((history) => ({
+        run: history.runs.at(-1)!,
+        gameName: history.gameName,
+        categoryLabel: historyLabel(history),
+      }))
+      .filter((entry) => entry.run.date !== "Unknown")
+      .sort((a, b) => a.run.date.localeCompare(b.run.date))[0];
+    const generatedAt = new Date().toISOString();
+    const yearsActive =
+      yearEntries.length > 0
+        ? yearEntries.at(-1)![0] - yearEntries[0][0] + 1
+        : 0;
+    const milestoneName =
+      runs.length >= 100
+        ? "CENTURY CLUB"
+        : runs.length >= 50
+          ? "HALF CENTURY"
+          : runs.length >= 25
+            ? "QUARTER CENTURY"
+            : "ON THE BOARD";
+    const enduranceName =
+      yearsActive >= 10
+        ? "DECADE RUNNER"
+        : yearsActive >= 5
+          ? "LONG HAUL"
+          : "MOMENTUM";
 
     return {
       years: yearEntries,
@@ -842,8 +938,79 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
       maxYear: Math.max(...yearEntries.map((entry) => entry[1])),
       maxGame: gameEntries[0]?.[1] ?? 1,
       platformTotal: platformEntries.reduce((sum, entry) => sum + entry[1], 0),
+      days,
+      achievements: [
+        {
+          name: milestoneName,
+          value: String(runs.length),
+          detail: "PB milestones archived",
+        },
+        {
+          name: "TIME SHREDDER",
+          value: compactDuration(totalSaved),
+          detail: "Total time cut across every category",
+        },
+        {
+          name: "GIANT LEAP",
+          value: compactDuration(biggestSave.seconds),
+          detail: biggestSave.gameName
+            ? `${biggestSave.gameName} · ${biggestSave.categoryLabel}`
+            : "Biggest single PB improvement",
+        },
+        {
+          name: "HOT STREAK",
+          value: `${longestStreak} mo`,
+          detail: "Longest run of active PB months",
+        },
+        {
+          name: enduranceName,
+          value: `${yearsActive} yr`,
+          detail: "Calendar years represented",
+        },
+        ...(oldestCurrent
+          ? [
+              {
+                name: "UNTOUCHABLE",
+                value: elapsedLabel(oldestCurrent.run.date, generatedAt),
+                detail: `${oldestCurrent.gameName} · ${oldestCurrent.categoryLabel}`,
+              },
+            ]
+          : []),
+      ],
     };
   }, [histories]);
+  const [heatmapYear, setHeatmapYear] = useState(
+    overview.years.at(-1)?.[0] ?? new Date().getUTCFullYear(),
+  );
+  const heatmap = useMemo(() => {
+    const first = new Date(Date.UTC(heatmapYear, 0, 1));
+    const last = new Date(Date.UTC(heatmapYear, 11, 31));
+    const cells: Array<
+      | { blank: true }
+      | { blank: false; date: string; count: number; level: number }
+    > = Array.from({ length: first.getUTCDay() }, () => ({ blank: true }));
+    const counts = [...overview.days.entries()]
+      .filter(([date]) => date.startsWith(`${heatmapYear}-`))
+      .map(([, count]) => count);
+    const maximum = Math.max(1, ...counts);
+
+    for (
+      let date = new Date(first);
+      date <= last;
+      date.setUTCDate(date.getUTCDate() + 1)
+    ) {
+      const key = date.toISOString().slice(0, 10);
+      const count = overview.days.get(key) ?? 0;
+      cells.push({
+        blank: false,
+        date: key,
+        count,
+        level: count ? Math.max(1, Math.ceil((count / maximum) * 4)) : 0,
+      });
+    }
+
+    return { cells, total: counts.reduce((sum, count) => sum + count, 0) };
+  }, [heatmapYear, overview.days]);
 
   return (
     <section className="archive-overview" id="overview" data-archive-id="overview">
@@ -943,6 +1110,104 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
               <small>{longDate(overview.latest.date)}</small>
             </div>
           )}
+        </article>
+      </div>
+
+      <div className="overview-feature-grid">
+        <article className="overview-card heatmap-card">
+          <div className="overview-card-heading">
+            <span>ACTIVITY HEATMAP</span>
+            <label>
+              <span className="sr-only">Select calendar year</span>
+              <select
+                value={heatmapYear}
+                onChange={(event) => setHeatmapYear(Number(event.target.value))}
+              >
+                {overview.years
+                  .map(([year]) => year)
+                  .reverse()
+                  .map((year) => (
+                    <option value={year} key={year}>
+                      {year}
+                    </option>
+                  ))}
+              </select>
+            </label>
+          </div>
+          <div className="heatmap-summary">
+            <strong>{heatmap.total}</strong>
+            <span>
+              PB {heatmap.total === 1 ? "milestone" : "milestones"} in{" "}
+              {heatmapYear}
+            </span>
+          </div>
+          <div className="heatmap-scroll">
+            <div className="heatmap-months" aria-hidden="true">
+              {[
+                "JAN",
+                "FEB",
+                "MAR",
+                "APR",
+                "MAY",
+                "JUN",
+                "JUL",
+                "AUG",
+                "SEP",
+                "OCT",
+                "NOV",
+                "DEC",
+              ].map((month) => (
+                <span key={month}>{month}</span>
+              ))}
+            </div>
+            <div
+              className="heatmap-grid"
+              role="img"
+              aria-label={`${heatmap.total} personal best milestones during ${heatmapYear}`}
+            >
+              {heatmap.cells.map((cell, index) =>
+                cell.blank ? (
+                  <span className="heatmap-day blank" key={`blank-${index}`} />
+                ) : (
+                  <span
+                    className={`heatmap-day level-${cell.level}`}
+                    title={`${longDate(cell.date)}: ${cell.count} PB${
+                      cell.count === 1 ? "" : "s"
+                    }`}
+                    key={cell.date}
+                  />
+                ),
+              )}
+            </div>
+          </div>
+          <div className="heatmap-legend" aria-hidden="true">
+            <span>LESS</span>
+            {[0, 1, 2, 3, 4].map((level) => (
+              <i className={`heatmap-day level-${level}`} key={level} />
+            ))}
+            <span>MORE</span>
+          </div>
+        </article>
+
+        <article className="overview-card achievements-card">
+          <div className="overview-card-heading">
+            <span>ACHIEVEMENTS</span>
+            <span>{overview.achievements.length} UNLOCKED</span>
+          </div>
+          <div className="achievement-list">
+            {overview.achievements.map((achievement, index) => (
+              <div className="achievement" key={achievement.name}>
+                <span className="achievement-number">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <span>{achievement.name}</span>
+                  <strong>{achievement.value}</strong>
+                  <small>{achievement.detail}</small>
+                </div>
+              </div>
+            ))}
+          </div>
         </article>
       </div>
     </section>
