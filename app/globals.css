@@ -3091,8 +3091,8 @@ footer p {
 .feed-embed .feed-row {
   column-gap: 12px;
   grid-template-areas:
-    "date date time"
-    "cover copy copy";
+    "date date date"
+    "cover copy time";
   grid-template-columns: 44px minmax(0, 1fr) auto;
   grid-template-rows: auto auto;
   min-height: 132px;
@@ -3135,9 +3135,9 @@ footer p {
   font-size: 14px;
   line-height: 1.15;
   margin-bottom: 6px;
-  overflow: visible;
-  text-overflow: clip;
-  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .feed-embed .feed-row-copy p {
@@ -3155,7 +3155,7 @@ footer p {
 }
 
 .feed-embed .feed-row-time {
-  align-self: start;
+  align-self: center;
   gap: 9px;
   grid-area: time;
 }
