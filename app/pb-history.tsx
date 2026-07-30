@@ -767,10 +767,6 @@ function SpeedrunPassport({
           <div className="passport-record-title">
             <span>ARCHIVE MARKS</span>
             <h3>{game.pbCount} personal bests</h3>
-            <p>
-              A record of every verified step forward in this game, including
-              the runs that have since been replaced.
-            </p>
           </div>
 
           <div className="passport-stats">
