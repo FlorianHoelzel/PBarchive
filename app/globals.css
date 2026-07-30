@@ -1034,12 +1034,11 @@ footer a:hover {
 }
 
 .passport {
-  --passport-ink: #20231d;
-  --passport-muted: #626658;
+  --passport-ink: var(--paper);
+  --passport-muted: var(--muted);
   background: #090a09;
   border: 1px solid var(--line);
-  border-radius: 5px 5px 10px 10px;
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.32);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
   margin-top: 24px;
   overflow: hidden;
 }
@@ -1085,21 +1084,16 @@ footer a:hover {
 .passport-spread {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  perspective: 1400px;
+  overflow: hidden;
+  position: relative;
 }
 
 .passport-page {
   background:
-    radial-gradient(circle at 15% 20%, rgba(44, 72, 54, 0.08), transparent 24%),
-    radial-gradient(circle at 84% 78%, rgba(44, 72, 54, 0.07), transparent 26%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(30, 34, 27, 0.018) 0,
-      rgba(30, 34, 27, 0.018) 1px,
-      transparent 1px,
-      transparent 4px
-    ),
-    #d8d1bd;
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    var(--panel);
+  background-size: 24px 24px;
   color: var(--passport-ink);
   display: flex;
   flex-direction: column;
@@ -1110,7 +1104,7 @@ footer a:hover {
 }
 
 .passport-page::before {
-  border: 1px solid rgba(35, 42, 31, 0.14);
+  border: 1px solid color-mix(in srgb, var(--acid) 14%, var(--line));
   content: "";
   inset: 10px;
   pointer-events: none;
@@ -1118,52 +1112,72 @@ footer a:hover {
 }
 
 .passport-page-identity {
-  border-right: 1px solid rgba(35, 42, 31, 0.23);
+  background-color: color-mix(in srgb, var(--panel) 94%, var(--acid));
+  border-right: 1px solid var(--line);
   box-shadow:
-    inset -24px 0 30px -30px rgba(0, 0, 0, 0.7),
-    inset 8px 0 12px -12px rgba(0, 0, 0, 0.35);
+    inset -24px 0 30px -30px rgba(0, 0, 0, 0.9),
+    inset 8px 0 12px -12px rgba(0, 0, 0, 0.55);
 }
 
 .passport-page-record {
   box-shadow:
-    inset 24px 0 30px -30px rgba(0, 0, 0, 0.7),
-    inset -8px 0 12px -12px rgba(0, 0, 0, 0.35);
+    inset 24px 0 30px -30px rgba(0, 0, 0, 0.9),
+    inset -8px 0 12px -12px rgba(0, 0, 0, 0.55);
 }
 
-.turn-next .passport-page-record {
-  animation: passport-turn-next 300ms ease-out;
-  transform-origin: left center;
+.passport-spread.phase-out {
+  opacity: 0.08;
+  pointer-events: none;
+  transition:
+    opacity 140ms ease-in,
+    transform 140ms ease-in;
 }
 
-.turn-previous .passport-page-identity {
-  animation: passport-turn-previous 300ms ease-out;
-  transform-origin: right center;
+.passport-spread.phase-out.turn-next {
+  transform: translateX(-18px);
 }
 
-@keyframes passport-turn-next {
+.passport-spread.phase-out.turn-previous {
+  transform: translateX(18px);
+}
+
+.passport-spread.phase-in {
+  animation-duration: 180ms;
+  animation-timing-function: ease-out;
+}
+
+.passport-spread.phase-in.turn-next {
+  animation-name: passport-page-in-next;
+}
+
+.passport-spread.phase-in.turn-previous {
+  animation-name: passport-page-in-previous;
+}
+
+@keyframes passport-page-in-next {
   from {
-    opacity: 0.25;
-    transform: rotateY(-13deg);
+    opacity: 0.08;
+    transform: translateX(18px);
   }
   to {
     opacity: 1;
-    transform: rotateY(0);
+    transform: translateX(0);
   }
 }
 
-@keyframes passport-turn-previous {
+@keyframes passport-page-in-previous {
   from {
-    opacity: 0.25;
-    transform: rotateY(13deg);
+    opacity: 0.08;
+    transform: translateX(-18px);
   }
   to {
     opacity: 1;
-    transform: rotateY(0);
+    transform: translateX(0);
   }
 }
 
 .passport-page-heading {
-  border-bottom: 1px solid rgba(35, 42, 31, 0.22);
+  border-bottom: 1px solid var(--line);
   color: var(--passport-muted);
   display: flex;
   justify-content: space-between;
@@ -1180,14 +1194,13 @@ footer a:hover {
 }
 
 .passport-cover {
-  background: #252820;
-  border: 5px solid rgba(255, 255, 255, 0.45);
-  box-shadow: 0 4px 14px rgba(27, 29, 23, 0.25);
+  background: var(--ink);
+  border: 1px solid color-mix(in srgb, var(--acid) 40%, var(--line));
+  box-shadow: 8px 8px 0 color-mix(in srgb, var(--acid) 9%, transparent);
   display: grid;
   height: 138px;
   overflow: hidden;
   place-items: center;
-  transform: rotate(-1.5deg);
   width: 102px;
 }
 
@@ -1198,17 +1211,16 @@ footer a:hover {
 }
 
 .passport-cover span {
-  color: #d8d1bd;
+  color: var(--acid);
   font-size: 28px;
   font-weight: 900;
 }
 
 .passport-kicker {
-  color: #355640;
+  color: var(--acid);
 }
 
 .passport-identity h3 {
-  font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(25px, 2.5vw, 38px);
   letter-spacing: -0.04em;
   line-height: 0.98;
@@ -1225,14 +1237,14 @@ footer a:hover {
 }
 
 .passport-fields {
-  border-top: 1px solid rgba(35, 42, 31, 0.22);
+  border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 25px;
 }
 
 .passport-fields > div {
-  border-bottom: 1px solid rgba(35, 42, 31, 0.18);
+  border-bottom: 1px solid var(--line);
   display: grid;
   gap: 5px;
   min-height: 64px;
@@ -1240,7 +1252,7 @@ footer a:hover {
 }
 
 .passport-fields > div:nth-child(odd) {
-  border-right: 1px solid rgba(35, 42, 31, 0.18);
+  border-right: 1px solid var(--line);
   margin-right: 12px;
 }
 
@@ -1261,14 +1273,13 @@ footer a:hover {
 }
 
 .passport-record-title > span {
-  color: #355640;
+  color: var(--acid);
   font-size: 9px;
   font-weight: 900;
   letter-spacing: 0.14em;
 }
 
 .passport-record-title h3 {
-  font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(30px, 3.4vw, 48px);
   letter-spacing: -0.045em;
   line-height: 1;
@@ -1277,7 +1288,6 @@ footer a:hover {
 
 .passport-record-title p {
   color: var(--passport-muted);
-  font-family: Georgia, "Times New Roman", serif;
   font-size: 13px;
   line-height: 1.5;
   margin: 0;
@@ -1285,8 +1295,8 @@ footer a:hover {
 }
 
 .passport-stats {
-  border-bottom: 1px solid rgba(35, 42, 31, 0.22);
-  border-top: 1px solid rgba(35, 42, 31, 0.22);
+  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 25px;
@@ -1299,7 +1309,7 @@ footer a:hover {
 }
 
 .passport-stats > div:not(:last-child) {
-  border-right: 1px solid rgba(35, 42, 31, 0.18);
+  border-right: 1px solid var(--line);
   margin-right: 8px;
 }
 
@@ -1321,7 +1331,7 @@ footer a:hover {
 }
 
 .passport-landmark strong {
-  color: #355640;
+  color: var(--acid);
   font-size: 20px;
 }
 
@@ -1335,10 +1345,10 @@ footer a:hover {
 
 .passport-stamp {
   align-items: center;
-  border: 2px solid rgba(49, 91, 62, 0.58);
+  border: 2px solid color-mix(in srgb, var(--acid) 58%, transparent);
   border-radius: 50%;
   bottom: 31px;
-  color: rgba(49, 91, 62, 0.65);
+  color: color-mix(in srgb, var(--acid) 68%, transparent);
   display: flex;
   flex-direction: column;
   height: 88px;
@@ -1396,8 +1406,8 @@ footer a:hover {
 
 .passport-open {
   align-self: flex-start;
-  border-bottom: 1px solid #355640;
-  color: #355640;
+  border-bottom: 1px solid var(--acid);
+  color: var(--acid);
   margin-top: auto;
   padding-bottom: 5px;
 }
@@ -1405,7 +1415,9 @@ footer a:hover {
 .passport-page-number {
   bottom: 16px;
   color: var(--passport-muted);
-  font: 9px Georgia, "Times New Roman", serif;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
   left: 50%;
   position: absolute;
 }
@@ -1478,9 +1490,12 @@ footer a:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .turn-next .passport-page-record,
-  .turn-previous .passport-page-identity {
+  .passport-spread.phase-in {
     animation: none;
+  }
+
+  .passport-spread.phase-out {
+    transition: none;
   }
 }
 
@@ -3360,13 +3375,13 @@ footer p {
   }
 
   .passport-page-identity {
-    border-bottom: 1px solid rgba(35, 42, 31, 0.23);
+    border-bottom: 1px solid var(--line);
     border-right: 0;
-    box-shadow: inset 0 -24px 30px -30px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0 -24px 30px -30px rgba(0, 0, 0, 0.9);
   }
 
   .passport-page-record {
-    box-shadow: inset 0 24px 30px -30px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0 24px 30px -30px rgba(0, 0, 0, 0.9);
   }
 
   .passport-controls {

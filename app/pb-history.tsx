@@ -638,15 +638,43 @@ function SpeedrunPassport({
 }) {
   const entries = useMemo(() => games.map(passportGame), [games]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [pendingIndex, setPendingIndex] = useState<number | null>(null);
   const [turnDirection, setTurnDirection] = useState<"next" | "previous">(
     "next",
   );
+  const [turnPhase, setTurnPhase] = useState<"idle" | "out" | "in">("idle");
   const game = entries[activeIndex];
 
+  useEffect(() => {
+    if (turnPhase === "out" && pendingIndex !== null) {
+      const timer = window.setTimeout(() => {
+        setActiveIndex(pendingIndex);
+        setTurnPhase("in");
+      }, 140);
+      return () => window.clearTimeout(timer);
+    }
+
+    if (turnPhase === "in") {
+      const timer = window.setTimeout(() => {
+        setTurnPhase("idle");
+        setPendingIndex(null);
+      }, 180);
+      return () => window.clearTimeout(timer);
+    }
+  }, [pendingIndex, turnPhase]);
+
   function turnTo(index: number) {
-    if (index < 0 || index >= entries.length || index === activeIndex) return;
+    if (
+      turnPhase !== "idle" ||
+      index < 0 ||
+      index >= entries.length ||
+      index === activeIndex
+    ) {
+      return;
+    }
     setTurnDirection(index > activeIndex ? "next" : "previous");
-    setActiveIndex(index);
+    setPendingIndex(index);
+    setTurnPhase("out");
   }
 
   return (
@@ -666,9 +694,8 @@ function SpeedrunPassport({
       </div>
 
       <div
-        className={`passport-spread turn-${turnDirection}`}
+        className={`passport-spread turn-${turnDirection} phase-${turnPhase}`}
         aria-live="polite"
-        key={game.id}
       >
         <section className="passport-page passport-page-identity">
           <div className="passport-page-heading">
@@ -786,7 +813,7 @@ function SpeedrunPassport({
         <button
           type="button"
           onClick={() => turnTo(activeIndex - 1)}
-          disabled={activeIndex === 0}
+          disabled={activeIndex === 0 || turnPhase !== "idle"}
         >
           ← PREVIOUS
         </button>
@@ -796,6 +823,7 @@ function SpeedrunPassport({
               type="button"
               className={index === activeIndex ? "active" : ""}
               onClick={() => turnTo(index)}
+              disabled={turnPhase !== "idle"}
               aria-label={`Turn to ${entry.name}`}
               aria-current={index === activeIndex ? "page" : undefined}
               key={entry.id}
@@ -811,7 +839,9 @@ function SpeedrunPassport({
         <button
           type="button"
           onClick={() => turnTo(activeIndex + 1)}
-          disabled={activeIndex === entries.length - 1}
+          disabled={
+            activeIndex === entries.length - 1 || turnPhase !== "idle"
+          }
         >
           NEXT →
         </button>
