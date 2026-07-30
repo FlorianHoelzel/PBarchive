@@ -1801,6 +1801,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
 
 export default function PBHistory({ data }: { data: SiteData }) {
   const [mood, setMood] = useState<MoodTheme>("auto");
+  const [moodCue, setMoodCue] = useState(0);
   const games = useMemo(() => {
     const grouped = new Map<string, History[]>();
     for (const history of data.histories) {
@@ -1842,6 +1843,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
 
   function chooseMood(nextMood: MoodTheme) {
     setMood(nextMood);
+    setMoodCue((current) => current + 1);
     window.localStorage.setItem("pbarchive:mood", nextMood);
   }
 
@@ -1883,9 +1885,17 @@ export default function PBHistory({ data }: { data: SiteData }) {
   return (
     <main
       className={`archive-shell mood-${resolvedMood}`}
+      data-mood={resolvedMood.toUpperCase()}
       id="top"
       style={archiveStyle}
     >
+      {moodCue > 0 && (
+        <span className="mood-change-cue" aria-live="polite" key={moodCue}>
+          <small>MOOD CHANNEL</small>
+          <b>{resolvedMood.toUpperCase()}</b>
+          <i>ONLINE</i>
+        </span>
+      )}
       <ArchiveNavigator games={games} />
       <header className="site-header">
         <div className="brand">

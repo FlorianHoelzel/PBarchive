@@ -64,6 +64,9 @@ main.mood-crt {
 }
 
 .mood-crt::after {
+  animation:
+    crt-scan 7s linear infinite,
+    crt-flicker 5s steps(1, end) infinite;
   background: repeating-linear-gradient(
     0deg,
     rgba(115, 255, 120, 0.045) 0,
@@ -85,6 +88,7 @@ main.mood-vhs {
 }
 
 .mood-vhs::after {
+  animation: vhs-roll 5s linear infinite;
   background:
     linear-gradient(
       90deg,
@@ -112,6 +116,7 @@ main.mood-terminal {
 }
 
 .mood-terminal::after {
+  animation: terminal-vignette 3.8s ease-in-out infinite;
   background: radial-gradient(
     circle at 50% 50%,
     transparent 50%,
@@ -131,12 +136,309 @@ main.mood-timing {
 }
 
 .mood-timing::after {
+  animation: timing-wash 4s ease-in-out infinite alternate;
   background: linear-gradient(
     115deg,
     rgba(69, 216, 255, 0.018),
     transparent 40%,
     rgba(255, 112, 82, 0.018)
   );
+}
+
+.mood-change-cue {
+  align-items: center;
+  animation: mood-cue 1.1s ease both;
+  background: color-mix(in srgb, var(--ink) 94%, transparent);
+  border: 1px solid var(--acid);
+  display: grid;
+  gap: 3px;
+  grid-template-columns: auto auto;
+  min-width: 172px;
+  padding: 11px 13px;
+  pointer-events: none;
+  position: fixed;
+  right: 24px;
+  top: 82px;
+  z-index: 110;
+}
+
+.mood-change-cue small,
+.mood-change-cue i {
+  color: var(--muted);
+  font-size: 7px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.mood-change-cue b {
+  color: var(--acid);
+  font-size: 17px;
+  grid-column: 1;
+  letter-spacing: -0.02em;
+}
+
+.mood-change-cue i {
+  align-self: end;
+  color: var(--acid);
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+}
+
+.mood-change-cue i::before {
+  animation: mood-status-blink 450ms steps(1, end) 2;
+  background: var(--acid);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--acid);
+  content: "";
+  display: inline-block;
+  height: 5px;
+  margin-right: 5px;
+  width: 5px;
+}
+
+.mood-crt .accent-name,
+.mood-crt .now-playing strong,
+.mood-crt .achievement strong {
+  animation: crt-glow 3.2s ease-in-out infinite;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--acid) 42%, transparent);
+}
+
+.mood-crt .video-frame,
+.mood-crt .overview-card,
+.mood-crt .passport {
+  box-shadow: inset 0 0 26px rgba(115, 255, 120, 0.025);
+}
+
+.mood-vhs .hero h1 {
+  animation: vhs-jump 7s steps(1, end) infinite;
+  text-shadow:
+    2px 0 color-mix(in srgb, var(--acid-secondary) 58%, transparent),
+    -2px 0 color-mix(in srgb, var(--acid) 58%, transparent);
+}
+
+.mood-vhs .game-heading h2:hover,
+.mood-vhs .history-heading h3:hover {
+  animation: vhs-title-drift 600ms steps(2, end) infinite;
+  text-shadow:
+    2px 0 var(--acid-secondary),
+    -2px 0 var(--acid);
+}
+
+.mood-terminal .section-label h2::after,
+.mood-terminal .table-heading span:first-child::after,
+.mood-terminal .overview-card-heading span:first-child::after {
+  animation: terminal-cursor 800ms steps(1, end) infinite;
+  color: var(--acid);
+  content: "_";
+  margin-left: 0.28em;
+}
+
+.mood-terminal .overview-card,
+.mood-terminal .history-card {
+  animation: terminal-materialize 420ms steps(4, end) both;
+}
+
+.mood-terminal .hero h1,
+.mood-terminal .now-playing strong,
+.mood-terminal .passport-stats strong {
+  text-shadow: 0 0 11px color-mix(in srgb, var(--acid) 30%, transparent);
+}
+
+.mood-timing .section-label {
+  overflow: hidden;
+  position: relative;
+}
+
+.mood-timing .section-label::after {
+  animation: timing-sweep 2.6s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--acid),
+    var(--acid-secondary),
+    transparent
+  );
+  bottom: -1px;
+  content: "";
+  height: 2px;
+  left: -24%;
+  position: absolute;
+  width: 24%;
+}
+
+.mood-timing .chart-dot.active {
+  animation: timing-dot-pulse 1.2s ease-in-out infinite;
+}
+
+.mood-timing .now-playing strong,
+.mood-timing .achievement strong,
+.mood-timing .passport-stats strong {
+  animation: timing-number-pulse 2s ease-in-out infinite;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes mood-cue {
+  0% {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  14%,
+  72% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+}
+
+@keyframes mood-status-blink {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes crt-scan {
+  to {
+    background-position: 0 64px;
+  }
+}
+
+@keyframes crt-flicker {
+  0%,
+  91%,
+  94%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 0.72;
+  }
+  93% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes crt-glow {
+  50% {
+    filter: brightness(1.12);
+    text-shadow: 0 0 16px color-mix(in srgb, var(--acid) 58%, transparent);
+  }
+}
+
+@keyframes vhs-roll {
+  to {
+    background-position:
+      0 0,
+      0 84px;
+  }
+}
+
+@keyframes vhs-jump {
+  0%,
+  94%,
+  97%,
+  100% {
+    transform: translateX(0);
+  }
+  95% {
+    transform: translateX(1px);
+  }
+  96% {
+    transform: translateX(-1px);
+  }
+}
+
+@keyframes vhs-title-drift {
+  50% {
+    transform: translateX(1px);
+  }
+}
+
+@keyframes terminal-cursor {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes terminal-materialize {
+  from {
+    opacity: 0.35;
+    clip-path: inset(0 0 88% 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+}
+
+@keyframes terminal-vignette {
+  50% {
+    opacity: 0.78;
+  }
+}
+
+@keyframes timing-wash {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes timing-sweep {
+  0% {
+    left: -24%;
+  }
+  70%,
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes timing-dot-pulse {
+  50% {
+    filter: drop-shadow(0 0 6px var(--acid));
+    stroke-width: 5px;
+  }
+}
+
+@keyframes timing-number-pulse {
+  50% {
+    text-shadow: 0 0 12px color-mix(in srgb, var(--acid) 42%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .archive-shell::after,
+  .mood-change-cue,
+  .mood-change-cue i::before,
+  .mood-crt .accent-name,
+  .mood-crt .now-playing strong,
+  .mood-crt .achievement strong,
+  .mood-vhs .hero h1,
+  .mood-vhs .game-heading h2:hover,
+  .mood-vhs .history-heading h3:hover,
+  .mood-terminal .section-label h2::after,
+  .mood-terminal .table-heading span:first-child::after,
+  .mood-terminal .overview-card-heading span:first-child::after,
+  .mood-terminal .overview-card,
+  .mood-terminal .history-card,
+  .mood-timing .section-label::after,
+  .mood-timing .chart-dot.active,
+  .mood-timing .now-playing strong,
+  .mood-timing .achievement strong,
+  .mood-timing .passport-stats strong {
+    animation: none !important;
+  }
+
+  .mood-change-cue {
+    display: none;
+  }
 }
 
 a {
