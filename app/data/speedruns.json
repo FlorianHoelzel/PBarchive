@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T06:59:41.580Z",
+  "generatedAt": "2026-07-30T07:11:10.715Z",
   "source": "https://www.speedrun.com/users/Volpey",
   "profile": {
     "id": "zx7q5087",
@@ -341,7 +341,7 @@
           "emulated": false,
           "detail": null,
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     },
@@ -445,7 +445,7 @@
           "emulated": false,
           "detail": null,
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     },
@@ -1459,7 +1459,7 @@
           "emulated": false,
           "detail": null,
           "current": false,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         },
         {
           "id": "m776764m",
@@ -1529,7 +1529,7 @@
           "emulated": false,
           "detail": null,
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     },
@@ -1675,7 +1675,7 @@
           "emulated": false,
           "detail": "No",
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     },
@@ -1975,7 +1975,7 @@
           "emulated": false,
           "detail": "Yes",
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     },
@@ -2145,7 +2145,7 @@
           "emulated": false,
           "detail": null,
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     },
@@ -2197,7 +2197,7 @@
           "emulated": false,
           "detail": null,
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     },
@@ -2263,7 +2263,7 @@
           "emulated": false,
           "detail": null,
           "current": false,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         },
         {
           "id": "8y84x5dz",
@@ -2469,7 +2469,7 @@
           "emulated": false,
           "detail": null,
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     },
@@ -2495,7 +2495,7 @@
           "emulated": false,
           "detail": null,
           "current": false,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         },
         {
           "id": "emkk675m",
@@ -2509,7 +2509,7 @@
           "emulated": false,
           "detail": null,
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     },
@@ -2657,7 +2657,7 @@
           "emulated": false,
           "detail": null,
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     },
@@ -2873,7 +2873,7 @@
           "emulated": false,
           "detail": null,
           "current": false,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         },
         {
           "id": "kz53ovdy",
@@ -2901,7 +2901,7 @@
           "emulated": false,
           "detail": "1 Controller",
           "current": true,
-          "worldRecordAtTime": false
+          "worldRecordAtTime": true
         }
       ]
     }

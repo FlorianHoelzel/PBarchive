@@ -30,6 +30,30 @@ async function getAllRuns(userId) {
   return runs;
 }
 
+async function getAllLeaderboardRuns(gameId, categoryId, levelId) {
+  const runs = [];
+  let offset = 0;
+  while (true) {
+    const query = new URLSearchParams({
+      game: gameId,
+      category: categoryId,
+      status: "verified",
+      orderby: "date",
+      direction: "asc",
+      max: "200",
+      offset: String(offset),
+    });
+    if (levelId) query.set("level", levelId);
+
+    const payload = await get(`/runs?${query}`);
+    runs.push(...payload.data);
+    const pagination = payload.pagination;
+    if (!pagination?.links?.some((link) => link.rel === "next")) break;
+    offset += pagination.max;
+  }
+  return runs;
+}
+
 async function mapById(ids, pathForId) {
   const unique = [...new Set(ids.filter(Boolean))];
   const entries = await Promise.all(
@@ -57,30 +81,65 @@ async function mapWithConcurrency(items, limit, callback) {
 }
 
 async function markHistoricalWorldRecords(histories) {
-  const entries = histories.flatMap((history) =>
-    history.runs
-      .filter((run) => run.date !== "Unknown")
-      .map((run) => ({ history, run })),
-  );
+  const groups = new Map();
+  for (const history of histories) {
+    const firstRun = history.runs[0];
+    const key = [
+      history.gameId,
+      firstRun.categoryId,
+      firstRun.levelId ?? "",
+    ].join("|");
+    const group = groups.get(key) ?? {
+      gameId: history.gameId,
+      categoryId: firstRun.categoryId,
+      levelId: firstRun.levelId,
+      histories: [],
+    };
+    group.histories.push(history);
+    groups.set(key, group);
+  }
 
-  await mapWithConcurrency(entries, 4, async ({ history, run }) => {
-    const leaderboardPath = run.levelId
-      ? `/leaderboards/${history.gameId}/level/${run.levelId}/${run.categoryId}`
-      : `/leaderboards/${history.gameId}/category/${run.categoryId}`;
-    const query = new URLSearchParams({ top: "1", date: run.date });
-    for (const [variableId, valueId] of Object.entries(
-      run.leaderboardValues,
-    )) {
-      query.set(`var-${variableId}`, valueId);
-    }
-
+  await mapWithConcurrency([...groups.values()], 4, async (group) => {
     try {
-      const payload = await get(`${leaderboardPath}?${query}`);
-      run.worldRecordAtTime = payload.data.runs.some(
-        (entry) => entry.run.id === run.id,
+      const leaderboardRuns = await getAllLeaderboardRuns(
+        group.gameId,
+        group.categoryId,
+        group.levelId,
       );
+      for (const history of group.histories) {
+        const firstRun = history.runs[0];
+        const matchingRuns = leaderboardRuns.filter((candidate) =>
+          firstRun.subcategoryVariableIds.every(
+            (variableId) =>
+              (candidate.values?.[variableId] ?? null) ===
+              (firstRun.leaderboardValues[variableId] ?? null),
+          ),
+        );
+
+        for (const run of history.runs) {
+          if (run.date === "Unknown") {
+            run.worldRecordAtTime = false;
+            continue;
+          }
+          const fastestAtTime = matchingRuns.reduce((fastest, candidate) => {
+            const candidateDate =
+              candidate.date ?? candidate.submitted?.slice(0, 10);
+            return candidateDate && candidateDate <= run.date
+              ? Math.min(
+                  fastest,
+                  Number(candidate.times?.primary_t ?? Number.POSITIVE_INFINITY),
+                )
+              : fastest;
+          }, Number.POSITIVE_INFINITY);
+          run.worldRecordAtTime =
+            Number.isFinite(fastestAtTime) &&
+            Math.abs(run.seconds - fastestAtTime) < 0.0005;
+        }
+      }
     } catch {
-      run.worldRecordAtTime = false;
+      for (const history of group.histories) {
+        for (const run of history.runs) run.worldRecordAtTime = false;
+      }
     }
   });
 }
@@ -129,6 +188,9 @@ for (const run of runs) {
   const runDetails = [];
   const rulesetValues = [];
   const leaderboardValues = {};
+  const subcategoryVariableIds = variables
+    .filter((variable) => variable["is-subcategory"])
+    .map((variable) => variable.id);
 
   for (const [variableId, valueId] of Object.entries(run.values ?? {})) {
     const variable = variables.find((item) => item.id === variableId);
@@ -181,6 +243,7 @@ for (const run of runs) {
     categoryId: run.category,
     levelId: run.level ?? null,
     leaderboardValues,
+    subcategoryVariableIds,
   });
 }
 
@@ -233,6 +296,7 @@ for (const history of histories) {
     delete run.categoryId;
     delete run.levelId;
     delete run.leaderboardValues;
+    delete run.subcategoryVariableIds;
   }
 }
 

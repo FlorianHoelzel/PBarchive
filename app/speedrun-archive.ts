@@ -52,6 +52,38 @@ async function getAllRuns(userId: string) {
   return runs;
 }
 
+async function getAllLeaderboardRuns(
+  gameId: string,
+  categoryId: string,
+  levelId: string | null,
+) {
+  const runs: ApiRecord[] = [];
+  let offset = 0;
+
+  while (true) {
+    const query = new URLSearchParams({
+      game: gameId,
+      category: categoryId,
+      status: "verified",
+      orderby: "date",
+      direction: "asc",
+      max: "200",
+      offset: String(offset),
+    });
+    if (levelId) query.set("level", levelId);
+
+    const payload = await get(`/runs?${query}`);
+    runs.push(...(payload.data ?? []));
+    const pagination = payload.pagination;
+    if (!pagination?.links?.some((link: ApiRecord) => link.rel === "next")) {
+      break;
+    }
+    offset += pagination.max;
+  }
+
+  return runs;
+}
+
 async function mapWithConcurrency<T>(
   items: T[],
   limit: number,
@@ -75,37 +107,80 @@ type InternalRun = History["runs"][number] & {
   categoryId?: string;
   levelId?: string | null;
   leaderboardValues?: Record<string, string>;
+  subcategoryVariableIds?: string[];
 };
 
 async function markHistoricalWorldRecords(histories: History[]) {
-  const entries = histories.flatMap((history) =>
-    history.runs
-      .filter((run) => run.date !== "Unknown")
-      .map((run) => ({ history, run: run as InternalRun })),
-  );
-
-  await mapWithConcurrency(entries, 4, async ({ history, run }) => {
-    if (!run.categoryId) return;
-
-    const leaderboardPath = run.levelId
-      ? `/leaderboards/${history.gameId}/level/${run.levelId}/${run.categoryId}`
-      : `/leaderboards/${history.gameId}/category/${run.categoryId}`;
-    const query = new URLSearchParams({ top: "1", date: run.date });
-    for (const [variableId, valueId] of Object.entries(
-      run.leaderboardValues ?? {},
-    )) {
-      query.set(`var-${variableId}`, valueId);
+  const groups = new Map<
+    string,
+    {
+      gameId: string;
+      categoryId: string;
+      levelId: string | null;
+      histories: History[];
     }
+  >();
+  for (const history of histories) {
+    const firstRun = history.runs[0] as InternalRun | undefined;
+    if (!firstRun?.categoryId) continue;
+    const key = [
+      history.gameId,
+      firstRun.categoryId,
+      firstRun.levelId ?? "",
+    ].join("|");
+    const group = groups.get(key) ?? {
+      gameId: history.gameId,
+      categoryId: firstRun.categoryId,
+      levelId: firstRun.levelId ?? null,
+      histories: [],
+    };
+    group.histories.push(history);
+    groups.set(key, group);
+  }
 
+  await mapWithConcurrency([...groups.values()], 4, async (group) => {
     try {
-      const payload = await getOptional(`${leaderboardPath}?${query}`);
-      run.worldRecordAtTime = Boolean(
-        payload?.data?.runs?.some(
-          (entry: ApiRecord) => entry.run?.id === run.id,
-        ),
+      const leaderboardRuns = await getAllLeaderboardRuns(
+        group.gameId,
+        group.categoryId,
+        group.levelId,
       );
+      for (const history of group.histories) {
+        const firstRun = history.runs[0] as InternalRun;
+        const variableIds = firstRun.subcategoryVariableIds ?? [];
+        const expectedValues = firstRun.leaderboardValues ?? {};
+        const matchingRuns = leaderboardRuns.filter((candidate) =>
+          variableIds.every(
+            (variableId) =>
+              (candidate.values?.[variableId] ?? null) ===
+              (expectedValues[variableId] ?? null),
+          ),
+        );
+
+        for (const run of history.runs as InternalRun[]) {
+          if (run.date === "Unknown") {
+            run.worldRecordAtTime = false;
+            continue;
+          }
+          const fastestAtTime = matchingRuns.reduce((fastest, candidate) => {
+            const candidateDate =
+              candidate.date ?? candidate.submitted?.slice(0, 10);
+            return candidateDate && candidateDate <= run.date
+              ? Math.min(
+                  fastest,
+                  Number(candidate.times?.primary_t ?? Number.POSITIVE_INFINITY),
+                )
+              : fastest;
+          }, Number.POSITIVE_INFINITY);
+          run.worldRecordAtTime =
+            Number.isFinite(fastestAtTime) &&
+            Math.abs(run.seconds - fastestAtTime) < 0.0005;
+        }
+      }
     } catch {
-      run.worldRecordAtTime = false;
+      for (const history of group.histories) {
+        for (const run of history.runs) run.worldRecordAtTime = false;
+      }
     }
   });
 }
@@ -186,6 +261,9 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
     const runDetails: string[] = [];
     const rulesetValues: string[] = [];
     const leaderboardValues: Record<string, string> = {};
+    const subcategoryVariableIds = variables
+      .filter((variable: ApiRecord) => variable["is-subcategory"])
+      .map((variable: ApiRecord) => variable.id as string);
 
     for (const [variableId, valueId] of Object.entries(run.values ?? {})) {
       const variable = variables.find(
@@ -241,6 +319,7 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
       categoryId: run.category,
       levelId: run.level ?? null,
       leaderboardValues,
+      subcategoryVariableIds,
     });
   }
 
@@ -294,6 +373,7 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
       delete run.categoryId;
       delete run.levelId;
       delete run.leaderboardValues;
+      delete run.subcategoryVariableIds;
     }
   }
 
