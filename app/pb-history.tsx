@@ -563,6 +563,60 @@ type ArchiveGame = {
   displayCount: number;
 };
 
+const moodThemes = [
+  "auto",
+  "archive",
+  "crt",
+  "vhs",
+  "terminal",
+  "timing",
+] as const;
+
+type MoodTheme = (typeof moodThemes)[number];
+type ResolvedMoodTheme = Exclude<MoodTheme, "auto">;
+
+function automaticMoodFor(histories: History[]): ResolvedMoodTheme {
+  const platformCounts = new Map<string, number>();
+  for (const run of histories.flatMap((history) => history.runs)) {
+    if (!run.platform) continue;
+    const platform = run.platform.toLowerCase();
+    platformCounts.set(platform, (platformCounts.get(platform) ?? 0) + 1);
+  }
+
+  const dominantPlatform =
+    [...platformCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "";
+
+  if (
+    [
+      "nes",
+      "snes",
+      "n64",
+      "game boy",
+      "gamecube",
+      "genesis",
+      "saturn",
+      "atari",
+    ].some((platform) => dominantPlatform.includes(platform))
+  ) {
+    return "crt";
+  }
+  if (
+    ["playstation", "dreamcast", "xbox", "wii"].some((platform) =>
+      dominantPlatform.includes(platform),
+    )
+  ) {
+    return "vhs";
+  }
+  if (
+    ["pc", "dos", "linux", "mac"].some((platform) =>
+      dominantPlatform.includes(platform),
+    )
+  ) {
+    return "terminal";
+  }
+  return "timing";
+}
+
 type PassportGame = ArchiveGame & {
   firstYear: number | null;
   latestYear: number | null;
@@ -1746,6 +1800,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
 }
 
 export default function PBHistory({ data }: { data: SiteData }) {
+  const [mood, setMood] = useState<MoodTheme>("auto");
   const games = useMemo(() => {
     const grouped = new Map<string, History[]>();
     for (const history of data.histories) {
@@ -1769,6 +1824,26 @@ export default function PBHistory({ data }: { data: SiteData }) {
       };
     });
   }, [data.histories]);
+  const automaticMood = useMemo(
+    () => automaticMoodFor(data.histories),
+    [data.histories],
+  );
+  const resolvedMood = mood === "auto" ? automaticMood : mood;
+
+  useEffect(() => {
+    const savedMood = window.localStorage.getItem("pbarchive:mood");
+    if (
+      savedMood &&
+      moodThemes.includes(savedMood as MoodTheme)
+    ) {
+      setMood(savedMood as MoodTheme);
+    }
+  }, []);
+
+  function chooseMood(nextMood: MoodTheme) {
+    setMood(nextMood);
+    window.localStorage.setItem("pbarchive:mood", nextMood);
+  }
 
   const datedRuns = data.histories
     .flatMap((history) => history.runs)
@@ -1806,7 +1881,11 @@ export default function PBHistory({ data }: { data: SiteData }) {
         : "long";
 
   return (
-    <main id="top" style={archiveStyle}>
+    <main
+      className={`archive-shell mood-${resolvedMood}`}
+      id="top"
+      style={archiveStyle}
+    >
       <ArchiveNavigator games={games} />
       <header className="site-header">
         <div className="brand">
@@ -1845,6 +1924,25 @@ export default function PBHistory({ data }: { data: SiteData }) {
           <a href="#overview">OVERVIEW</a>
           <a href="#games">THE RUNS</a>
           <a href={`/${encodeURIComponent(data.profile.name)}/feed`}>PB FEED</a>
+          <label className="mood-selector">
+            <span>MOOD</span>
+            <select
+              value={mood}
+              onChange={(event) =>
+                chooseMood(event.target.value as MoodTheme)
+              }
+              aria-label="Archive mood theme"
+            >
+              <option value="auto">
+                AUTO · {automaticMood.toUpperCase()}
+              </option>
+              <option value="archive">ARCHIVE</option>
+              <option value="crt">CRT</option>
+              <option value="vhs">VHS</option>
+              <option value="terminal">TERMINAL</option>
+              <option value="timing">TIMING BOARD</option>
+            </select>
+          </label>
           <a href={data.profile.profileUrl} target="_blank" rel="noreferrer">
             SPEEDRUN.COM ↗
           </a>
