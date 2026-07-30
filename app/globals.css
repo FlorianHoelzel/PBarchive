@@ -3461,12 +3461,15 @@ footer p {
   }
 
   .feed-controls label {
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    width: 100%;
   }
 
   .feed-controls select {
-    flex: 1;
-    max-width: none;
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
   }
 
   .feed-stream {
