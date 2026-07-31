@@ -1930,7 +1930,24 @@ export default function PBHistory({ data }: { data: SiteData }) {
 
       <ArchiveOverview histories={data.histories} />
 
-      <div className="games" id="games" data-archive-id="games">
+      <section className="game-index" id="games" data-archive-id="games">
+        <div className="section-label">
+          <span>02</span>
+          <h2>GAME INDEX</h2>
+          <span>{String(games.length).padStart(2, "0")} TITLES</span>
+        </div>
+        <div className="game-links">
+          {games.map((game, index) => (
+            <a href={`#${game.id}`} key={game.id}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              {game.name}
+              <b>{game.displayCount}</b>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <div className="games">
         {games.map((game, gameIndex) => {
           const groupedLevels =
             game.name === "Super Mario World 2: Yoshi's Island"

@@ -1055,6 +1055,47 @@ footer a:hover {
   margin: 0;
 }
 
+.game-links {
+  border-bottom: 1px solid var(--line);
+}
+
+.game-links a {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: grid;
+  font-size: clamp(17px, 1.9vw, 28px);
+  font-weight: 700;
+  grid-template-columns: 60px 1fr auto;
+  letter-spacing: -0.035em;
+  min-height: 64px;
+  padding: 12px 2px;
+}
+
+.game-links a:first-child {
+  border-top: 0;
+}
+
+.game-links a:hover {
+  color: var(--acid);
+  padding-left: 8px;
+}
+
+.game-links a span,
+.game-links a b {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.game-links a b {
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  display: grid;
+  height: 34px;
+  place-items: center;
+  width: 34px;
+}
+
 .passport {
   --passport-ink: var(--paper);
   --passport-muted: var(--muted);
@@ -3458,6 +3499,16 @@ footer p {
 
   .overview-feature-grid {
     margin-top: 12px;
+  }
+
+  .section-label,
+  .game-links a {
+    grid-template-columns: 34px 1fr auto;
+  }
+
+  .game-links a {
+    font-size: 18px;
+    min-height: 68px;
   }
 
   .heatmap-card,

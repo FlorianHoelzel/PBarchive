@@ -71,6 +71,8 @@ test("shows the tiered historical world-record achievement", async () => {
   assert.match(html, /href="\/">PB ARCHIVE<\/a>/);
   assert.match(html, /class="accent-name" href="#top">VOLPEY<\/a>/);
   assert.match(html, /href="\/volpey\/passport"/i);
+  assert.match(html, /<h2>GAME INDEX<\/h2>/i);
+  assert.match(html, /\d{2}(?:<!-- -->)? TITLES/);
   assert.doesNotMatch(html, /PB STAMPS/);
   assert.match(html, /WORLD BEATER/);
   assert.match(html, /World records when set/);
