@@ -1755,9 +1755,9 @@ export default function PBHistory({ data }: { data: SiteData }) {
       } as CSSProperties)
     : undefined;
   const heroTitleMode =
-    data.profile.name.length <= 10
+    data.profile.name.length <= 6
       ? "short"
-      : data.profile.name.length <= 18
+      : data.profile.name.length <= 14
         ? "medium"
         : "long";
 

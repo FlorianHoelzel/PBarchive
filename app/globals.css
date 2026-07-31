@@ -231,9 +231,10 @@ footer a:hover {
 }
 
 .hero h1.hero-title-medium {
-  --hero-title-fluid: 3.7vw;
-  --hero-title-max: 56px;
-  --hero-title-min: 40px;
+  --hero-title-fluid: 3.4vw;
+  --hero-title-max: 52px;
+  --hero-title-min: 36px;
+  white-space: normal;
 }
 
 .hero h1.hero-title-long {
