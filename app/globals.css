@@ -3739,14 +3739,28 @@ footer p {
   }
 
   .game-heading {
+    background:
+      radial-gradient(
+        circle at 82% 36%,
+        color-mix(in srgb, var(--acid) 8%, transparent),
+        transparent 34%
+      ),
+      linear-gradient(112deg, #191a17 0%, #121310 56%, #0c0d0b 100%);
     gap: 16px;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) 78px;
     min-height: 190px;
-    padding: 30px 20px 30px 64px;
+    padding: 30px 18px 30px 64px;
   }
 
   .game-cover {
-    display: none;
+    display: block;
+    height: 104px;
+    width: 78px;
+  }
+
+  .game-heading img {
+    height: 104px;
+    width: 78px;
   }
 
   .game-number {
@@ -3767,7 +3781,7 @@ footer p {
   }
 
   .game-heading h2 {
-    font-size: clamp(32px, 10vw, 48px);
+    font-size: clamp(30px, 9vw, 48px);
   }
 
   .history-heading {
