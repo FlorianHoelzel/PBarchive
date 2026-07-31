@@ -2042,6 +2042,11 @@ footer a:hover {
   padding: 0 clamp(20px, 4vw, 70px);
 }
 
+.game-histories > .history-card:last-child,
+.game-histories > .level-collection:last-child {
+  border-bottom: 0;
+}
+
 .history-card {
   border-bottom: 1px solid var(--line);
   container-type: inline-size;
