@@ -1906,15 +1906,14 @@ footer a:hover {
 .game-heading {
   align-items: center;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.18), transparent 38%),
-    linear-gradient(
-      118deg,
-      var(--game-color-first, var(--acid)) 0 58%,
-      var(--game-color-second, var(--paper)) 58% 100%
-    );
-  border-bottom: 1px solid var(--ink);
-  border-top: 1px solid var(--ink);
-  color: var(--ink);
+    radial-gradient(
+      circle at 78% 40%,
+      color-mix(in srgb, var(--acid) 8%, transparent),
+      transparent 30%
+    ),
+    linear-gradient(112deg, #191a17 0%, #121310 56%, #0c0d0b 100%);
+  border-bottom: 1px solid var(--line);
+  color: var(--paper);
   display: grid;
   grid-template-columns: minmax(0, 1fr) 130px;
   isolation: isolate;
@@ -1922,7 +1921,6 @@ footer a:hover {
   overflow: hidden;
   padding: 34px clamp(24px, 5vw, 88px) 34px clamp(88px, 8vw, 150px);
   position: relative;
-  transition: background 350ms ease;
 }
 
 .game-heading-copy {
@@ -1938,10 +1936,11 @@ footer a:hover {
   font-weight: 900;
   gap: 12px;
   letter-spacing: 0.16em;
+  color: color-mix(in srgb, var(--paper) 62%, transparent);
 }
 
 .game-heading-meta i {
-  background: var(--ink);
+  background: color-mix(in srgb, var(--paper) 28%, transparent);
   display: block;
   height: 1px;
   max-width: 76px;
@@ -1950,11 +1949,10 @@ footer a:hover {
 
 .game-number {
   align-items: center;
-  backdrop-filter: blur(12px);
-  background: rgba(241, 239, 233, 0.48);
-  border-right: 1px solid rgba(13, 14, 12, 0.38);
+  background: color-mix(in srgb, var(--paper) 2%, transparent);
+  border-right: 1px solid var(--line);
   bottom: 0;
-  color: var(--ink);
+  color: color-mix(in srgb, var(--acid) 76%, var(--paper));
   display: flex;
   flex-direction: column;
   font-size: 20px;
@@ -1986,11 +1984,11 @@ footer a:hover {
   font-weight: 900;
   letter-spacing: -0.09em;
   line-height: 0.8;
-  opacity: 0.14;
+  opacity: 0.11;
   position: absolute;
   right: 120px;
   text-transform: uppercase;
-  -webkit-text-stroke: 2px var(--ink);
+  -webkit-text-stroke: 2px var(--paper);
   white-space: nowrap;
   z-index: 0;
 }
@@ -2017,21 +2015,21 @@ footer a:hover {
 }
 
 .game-cover::before {
-  border-left: 2px solid var(--ink);
-  border-top: 2px solid var(--ink);
+  border-left: 2px solid color-mix(in srgb, var(--acid) 58%, var(--paper));
+  border-top: 2px solid color-mix(in srgb, var(--acid) 58%, var(--paper));
   left: -7px;
   top: -7px;
 }
 
 .game-cover::after {
-  border-bottom: 2px solid var(--ink);
-  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid color-mix(in srgb, var(--acid) 58%, var(--paper));
+  border-right: 2px solid color-mix(in srgb, var(--acid) 58%, var(--paper));
   bottom: -7px;
   right: -7px;
 }
 
 .game-heading img {
-  border: 2px solid rgba(13, 14, 12, 0.82);
+  border: 2px solid color-mix(in srgb, var(--paper) 42%, transparent);
   display: block;
   height: 139px;
   object-fit: cover;
