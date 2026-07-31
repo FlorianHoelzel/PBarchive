@@ -1069,13 +1069,19 @@ footer a:hover {
   letter-spacing: -0.035em;
   min-height: 64px;
   padding: 12px 2px;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    padding 160ms ease;
 }
 
 .game-links a:first-child {
   border-top: 0;
 }
 
-.game-links a:hover {
+.game-links a:hover,
+.game-links a:focus-visible {
+  background: rgba(255, 255, 255, 0.025);
   color: var(--acid);
   padding-left: 8px;
 }
