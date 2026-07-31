@@ -60,20 +60,6 @@ obsolete runs that show how the runner improved over time.
 - Live embed previews and copyable iframe code
 - 16:9 and Twitch-panel preview modes for category embeds
 
-## Run it locally
-
-```bash
-npm install
-npm run dev
-```
-
-To run the project checks:
-
-```bash
-npm run lint
-npm test
-```
-
 ## Data and attribution
 
 Run and profile information comes from
