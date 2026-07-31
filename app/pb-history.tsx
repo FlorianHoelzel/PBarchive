@@ -1009,23 +1009,33 @@ function GameHeading({
       style={style}
     >
       <span className="game-number">
+        <small>GAME</small>
         {String(index + 1).padStart(2, "0")}
       </span>
-      <div>
-        <span className="eyebrow">
-          {game.histories.length} CATEGOR
-          {game.histories.length === 1 ? "Y" : "IES"}
-        </span>
+      <div className="game-heading-copy">
+        <div className="game-heading-meta">
+          <span>PB ARCHIVE</span>
+          <i aria-hidden="true" />
+          <span>
+            {game.histories.length} CATEGOR
+            {game.histories.length === 1 ? "Y" : "IES"}
+          </span>
+        </div>
         <h2>{game.name}</h2>
       </div>
+      <span className="game-monogram" aria-hidden="true">
+        {game.gameAbbreviation}
+      </span>
       {game.cover && (
-        <img
-          src={game.cover}
-          alt=""
-          width="78"
-          height="104"
-          loading="lazy"
-        />
+        <span className="game-cover" aria-hidden="true">
+          <img
+            src={game.cover}
+            alt=""
+            width="104"
+            height="139"
+            loading="lazy"
+          />
+        </span>
       )}
     </header>
   );
