@@ -95,7 +95,7 @@ function compactDuration(totalSeconds: number) {
   return `${remainder}s`;
 }
 
-function embedUrl(url: string | null) {
+function embedUrl(url: string | null, twitchParent: string | null = null) {
   if (!url) return null;
   try {
     const parsed = new URL(url);
@@ -111,17 +111,16 @@ function embedUrl(url: string | null) {
         ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=0&rel=0`
         : null;
     }
-    if (host.includes("twitch.tv") && typeof window !== "undefined") {
-      const parent = window.location.hostname;
+    if (host.includes("twitch.tv") && twitchParent) {
       const vod = parsed.pathname.match(/\/videos\/(\d+)/)?.[1];
       if (vod) {
-        return `https://player.twitch.tv/?video=v${vod}&parent=${parent}&autoplay=false`;
+        return `https://player.twitch.tv/?video=v${vod}&parent=${twitchParent}&autoplay=false`;
       }
       const clip = host.startsWith("clips.")
         ? parsed.pathname.split("/").filter(Boolean)[0]
         : parsed.pathname.match(/\/clip\/([^/?]+)/)?.[1];
       if (clip) {
-        return `https://clips.twitch.tv/embed?clip=${clip}&parent=${parent}&autoplay=false`;
+        return `https://clips.twitch.tv/embed?clip=${clip}&parent=${twitchParent}&autoplay=false`;
       }
     }
   } catch {
@@ -261,11 +260,12 @@ function HistoryBlock({
   const [selected, setSelected] = useState(history.runs.length - 1);
   const [showEmbed, setShowEmbed] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [twitchParent, setTwitchParent] = useState<string | null>(null);
   const [embedPreviewMode, setEmbedPreviewMode] = useState<"widescreen" | "twitch">(
     "widescreen",
   );
   const run = history.runs[selected];
-  const embed = embedUrl(run.video);
+  const embed = embedUrl(run.video, twitchParent);
   const embedPath = `/${encodeURIComponent(username)}/embed/${encodeURIComponent(history.id)}`;
   const embedSource =
     typeof window === "undefined"
@@ -275,6 +275,10 @@ function HistoryBlock({
   const title = [history.categoryName, history.levelName, history.variant]
     .filter(Boolean)
     .join(" · ");
+
+  useEffect(() => {
+    setTwitchParent(window.location.hostname);
+  }, []);
 
   function chooseRun(runIndex: number) {
     setSelected(runIndex);
@@ -580,10 +584,7 @@ function archiveGames(histories: History[]): ArchiveGame[] {
   }
 
   return [...grouped.entries()].map(([name, gameHistories]) => {
-    const groupedLevels =
-      name === "Super Mario World 2: Yoshi's Island"
-        ? gameHistories.filter((history) => history.levelName)
-        : [];
+    const groupedLevels = gameHistories.filter((history) => history.levelName);
     return {
       name,
       id: toId(name),
@@ -1009,7 +1010,6 @@ function GameHeading({
       style={style}
     >
       <span className="game-number">
-        <small>GAME</small>
         {String(index + 1).padStart(2, "0")}
       </span>
       <div className="game-heading-copy">
@@ -1114,7 +1114,9 @@ function ArchiveNavigator({ games }: { games: ArchiveGame[] }) {
                 <b>{game.name}</b>
               </a>
               <div className="navigator-categories">
-                {game.histories.map((history) => {
+                {game.histories
+                  .filter((history) => !history.levelName)
+                  .map((history) => {
                   const anchor = historyAnchor(history);
                   return (
                     <a
@@ -1125,7 +1127,21 @@ function ArchiveNavigator({ games }: { games: ArchiveGame[] }) {
                       {historyLabel(history)}
                     </a>
                   );
-                })}
+                  })}
+                {game.histories.some((history) => history.levelName) && (() => {
+                  const levels = game.histories.filter(
+                    (history) => history.levelName,
+                  );
+                  const anchors = levels.map(historyAnchor);
+                  return (
+                    <a
+                      className={anchors.includes(activeId) ? "active" : ""}
+                      href={`#${anchors[0]}`}
+                    >
+                      Individual Levels · {levels.length}
+                    </a>
+                  );
+                })()}
               </div>
             </div>
           ))}
@@ -1144,11 +1160,23 @@ function ArchiveNavigator({ games }: { games: ArchiveGame[] }) {
           {games.map((game) => (
             <optgroup label={game.name} key={game.id}>
               <option value={game.id}>{game.name}</option>
-              {game.histories.map((history) => (
+              {game.histories
+                .filter((history) => !history.levelName)
+                .map((history) => (
                 <option value={historyAnchor(history)} key={history.id}>
                   {historyLabel(history)}
                 </option>
-              ))}
+                ))}
+              {game.histories.some((history) => history.levelName) && (() => {
+                const levels = game.histories.filter(
+                  (history) => history.levelName,
+                );
+                return (
+                  <option value={historyAnchor(levels[0])}>
+                    Individual Levels · {levels.length}
+                  </option>
+                );
+              })()}
             </optgroup>
           ))}
         </select>
@@ -1959,10 +1987,9 @@ export default function PBHistory({ data }: { data: SiteData }) {
 
       <div className="games">
         {games.map((game, gameIndex) => {
-          const groupedLevels =
-            game.name === "Super Mario World 2: Yoshi's Island"
-              ? game.histories.filter((history) => history.levelName)
-              : [];
+          const groupedLevels = game.histories.filter(
+            (history) => history.levelName,
+          );
           const standaloneHistories = groupedLevels.length
             ? game.histories.filter((history) => !history.levelName)
             : game.histories;
