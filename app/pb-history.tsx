@@ -893,6 +893,15 @@ export function SpeedrunPassport({
   );
 }
 
+function resetGameCover(cover: HTMLElement | null) {
+  if (!cover) return;
+  cover.style.removeProperty("--cover-rotate-x");
+  cover.style.removeProperty("--cover-rotate-y");
+  cover.style.removeProperty("--cover-shine-x");
+  cover.style.removeProperty("--cover-shine-y");
+  delete cover.dataset.parallaxActive;
+}
+
 function GameHeading({
   game,
   index,
@@ -901,7 +910,26 @@ function GameHeading({
   index: number;
 }) {
   return (
-    <header className="game-heading" data-archive-id={game.id}>
+    <header
+      className="game-heading"
+      data-archive-id={game.id}
+      onPointerMove={(event) => {
+        if (
+          event.pointerType === "mouse" &&
+          event.target instanceof Element &&
+          !event.target.closest(".game-cover")
+        ) {
+          resetGameCover(
+            event.currentTarget.querySelector<HTMLElement>(".game-cover"),
+          );
+        }
+      }}
+      onPointerLeave={(event) => {
+        resetGameCover(
+          event.currentTarget.querySelector<HTMLElement>(".game-cover"),
+        );
+      }}
+    >
       <span className="game-number">
         {String(index + 1).padStart(2, "0")}
       </span>
@@ -920,7 +948,27 @@ function GameHeading({
         {game.gameAbbreviation}
       </span>
       {game.cover && (
-        <span className="game-cover" aria-hidden="true">
+        <span
+          className="game-cover"
+          aria-hidden="true"
+          onPointerMove={(event) => {
+            if (event.pointerType !== "mouse") return;
+
+            const cover = event.currentTarget;
+            const bounds = cover.getBoundingClientRect();
+            const x = (event.clientX - bounds.left) / bounds.width;
+            const y = (event.clientY - bounds.top) / bounds.height;
+
+            cover.style.setProperty("--cover-rotate-x", `${(0.5 - y) * 12}deg`);
+            cover.style.setProperty("--cover-rotate-y", `${(x - 0.5) * 14}deg`);
+            cover.style.setProperty("--cover-shine-x", `${x * 100}%`);
+            cover.style.setProperty("--cover-shine-y", `${y * 100}%`);
+            cover.dataset.parallaxActive = "true";
+          }}
+          onPointerLeave={(event) => {
+            resetGameCover(event.currentTarget);
+          }}
+        >
           <img
             src={game.cover}
             alt=""
@@ -928,6 +976,7 @@ function GameHeading({
             height="139"
             loading="lazy"
           />
+          <span className="game-cover-shine" />
         </span>
       )}
     </header>

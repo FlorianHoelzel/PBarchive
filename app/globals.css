@@ -1995,14 +1995,28 @@ footer a:hover {
 }
 
 .game-cover {
+  --cover-rotate-x: 0deg;
+  --cover-rotate-y: 0deg;
+  --cover-shine-x: 50%;
+  --cover-shine-y: 50%;
   display: block;
   height: 139px;
   justify-self: end;
   position: relative;
-  transform: rotate(1.5deg);
-  transition: transform 220ms ease;
+  transform: perspective(600px) rotate(1.5deg) rotateX(var(--cover-rotate-x))
+    rotateY(var(--cover-rotate-y));
+  transform-style: preserve-3d;
+  transition: transform 180ms ease, filter 180ms ease;
+  will-change: transform;
   width: 104px;
   z-index: 2;
+}
+
+.game-cover[data-parallax-active="true"] {
+  filter: drop-shadow(0 15px 16px rgb(0 0 0 / 0.42));
+  transform: perspective(600px) translateY(-4px) scale(1.045) rotate(1.5deg)
+    rotateX(var(--cover-rotate-x)) rotateY(var(--cover-rotate-y));
+  transition-duration: 70ms;
 }
 
 .game-cover::before,
@@ -2037,6 +2051,38 @@ footer a:hover {
   position: relative;
   width: 104px;
   z-index: 1;
+}
+
+.game-cover-shine {
+  background: radial-gradient(
+    circle at var(--cover-shine-x) var(--cover-shine-y),
+    rgb(255 255 255 / 0.25),
+    transparent 48%
+  );
+  inset: 2px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateZ(1px);
+  transition: opacity 180ms ease;
+  z-index: 2;
+}
+
+.game-cover[data-parallax-active="true"] .game-cover-shine {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-cover,
+  .game-cover[data-parallax-active="true"] {
+    filter: none;
+    transform: rotate(1.5deg);
+    transition: none;
+  }
+
+  .game-cover-shine {
+    display: none;
+  }
 }
 
 .game-histories {
