@@ -49,6 +49,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          defer
+          src="https://stats.sumof.best/script.js"
+          data-website-id="b586f22e-d4e3-4a55-9154-c9f44325a61c"
+          data-domains="sumof.best,www.sumof.best"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

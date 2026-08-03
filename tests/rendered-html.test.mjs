@@ -33,6 +33,10 @@ test("server-renders the Sum of Best landing page", async () => {
   const html = await response.text();
   assert.match(html, /Sum of Best/i);
   assert.match(html, /speedrun\.com username/i);
+  assert.match(
+    html,
+    /<script[^>]+src="https:\/\/stats\.sumof\.best\/script\.js"[^>]+data-website-id="b586f22e-d4e3-4a55-9154-c9f44325a61c"/i,
+  );
   assert.doesNotMatch(html, /Your site is taking shape/i);
 });
 
