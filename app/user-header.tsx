@@ -3,7 +3,13 @@
 import { useState } from "react";
 import type { SiteData } from "./pb-history";
 
-export default function UserHeader({ profile }: { profile: SiteData["profile"] }) {
+export default function UserHeader({
+  profile,
+  page,
+}: {
+  profile: SiteData["profile"];
+  page?: "PB FEED" | "PASSPORT";
+}) {
   const [avatarFailed, setAvatarFailed] = useState(false);
   const archivePath = `/${encodeURIComponent(profile.name)}`;
   const profileAvatar =
@@ -44,13 +50,23 @@ export default function UserHeader({ profile }: { profile: SiteData["profile"] }
           <a className="accent-name" href={archivePath}>
             {profile.name.toUpperCase()}
           </a>
+          {page && (
+            <>
+              <span aria-hidden="true">/</span>
+              <a
+                href={page === "PB FEED" ? `${archivePath}/feed` : `${archivePath}/passport`}
+              >
+                {page}
+              </a>
+            </>
+          )}
         </span>
       </div>
       <nav aria-label="Primary">
         <a href={`${archivePath}#overview`}>OVERVIEW</a>
         <a href={`${archivePath}#games`}>THE RUNS</a>
-        <a href={`${archivePath}/passport`}>PASSPORT</a>
         <a href={`${archivePath}/feed`}>PB FEED</a>
+        <a href={`${archivePath}/passport`}>PASSPORT</a>
         <a href={profile.profileUrl} target="_blank" rel="noreferrer">
           SPEEDRUN.COM ↗
         </a>

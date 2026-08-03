@@ -194,7 +194,7 @@ export default function PBFeed({
 
   return (
     <main className="feed-page" id="top" style={archiveStyle(data.profile)}>
-      <UserHeader profile={data.profile} />
+      <UserHeader profile={data.profile} page="PB FEED" />
 
       <section className="feed-hero">
         <span className="eyebrow">PB FEED / @{data.profile.name}</span>

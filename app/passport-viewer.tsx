@@ -61,7 +61,7 @@ export default function PassportViewer({
 
   return (
     <main className="passport-route-shell" style={passportStyle(data.profile)}>
-      <UserHeader profile={data.profile} />
+      <UserHeader profile={data.profile} page="PASSPORT" />
 
       <section className="passport-route-hero">
         <div>

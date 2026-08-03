@@ -61,7 +61,16 @@ test("server-renders shareable PB feed routes", async () => {
   );
   assert.match(feedHtml, /href="\/volpey#overview">OVERVIEW<\/a>/i);
   assert.match(feedHtml, /href="\/volpey#games">THE RUNS<\/a>/i);
+  assert.match(feedHtml, /href="\/volpey\/feed">PB FEED<\/a>/i);
   assert.match(feedHtml, /href="\/volpey\/passport">PASSPORT<\/a>/i);
+  assert.match(
+    feedHtml,
+    /class="accent-name" href="\/volpey">VOLPEY<\/a><span aria-hidden="true">\/<\/span><a href="\/volpey\/feed">PB FEED<\/a>/i,
+  );
+  assert.match(
+    feedHtml,
+    /href="\/volpey\/feed">PB FEED<\/a><a href="\/volpey\/passport">PASSPORT<\/a>/i,
+  );
   const feedHeader = feedHtml.match(/<header class="site-header">.*?<\/header>/i)?.[0];
   assert.ok(feedHeader);
   assert.doesNotMatch(feedHeader, /<button/i);
@@ -95,6 +104,10 @@ test("server-renders shareable and embeddable passport routes", async () => {
   assert.equal(passport.status, 200);
   const passportHtml = await passport.text();
   assert.match(passportHtml, /SPEEDRUN PASSPORT/i);
+  assert.match(
+    passportHtml,
+    /class="accent-name" href="\/volpey">VOLPEY<\/a><span aria-hidden="true">\/<\/span><a href="\/volpey\/passport">PASSPORT<\/a>/i,
+  );
   assert.match(passportHtml, /SHARE PASSPORT/);
   assert.match(passportHtml, /ENTRY RECORD/);
   assert.match(passportHtml, /PB STAMPS/);
