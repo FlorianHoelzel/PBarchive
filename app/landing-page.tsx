@@ -151,7 +151,7 @@ export default function LandingPage() {
                 </span>
                 <span className="lookup-actions">
                   {result.archiveUrl && (
-                    <a href={result.archiveUrl}>VIEW ARCHIVE</a>
+                    <Link href={result.archiveUrl}>VIEW ARCHIVE</Link>
                   )}
                   <a
                     href={result.profileUrl}
