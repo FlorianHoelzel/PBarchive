@@ -3081,11 +3081,11 @@ footer p {
 .archive-footer {
   background: var(--ink);
   border-top: 1px solid var(--line);
-  color: var(--acid);
+  color: var(--paper);
 }
 
 .archive-footer p {
-  color: var(--acid);
+  color: var(--paper);
 }
 
 .landing {
