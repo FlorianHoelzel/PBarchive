@@ -1,0 +1,60 @@
+"use client";
+
+import { useState } from "react";
+import type { SiteData } from "./pb-history";
+
+export default function UserHeader({ profile }: { profile: SiteData["profile"] }) {
+  const [avatarFailed, setAvatarFailed] = useState(false);
+  const archivePath = `/${encodeURIComponent(profile.name)}`;
+  const profileAvatar =
+    profile.name.toLowerCase() === "volpey"
+      ? "/volpey-avatar.png"
+      : profile.avatar;
+
+  return (
+    <header className="site-header">
+      <div className="brand">
+        <a
+          className="brand-avatar-link"
+          href={archivePath}
+          aria-label={`${profile.name}'s Sum of Best archive`}
+        >
+          {profileAvatar && !avatarFailed ? (
+            <img
+              className="brand-avatar"
+              src={profileAvatar}
+              alt=""
+              width="34"
+              height="34"
+              onError={() => setAvatarFailed(true)}
+            />
+          ) : (
+            <span className="brand-avatar-fallback" aria-hidden="true">
+              {profile.name.slice(0, 1).toUpperCase()}
+            </span>
+          )}
+        </a>
+        <span
+          className="brand-breadcrumb"
+          role="navigation"
+          aria-label="Breadcrumb"
+        >
+          <a href="/">SUM OF BEST</a>
+          <span aria-hidden="true">/</span>
+          <a className="accent-name" href={archivePath}>
+            {profile.name.toUpperCase()}
+          </a>
+        </span>
+      </div>
+      <nav aria-label="Primary">
+        <a href={`${archivePath}#overview`}>OVERVIEW</a>
+        <a href={`${archivePath}#games`}>THE RUNS</a>
+        <a href={`${archivePath}/passport`}>PASSPORT</a>
+        <a href={`${archivePath}/feed`}>PB FEED</a>
+        <a href={profile.profileUrl} target="_blank" rel="noreferrer">
+          SPEEDRUN.COM ↗
+        </a>
+      </nav>
+    </header>
+  );
+}

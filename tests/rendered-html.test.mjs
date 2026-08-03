@@ -59,7 +59,13 @@ test("server-renders shareable PB feed routes", async () => {
     feedHtml,
     /class="accent-name" href="\/volpey">VOLPEY<\/a>/i,
   );
-  assert.match(feedHtml, /href="#top">FEED<\/a>/);
+  assert.match(feedHtml, /href="\/volpey#overview">OVERVIEW<\/a>/i);
+  assert.match(feedHtml, /href="\/volpey#games">THE RUNS<\/a>/i);
+  assert.match(feedHtml, /href="\/volpey\/passport">PASSPORT<\/a>/i);
+  const feedHeader = feedHtml.match(/<header class="site-header">.*?<\/header>/i)?.[0];
+  assert.ok(feedHeader);
+  assert.doesNotMatch(feedHeader, /<button/i);
+  assert.match(feedHtml, /<section class="feed-hero">.*?aria-label="Feed actions"/i);
   assert.doesNotMatch(feedHtml, /FIRST PB IMPROVEMENT/i);
 
   const embed = await render("/volpey/embed/feed");
@@ -73,7 +79,7 @@ test("shows the tiered historical world-record achievement", async () => {
 
   const html = await response.text();
   assert.match(html, /href="\/">SUM OF BEST<\/a>/);
-  assert.match(html, /class="accent-name" href="#top">VOLPEY<\/a>/);
+  assert.match(html, /class="accent-name" href="\/volpey">VOLPEY<\/a>/i);
   assert.match(html, /href="\/volpey\/passport"/i);
   assert.match(html, /<h2>GAME INDEX<\/h2>/i);
   assert.match(html, /\d{2}(?:<!-- -->)? TITLES/);

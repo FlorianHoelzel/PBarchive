@@ -4103,29 +4103,11 @@ footer p {
   min-height: 100vh;
 }
 
-.feed-page .site-header nav {
-  align-items: center;
-}
-
-.feed-page .site-header nav button {
-  background: transparent;
-  border: 0;
-  color: var(--paper);
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  padding: 0;
-  transition: color 180ms ease;
-}
-
-.feed-page .site-header nav button:hover,
-.feed-page .site-header nav button:focus-visible {
-  color: var(--acid);
-}
-
 .feed-hero {
+  align-items: center;
   border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
   margin: 0 auto;
   max-width: 1600px;
   padding: 42px clamp(24px, 6vw, 96px);
@@ -4134,6 +4116,41 @@ footer p {
 .feed-hero .eyebrow {
   color: var(--acid);
   font-size: 14px;
+}
+
+.feed-hero-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.feed-hero-actions button {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--paper);
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  min-height: 44px;
+  padding: 0 16px;
+}
+
+.feed-hero-actions button:first-child {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.feed-hero-actions button:hover,
+.feed-hero-actions button:focus-visible {
+  border-color: var(--acid);
+  color: var(--acid);
+}
+
+.feed-hero-actions button:first-child:hover,
+.feed-hero-actions button:first-child:focus-visible {
+  color: var(--ink);
+  filter: brightness(1.1);
 }
 
 .feed-controls {
@@ -4502,20 +4519,10 @@ footer p {
 }
 
 @media (max-width: 700px) {
-  .feed-page .site-header nav {
-    gap: 14px;
-  }
-
-  .feed-page .site-header nav button,
-  .feed-page .site-header nav a {
-    font-size: 8px;
-  }
-
-  .feed-page .site-header nav a:last-child {
-    display: none;
-  }
-
   .feed-hero {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 22px;
     padding: 32px 20px;
   }
 

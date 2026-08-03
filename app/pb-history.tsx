@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import UserHeader from "./user-header";
 
 export type Run = {
   id: string;
@@ -1764,51 +1765,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
   return (
     <main id="top" style={archiveStyle}>
       <ArchiveNavigator games={games} />
-      <header className="site-header">
-        <div className="brand">
-          <a
-            className="brand-avatar-link"
-            href="#top"
-            aria-label={`Back to the top of ${data.profile.name}'s archive`}
-          >
-            {profileAvatar ? (
-              <img
-                className="brand-avatar"
-                src={profileAvatar}
-                alt=""
-                width="34"
-                height="34"
-              />
-            ) : (
-              <span className="brand-avatar-fallback" aria-hidden="true">
-                {data.profile.name.slice(0, 1).toUpperCase()}
-              </span>
-            )}
-          </a>
-          <span
-            className="brand-breadcrumb"
-            role="navigation"
-            aria-label="Breadcrumb"
-          >
-            <a href="/">SUM OF BEST</a>
-            <span aria-hidden="true">/</span>
-            <a className="accent-name" href="#top">
-              {data.profile.name.toUpperCase()}
-            </a>
-          </span>
-        </div>
-        <nav aria-label="Primary">
-          <a href="#overview">OVERVIEW</a>
-          <a href="#games">THE RUNS</a>
-          <a href={`/${encodeURIComponent(data.profile.name)}/passport`}>
-            PASSPORT
-          </a>
-          <a href={`/${encodeURIComponent(data.profile.name)}/feed`}>PB FEED</a>
-          <a href={data.profile.profileUrl} target="_blank" rel="noreferrer">
-            SPEEDRUN.COM ↗
-          </a>
-        </nav>
-      </header>
+      <UserHeader profile={data.profile} />
 
       <section className="hero">
         <div className="hero-intro">

@@ -2,6 +2,7 @@
 
 import { CSSProperties, useState } from "react";
 import { SpeedrunPassport, type SiteData } from "./pb-history";
+import UserHeader from "./user-header";
 
 function passportStyle(profile: SiteData["profile"]) {
   if (!profile.nameColor?.from) return undefined;
@@ -28,10 +29,6 @@ export default function PassportViewer({
   const archivePath = `/${encodeURIComponent(data.profile.name)}`;
   const passportPath = `${archivePath}/passport`;
   const embedPath = `${archivePath}/embed/passport`;
-  const profileAvatar =
-    data.profile.name.toLowerCase() === "volpey"
-      ? "/volpey-avatar.png"
-      : data.profile.avatar;
 
   async function copy(kind: "share" | "embed") {
     const origin = window.location.origin;
@@ -64,45 +61,7 @@ export default function PassportViewer({
 
   return (
     <main className="passport-route-shell" style={passportStyle(data.profile)}>
-      <header className="site-header">
-        <div className="brand">
-          <a className="brand-avatar-link" href={archivePath}>
-            {profileAvatar ? (
-              <img
-                className="brand-avatar"
-                src={profileAvatar}
-                alt=""
-                width="34"
-                height="34"
-              />
-            ) : (
-              <span className="brand-avatar-fallback" aria-hidden="true">
-                {data.profile.name.slice(0, 1).toUpperCase()}
-              </span>
-            )}
-          </a>
-          <span
-            className="brand-breadcrumb"
-            role="navigation"
-            aria-label="Breadcrumb"
-          >
-            <a href="/">SUM OF BEST</a>
-            <span aria-hidden="true">/</span>
-            <a className="accent-name" href={archivePath}>
-              {data.profile.name.toUpperCase()}
-            </a>
-            <span aria-hidden="true">/</span>
-            <a href="#passport">PASSPORT</a>
-          </span>
-        </div>
-        <nav aria-label="Primary">
-          <a href={archivePath}>ARCHIVE</a>
-          <a href={`${archivePath}/feed`}>PB FEED</a>
-          <a href={data.profile.profileUrl} target="_blank" rel="noreferrer">
-            SPEEDRUN.COM ↗
-          </a>
-        </nav>
-      </header>
+      <UserHeader profile={data.profile} />
 
       <section className="passport-route-hero">
         <div>
