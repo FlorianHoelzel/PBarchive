@@ -2079,6 +2079,14 @@ footer a:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .landing-atmosphere {
+    display: none;
+  }
+
+  .landing-glow {
+    transition: none !important;
+  }
 }
 
 .history-heading {
@@ -3027,10 +3035,41 @@ footer p {
 }
 
 .landing {
+  --pointer-x: 72%;
+  --pointer-y: 42%;
   background: transparent;
   display: flex;
   flex-direction: column;
+  isolation: isolate;
   min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.landing-atmosphere {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.landing-glow {
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--acid) 10%, transparent) 0,
+    color-mix(in srgb, var(--acid) 3%, transparent) 34%,
+    transparent 70%
+  );
+  height: min(72vw, 980px);
+  left: var(--pointer-x);
+  opacity: 0.8;
+  position: absolute;
+  top: var(--pointer-y);
+  transform: translate(-50%, -50%);
+  transition: left 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    top 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(72vw, 980px);
 }
 
 .landing-header {
@@ -3045,6 +3084,11 @@ footer p {
   position: sticky;
   top: 0;
   z-index: 20;
+  animation: landing-header-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes landing-header-in {
+  from { opacity: 0; transform: translateY(-100%); }
 }
 
 .landing-header .brand-mark {
@@ -3054,6 +3098,29 @@ footer p {
 
 .landing-brand {
   padding-left: 50px;
+}
+
+.brand-wordmark {
+  position: relative;
+}
+
+.brand-wordmark::after {
+  background: var(--acid);
+  bottom: -7px;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+
+.landing-brand:hover .brand-wordmark::after,
+.landing-brand:focus-visible .brand-wordmark::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .demo-link {
@@ -3077,13 +3144,15 @@ footer p {
   justify-content: center;
   margin: 0 auto;
   max-width: 1600px;
+  min-height: 0;
   padding: clamp(70px, 9vw, 140px) clamp(24px, 7vw, 110px);
   width: 100%;
 }
 
 .landing-copy {
-  max-width: 920px;
+  max-width: 790px;
   width: 100%;
+  z-index: 1;
 }
 
 .landing-kicker,
@@ -3103,17 +3172,61 @@ footer p {
   margin: 28px 0 34px;
 }
 
+.title-line {
+  animation: title-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  display: block;
+}
+
+.title-line-one {
+  animation-delay: 120ms;
+}
+
+.title-line-two {
+  animation-delay: 230ms;
+}
+
+.title-line em {
+  color: var(--paper);
+  font-style: normal;
+  white-space: nowrap;
+}
+
+@keyframes title-rise {
+  from {
+    clip-path: inset(100% 0 0);
+    opacity: 0;
+    transform: translateY(0.75em);
+  }
+  to {
+    clip-path: inset(0 0 0);
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.landing-reveal {
+  animation: landing-reveal 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.landing-kicker.landing-reveal { animation-delay: 80ms; }
+.landing-lede.landing-reveal { animation-delay: 360ms; }
+.username-search.landing-reveal { animation-delay: 480ms; }
+
+@keyframes landing-reveal {
+  from { opacity: 0; transform: translateY(18px); }
+}
+
 .landing-copy > p {
   color: #b8bab3;
   font-size: clamp(18px, 1.5vw, 22px);
   line-height: 1.55;
   margin: 0;
-  max-width: 100%;
+  max-width: 790px;
 }
 
 .username-search {
   margin-top: clamp(48px, 6vw, 78px);
-  max-width: 100%;
+  max-width: 790px;
 }
 
 .username-search label {
@@ -3129,6 +3242,23 @@ footer p {
   grid-template-columns: auto minmax(0, 1fr) auto;
   min-height: 70px;
   padding: 8px;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 260ms ease, box-shadow 260ms ease,
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-field::after {
+  background: var(--acid);
+  bottom: 0;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
 }
 
 .search-field > span {
@@ -3166,9 +3296,25 @@ footer p {
   transition: background 180ms ease, transform 180ms ease;
 }
 
+.search-field button span,
+.search-field button i {
+  display: inline-block;
+}
+
+.search-field button i {
+  font-size: 15px;
+  font-style: normal;
+  margin-left: 16px;
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .search-field button:hover {
   background: #deddd8;
   transform: translateX(2px);
+}
+
+.search-field button:hover i {
+  transform: translateX(5px);
 }
 
 .search-field button:disabled {
@@ -3179,6 +3325,11 @@ footer p {
 
 .search-field:focus-within {
   box-shadow: 0 0 0 2px var(--acid);
+  transform: translateY(-2px);
+}
+
+.search-field:focus-within::after {
+  transform: scaleX(1);
 }
 
 .search-message {
@@ -3189,6 +3340,7 @@ footer p {
 }
 
 .lookup-result {
+  animation: lookup-result-in 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
   align-items: center;
   border-bottom: 1px solid var(--line);
   border-top: 1px solid var(--line);
@@ -3197,6 +3349,14 @@ footer p {
   grid-template-columns: auto minmax(0, 1fr) auto;
   margin-top: 24px;
   padding: 18px 0;
+}
+
+@keyframes lookup-result-in {
+  from {
+    clip-path: inset(0 0 100%);
+    opacity: 0;
+    transform: translateY(-12px);
+  }
 }
 
 .lookup-result > img,
@@ -3348,6 +3508,9 @@ footer p {
   letter-spacing: 0.13em;
   min-height: 62px;
   padding: 22px clamp(20px, 5vw, 80px);
+  position: relative;
+  z-index: 1;
+  animation: landing-reveal 700ms 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .landing-footer a {

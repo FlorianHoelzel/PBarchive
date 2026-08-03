@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, PointerEvent, useState } from "react";
+import Link from "next/link";
 
 type LookupResult = {
   id: string;
@@ -18,6 +19,20 @@ export default function LandingPage() {
   const [result, setResult] = useState<LookupResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [avatarFailed, setAvatarFailed] = useState(false);
+
+  function trackPointer(event: PointerEvent<HTMLElement>) {
+    if (event.pointerType === "touch") return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty(
+      "--pointer-x",
+      `${((event.clientX - bounds.left) / bounds.width) * 100}%`,
+    );
+    event.currentTarget.style.setProperty(
+      "--pointer-y",
+      `${((event.clientY - bounds.top) / bounds.height) * 100}%`,
+    );
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -58,24 +73,33 @@ export default function LandingPage() {
   }
 
   return (
-    <main className="landing">
+    <main className="landing" onPointerMove={trackPointer}>
+      <div className="landing-atmosphere" aria-hidden="true">
+        <span className="landing-glow" />
+      </div>
+
       <header className="landing-header">
-        <a className="brand landing-brand" href="/" aria-label="Sum of Best home">
-          <span>SUM OF BEST</span>
-        </a>
+        <Link className="brand landing-brand" href="/" aria-label="Sum of Best home">
+          <span className="brand-wordmark">SUM OF BEST</span>
+        </Link>
       </header>
 
       <section className="landing-main">
         <div className="landing-copy">
-          <span className="landing-kicker">FOR SPEEDRUNNERS</span>
-          <h1>A personal archive of your PBs</h1>
-          <p>
+          <span className="landing-kicker landing-reveal">FOR SPEEDRUNNERS</span>
+          <h1 aria-label="A personal archive of your PBs">
+            <span className="title-line title-line-one">A personal archive</span>
+            <span className="title-line title-line-two">
+              of your <em>PBs</em>
+            </span>
+          </h1>
+          <p className="landing-lede landing-reveal">
             See how your PB changed over time. Explore current and obsolete runs
             in one chronological, playable history, with timelines for every game
             and category.
           </p>
 
-          <form className="username-search" onSubmit={submit}>
+          <form className="username-search landing-reveal" onSubmit={submit}>
             <label htmlFor="speedrun-username">SPEEDRUN.COM USERNAME</label>
             <div className="search-field">
               <span aria-hidden="true">@</span>
@@ -94,7 +118,8 @@ export default function LandingPage() {
                 spellCheck="false"
               />
               <button type="submit" disabled={isLoading}>
-                {isLoading ? "LOOKING…" : "FIND USER →"}
+                <span>{isLoading ? "LOOKING…" : "FIND USER"}</span>
+                <i aria-hidden="true">→</i>
               </button>
             </div>
             <p className="search-message" aria-live="polite">
