@@ -85,7 +85,7 @@ secrets are required.
 
 Generated user archives are stored under `/data/archive-cache`. Configure `/data`
 as persistent storage in Coolify so cached archives survive deployments. Archives
-are fresh for seven days, retained for six months, and refreshed in the background
+are fresh for one day, retained for six months, and refreshed in the background
 when an older cached archive is requested. These defaults can be changed with
 `ARCHIVE_CACHE_FRESH_DAYS` and `ARCHIVE_CACHE_RETENTION_DAYS`.
 

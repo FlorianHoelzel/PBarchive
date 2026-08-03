@@ -4,9 +4,9 @@ import path from "node:path";
 import type { SiteData } from "./pb-history";
 import { buildUserArchive } from "./speedrun-archive";
 
-const CACHE_SCHEMA_VERSION = 1;
+const CACHE_SCHEMA_VERSION = 2;
 const DAY_MS = 24 * 60 * 60 * 1000;
-const FRESH_MS = numberFromEnv("ARCHIVE_CACHE_FRESH_DAYS", 7) * DAY_MS;
+const FRESH_MS = numberFromEnv("ARCHIVE_CACHE_FRESH_DAYS", 1) * DAY_MS;
 const RETENTION_MS = numberFromEnv("ARCHIVE_CACHE_RETENTION_DAYS", 180) * DAY_MS;
 const EMPTY_FRESH_MS = numberFromEnv("ARCHIVE_CACHE_EMPTY_FRESH_HOURS", 24) * 60 * 60 * 1000;
 const NOT_FOUND_MS = numberFromEnv("ARCHIVE_CACHE_NOT_FOUND_MINUTES", 30) * 60 * 1000;

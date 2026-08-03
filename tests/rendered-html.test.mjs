@@ -114,7 +114,7 @@ test("serves a fresh generated archive from the durable cache", async () => {
   await writeFile(
     path.join(directory, `${key}.json`),
     JSON.stringify({
-      version: 1,
+      version: 2,
       key,
       storedAt: new Date(now).toISOString(),
       refreshAfter: new Date(now + 60_000).toISOString(),
