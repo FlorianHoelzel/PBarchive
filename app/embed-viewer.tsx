@@ -125,7 +125,7 @@ export default function EmbedViewer({
       <header className="embed-header">
         <div>
           <span className="embed-kicker">
-            <span className="accent-name">@{profile.name}</span> / PB ARCHIVE
+            <span className="accent-name">@{profile.name}</span> / SUM OF BEST
           </span>
           <h1>{history.gameName}</h1>
           <p>{title}</p>
@@ -194,7 +194,7 @@ export default function EmbedViewer({
         >
           VIEW FULL ARCHIVE ↗
         </a>
-        <span>PBARCHIVE.GG</span>
+        <span>SUMOF.BEST</span>
       </footer>
     </main>
   );

@@ -25,13 +25,13 @@ async function render(path = "/") {
   );
 }
 
-test("server-renders the PB Archive landing page", async () => {
+test("server-renders the Sum of Best landing page", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /PB Archive/i);
+  assert.match(html, /Sum of Best/i);
   assert.match(html, /speedrun\.com username/i);
   assert.doesNotMatch(html, /Your site is taking shape/i);
 });
@@ -50,7 +50,7 @@ test("server-renders shareable PB feed routes", async () => {
   const feedHtml = await feed.text();
   assert.match(feedHtml, /PB FEED/i);
   assert.match(feedHtml, /class="brand-avatar"[^>]+src="\/volpey-avatar\.png"/);
-  assert.match(feedHtml, /href="\/">PB ARCHIVE<\/a>/);
+  assert.match(feedHtml, /href="\/">SUM OF BEST<\/a>/);
   assert.match(
     feedHtml,
     /class="accent-name" href="\/volpey">VOLPEY<\/a>/i,
@@ -68,7 +68,7 @@ test("shows the tiered historical world-record achievement", async () => {
   assert.equal(response.status, 200);
 
   const html = await response.text();
-  assert.match(html, /href="\/">PB ARCHIVE<\/a>/);
+  assert.match(html, /href="\/">SUM OF BEST<\/a>/);
   assert.match(html, /class="accent-name" href="#top">VOLPEY<\/a>/);
   assert.match(html, /href="\/volpey\/passport"/i);
   assert.match(html, /<h2>GAME INDEX<\/h2>/i);

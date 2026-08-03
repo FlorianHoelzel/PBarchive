@@ -15,7 +15,7 @@ export async function generateMetadata({
   const { username } = await params;
   const name = decodeURIComponent(username);
   return {
-    title: `${name}'s PB Feed — PB Archive`,
+    title: `${name}'s PB Feed — Sum of Best`,
     description: `The latest speedrun personal bests from ${name}, newest first.`,
   };
 }

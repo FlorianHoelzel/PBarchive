@@ -60,9 +60,9 @@ export default function LandingPage() {
   return (
     <main className="landing">
       <header className="landing-header">
-        <a className="brand" href="/" aria-label="PB Archive home">
-          <span className="brand-mark">PB</span>
-          <span>PB ARCHIVE</span>
+        <a className="brand" href="/" aria-label="Sum of Best home">
+          <span className="brand-mark">S/B</span>
+          <span>SUM OF BEST</span>
         </a>
       </header>
 

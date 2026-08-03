@@ -3,7 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 const API = "https://www.speedrun.com/api/v1";
 const USERNAME = "Volpey";
 const headers = {
-  "User-Agent": "Volpey PB History (local portfolio project)",
+  "User-Agent": "SumOfBest/0.1 (local data fetch; https://sumof.best)",
   Accept: "application/json",
 };
 

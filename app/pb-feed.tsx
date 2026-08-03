@@ -203,7 +203,7 @@ export default function PBFeed({
           <a
             className="brand-avatar-link"
             href={archivePath}
-            aria-label={`${data.profile.name}'s PB archive`}
+            aria-label={`${data.profile.name}'s Sum of Best archive`}
           >
             {profileAvatar && !avatarFailed ? (
               <img
@@ -225,7 +225,7 @@ export default function PBFeed({
             role="navigation"
             aria-label="Breadcrumb"
           >
-            <a href="/">PB ARCHIVE</a>
+            <a href="/">SUM OF BEST</a>
             <span aria-hidden="true">/</span>
             <a className="accent-name" href={archivePath}>
               {data.profile.name.toUpperCase()}
@@ -295,7 +295,7 @@ export default function PBFeed({
       </section>
 
       <footer className="feed-footer">
-        <span>PB / ARCHIVE</span>
+        <span>SUM OF BEST / ARCHIVE</span>
         <p>Verified runs sourced from speedrun.com</p>
         <a href={archivePath}>EXPLORE THE ARCHIVE →</a>
       </footer>

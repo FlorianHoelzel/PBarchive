@@ -25,7 +25,7 @@ export default async function UserArchive({
     return (
       <main className="empty-archive">
         <a className="empty-brand" href="/">
-          PB ARCHIVE
+          SUM OF BEST
         </a>
         <section>
           <span>PROFILE FOUND</span>

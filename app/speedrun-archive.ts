@@ -3,7 +3,7 @@ import type { History, SiteData } from "./pb-history";
 const API = "https://www.speedrun.com/api/v1";
 const requestHeaders = {
   Accept: "application/json",
-  "User-Agent": "PBArchive/0.1 (live archive preview)",
+  "User-Agent": "SumOfBest/0.1 (live archive preview; https://sumof.best)",
 };
 
 type ApiRecord = Record<string, any>;

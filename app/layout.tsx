@@ -12,13 +12,15 @@ export async function generateMetadata(): Promise<Metadata> {
     requestHeaders.get("x-forwarded-proto") ??
     (host.startsWith("localhost") ? "http" : "https");
   const image = `${protocol}://${host}/og-v2.png`;
-  const title = "PB Archive — Your Speedrun History";
+  const title = "Sum of Best — Your Speedrun History";
   const description =
     "Turn a speedrun.com profile into a playable history of personal bests, including obsolete runs.";
 
   return {
+    metadataBase: new URL("https://sumof.best"),
     title,
     description,
+    alternates: { canonical: "/" },
     icons: {
       icon: "/favicon.svg",
       shortcut: "/favicon.svg",
@@ -27,7 +29,9 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       type: "website",
-      images: [{ url: image, width: 1728, height: 904, alt: title }],
+      url: "https://sumof.best",
+      siteName: "Sum of Best",
+      images: [{ url: image, width: 1731, height: 909, alt: title }],
     },
     twitter: {
       card: "summary_large_image",

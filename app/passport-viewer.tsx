@@ -53,7 +53,7 @@ export default function PassportViewer({
           embedded
         />
         <footer>
-          <span>PB ARCHIVE · SPEEDRUN PASSPORT</span>
+          <span>SUM OF BEST · SPEEDRUN PASSPORT</span>
           <a href={passportPath} target="_blank" rel="noreferrer">
             OPEN PASSPORT ↗
           </a>
@@ -86,7 +86,7 @@ export default function PassportViewer({
             role="navigation"
             aria-label="Breadcrumb"
           >
-            <a href="/">PB ARCHIVE</a>
+            <a href="/">SUM OF BEST</a>
             <span aria-hidden="true">/</span>
             <a className="accent-name" href={archivePath}>
               {data.profile.name.toUpperCase()}
@@ -141,7 +141,7 @@ export default function PassportViewer({
       </section>
 
       <footer>
-        <span>PB / PASSPORT</span>
+        <span>SUM OF BEST / PASSPORT</span>
         <p>{data.stats.games} game stamps from {data.profile.name}’s archive</p>
         <a href={archivePath}>BACK TO ARCHIVE ↑</a>
       </footer>

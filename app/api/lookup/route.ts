@@ -39,7 +39,7 @@ export async function GET(request: Request) {
         cache: "no-store",
         headers: {
           Accept: "application/json",
-          "User-Agent": "PBArchive/0.1 (username lookup)",
+          "User-Agent": "SumOfBest/0.1 (username lookup; https://sumof.best)",
         },
       },
     );

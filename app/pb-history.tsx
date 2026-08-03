@@ -520,9 +520,9 @@ function LevelCollection({
       }
     }
 
-    window.addEventListener("pbarchive:select-run", selectRunHistory);
+    window.addEventListener("sumofbest:select-run", selectRunHistory);
     return () =>
-      window.removeEventListener("pbarchive:select-run", selectRunHistory);
+      window.removeEventListener("sumofbest:select-run", selectRunHistory);
   }, [histories]);
 
   useEffect(() => {
@@ -730,7 +730,7 @@ export function SpeedrunPassport({
       }}
     >
       <div className="passport-book-topline">
-        <span>PB ARCHIVE · SPEEDRUN PASSPORT</span>
+        <span>SUM OF BEST · SPEEDRUN PASSPORT</span>
         <b>{owner.toUpperCase()}</b>
       </div>
 
@@ -906,7 +906,7 @@ function GameHeading({
       </span>
       <div className="game-heading-copy">
         <div className="game-heading-meta">
-          <span>PB ARCHIVE</span>
+          <span>SUM OF BEST</span>
           <i aria-hidden="true" />
           <span>
             {game.histories.length} CATEGOR
@@ -1327,7 +1327,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
 
     window.location.assign(`#${historyAnchor(history)}`);
     window.dispatchEvent(
-      new CustomEvent("pbarchive:select-run", {
+      new CustomEvent("sumofbest:select-run", {
         detail: { historyId, runId },
       }),
     );
@@ -1790,7 +1790,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
             role="navigation"
             aria-label="Breadcrumb"
           >
-            <a href="/">PB ARCHIVE</a>
+            <a href="/">SUM OF BEST</a>
             <span aria-hidden="true">/</span>
             <a className="accent-name" href="#top">
               {data.profile.name.toUpperCase()}
@@ -1829,7 +1829,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
           <h1 className={`hero-title-${heroTitleMode}`}>
             <span className="accent-name">{data.profile.name}’s</span>{" "}
             {heroTitleMode === "long" && <br />}
-            PB Archive
+            Sum of Best
           </h1>
           <p className="hero-lede">
             A complete history of {data.profile.name}’s speedruns.
@@ -1911,7 +1911,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
       </div>
 
       <footer>
-        <span>PB / ARCHIVE</span>
+        <span>SUM OF BEST / ARCHIVE</span>
         <p>
           Data sourced from speedrun.com · Includes verified obsolete runs ·
           Updated {longDate(data.generatedAt.slice(0, 10))}

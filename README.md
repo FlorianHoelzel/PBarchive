@@ -1,6 +1,6 @@
-# PB Archive
+# Sum of Best
 
-PB Archive turns a public [speedrun.com](https://www.speedrun.com) profile into
+Sum of Best turns a public [speedrun.com](https://www.speedrun.com) profile into
 a visual, interactive history of the runner's personal bests. It collects
 verified runs, reconstructs each category's PB progression, and preserves the
 obsolete runs that show how the runner improved over time.
@@ -63,5 +63,7 @@ obsolete runs that show how the runner improved over time.
 ## Data and attribution
 
 Run and profile information comes from
-[speedrun.com](https://www.speedrun.com). PB Archive is an independent project
+[speedrun.com](https://www.speedrun.com). Sum of Best is an independent project
 and is not affiliated with speedrun.com.
+
+Visit [sumof.best](https://sumof.best).

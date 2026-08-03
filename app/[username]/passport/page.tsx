@@ -15,7 +15,7 @@ export async function generateMetadata({
   const { username } = await params;
   const name = decodeURIComponent(username);
   return {
-    title: `${name}'s Speedrun Passport — PB Archive`,
+    title: `${name}'s Speedrun Passport — Sum of Best`,
     description: `A shareable game-by-game passport through ${name}'s speedrun personal best history.`,
   };
 }
