@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import speedrunData from "../../../data/speedruns.json";
 import PBFeed from "../../../pb-feed";
-import { buildUserArchive } from "../../../speedrun-archive";
+import { getUserArchive } from "../../../archive-cache";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -16,7 +16,7 @@ export default async function FeedEmbed({
   const data =
     decodedUsername.toLowerCase() === speedrunData.profile.name.toLowerCase()
       ? speedrunData
-      : await buildUserArchive(decodedUsername);
+      : await getUserArchive(decodedUsername);
 
   if (!data || !data.histories.length) notFound();
   return <PBFeed data={data} embedded />;

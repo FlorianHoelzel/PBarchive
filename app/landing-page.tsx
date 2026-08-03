@@ -64,7 +64,7 @@ export default function LandingPage() {
       }
 
       setResult(payload);
-      setMessage("Profile found. This result was fetched live from speedrun.com.");
+      setMessage("Profile found. Your archive is being prepared.");
     } catch {
       setMessage("The lookup failed. Check your connection and try again.");
     } finally {

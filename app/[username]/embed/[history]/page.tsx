@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import speedrunData from "../../../data/speedruns.json";
 import EmbedViewer from "../../../embed-viewer";
-import { buildUserArchive } from "../../../speedrun-archive";
+import { getUserArchive } from "../../../archive-cache";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -25,7 +25,7 @@ export default async function CategoryEmbed({
   const data =
     decodedUsername.toLowerCase() === speedrunData.profile.name.toLowerCase()
       ? speedrunData
-      : await buildUserArchive(decodedUsername);
+      : await getUserArchive(decodedUsername);
 
   if (!data) notFound();
 

@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
-import { access } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { access, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import test from "node:test";
 
 const projectRoot = new URL("../", import.meta.url);
@@ -97,6 +100,38 @@ test("shows the tiered historical world-record achievement", async () => {
   assert.match(html, /World records when set/);
   assert.doesNotMatch(html, /WORLD RECORDS/);
   assert.doesNotMatch(html, /UNTOUCHABLE/);
+});
+
+test("serves a fresh generated archive from the durable cache", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "sumof-best-cache-"));
+  const username = "cached-runner";
+  const key = createHash("sha256").update(username).digest("hex");
+  const data = JSON.parse(
+    await readFile(new URL("../app/data/speedruns.json", import.meta.url), "utf8"),
+  );
+  const now = Date.now();
+
+  await writeFile(
+    path.join(directory, `${key}.json`),
+    JSON.stringify({
+      version: 1,
+      key,
+      storedAt: new Date(now).toISOString(),
+      refreshAfter: new Date(now + 60_000).toISOString(),
+      expiresAt: new Date(now + 120_000).toISOString(),
+      data,
+    }),
+  );
+
+  process.env.ARCHIVE_CACHE_DIR = directory;
+  try {
+    const response = await render(`/${username}`);
+    assert.equal(response.status, 200);
+    assert.match(await response.text(), /Volpey(?:&apos;|&#x27;|â€™)s Sum of Best/i);
+  } finally {
+    delete process.env.ARCHIVE_CACHE_DIR;
+    await rm(directory, { recursive: true, force: true });
+  }
 });
 
 test("server-renders shareable and embeddable passport routes", async () => {

@@ -77,10 +77,17 @@ Create an **Application** in Coolify from this GitHub repository and select
 - Exposed port: `3000`
 - Domain: `https://sumof.best`
 - Health check path: `/`
+- Persistent storage mount: `/data`
 
 The container trusts Coolify's reverse-proxy headers, listens on every network
 interface, and uses Coolify's `PORT` value when one is provided. No application
 secrets are required.
+
+Generated user archives are stored under `/data/archive-cache`. Configure `/data`
+as persistent storage in Coolify so cached archives survive deployments. Archives
+are fresh for seven days, retained for six months, and refreshed in the background
+when an older cached archive is requested. These defaults can be changed with
+`ARCHIVE_CACHE_FRESH_DAYS` and `ARCHIVE_CACHE_RETENTION_DAYS`.
 
 Point the domain's `A` record at the Coolify server's public IPv4 address (and
 its `AAAA` record at the public IPv6 address only when IPv6 is configured on

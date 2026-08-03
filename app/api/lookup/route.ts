@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { warmUserArchive } from "../../archive-cache";
 
 type SpeedrunUser = {
   id: string;
@@ -62,6 +63,7 @@ export async function GET(request: Request) {
     }
 
     const name = user.names?.international ?? username;
+    warmUserArchive(name);
     const country = user.location?.country?.names?.international ?? null;
     const sourceAvatar =
       user.assets?.image?.uri ?? user.assets?.icon?.uri ?? null;

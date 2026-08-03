@@ -14,7 +14,10 @@ WORKDIR /app
 
 ENV NODE_ENV=production \
     PORT=3000 \
+    ARCHIVE_CACHE_DIR=/data/archive-cache \
     VINEXT_TRUST_PROXY=1
+
+VOLUME ["/data"]
 
 COPY --from=build /app/package.json /app/package-lock.json ./
 COPY --from=build /app/node_modules ./node_modules
