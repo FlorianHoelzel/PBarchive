@@ -60,8 +60,7 @@ export default function LandingPage() {
   return (
     <main className="landing">
       <header className="landing-header">
-        <a className="brand" href="/" aria-label="Sum of Best home">
-          <span className="brand-mark">S/B</span>
+        <a className="brand landing-brand" href="/" aria-label="Sum of Best home">
           <span>SUM OF BEST</span>
         </a>
       </header>
@@ -69,10 +68,11 @@ export default function LandingPage() {
       <section className="landing-main">
         <div className="landing-copy">
           <span className="landing-kicker">FOR SPEEDRUNNERS</span>
-          <h1>See how your PBs changed over time.</h1>
+          <h1>A personal archive of your PBs</h1>
           <p>
-            Enter your speedrun.com username to turn your current and obsolete
-            runs into one playable history.
+            See how your PB changed over time. Explore current and obsolete runs
+            in one chronological, playable history, with timelines for every game
+            and category.
           </p>
 
           <form className="username-search" onSubmit={submit}>
