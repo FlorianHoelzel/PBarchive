@@ -67,3 +67,22 @@ Run and profile information comes from
 and is not affiliated with speedrun.com.
 
 Visit [sumof.best](https://sumof.best).
+
+## Deploying with Coolify
+
+Create an **Application** in Coolify from this GitHub repository and select
+**Dockerfile** as the build pack. Use these settings:
+
+- Dockerfile location: `/Dockerfile`
+- Exposed port: `3000`
+- Domain: `https://sumof.best`
+- Health check path: `/`
+
+The container trusts Coolify's reverse-proxy headers, listens on every network
+interface, and uses Coolify's `PORT` value when one is provided. No application
+secrets are required.
+
+Point the domain's `A` record at the Coolify server's public IPv4 address (and
+its `AAAA` record at the public IPv6 address only when IPv6 is configured on
+the server). Add `www` as a CNAME to `sumof.best` if the `www` hostname should
+also resolve, then add `https://www.sumof.best` to the application's domains.
