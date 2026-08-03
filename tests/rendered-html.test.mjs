@@ -40,6 +40,7 @@ test("server-renders the Sum of Best landing page", async () => {
     html,
     /<script[^>]+src="https:\/\/stats\.sumof\.best\/script\.js"[^>]+data-website-id="b586f22e-d4e3-4a55-9154-c9f44325a61c"/i,
   );
+  assert.doesNotMatch(html, /property="og:image"|name="twitter:image"/i);
   assert.doesNotMatch(html, /Your site is taking shape/i);
 });
 
