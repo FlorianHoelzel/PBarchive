@@ -3078,6 +3078,16 @@ footer p {
   text-align: center;
 }
 
+.archive-footer {
+  background: var(--ink);
+  border-top: 1px solid var(--line);
+  color: var(--acid);
+}
+
+.archive-footer p {
+  color: var(--acid);
+}
+
 .landing {
   --pointer-x: 72%;
   --pointer-y: 42%;

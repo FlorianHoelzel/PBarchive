@@ -1916,7 +1916,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
         })}
       </div>
 
-      <footer>
+      <footer className="archive-footer">
         <span>SUM OF BEST / ARCHIVE</span>
         <p>
           Data sourced from speedrun.com · Includes verified obsolete runs ·
