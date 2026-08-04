@@ -116,6 +116,22 @@ test("serves the public Twitch PB feed API with CORS", async () => {
   assert.ok(feed.totalPbs > 0);
   assert.ok(feed.items.length > 0 && feed.items.length <= 12);
   assert.ok(feed.items.every((item) => item.archiveUrl.startsWith(feed.profile.archiveUrl)));
+
+  const categoriesResponse = await render("/api/feed?username=volpey&view=categories");
+  assert.equal(categoriesResponse.status, 200);
+  const categories = await categoriesResponse.json();
+  assert.ok(categories.categories.length > 0);
+  assert.ok(categories.categories.every((category) => category.id && category.pbCount > 0));
+
+  const selectedCategory = categories.categories[0];
+  const historyResponse = await render(
+    `/api/feed?username=volpey&history=${encodeURIComponent(selectedCategory.id)}`,
+  );
+  assert.equal(historyResponse.status, 200);
+  const history = await historyResponse.json();
+  assert.equal(history.history.id, selectedCategory.id);
+  assert.ok(history.history.runs.length > 0);
+  assert.match(history.history.embedUrl, /^https:\/\/sumof\.best\/volpey\/embed\//i);
 });
 
 test("shows the tiered historical world-record achievement", async () => {

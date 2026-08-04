@@ -13,28 +13,76 @@
     <main class="config-shell">
       <header class="config-header">
         <span class="kicker">SUMOFBEST FOR TWITCH</span>
-        <h1>Connect your PB archive</h1>
-        <p>Enter the speedrun.com username whose verified personal bests should appear on your channel.</p>
+        <h1>Build your channel panel</h1>
+        <p>Connect a speedrun.com profile, then choose a recent PB feed or one category's complete progression.</p>
       </header>
 
       <form id="config-form" novalidate>
-        <label for="username">SPEEDRUN.COM USERNAME</label>
-        <div class="input-row">
-          <span aria-hidden="true">@</span>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            maxlength="64"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="volpey"
-            required
-          />
-        </div>
-        <p class="field-help">The profile must be public and contain at least one verified personal best.</p>
+        <section class="config-section">
+          <label for="username">SPEEDRUN.COM USERNAME</label>
+          <div class="input-row">
+            <span aria-hidden="true">@</span>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              maxlength="64"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="volpey"
+              required
+            />
+          </div>
+          <p class="field-help">The profile must be public and contain at least one verified personal best.</p>
+          <button id="load-button" class="secondary-button" type="button">LOAD PROFILE</button>
+        </section>
+
+        <section id="display-settings" class="display-settings" hidden>
+          <fieldset>
+            <legend>PANEL VIEW</legend>
+            <div class="view-options">
+              <label class="view-option">
+                <input type="radio" name="mode" value="feed" checked />
+                <span>
+                  <strong>RECENT PB FEED</strong>
+                  <small>Show the newest PBs across every game.</small>
+                </span>
+              </label>
+              <label class="view-option">
+                <input type="radio" name="mode" value="history" />
+                <span>
+                  <strong>CATEGORY HISTORY</strong>
+                  <small>Show one progression graph and its PB history.</small>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div id="feed-settings" class="choice-field">
+            <label for="feed-count">PERSONAL BESTS TO DISPLAY</label>
+            <select id="feed-count" name="feedCount">
+              <option value="1">1 PB</option>
+              <option value="2">2 PBs</option>
+              <option value="3" selected>3 PBs</option>
+              <option value="4">4 PBs</option>
+              <option value="5">5 PBs</option>
+              <option value="6">6 PBs</option>
+              <option value="8">8 PBs</option>
+              <option value="10">10 PBs</option>
+              <option value="12">12 PBs</option>
+            </select>
+            <p class="field-help">More than three PBs will scroll inside the panel.</p>
+          </div>
+
+          <div id="history-settings" class="choice-field" hidden>
+            <label for="history-id">GAME AND CATEGORY</label>
+            <select id="history-id" name="historyId"></select>
+            <p id="history-summary" class="field-help"></p>
+          </div>
+        </section>
+
         <p id="form-status" class="form-status" role="status"></p>
-        <button id="save-button" type="submit" disabled>SAVE PROFILE</button>
+        <button id="save-button" type="submit" disabled>SAVE PANEL</button>
       </form>
 
       <footer class="config-footer">

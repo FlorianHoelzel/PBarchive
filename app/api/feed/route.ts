@@ -89,6 +89,57 @@ function toFeed(data: SiteData) {
   };
 }
 
+function profilePayload(data: SiteData) {
+  const username = data.profile.name;
+  return {
+    generatedAt: data.generatedAt,
+    profile: {
+      name: username,
+      accent: safeColor(data.profile.nameColor?.from),
+      archiveUrl: `${PUBLIC_ORIGIN}/${encodeURIComponent(username)}`,
+    },
+    totalPbs: data.stats.pbRuns,
+  };
+}
+
+function categoryPayload(data: SiteData) {
+  return {
+    ...profilePayload(data),
+    categories: data.histories.map((history) => ({
+      id: history.id,
+      game: history.gameName,
+      category: historyLabel(history),
+      cover: history.gameCover,
+      pbCount: history.runs.length,
+      currentTime: history.runs.at(-1)!.time,
+    })),
+  };
+}
+
+function historyPayload(data: SiteData, history: History) {
+  const username = data.profile.name;
+  const encodedUsername = encodeURIComponent(username);
+  const encodedHistory = encodeURIComponent(history.id);
+  return {
+    ...profilePayload(data),
+    history: {
+      id: history.id,
+      game: history.gameName,
+      category: historyLabel(history),
+      cover: history.gameCover,
+      archiveUrl: `${PUBLIC_ORIGIN}/${encodedUsername}#history-${archiveId(history.id)}`,
+      embedUrl: `${PUBLIC_ORIGIN}/${encodedUsername}/embed/${encodedHistory}`,
+      runs: history.runs.map((run) => ({
+        id: run.id,
+        date: run.date,
+        seconds: run.seconds,
+        time: run.time,
+        current: run.current,
+      })),
+    },
+  };
+}
+
 export function OPTIONS() {
   return new Response(null, {
     status: 204,
@@ -97,7 +148,8 @@ export function OPTIONS() {
 }
 
 export async function GET(request: Request) {
-  const username = cleanUsername(new URL(request.url).searchParams.get("username"));
+  const searchParams = new URL(request.url).searchParams;
+  const username = cleanUsername(searchParams.get("username"));
 
   if (!username || username.length > 64 || /[\u0000-\u001f\u007f]/.test(username)) {
     return errorResponse("Enter a valid speedrun.com username.", 400);
@@ -117,7 +169,22 @@ export async function GET(request: Request) {
       return errorResponse(`${data.profile.name} has no verified personal bests.`, 404);
     }
 
-    return NextResponse.json(toFeed(data), {
+    const historyId = searchParams.get("history");
+    let payload;
+
+    if (historyId) {
+      const history = data.histories.find((item) => item.id === historyId);
+      if (!history) {
+        return errorResponse("That category is no longer available for this profile.", 404);
+      }
+      payload = historyPayload(data, history);
+    } else if (searchParams.get("view") === "categories") {
+      payload = categoryPayload(data);
+    } else {
+      payload = toFeed(data);
+    }
+
+    return NextResponse.json(payload, {
       headers: responseHeaders(
         "public, max-age=60, s-maxage=300, stale-while-revalidate=86400",
       ),

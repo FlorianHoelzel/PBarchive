@@ -13,8 +13,9 @@
     <main class="panel-shell" aria-live="polite">
       <header class="panel-header">
         <div>
-          <span class="kicker">PB FEED</span>
+          <span id="panel-kicker" class="kicker">PB FEED</span>
           <h1 id="profile-name">SUMOFBEST</h1>
+          <p id="panel-subtitle" hidden></p>
         </div>
         <strong id="pb-count" aria-label="Personal-best count"></strong>
       </header>
@@ -34,8 +35,34 @@
 
       <section id="feed-list" class="feed-list" aria-label="Recent personal bests" hidden></section>
 
+      <section id="history-view" class="history-view" aria-label="Category personal best history" hidden>
+        <div class="history-chart-panel">
+          <div class="history-section-heading">
+            <span>PB PROGRESSION</span>
+            <span id="history-count"></span>
+          </div>
+          <svg id="history-chart" class="history-chart" viewBox="0 0 292 112" role="img" aria-label="Personal best progression graph"></svg>
+          <div class="history-range">
+            <span id="history-start-date"></span>
+            <span id="history-end-date"></span>
+          </div>
+        </div>
+
+        <div class="history-selected">
+          <span id="selected-date"></span>
+          <strong id="selected-time"></strong>
+          <a id="selected-link" href="https://sumof.best" target="_blank" rel="noreferrer">VIEW DETAILS</a>
+        </div>
+
+        <div class="history-list-heading">
+          <span>PB HISTORY</span>
+          <span>SELECT A RUN</span>
+        </div>
+        <div id="history-list" class="history-run-list"></div>
+      </section>
+
       <footer class="panel-footer">
-        <span>RECENT PERSONAL BESTS</span>
+        <span id="footer-label">RECENT PERSONAL BESTS</span>
         <a id="archive-link" href="https://sumof.best" target="_blank" rel="noreferrer">OPEN ARCHIVE</a>
       </footer>
     </main>

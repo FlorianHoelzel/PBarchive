@@ -1,9 +1,16 @@
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1"]);
 const API_ORIGIN = LOCAL_HOSTS.has(window.location.hostname) ? "" : "https://sumof.best";
 const FALLBACK_ACCENT = "#c8c7c2";
-const DEFAULT_USERNAME = "volpey";
+const DEFAULT_CONFIG = {
+  username: "volpey",
+  mode: "feed",
+  feedCount: 3,
+  historyId: "",
+};
+const SVG_NS = "http://www.w3.org/2000/svg";
 
 const elements = {
+  shell: document.querySelector(".panel-shell"),
   loading: document.querySelector("#loading-state"),
   message: document.querySelector("#message-state"),
   messageLabel: document.querySelector("#message-label"),
@@ -11,21 +18,59 @@ const elements = {
   messageCopy: document.querySelector("#message-copy"),
   retry: document.querySelector("#retry-button"),
   feed: document.querySelector("#feed-list"),
+  history: document.querySelector("#history-view"),
+  kicker: document.querySelector("#panel-kicker"),
   profileName: document.querySelector("#profile-name"),
+  subtitle: document.querySelector("#panel-subtitle"),
   pbCount: document.querySelector("#pb-count"),
   archiveLink: document.querySelector("#archive-link"),
+  footerLabel: document.querySelector("#footer-label"),
+  historyCount: document.querySelector("#history-count"),
+  chart: document.querySelector("#history-chart"),
+  startDate: document.querySelector("#history-start-date"),
+  endDate: document.querySelector("#history-end-date"),
+  selectedDate: document.querySelector("#selected-date"),
+  selectedTime: document.querySelector("#selected-time"),
+  selectedLink: document.querySelector("#selected-link"),
+  historyList: document.querySelector("#history-list"),
 };
 
-let activeUsername = "";
+let activeRequestKey = "";
+let activeConfig = DEFAULT_CONFIG;
 let requestController = null;
+
+function normalizeConfig(value = {}) {
+  const feedCount = Number.parseInt(value.feedCount, 10);
+  return {
+    username:
+      typeof value.username === "string" && value.username.trim()
+        ? value.username.trim().replace(/^@/, "")
+        : DEFAULT_CONFIG.username,
+    mode: value.mode === "history" ? "history" : "feed",
+    feedCount: Number.isFinite(feedCount) ? Math.min(12, Math.max(1, feedCount)) : 3,
+    historyId: typeof value.historyId === "string" ? value.historyId : "",
+  };
+}
+
+function configuredPanel() {
+  const segment = window.Twitch?.ext?.configuration?.broadcaster;
+  if (!segment?.content) return null;
+  try {
+    return normalizeConfig(JSON.parse(segment.content));
+  } catch {
+    return null;
+  }
+}
 
 function showOnly(name) {
   elements.loading.hidden = name !== "loading";
   elements.message.hidden = name !== "message";
   elements.feed.hidden = name !== "feed";
+  elements.history.hidden = name !== "history";
 }
 
 function showMessage(label, title, copy, retry = false) {
+  elements.shell.classList.remove("history-mode");
   elements.messageLabel.textContent = label;
   elements.messageTitle.textContent = title;
   elements.messageCopy.textContent = copy;
@@ -129,12 +174,16 @@ function rowFor(item) {
   return link;
 }
 
-function renderFeed(data) {
+function renderFeed(data, count) {
   document.documentElement.style.setProperty("--accent", readableAccent(data.profile.accent));
+  elements.shell.classList.remove("history-mode");
+  elements.kicker.textContent = "PB FEED";
   elements.profileName.textContent = `@${data.profile.name}`;
+  elements.subtitle.hidden = true;
   elements.pbCount.textContent = `${data.totalPbs} PBS`;
   elements.archiveLink.href = data.profile.archiveUrl;
-  elements.feed.replaceChildren(...data.items.slice(0, 3).map(rowFor));
+  elements.footerLabel.textContent = "RECENT PERSONAL BESTS";
+  elements.feed.replaceChildren(...data.items.slice(0, count).map(rowFor));
 
   if (!data.items.length) {
     showMessage("NO RUNS", "No personal bests yet", "Verified personal bests will appear here when they are available.");
@@ -144,58 +193,158 @@ function renderFeed(data) {
   showOnly("feed");
 }
 
-async function loadFeed(username) {
-  const cleanUsername = username.trim().replace(/^@/, "");
-  if (!cleanUsername || cleanUsername === activeUsername) return;
+function svgElement(name, attributes = {}) {
+  const node = document.createElementNS(SVG_NS, name);
+  for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, value);
+  return node;
+}
 
-  activeUsername = cleanUsername;
+function renderChart(runs, selectedIndex) {
+  const width = 292;
+  const height = 112;
+  const padX = 12;
+  const padY = 12;
+  const values = runs.map((run) => run.seconds);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const span = Math.max(max - min, 1);
+  const points = runs.map((run, index) => ({
+    x: runs.length === 1
+      ? width / 2
+      : padX + (index / (runs.length - 1)) * (width - padX * 2),
+    y: padY + ((max - run.seconds) / span) * (height - padY * 2),
+  }));
+  const path = points
+    .map((point, index) => `${index ? "L" : "M"}${point.x},${point.y}`)
+    .join(" ");
+
+  const axis = svgElement("line", {
+    x1: padX,
+    y1: height - padY,
+    x2: width - padX,
+    y2: height - padY,
+    class: "history-axis",
+  });
+  const line = svgElement("path", { d: path, class: "history-line" });
+  const dots = points.map((point, index) => svgElement("circle", {
+    cx: point.x,
+    cy: point.y,
+    r: index === selectedIndex ? 4.5 : 3,
+    class: index === selectedIndex ? "history-dot selected" : "history-dot",
+  }));
+  elements.chart.replaceChildren(axis, line, ...dots);
+}
+
+function renderHistory(data) {
+  const history = data.history;
+  const runs = history.runs;
+  let selectedIndex = runs.length - 1;
+
+  document.documentElement.style.setProperty("--accent", readableAccent(data.profile.accent));
+  elements.shell.classList.add("history-mode");
+  elements.kicker.textContent = `@${data.profile.name} / PB HISTORY`;
+  elements.profileName.textContent = history.game;
+  elements.subtitle.textContent = history.category;
+  elements.subtitle.hidden = false;
+  elements.pbCount.textContent = `${runs.length} PB${runs.length === 1 ? "" : "S"}`;
+  elements.historyCount.textContent = `${runs.length} PB${runs.length === 1 ? "" : "S"}`;
+  elements.archiveLink.href = history.archiveUrl;
+  elements.footerLabel.textContent = "CATEGORY ARCHIVE";
+  elements.startDate.textContent = displayDate(runs[0].date);
+  elements.endDate.textContent = displayDate(runs.at(-1).date);
+
+  function selectRun(index) {
+    selectedIndex = index;
+    const run = runs[index];
+    elements.selectedDate.textContent = displayDate(run.date);
+    elements.selectedTime.textContent = run.time;
+    elements.selectedLink.href = history.embedUrl;
+    for (const button of elements.historyList.children) {
+      const active = Number.parseInt(button.dataset.index, 10) === index;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    }
+    renderChart(runs, selectedIndex);
+  }
+
+  const buttons = runs
+    .map((run, index) => ({ run, index }))
+    .reverse()
+    .map(({ run, index }) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.index = String(index);
+      button.setAttribute("aria-label", `Select ${displayDate(run.date)}, ${run.time}`);
+
+      const date = document.createElement("span");
+      date.textContent = displayDate(run.date);
+      const time = document.createElement("strong");
+      time.textContent = run.time;
+      const action = document.createElement("small");
+      action.textContent = "SELECT";
+      button.append(date, time, action);
+      button.addEventListener("click", () => selectRun(index));
+      return button;
+    });
+
+  elements.historyList.replaceChildren(...buttons);
+  selectRun(selectedIndex);
+  showOnly("history");
+}
+
+async function loadPanel(configValue) {
+  const config = normalizeConfig(configValue);
+  const requestKey = JSON.stringify(config);
+  if (requestKey === activeRequestKey) return;
+
+  activeConfig = config;
+  activeRequestKey = requestKey;
   requestController?.abort();
   requestController = new AbortController();
   showOnly("loading");
 
   try {
     const endpoint = new URL(`${API_ORIGIN}/api/feed`, window.location.origin);
-    endpoint.searchParams.set("username", cleanUsername);
+    endpoint.searchParams.set("username", config.username);
+    if (config.mode === "history") {
+      if (!config.historyId) {
+        throw new Error("Choose a category in the extension configuration.");
+      }
+      endpoint.searchParams.set("history", config.historyId);
+    }
     const response = await fetch(endpoint, { signal: requestController.signal });
     const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "The PB feed could not be loaded.");
-    renderFeed(data);
+    if (!response.ok) throw new Error(data.error || "The panel could not be loaded.");
+    if (config.mode === "history") renderHistory(data);
+    else renderFeed(data, config.feedCount);
   } catch (error) {
     if (error.name === "AbortError") return;
-    showMessage("FEED UNAVAILABLE", "Could not load personal bests", error.message, true);
-  }
-}
-
-function configuredUsername() {
-  const segment = window.Twitch?.ext?.configuration?.broadcaster;
-  if (!segment?.content) return "";
-  try {
-    const config = JSON.parse(segment.content);
-    return typeof config.username === "string" ? config.username : "";
-  } catch {
-    return "";
+    showMessage("PANEL UNAVAILABLE", "Could not load personal bests", error.message, true);
   }
 }
 
 elements.retry.addEventListener("click", () => {
-  const username = activeUsername;
-  activeUsername = "";
-  loadFeed(username);
+  activeRequestKey = "";
+  void loadPanel(activeConfig);
 });
 
-const previewUsername = new URLSearchParams(window.location.search).get("username");
-const initialUsername = previewUsername || DEFAULT_USERNAME;
-loadFeed(initialUsername);
+const query = new URLSearchParams(window.location.search);
+const previewConfig = normalizeConfig({
+  username: query.get("username") || DEFAULT_CONFIG.username,
+  mode: query.get("mode") || DEFAULT_CONFIG.mode,
+  feedCount: query.get("count") || DEFAULT_CONFIG.feedCount,
+  historyId: query.get("history") || "",
+});
+void loadPanel(configuredPanel() || previewConfig);
 
 if (window.Twitch?.ext) {
   window.Twitch.ext.configuration.onChanged(() => {
-    const username = configuredUsername();
-    if (username) loadFeed(username);
-    else if (!activeUsername) loadFeed(initialUsername);
+    const config = configuredPanel();
+    if (config) void loadPanel(config);
   });
 
   window.Twitch.ext.onError(() => {
-    if (!activeUsername && !previewUsername) {
+    if (!activeRequestKey) {
       showMessage("TWITCH ERROR", "Extension connection failed", "Reload the channel page and try again.", true);
     }
   });
