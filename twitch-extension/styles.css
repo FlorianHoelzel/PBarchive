@@ -612,6 +612,84 @@ select:focus-visible {
   padding: 28px 0;
 }
 
+.config-toggle {
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid #4a4a46;
+  cursor: pointer;
+  display: grid !important;
+  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin: 0 0 24px !important;
+  padding: 15px;
+  position: relative;
+}
+
+.config-toggle > span,
+.config-toggle strong,
+.config-toggle small {
+  display: block;
+}
+
+.config-toggle strong {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.config-toggle small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.45;
+  margin-top: 4px;
+}
+
+.config-toggle input {
+  height: 1px;
+  opacity: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.config-toggle i {
+  background: #30302e;
+  border: 1px solid #5a5a56;
+  border-radius: 999px;
+  display: block;
+  height: 26px;
+  position: relative;
+  transition: background 120ms ease, border-color 120ms ease;
+  width: 48px;
+}
+
+.config-toggle i::after {
+  background: var(--paper);
+  border-radius: 50%;
+  content: "";
+  height: 18px;
+  left: 3px;
+  position: absolute;
+  top: 3px;
+  transition: transform 120ms ease;
+  width: 18px;
+}
+
+.config-toggle input:checked + i {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.config-toggle input:checked + i::after {
+  background: var(--ink);
+  transform: translateX(22px);
+}
+
+.config-toggle input:focus-visible + i {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
+}
+
 .display-settings fieldset {
   border: 0;
   margin: 0;

@@ -6,6 +6,7 @@ const DEFAULT_CONFIG = {
   mode: "feed",
   feedCount: 3,
   historyId: "",
+  useProfileColor: true,
 };
 
 const form = document.querySelector("#config-form");
@@ -19,6 +20,7 @@ const historySettings = document.querySelector("#history-settings");
 const feedCount = document.querySelector("#feed-count");
 const historySelect = document.querySelector("#history-id");
 const historySummary = document.querySelector("#history-summary");
+const useProfileColor = document.querySelector("#use-profile-color");
 const modeInputs = [...document.querySelectorAll('input[name="mode"]')];
 
 let authorized = false;
@@ -50,6 +52,7 @@ function savedConfig() {
         ? Math.min(12, Math.max(1, parsed.feedCount))
         : 3,
       historyId: typeof parsed.historyId === "string" ? parsed.historyId : "",
+      useProfileColor: parsed.useProfileColor !== false,
     };
   } catch {
     return DEFAULT_CONFIG;
@@ -118,6 +121,7 @@ async function loadProfile(config = null) {
 
     if (config) {
       setMode(config.mode);
+      useProfileColor.checked = config.useProfileColor;
       const countValue = String(config.feedCount);
       feedCount.value = [...feedCount.options].some((option) => option.value === countValue)
         ? countValue
@@ -194,6 +198,7 @@ form.addEventListener("submit", async (event) => {
     mode,
     feedCount: Number.parseInt(feedCount.value, 10),
     historyId: mode === "history" ? historySelect.value : "",
+    useProfileColor: useProfileColor.checked,
   };
 
   saveButton.disabled = true;

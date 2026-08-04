@@ -1,11 +1,14 @@
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1"]);
 const API_ORIGIN = LOCAL_HOSTS.has(window.location.hostname) ? "" : "https://sumof.best";
 const FALLBACK_ACCENT = "#c8c7c2";
+const PANEL_BACKGROUND = "#0e0e0e";
+const MINIMUM_CONTRAST = 4.5;
 const DEFAULT_CONFIG = {
   username: "volpey",
   mode: "feed",
   feedCount: 3,
   historyId: "",
+  useProfileColor: true,
 };
 const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -49,6 +52,7 @@ function normalizeConfig(value = {}) {
     mode: value.mode === "history" ? "history" : "feed",
     feedCount: Number.isFinite(feedCount) ? Math.min(12, Math.max(1, feedCount)) : 3,
     historyId: typeof value.historyId === "string" ? value.historyId : "",
+    useProfileColor: value.useProfileColor !== false && value.useProfileColor !== "false",
   };
 }
 
@@ -87,17 +91,31 @@ function parseHex(color) {
   return [0, 2, 4].map((offset) => Number.parseInt(value.slice(offset, offset + 2), 16));
 }
 
-function readableAccent(color) {
+function relativeLuminance(color) {
   const rgb = parseHex(color);
-  if (!rgb) return FALLBACK_ACCENT;
-  const luminance = rgb.reduce((total, value, index) => {
+  if (!rgb) return null;
+  return rgb.reduce((total, value, index) => {
     const channel = value / 255;
     const linear = channel <= 0.04045
       ? channel / 12.92
       : ((channel + 0.055) / 1.055) ** 2.4;
     return total + linear * [0.2126, 0.7152, 0.0722][index];
   }, 0);
-  return luminance >= 0.3 ? color : FALLBACK_ACCENT;
+}
+
+function readableAccent(color) {
+  const accentLuminance = relativeLuminance(color);
+  const backgroundLuminance = relativeLuminance(PANEL_BACKGROUND);
+  if (accentLuminance === null || backgroundLuminance === null) return FALLBACK_ACCENT;
+  const contrast =
+    (Math.max(accentLuminance, backgroundLuminance) + 0.05) /
+    (Math.min(accentLuminance, backgroundLuminance) + 0.05);
+  return contrast >= MINIMUM_CONTRAST ? color : FALLBACK_ACCENT;
+}
+
+function applyAccent(color) {
+  const accent = activeConfig.useProfileColor ? readableAccent(color) : FALLBACK_ACCENT;
+  document.documentElement.style.setProperty("--accent", accent);
 }
 
 function displayDate(value) {
@@ -175,7 +193,7 @@ function rowFor(item) {
 }
 
 function renderFeed(data, count) {
-  document.documentElement.style.setProperty("--accent", readableAccent(data.profile.accent));
+  applyAccent(data.profile.accent);
   elements.shell.classList.remove("history-mode");
   elements.kicker.textContent = "PB FEED";
   elements.profileName.textContent = `@${data.profile.name}`;
@@ -240,7 +258,7 @@ function renderHistory(data) {
   const runs = history.runs;
   let selectedIndex = runs.length - 1;
 
-  document.documentElement.style.setProperty("--accent", readableAccent(data.profile.accent));
+  applyAccent(data.profile.accent);
   elements.shell.classList.add("history-mode");
   elements.kicker.textContent = `@${data.profile.name} / PB HISTORY`;
   elements.profileName.textContent = history.game;
@@ -332,6 +350,7 @@ const previewConfig = normalizeConfig({
   mode: query.get("mode") || DEFAULT_CONFIG.mode,
   feedCount: query.get("count") || DEFAULT_CONFIG.feedCount,
   historyId: query.get("history") || "",
+  useProfileColor: query.get("profileColor") ?? true,
 });
 void loadPanel(configuredPanel() || previewConfig);
 
