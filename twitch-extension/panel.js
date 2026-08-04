@@ -134,7 +134,7 @@ function renderFeed(data) {
   elements.profileName.textContent = `@${data.profile.name}`;
   elements.pbCount.textContent = `${data.totalPbs} PBS`;
   elements.archiveLink.href = data.profile.archiveUrl;
-  elements.feed.replaceChildren(...data.items.map(rowFor));
+  elements.feed.replaceChildren(...data.items.slice(0, 3).map(rowFor));
 
   if (!data.items.length) {
     showMessage("NO RUNS", "No personal bests yet", "Verified personal bests will appear here when they are available.");
