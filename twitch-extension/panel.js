@@ -229,7 +229,7 @@ function renderChart(runs, selectedIndex) {
   const dots = points.map((point, index) => svgElement("circle", {
     cx: point.x,
     cy: point.y,
-    r: index === selectedIndex ? 5.5 : 3.5,
+    r: index === selectedIndex ? 6 : 4,
     class: index === selectedIndex ? "history-dot selected" : "history-dot",
   }));
   elements.chart.replaceChildren(axis, line, ...dots);
@@ -280,9 +280,7 @@ function renderHistory(data) {
       date.textContent = displayDate(run.date);
       const time = document.createElement("strong");
       time.textContent = run.time;
-      const action = document.createElement("small");
-      action.textContent = "SELECT";
-      button.append(date, time, action);
+      button.append(date, time);
       button.addEventListener("click", () => selectRun(index));
       return button;
     });
