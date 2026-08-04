@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { SiteData } from "./pb-history";
 
 export default function UserHeader({
@@ -45,7 +46,7 @@ export default function UserHeader({
           role="navigation"
           aria-label="Breadcrumb"
         >
-          <a href="/">SUM OF BEST</a>
+          <Link href="/">SUM OF BEST</Link>
           <span aria-hidden="true">/</span>
           <a className="accent-name" href={archivePath}>
             {profile.name.toUpperCase()}

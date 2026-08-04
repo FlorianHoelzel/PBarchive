@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import speedrunData from "../data/speedruns.json";
 import PBHistory from "../pb-history";
 import { getUserArchive } from "../archive-cache";
@@ -24,9 +25,9 @@ export default async function UserArchive({
   if (!data.histories.length) {
     return (
       <main className="empty-archive">
-        <a className="empty-brand" href="/">
+        <Link className="empty-brand" href="/">
           SUM OF BEST
-        </a>
+        </Link>
         <section>
           <span>PROFILE FOUND</span>
           <h1>@{data.profile.name}</h1>

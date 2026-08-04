@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  CSSProperties,
   useEffect,
   useId,
   useLayoutEffect,
@@ -9,6 +8,13 @@ import {
   useRef,
   useState,
 } from "react";
+import {
+  archiveId,
+  archiveStyle,
+  displayDate,
+  historyAnchor,
+  historyLabel,
+} from "./archive-view";
 import UserHeader from "./user-header";
 
 export type Run = {
@@ -57,33 +63,6 @@ export type SiteData = {
   };
   histories: History[];
 };
-
-function toId(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
-function historyAnchor(history: History) {
-  return `history-${toId(history.id)}`;
-}
-
-function historyLabel(history: History) {
-  return [history.categoryName, history.levelName, history.variant]
-    .filter(Boolean)
-    .join(" · ");
-}
-
-function longDate(value: string) {
-  if (value === "Unknown") return value;
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(`${value}T00:00:00Z`));
-}
 
 function compactDuration(totalSeconds: number) {
   const seconds = Math.max(0, Math.round(totalSeconds));
@@ -214,7 +193,7 @@ function ProgressChart({
               }}
               role="button"
               tabIndex={0}
-              aria-label={`${longDate(runs[index].date)}, ${runs[index].time}`}
+              aria-label={`${displayDate(runs[index].date)}, ${runs[index].time}`}
               onClick={() => onSelect(index)}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
@@ -237,13 +216,13 @@ function ProgressChart({
             <b>{gameName}</b>
             <span>{runs[hovered].detail ?? categoryLabel}</span>
             <strong>{runs[hovered].time}</strong>
-            <small>{longDate(runs[hovered].date)}</small>
+            <small>{displayDate(runs[hovered].date)}</small>
           </div>
         )}
       </div>
       <div className="chart-range">
-        <span>{longDate(runs[0].date)}</span>
-        <span>{longDate(runs[runs.length - 1].date)}</span>
+        <span>{displayDate(runs[0].date)}</span>
+        <span>{displayDate(runs[runs.length - 1].date)}</span>
       </div>
     </div>
   );
@@ -261,7 +240,8 @@ function HistoryBlock({
   const [selected, setSelected] = useState(history.runs.length - 1);
   const [showEmbed, setShowEmbed] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [twitchParent, setTwitchParent] = useState<string | null>(null);
+  const twitchParent =
+    showEmbed && typeof window !== "undefined" ? window.location.hostname : null;
   const [embedPreviewMode, setEmbedPreviewMode] = useState<"widescreen" | "twitch">(
     "widescreen",
   );
@@ -276,10 +256,6 @@ function HistoryBlock({
   const title = [history.categoryName, history.levelName, history.variant]
     .filter(Boolean)
     .join(" · ");
-
-  useEffect(() => {
-    setTwitchParent(window.location.hostname);
-  }, []);
 
   function chooseRun(runIndex: number) {
     setSelected(runIndex);
@@ -322,7 +298,7 @@ function HistoryBlock({
         <section className="video-panel" aria-label={`Video for ${title}`}>
           <div className="video-topline">
             <span>RUN FOOTAGE</span>
-            <span>{longDate(run.date)}</span>
+            <span>{displayDate(run.date)}</span>
           </div>
           <div className="video-frame">
             {embed ? (
@@ -381,7 +357,7 @@ function HistoryBlock({
                   >
                     <span className="row-dot" />
                     <span className="row-date">
-                      <span>{longDate(item.date)}</span>
+                      <span>{displayDate(item.date)}</span>
                       {item.detail && <small>{item.detail}</small>}
                     </span>
                     <strong>{item.time}</strong>
@@ -588,7 +564,7 @@ function archiveGames(histories: History[]): ArchiveGame[] {
     const groupedLevels = gameHistories.filter((history) => history.levelName);
     return {
       name,
-      id: toId(name),
+      id: archiveId(name),
       gameAbbreviation: gameHistories[0].gameAbbreviation,
       cover: gameHistories[0].gameCover,
       histories: gameHistories,
@@ -1476,7 +1452,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
           </div>
           <div className="ranked-games">
             {overview.games.map(([name, count], index) => (
-              <a href={`#${toId(name)}`} key={name}>
+              <a href={`#${archiveId(name)}`} key={name}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <div>
                   <b>{name}</b>
@@ -1549,19 +1525,19 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
                   <button
                     className={`heatmap-day level-${cell.level}`}
                     type="button"
-                    title={`${longDate(cell.date)}: ${cell.count} PB${
+                    title={`${displayDate(cell.date)}: ${cell.count} PB${
                       cell.count === 1 ? "" : "s"
                     }`}
                     aria-label={`View ${cell.count} PB${
                       cell.count === 1 ? "" : "s"
-                    } from ${longDate(cell.date)}`}
+                    } from ${displayDate(cell.date)}`}
                     onClick={() => setSelectedHeatmapDate(cell.date)}
                     key={cell.date}
                   />
                 ) : (
                   <span
                     className={`heatmap-day level-${cell.level}`}
-                    title={`${longDate(cell.date)}: ${cell.count} PB${
+                    title={`${displayDate(cell.date)}: ${cell.count} PB${
                       cell.count === 1 ? "" : "s"
                     }`}
                     key={cell.date}
@@ -1594,7 +1570,7 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
                   <div>
                     <span>PB ACTIVITY</span>
                     <h3 id="heatmap-popup-title">
-                      {longDate(selectedHeatmapDate)}
+                      {displayDate(selectedHeatmapDate)}
                     </h3>
                   </div>
                   <button
@@ -1792,18 +1768,6 @@ export default function PBHistory({ data }: { data: SiteData }) {
     data.profile.name.toLowerCase() === "volpey"
       ? "/volpey-avatar.png"
       : data.profile.avatar;
-  const archiveStyle = data.profile.nameColor?.from
-    ? ({
-        "--acid": data.profile.nameColor.from,
-        "--acid-secondary":
-          data.profile.nameColor.to ?? data.profile.nameColor.from,
-        "--accent-gradient":
-          data.profile.nameColor.to &&
-          data.profile.nameColor.to !== data.profile.nameColor.from
-            ? `linear-gradient(135deg, ${data.profile.nameColor.from}, ${data.profile.nameColor.to})`
-            : data.profile.nameColor.from,
-      } as CSSProperties)
-    : undefined;
   const heroTitleMode =
     data.profile.name.length <= 6
       ? "short"
@@ -1812,7 +1776,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
         : "long";
 
   return (
-    <main id="top" style={archiveStyle}>
+    <main id="top" style={archiveStyle(data.profile)}>
       <ArchiveNavigator games={games} />
       <UserHeader profile={data.profile} />
 
@@ -1920,7 +1884,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
         <span>SUM OF BEST / ARCHIVE</span>
         <p>
           Data sourced from speedrun.com · Includes verified obsolete runs ·
-          Updated {longDate(data.generatedAt.slice(0, 10))}
+          Updated {displayDate(data.generatedAt.slice(0, 10))}
         </p>
         <a href="#top">BACK TO TOP ↑</a>
       </footer>

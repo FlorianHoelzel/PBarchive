@@ -1,17 +1,8 @@
 "use client";
 
 import { CSSProperties, useId, useState } from "react";
+import { displayDate } from "./archive-view";
 import type { History, Run, SiteData } from "./pb-history";
-
-function displayDate(value: string) {
-  if (value === "Unknown") return value;
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(`${value}T00:00:00Z`));
-}
 
 function EmbedChart({
   runs,

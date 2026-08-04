@@ -1,21 +1,9 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
+import { useState } from "react";
+import { archiveStyle } from "./archive-view";
 import { SpeedrunPassport, type SiteData } from "./pb-history";
 import UserHeader from "./user-header";
-
-function passportStyle(profile: SiteData["profile"]) {
-  if (!profile.nameColor?.from) return undefined;
-  return {
-    "--acid": profile.nameColor.from,
-    "--acid-secondary": profile.nameColor.to ?? profile.nameColor.from,
-    "--accent-gradient":
-      profile.nameColor.to &&
-      profile.nameColor.to !== profile.nameColor.from
-        ? `linear-gradient(135deg, ${profile.nameColor.from}, ${profile.nameColor.to})`
-        : profile.nameColor.from,
-  } as CSSProperties;
-}
 
 export default function PassportViewer({
   data,
@@ -42,7 +30,7 @@ export default function PassportViewer({
 
   if (embedded) {
     return (
-      <main className="passport-embed-shell" style={passportStyle(data.profile)}>
+      <main className="passport-embed-shell" style={archiveStyle(data.profile)}>
         <SpeedrunPassport
           histories={data.histories}
           owner={data.profile.name}
@@ -60,7 +48,7 @@ export default function PassportViewer({
   }
 
   return (
-    <main className="passport-route-shell" style={passportStyle(data.profile)}>
+    <main className="passport-route-shell" style={archiveStyle(data.profile)}>
       <UserHeader profile={data.profile} page="PASSPORT" />
 
       <section className="passport-route-hero">

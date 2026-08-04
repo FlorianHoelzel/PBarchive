@@ -6,6 +6,8 @@ const requestHeaders = {
   "User-Agent": "SumOfBest/0.1 (live archive preview; https://sumof.best)",
 };
 
+// speedrun.com responses are schemaless at this boundary and are normalized below.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ApiRecord = Record<string, any>;
 
 async function request(path: string, allowNotFound = false) {
@@ -248,7 +250,10 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
     (id) => `/games/${id}/variables`,
   );
 
-  const grouped = new Map<string, Omit<History, "runs"> & { runs: any[] }>();
+  const grouped = new Map<
+    string,
+    Omit<History, "runs"> & { runs: InternalRun[] }
+  >();
 
   for (const run of runs) {
     const game = games[run.game];

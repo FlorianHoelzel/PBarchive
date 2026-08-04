@@ -1,6 +1,12 @@
 "use client";
 
-import { CSSProperties, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import {
+  archiveStyle,
+  displayDate,
+  historyAnchor,
+  historyLabel,
+} from "./archive-view";
 import type { History, Run, SiteData } from "./pb-history";
 import UserHeader from "./user-header";
 
@@ -9,22 +15,6 @@ type FeedItem = {
   run: Run;
   previous: Run | null;
 };
-
-function displayDate(value: string) {
-  if (value === "Unknown") return value;
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(`${value}T00:00:00Z`));
-}
-
-function categoryLabel(history: History) {
-  return [history.categoryName, history.levelName, history.variant]
-    .filter(Boolean)
-    .join(" · ");
-}
 
 function savedTime(current: Run, previous: Run | null) {
   if (!previous) return "FIRST PB";
@@ -37,26 +27,6 @@ function savedTime(current: Run, previous: Run | null) {
   return `-${minutes}m ${seconds}s`;
 }
 
-function archiveStyle(profile: SiteData["profile"]) {
-  if (!profile.nameColor?.from) return undefined;
-  return {
-    "--acid": profile.nameColor.from,
-    "--acid-secondary": profile.nameColor.to ?? profile.nameColor.from,
-    "--accent-gradient":
-      profile.nameColor.to &&
-      profile.nameColor.to !== profile.nameColor.from
-        ? `linear-gradient(135deg, ${profile.nameColor.from}, ${profile.nameColor.to})`
-        : profile.nameColor.from,
-  } as CSSProperties;
-}
-
-function historyAnchor(history: History) {
-  return `history-${history.id
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "")}`;
-}
-
 function FeedRow({
   item,
   embedded,
@@ -66,7 +36,7 @@ function FeedRow({
   embedded: boolean;
   archivePath: string;
 }) {
-  const label = categoryLabel(item.history);
+  const label = historyLabel(item.history);
 
   return (
     <article className="feed-row">
