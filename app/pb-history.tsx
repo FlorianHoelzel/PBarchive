@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { createPortal } from "react-dom";
 import {
   archiveId,
   archiveStyle,
@@ -365,8 +366,10 @@ function HistoryBlock({
           </section>
         </div>
       </div>
-      {showEmbed && (
-        <div
+      {showEmbed &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
           className="embed-overlay"
           role="presentation"
           onMouseDown={(event) => {
@@ -444,8 +447,9 @@ function HistoryBlock({
               </a>
             </div>
           </section>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </article>
   );
 }
