@@ -262,12 +262,13 @@ export default function PBFeed({
               <iframe src={embedPath} title="Twitch-sized PB feed preview" />
             </div>
             <p>
-              Sized for a 318 × 496 Twitch panel. Use the feed URL as an About
-              panel link; iframe embeds work on websites and Twitch Extensions.
+              Sized at 318 × 496. Use the feed URL as an About panel link,
+              paste the iframe into a website, or install the SumOfBest Twitch
+              Extension for a live Twitch panel.
             </p>
             <div className="embed-dialog-actions">
               <button type="button" onClick={() => copy("embed")}>
-                {copied === "embed" ? "COPIED" : "COPY IFRAME"}
+                {copied === "embed" ? "COPIED" : "COPY WEBSITE IFRAME"}
               </button>
               <a href={embedPath} target="_blank" rel="noreferrer">
                 OPEN PANEL ↗

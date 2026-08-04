@@ -104,6 +104,20 @@ test("server-renders shareable PB feed routes", async () => {
   assert.match(await embed.text(), /RECENT PERSONAL BESTS/i);
 });
 
+test("serves the public Twitch PB feed API with CORS", async () => {
+  const response = await render("/api/feed?username=volpey");
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("access-control-allow-origin"), "*");
+  assert.match(response.headers.get("cache-control") ?? "", /s-maxage=300/);
+
+  const feed = await response.json();
+  assert.equal(feed.profile.name.toLowerCase(), "volpey");
+  assert.match(feed.profile.archiveUrl, /^https:\/\/sumof\.best\/volpey$/i);
+  assert.ok(feed.totalPbs > 0);
+  assert.ok(feed.items.length > 0 && feed.items.length <= 12);
+  assert.ok(feed.items.every((item) => item.archiveUrl.startsWith(feed.profile.archiveUrl)));
+});
+
 test("shows the tiered historical world-record achievement", async () => {
   const response = await render("/volpey");
   assert.equal(response.status, 200);

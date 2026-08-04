@@ -1,0 +1,439 @@
+:root {
+  color-scheme: dark;
+  --ink: #0e0e0e;
+  --surface: #181817;
+  --paper: #f1f0ec;
+  --muted: #a6a6a1;
+  --line: #383835;
+  --accent: #c8c7c2;
+  --error: #ff8f82;
+  --success: #b9e786;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    linear-gradient(rgb(255 255 255 / 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.018) 1px, transparent 1px),
+    var(--ink);
+  background-size: 26px 26px;
+  color: var(--paper);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.kicker {
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+/* Twitch panel view: fixed dark theme, sharp archival geometry. */
+.panel-body {
+  height: 496px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.panel-shell {
+  display: grid;
+  grid-template-rows: 62px minmax(0, 1fr) 38px;
+  height: 496px;
+  padding: 0 13px;
+}
+
+.panel-header {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel-header h1 {
+  font-size: 14px;
+  letter-spacing: -0.025em;
+  margin: 3px 0 0;
+  max-width: 210px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panel-header strong {
+  color: var(--muted);
+  font-family: "Courier New", monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.feed-list {
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-color: var(--accent) var(--surface);
+  scrollbar-width: thin;
+}
+
+.feed-row {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  color: inherit;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  min-height: 96px;
+  padding: 10px 4px 10px 0;
+  text-decoration: none;
+  transition: background 120ms ease, transform 120ms ease;
+}
+
+.feed-row:hover,
+.feed-row:focus-visible {
+  background: rgb(255 255 255 / 0.035);
+}
+
+.feed-row:active {
+  transform: translateY(1px);
+}
+
+.feed-cover,
+.feed-cover img {
+  height: 54px;
+  width: 38px;
+}
+
+.feed-cover {
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid #464642;
+  display: flex;
+  justify-content: center;
+}
+
+.feed-cover img {
+  object-fit: cover;
+}
+
+.feed-cover span {
+  color: var(--accent);
+  font-family: "Courier New", monospace;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.feed-copy {
+  min-width: 0;
+}
+
+.feed-date,
+.feed-copy small {
+  display: block;
+  font-family: "Courier New", monospace;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+.feed-date {
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.feed-copy h2 {
+  font-size: 13px;
+  letter-spacing: -0.025em;
+  margin: 0 0 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.feed-copy p {
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.25;
+  margin: 0 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.feed-copy small {
+  color: var(--accent);
+}
+
+.feed-row > strong {
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+  letter-spacing: -0.06em;
+  max-width: 72px;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panel-footer {
+  align-items: center;
+  display: flex;
+  font-family: "Courier New", monospace;
+  font-size: 7px;
+  font-weight: 700;
+  justify-content: space-between;
+  letter-spacing: 0.08em;
+}
+
+.panel-footer span {
+  color: var(--muted);
+}
+
+.panel-footer a {
+  color: var(--accent);
+  padding: 10px 0;
+  text-decoration: none;
+}
+
+.message-state {
+  align-self: center;
+  padding: 22px 8px;
+}
+
+.message-state h2 {
+  font-size: 21px;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin: 9px 0;
+  max-width: 240px;
+}
+
+.message-state p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 250px;
+}
+
+.message-state button {
+  background: var(--accent);
+  border: 0;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 900;
+  margin-top: 18px;
+  min-height: 38px;
+  padding: 0 15px;
+}
+
+.message-state button:active {
+  transform: translateY(1px);
+}
+
+.skeleton-list {
+  overflow: hidden;
+}
+
+.skeleton-row {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 38px 1fr 54px;
+  min-height: 96px;
+}
+
+.skeleton-row i,
+.skeleton-row span,
+.skeleton-row b {
+  background: #262624;
+  display: block;
+}
+
+.skeleton-row i {
+  height: 54px;
+}
+
+.skeleton-row span {
+  height: 29px;
+}
+
+.skeleton-row b {
+  height: 12px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton-row i,
+  .skeleton-row span,
+  .skeleton-row b {
+    animation: skeleton-pulse 1.2s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes skeleton-pulse {
+  to {
+    opacity: 0.48;
+  }
+}
+
+/* Broadcaster configuration view. */
+.config-body {
+  min-height: 100vh;
+}
+
+.config-shell {
+  margin: 0 auto;
+  max-width: 720px;
+  padding: clamp(28px, 6vw, 64px) clamp(20px, 5vw, 54px);
+}
+
+.config-header {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 26px;
+}
+
+.config-header h1 {
+  font-size: clamp(30px, 6vw, 48px);
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+  margin: 10px 0 14px;
+}
+
+.config-header p,
+.config-footer p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 58ch;
+}
+
+.config-shell form {
+  padding: 30px 0 34px;
+}
+
+.config-shell label {
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  margin-bottom: 9px;
+}
+
+.input-row {
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid #4a4a46;
+  display: flex;
+  min-height: 54px;
+  padding: 0 15px;
+}
+
+.input-row:focus-within {
+  border-color: var(--accent);
+}
+
+.input-row span {
+  color: var(--accent);
+  font-family: "Courier New", monospace;
+  font-weight: 900;
+}
+
+.input-row input {
+  background: transparent;
+  border: 0;
+  color: var(--paper);
+  flex: 1;
+  font-size: 17px;
+  min-width: 0;
+  outline: 0;
+  padding: 0 8px;
+}
+
+.input-row input::placeholder {
+  color: #8a8a85;
+}
+
+.field-help,
+.form-status {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+  margin: 8px 0 0;
+}
+
+.form-status {
+  min-height: 32px;
+  padding-top: 4px;
+}
+
+.form-status[data-kind="error"] {
+  color: var(--error);
+}
+
+.form-status[data-kind="success"] {
+  color: var(--success);
+}
+
+.config-shell button {
+  background: var(--accent);
+  border: 0;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 900;
+  min-height: 46px;
+  padding: 0 20px;
+}
+
+.config-shell button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.config-shell button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.config-footer {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 9px;
+  padding-top: 24px;
+}
+
+@media (max-width: 430px) {
+  .config-shell {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}

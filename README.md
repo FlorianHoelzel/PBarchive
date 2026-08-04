@@ -68,6 +68,47 @@ and is not affiliated with speedrun.com.
 
 Visit [sumof.best](https://sumof.best).
 
+## Twitch panel extension
+
+The `twitch-extension` directory contains a native Twitch Panel Extension. It
+does not embed the website in another iframe. Twitch hosts the built static
+assets, and the panel fetches public PB data from `/api/feed`.
+
+Configure the Twitch version with these values:
+
+- Type: `Panel`
+- Testing Base URI: `https://localhost:8080/`
+- Panel Viewer Path: `panel.html`
+- Configuration Path: `config.html`
+- Panel Height: `496`
+- Configuration: `Extension Configuration Service`
+- Broadcaster Writable Channel Segment Version: `1`
+- Allowlisted Panel URLs: `https://sumof.best`
+- Allowlisted Image Domains: `https://www.speedrun.com`
+- Allowlisted URL Fetching Domains: `https://sumof.best`
+
+For local testing, run the website and extension server in separate terminals:
+
+```powershell
+npm.cmd run dev -- --port 3000
+npm.cmd run twitch:dev
+```
+
+Open `https://localhost:8080/panel.html?username=volpey` once and accept the
+development certificate warning. Twitch can then load `panel.html` and
+`config.html` from the configured Local Test base URI. During local testing,
+the extension server proxies `/api/feed` to the website on port 3000.
+
+Build and package the reviewed static assets with:
+
+```powershell
+npm.cmd run twitch:package
+```
+
+The uploadable ZIP is written to
+`outputs/sumofbest-twitch-extension-1.0.0.zip`. Deploy the main website before
+Hosted Test so the packaged extension can reach `https://sumof.best/api/feed`.
+
 ## Deploying with Coolify
 
 Create an **Application** in Coolify from this GitHub repository and select

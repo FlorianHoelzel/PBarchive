@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>SumOfBest PB Feed</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    <script type="module" src="./panel.js"></script>
+  </head>
+  <body class="panel-body">
+    <main class="panel-shell" aria-live="polite">
+      <header class="panel-header">
+        <div>
+          <span class="kicker">PB FEED</span>
+          <h1 id="profile-name">SUMOFBEST</h1>
+        </div>
+        <strong id="pb-count" aria-label="Personal-best count"></strong>
+      </header>
+
+      <section id="loading-state" class="feed-list skeleton-list" aria-label="Loading personal bests">
+        <div class="skeleton-row"><i></i><span></span><b></b></div>
+        <div class="skeleton-row"><i></i><span></span><b></b></div>
+        <div class="skeleton-row"><i></i><span></span><b></b></div>
+        <div class="skeleton-row"><i></i><span></span><b></b></div>
+      </section>
+
+      <section id="message-state" class="message-state" hidden>
+        <span id="message-label" class="kicker">SETUP REQUIRED</span>
+        <h2 id="message-title">Connect a speedrun.com profile</h2>
+        <p id="message-copy">Configure this extension in the Twitch dashboard to publish a PB feed.</p>
+        <button id="retry-button" type="button" hidden>TRY AGAIN</button>
+      </section>
+
+      <section id="feed-list" class="feed-list" aria-label="Recent personal bests" hidden></section>
+
+      <footer class="panel-footer">
+        <span>RECENT PERSONAL BESTS</span>
+        <a id="archive-link" href="https://sumof.best" target="_blank" rel="noreferrer">OPEN ARCHIVE</a>
+      </footer>
+    </main>
+  </body>
+</html>

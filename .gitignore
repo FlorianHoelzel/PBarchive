@@ -40,6 +40,8 @@ dev.*.log
 next-env.d.ts
 *.tsbuildinfo
 /dist/
+/twitch-extension/dist/
 /.wrangler/
 /outputs/
 /work/
+/.certs/

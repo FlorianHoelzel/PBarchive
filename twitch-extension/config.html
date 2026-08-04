@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Configure SumOfBest</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    <script type="module" src="./config.js"></script>
+  </head>
+  <body class="config-body">
+    <main class="config-shell">
+      <header class="config-header">
+        <span class="kicker">SUMOFBEST FOR TWITCH</span>
+        <h1>Connect your PB archive</h1>
+        <p>Enter the speedrun.com username whose verified personal bests should appear on your channel.</p>
+      </header>
+
+      <form id="config-form" novalidate>
+        <label for="username">SPEEDRUN.COM USERNAME</label>
+        <div class="input-row">
+          <span aria-hidden="true">@</span>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            maxlength="64"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="volpey"
+            required
+          />
+        </div>
+        <p class="field-help">The profile must be public and contain at least one verified personal best.</p>
+        <p id="form-status" class="form-status" role="status"></p>
+        <button id="save-button" type="submit" disabled>SAVE PROFILE</button>
+      </form>
+
+      <footer class="config-footer">
+        <span>PUBLIC DATA ONLY</span>
+        <p>SumOfBest reads verified runs from speedrun.com. No Twitch identity access is requested.</p>
+      </footer>
+    </main>
+  </body>
+</html>

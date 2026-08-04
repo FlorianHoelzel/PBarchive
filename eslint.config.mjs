@@ -12,6 +12,7 @@ const eslintConfig = defineConfig([
     ".vinext/**",
     ".wrangler/**",
     "dist/**",
+    "twitch-extension/dist/**",
     "out/**",
     "outputs/**",
     "build/**",
