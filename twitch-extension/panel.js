@@ -1,6 +1,7 @@
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1"]);
 const API_ORIGIN = LOCAL_HOSTS.has(window.location.hostname) ? "" : "https://sumof.best";
 const FALLBACK_ACCENT = "#c8c7c2";
+const DEFAULT_USERNAME = "volpey";
 
 const elements = {
   loading: document.querySelector("#loading-state"),
@@ -183,19 +184,14 @@ elements.retry.addEventListener("click", () => {
 });
 
 const previewUsername = new URLSearchParams(window.location.search).get("username");
-if (previewUsername) loadFeed(previewUsername);
+const initialUsername = previewUsername || DEFAULT_USERNAME;
+loadFeed(initialUsername);
 
 if (window.Twitch?.ext) {
   window.Twitch.ext.configuration.onChanged(() => {
     const username = configuredUsername();
     if (username) loadFeed(username);
-    else if (!previewUsername) {
-      showMessage(
-        "SETUP REQUIRED",
-        "Connect a speedrun.com profile",
-        "Configure this extension in the Twitch dashboard to publish a PB feed.",
-      );
-    }
+    else if (!activeUsername) loadFeed(initialUsername);
   });
 
   window.Twitch.ext.onError(() => {
@@ -203,6 +199,4 @@ if (window.Twitch?.ext) {
       showMessage("TWITCH ERROR", "Extension connection failed", "Reload the channel page and try again.", true);
     }
   });
-} else if (!previewUsername) {
-  showMessage("PREVIEW", "Choose a preview profile", "Add ?username=volpey to the local panel URL.");
 }
