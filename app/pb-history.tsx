@@ -242,9 +242,6 @@ function HistoryBlock({
   const [copied, setCopied] = useState(false);
   const twitchParent =
     showEmbed && typeof window !== "undefined" ? window.location.hostname : null;
-  const [embedPreviewMode, setEmbedPreviewMode] = useState<"widescreen" | "twitch">(
-    "widescreen",
-  );
   const run = history.runs[selected];
   const embed = embedUrl(run.video, twitchParent);
   const embedPath = `/${encodeURIComponent(username)}/embed/${encodeURIComponent(history.id)}`;
@@ -401,25 +398,22 @@ function HistoryBlock({
               Paste this iframe into a website to show the interactive PB graph
               and history.
             </p>
-            <div
-              className={`embed-live-preview ${embedPreviewMode === "twitch" ? "twitch" : ""}`}
-            >
+            <div className="embed-live-preview">
               <div className="embed-live-preview-heading">
                 <span>LIVE EMBED PREVIEW</span>
                 <div className="embed-preview-switcher" aria-label="Preview size">
                   <button
                     type="button"
-                    className={embedPreviewMode === "widescreen" ? "active" : ""}
-                    onClick={() => setEmbedPreviewMode("widescreen")}
+                    className="active"
+                    aria-pressed="true"
                   >
                     16:9
                   </button>
                   <button
                     type="button"
-                    className={embedPreviewMode === "twitch" ? "active" : ""}
-                    onClick={() => setEmbedPreviewMode("twitch")}
+                    disabled
                   >
-                    TWITCH · 318 × 496
+                    TWITCH · COMING SOON
                   </button>
                 </div>
               </div>
@@ -429,12 +423,6 @@ function HistoryBlock({
                 loading="lazy"
               />
             </div>
-            {embedPreviewMode === "twitch" && (
-              <p className="embed-twitch-note">
-                This previews a Twitch Panel Extension. Regular Twitch About
-                panels support images and Markdown, not interactive iframes.
-              </p>
-            )}
             <textarea
               readOnly
               value={embedCode}
