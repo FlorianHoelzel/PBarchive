@@ -10,6 +10,9 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL("https://sumof.best"),
     title,
     description,
+    verification: {
+      google: "JeLkuzRbmBwi5uiI3t9g6JZV1r75RKrejPkG7kxkiy0",
+    },
     alternates: { canonical: "/" },
     openGraph: {
       title,

@@ -40,8 +40,26 @@ test("server-renders the Sum of Best landing page", async () => {
     html,
     /<script[^>]+src="https:\/\/stats\.sumof\.best\/script\.js"[^>]+data-website-id="b586f22e-d4e3-4a55-9154-c9f44325a61c"/i,
   );
+  assert.match(
+    html,
+    /<meta name="google-site-verification" content="JeLkuzRbmBwi5uiI3t9g6JZV1r75RKrejPkG7kxkiy0"/i,
+  );
   assert.doesNotMatch(html, /property="og:image"|name="twitter:image"/i);
   assert.doesNotMatch(html, /Your site is taking shape/i);
+});
+
+test("serves search-engine discovery files", async () => {
+  const robots = await render("/robots.txt");
+  assert.equal(robots.status, 200);
+  const robotsText = await robots.text();
+  assert.match(robotsText, /^User-Agent: \*$/m);
+  assert.match(robotsText, /^Disallow: \/api\/$/m);
+  assert.match(robotsText, /^Sitemap: https:\/\/sumof\.best\/sitemap\.xml$/m);
+
+  const sitemap = await render("/sitemap.xml");
+  assert.equal(sitemap.status, 200);
+  const sitemapXml = await sitemap.text();
+  assert.match(sitemapXml, /<loc>https:\/\/sumof\.best<\/loc>/);
 });
 
 test("keeps the required public assets", async () => {
