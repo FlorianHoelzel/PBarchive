@@ -229,7 +229,7 @@ function renderChart(runs, selectedIndex) {
   const dots = points.map((point, index) => svgElement("circle", {
     cx: point.x,
     cy: point.y,
-    r: index === selectedIndex ? 4.5 : 3,
+    r: index === selectedIndex ? 5.5 : 3.5,
     class: index === selectedIndex ? "history-dot selected" : "history-dot",
   }));
   elements.chart.replaceChildren(axis, line, ...dots);
