@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, PointerEvent, useState } from "react";
+import { FormEvent, PointerEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 type LookupResult = {
@@ -13,12 +13,95 @@ type LookupResult = {
   archiveUrl: string | null;
 };
 
+type LookupPhase =
+  | "idle"
+  | "typing"
+  | "loading"
+  | "submitting"
+  | "success"
+  | "error";
+
+async function lookupUser(
+  username: string,
+  signal: AbortSignal,
+  prepareArchive = false,
+) {
+  const params = new URLSearchParams({ username });
+  if (prepareArchive) params.set("prepare", "1");
+
+  const response = await fetch(`/api/lookup?${params.toString()}`, {
+    cache: "no-store",
+    signal,
+  });
+  const payload = (await response.json()) as LookupResult & { error?: string };
+
+  if (!response.ok) {
+    throw new Error(payload.error ?? "That username could not be found.");
+  }
+
+  return payload;
+}
+
 export default function LandingPage() {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const [result, setResult] = useState<LookupResult | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [phase, setPhase] = useState<LookupPhase>("idle");
   const [avatarFailed, setAvatarFailed] = useState(false);
+  const requestRef = useRef<AbortController | null>(null);
+  const cleanUsername = username.trim().replace(/^@/, "");
+  const isLoading = phase === "loading" || phase === "submitting";
+
+  useEffect(() => {
+    if (cleanUsername.length < 2) return;
+
+    const timeout = window.setTimeout(async () => {
+      const controller = new AbortController();
+      requestRef.current = controller;
+
+      try {
+        const payload = await lookupUser(cleanUsername, controller.signal);
+        setResult(payload);
+        setPhase("success");
+        setMessage("Profile found. Select Find User to prepare the archive.");
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        setResult(null);
+        setPhase("error");
+        setMessage(
+          error instanceof Error
+            ? error.message
+            : "The lookup failed. Check your connection and try again.",
+        );
+      } finally {
+        if (requestRef.current === controller) requestRef.current = null;
+      }
+    }, 350);
+
+    return () => {
+      window.clearTimeout(timeout);
+      requestRef.current?.abort();
+    };
+  }, [cleanUsername]);
+
+  function updateUsername(value: string) {
+    const cleanValue = value.trim().replace(/^@/, "");
+    requestRef.current?.abort();
+    setUsername(value);
+    setResult(null);
+    setAvatarFailed(false);
+
+    if (!cleanValue) {
+      setPhase("idle");
+      setMessage("");
+    } else if (cleanValue.length < 2) {
+      setPhase("typing");
+      setMessage("Keep typing to look up the profile.");
+    } else {
+      setPhase("loading");
+      setMessage(`Looking for @${cleanValue}...`);
+    }
+  }
 
   function trackPointer(event: PointerEvent<HTMLElement>) {
     if (event.pointerType === "touch") return;
@@ -36,39 +119,36 @@ export default function LandingPage() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const cleanUsername = username.trim().replace(/^@/, "");
 
     if (!cleanUsername) {
       setMessage("Enter a speedrun.com username first.");
       setResult(null);
+      setPhase("error");
       return;
     }
 
-    setIsLoading(true);
+    requestRef.current?.abort();
+    const controller = new AbortController();
+    requestRef.current = controller;
+    setPhase("submitting");
     setMessage("");
-    setResult(null);
     setAvatarFailed(false);
 
     try {
-      const response = await fetch(
-        `/api/lookup?username=${encodeURIComponent(cleanUsername)}`,
-        { cache: "no-store" },
-      );
-      const payload = (await response.json()) as LookupResult & {
-        error?: string;
-      };
-
-      if (!response.ok) {
-        setMessage(payload.error ?? "That username could not be found.");
-        return;
-      }
-
+      const payload = await lookupUser(cleanUsername, controller.signal, true);
       setResult(payload);
+      setPhase("success");
       setMessage("Profile found. Your archive is being prepared.");
-    } catch {
-      setMessage("The lookup failed. Check your connection and try again.");
+    } catch (error) {
+      if (controller.signal.aborted) return;
+      setPhase("error");
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "The lookup failed. Check your connection and try again.",
+      );
     } finally {
-      setIsLoading(false);
+      if (requestRef.current === controller) requestRef.current = null;
     }
   }
 
@@ -107,12 +187,7 @@ export default function LandingPage() {
                 id="speedrun-username"
                 name="username"
                 value={username}
-                onChange={(event) => {
-                  setUsername(event.target.value);
-                  setMessage("");
-                  setResult(null);
-                  setAvatarFailed(false);
-                }}
+                onChange={(event) => updateUsername(event.target.value)}
                 placeholder="username"
                 autoComplete="off"
                 spellCheck="false"
@@ -125,37 +200,56 @@ export default function LandingPage() {
             <p className="search-message" aria-live="polite">
               {message || "Try any public speedrun.com username"}
             </p>
-            {result && (
-              <div className="lookup-result">
-                {result.avatar && !avatarFailed ? (
+            {(result || cleanUsername) && (
+              <div
+                className={`lookup-result${result ? "" : " is-preview"}`}
+                aria-busy={phase === "loading"}
+              >
+                {result?.avatar && !avatarFailed ? (
                   <img
                     src={result.avatar}
                     alt=""
                     width="54"
                     height="54"
+                    referrerPolicy="no-referrer"
                     onError={() => setAvatarFailed(true)}
                   />
+                ) : phase === "loading" ? (
+                  <span className="lookup-avatar-loading" aria-hidden="true" />
+                ) : !result ? (
+                  <span className="lookup-initial" aria-hidden="true">
+                    {cleanUsername.slice(0, 1).toUpperCase()}
+                  </span>
                 ) : (
                   <span className="lookup-initial" aria-hidden="true">
                     {result.name.slice(0, 1).toUpperCase()}
                   </span>
                 )}
                 <span className="lookup-identity">
-                  <b>{result.name}</b>
-                  <small>{result.country ?? "speedrun.com user"}</small>
+                  <b>{result?.name ?? cleanUsername}</b>
+                  <small>
+                    {result?.country ??
+                      (phase === "typing"
+                        ? "Keep typing"
+                        : phase === "error"
+                          ? "No matching profile yet"
+                          : "Searching speedrun.com")}
+                  </small>
                 </span>
-                <span className="lookup-actions">
-                  {result.archiveUrl && (
-                    <Link href={result.archiveUrl}>VIEW ARCHIVE</Link>
-                  )}
-                  <a
-                    href={result.profileUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                {result && (
+                  <span className="lookup-actions">
+                    {result.archiveUrl && (
+                      <Link href={result.archiveUrl}>VIEW ARCHIVE</Link>
+                    )}
+                    <a
+                      href={result.profileUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                     SPEEDRUN.COM ↗
-                  </a>
-                </span>
+                    </a>
+                  </span>
+                )}
               </div>
             )}
           </form>
