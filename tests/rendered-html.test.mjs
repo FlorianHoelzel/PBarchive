@@ -142,7 +142,7 @@ test("serves the public Twitch PB feed API with CORS", async () => {
   assert.match(history.history.embedUrl, /^https:\/\/sumof\.best\/volpey\/embed\//i);
 });
 
-test("shows the tiered historical world-record achievement", async () => {
+test("server-renders the archive overview", async () => {
   const response = await render("/volpey");
   assert.equal(response.status, 200);
 
@@ -161,10 +161,8 @@ test("shows the tiered historical world-record achievement", async () => {
   assert.match(html, /<h2>GAME INDEX<\/h2>/i);
   assert.match(html, /\d{2}(?:<!-- -->)? TITLES/);
   assert.doesNotMatch(html, /PB STAMPS/);
-  assert.match(html, /WORLD BEATER/);
-  assert.match(html, /World records when set/);
-  assert.doesNotMatch(html, /WORLD RECORDS/);
-  assert.doesNotMatch(html, /UNTOUCHABLE/);
+  assert.doesNotMatch(html, /World records when set/i);
+  assert.doesNotMatch(html, /HISTORIC WRS/i);
 
   const socialCard = await render("/Volpey/social-card");
   assert.equal(socialCard.status, 200);
@@ -200,6 +198,96 @@ test("serves a fresh generated archive from the durable cache", async () => {
     assert.equal(response.status, 200);
     assert.match(await response.text(), /Volpey(?:&apos;|&#x27;|â€™)s Sum of Best/i);
   } finally {
+    delete process.env.ARCHIVE_CACHE_DIR;
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("builds an uncached archive without per-resource or leaderboard requests", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "sumof-best-live-build-"));
+  const originalFetch = globalThis.fetch;
+  const requestedPaths = [];
+
+  globalThis.fetch = async (input, init) => {
+    const url = new URL(typeof input === "string" ? input : input.url);
+    if (url.origin !== "https://www.speedrun.com") {
+      return originalFetch(input, init);
+    }
+
+    requestedPaths.push(`${url.pathname}${url.search}`);
+    const json = (data) =>
+      new Response(JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+      });
+
+    if (url.pathname === "/api/v1/users") {
+      return json({
+        data: [{
+          id: "user-1",
+          names: { international: "MockRunner" },
+          weblink: "https://www.speedrun.com/users/MockRunner",
+          location: null,
+          assets: {},
+        }],
+      });
+    }
+
+    if (url.pathname === "/api/v1/runs") {
+      assert.equal(url.searchParams.get("embed"), "category,level,platform");
+      return json({
+        data: [{
+          id: "run-1",
+          weblink: "https://www.speedrun.com/run/run-1",
+          game: "game-1",
+          category: { data: { id: "category-1", name: "Any%" } },
+          level: { data: null },
+          platform: { data: { id: "platform-1", name: "PC" } },
+          date: "2026-01-02",
+          submitted: "2026-01-02T12:00:00Z",
+          times: { primary_t: 62.5 },
+          system: { platform: "platform-1", emulated: false },
+          values: { "variable-1": "value-1" },
+          videos: null,
+        }],
+        pagination: { max: 200, links: [] },
+      });
+    }
+
+    if (url.pathname === "/api/v1/games/game-1") {
+      assert.equal(url.searchParams.get("embed"), "variables");
+      return json({
+        data: {
+          id: "game-1",
+          names: { international: "Mock Game" },
+          abbreviation: "mock-game",
+          assets: {},
+          variables: {
+            data: [{
+              id: "variable-1",
+              "is-subcategory": true,
+              values: { values: { "value-1": { label: "Standard" } } },
+            }],
+          },
+        },
+      });
+    }
+
+    throw new Error(`Unexpected speedrun.com request: ${url}`);
+  };
+
+  process.env.ARCHIVE_CACHE_DIR = directory;
+  try {
+    const response = await render("/MockRunner");
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /MOCKRUNNER/i);
+    assert.match(html, /Mock Game/i);
+    assert.equal(requestedPaths.filter((item) => item.includes("/runs?")).length, 1);
+    assert.equal(requestedPaths.filter((item) => item.includes("/games/")).length, 1);
+    assert.ok(requestedPaths.every((item) => !item.includes("leaderboard")));
+    assert.ok(requestedPaths.every((item) => !/\/(categories|levels|platforms)\//.test(item)));
+  } finally {
+    globalThis.fetch = originalFetch;
     delete process.env.ARCHIVE_CACHE_DIR;
     await rm(directory, { recursive: true, force: true });
   }

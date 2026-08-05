@@ -23,15 +23,37 @@ async function getOptional(path: string) {
   return request(path, true);
 }
 
+function embeddedData(value: unknown): ApiRecord | null {
+  if (!value || typeof value !== "object") return null;
+  const data = (value as ApiRecord).data;
+  return data && typeof data === "object" ? data : null;
+}
+
 async function getAllRuns(userId: string) {
   const runs: ApiRecord[] = [];
+  const categories: Record<string, ApiRecord> = {};
+  const levels: Record<string, ApiRecord> = {};
+  const platforms: Record<string, ApiRecord> = {};
   let offset = 0;
 
   while (true) {
     const payload = await get(
-      `/runs?user=${userId}&status=verified&orderby=date&direction=asc&max=200&offset=${offset}`,
+      `/runs?user=${userId}&status=verified&orderby=date&direction=asc&max=200&offset=${offset}&embed=category,level,platform`,
     );
-    runs.push(...(payload.data ?? []));
+    for (const rawRun of payload.data ?? []) {
+      const category = embeddedData(rawRun.category);
+      const level = embeddedData(rawRun.level);
+      const platform = embeddedData(rawRun.platform);
+      if (category?.id) categories[category.id] = category;
+      if (level?.id) levels[level.id] = level;
+      if (platform?.id) platforms[platform.id] = platform;
+
+      runs.push({
+        ...rawRun,
+        category: category?.id ?? rawRun.category,
+        level: level?.id ?? null,
+      });
+    }
     const pagination = payload.pagination;
 
     if (!pagination?.links?.some((link: ApiRecord) => link.rel === "next")) {
@@ -41,140 +63,7 @@ async function getAllRuns(userId: string) {
     offset += pagination.max;
   }
 
-  return runs;
-}
-
-async function getAllLeaderboardRuns(
-  gameId: string,
-  categoryId: string,
-  levelId: string | null,
-) {
-  const runs: ApiRecord[] = [];
-  let offset = 0;
-
-  while (true) {
-    const query = new URLSearchParams({
-      game: gameId,
-      category: categoryId,
-      status: "verified",
-      orderby: "date",
-      direction: "asc",
-      max: "200",
-      offset: String(offset),
-    });
-    if (levelId) query.set("level", levelId);
-
-    const payload = await get(`/runs?${query}`);
-    runs.push(...(payload.data ?? []));
-    const pagination = payload.pagination;
-    if (!pagination?.links?.some((link: ApiRecord) => link.rel === "next")) {
-      break;
-    }
-    offset += pagination.max;
-  }
-
-  return runs;
-}
-
-async function mapWithConcurrency<T>(
-  items: T[],
-  limit: number,
-  callback: (item: T) => Promise<void>,
-) {
-  let nextIndex = 0;
-  const workers = Array.from(
-    { length: Math.min(limit, items.length) },
-    async () => {
-      while (nextIndex < items.length) {
-        const item = items[nextIndex];
-        nextIndex += 1;
-        await callback(item);
-      }
-    },
-  );
-  await Promise.all(workers);
-}
-
-type InternalRun = History["runs"][number] & {
-  categoryId?: string;
-  levelId?: string | null;
-  leaderboardValues?: Record<string, string>;
-  subcategoryVariableIds?: string[];
-};
-
-async function markHistoricalWorldRecords(histories: History[]) {
-  const groups = new Map<
-    string,
-    {
-      gameId: string;
-      categoryId: string;
-      levelId: string | null;
-      histories: History[];
-    }
-  >();
-  for (const history of histories) {
-    const firstRun = history.runs[0] as InternalRun | undefined;
-    if (!firstRun?.categoryId) continue;
-    const key = [
-      history.gameId,
-      firstRun.categoryId,
-      firstRun.levelId ?? "",
-    ].join("|");
-    const group = groups.get(key) ?? {
-      gameId: history.gameId,
-      categoryId: firstRun.categoryId,
-      levelId: firstRun.levelId ?? null,
-      histories: [],
-    };
-    group.histories.push(history);
-    groups.set(key, group);
-  }
-
-  await mapWithConcurrency([...groups.values()], 4, async (group) => {
-    try {
-      const leaderboardRuns = await getAllLeaderboardRuns(
-        group.gameId,
-        group.categoryId,
-        group.levelId,
-      );
-      for (const history of group.histories) {
-        const firstRun = history.runs[0] as InternalRun;
-        const variableIds = firstRun.subcategoryVariableIds ?? [];
-        const expectedValues = firstRun.leaderboardValues ?? {};
-        const matchingRuns = leaderboardRuns.filter((candidate) =>
-          variableIds.every(
-            (variableId) =>
-              (candidate.values?.[variableId] ?? null) ===
-              (expectedValues[variableId] ?? null),
-          ),
-        );
-
-        for (const run of history.runs as InternalRun[]) {
-          if (run.date === "Unknown") {
-            run.worldRecordAtTime = false;
-            continue;
-          }
-          const fastestAtTime = matchingRuns.reduce((fastest, candidate) => {
-            const candidateDate =
-              candidate.date ?? candidate.submitted?.slice(0, 10);
-            return candidateDate && candidateDate <= run.date
-              ? Math.min(
-                  fastest,
-                  Number(candidate.times?.primary_t ?? Number.POSITIVE_INFINITY),
-                )
-              : fastest;
-          }, Number.POSITIVE_INFINITY);
-          run.worldRecordAtTime =
-            Number.isFinite(fastestAtTime) &&
-            Math.abs(run.seconds - fastestAtTime) < 0.0005;
-        }
-      }
-    } catch {
-      for (const history of group.histories) {
-        for (const run of history.runs) run.worldRecordAtTime = false;
-      }
-    }
-  });
+  return { runs, categories, levels, platforms };
 }
 
 async function mapById(
@@ -192,6 +81,10 @@ async function mapById(
   ).filter((entry): entry is readonly [string, ApiRecord] => entry !== null);
   return Object.fromEntries(entries) as Record<string, ApiRecord>;
 }
+
+type InternalRun = History["runs"][number] & {
+  submitted?: string | null;
+};
 
 function formatTime(totalSeconds: number) {
   const hours = Math.floor(totalSeconds / 3600);
@@ -218,27 +111,21 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
 
   if (!user) return null;
 
-  const runs = await getAllRuns(user.id);
+  const runData = await getAllRuns(user.id);
+  const runs = runData.runs;
   const games = await mapById(
     runs.map((run) => run.game),
-    (id) => `/games/${id}`,
+    (id) => `/games/${id}?embed=variables`,
   );
-  const categories = await mapById(
-    runs.map((run) => run.category),
-    (id) => `/categories/${id}`,
-  );
-  const levels = await mapById(
-    runs.map((run) => run.level),
-    (id) => `/levels/${id}`,
-  );
-  const platforms = await mapById(
-    runs.map((run) => run.system?.platform),
-    (id) => `/platforms/${id}`,
-  );
-  const variablesByGame = await mapById(
-    Object.keys(games),
-    (id) => `/games/${id}/variables`,
-  );
+  const categories = runData.categories;
+  const levels = runData.levels;
+  const platforms = runData.platforms;
+  const variablesByGame = Object.fromEntries(
+    Object.entries(games).map(([id, game]) => [
+      id,
+      Array.isArray(game.variables?.data) ? game.variables.data : [],
+    ]),
+  ) as Record<string, ApiRecord[]>;
 
   const grouped = new Map<
     string,
@@ -255,11 +142,6 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
     const valueLabels: string[] = [];
     const runDetails: string[] = [];
     const rulesetValues: string[] = [];
-    const leaderboardValues: Record<string, string> = {};
-    const subcategoryVariableIds = variables
-      .filter((variable: ApiRecord) => variable["is-subcategory"])
-      .map((variable: ApiRecord) => variable.id as string);
-
     for (const [variableId, valueId] of Object.entries(run.values ?? {})) {
       const variable = variables.find(
         (item: ApiRecord) => item.id === variableId,
@@ -268,7 +150,6 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
 
       if (variable?.["is-subcategory"]) {
         rulesetValues.push(`${variableId}:${valueId}`);
-        leaderboardValues[variableId] = valueId as string;
         if (value?.label) valueLabels.push(value.label);
       } else if (value?.label) {
         runDetails.push(value.label);
@@ -311,10 +192,6 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
       platform: platforms[run.system?.platform]?.name ?? null,
       emulated: Boolean(run.system?.emulated),
       detail: runDetails.join(" · ") || null,
-      categoryId: run.category,
-      levelId: run.level ?? null,
-      leaderboardValues,
-      subcategoryVariableIds,
     });
   }
 
@@ -361,16 +238,6 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
     if (categoryOrder) return categoryOrder;
     return (a.levelName ?? "").localeCompare(b.levelName ?? "");
   });
-
-  await markHistoricalWorldRecords(histories);
-  for (const history of histories) {
-    for (const run of history.runs as InternalRun[]) {
-      delete run.categoryId;
-      delete run.levelId;
-      delete run.leaderboardValues;
-      delete run.subcategoryVariableIds;
-    }
-  }
 
   const gameIds = new Set(histories.map((history) => history.gameId));
   const rawNameStyle = user["name-style"];

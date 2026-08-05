@@ -27,8 +27,7 @@ obsolete runs that show how the runner improved over time.
 - Peak-year breakdown with monthly activity, busiest month, top game, and
   biggest improvement
 - Generated achievement tiers for milestone count, total time saved, biggest
-  single improvement, longest active-month streak, years active, and historical
-  world records
+  single improvement, longest active-month streak, and years active
 
 ### Game and category histories
 
@@ -40,7 +39,6 @@ obsolete runs that show how the runner improved over time.
   platforms, and emulator labels
 - Embedded YouTube and Twitch run footage when available
 - Direct links to non-embeddable videos or the original run page
-- Recognition for PBs that were world records when they were set
 
 ### Shareable views
 
@@ -48,8 +46,8 @@ obsolete runs that show how the runner improved over time.
 - Feed filters for all PBs or current PBs, plus filtering by game
 - Improvement amounts and direct run/video links in the feed
 - A page-turning **Speedrun Passport** with one game stamp per title
-- Passport stats for PB count, categories, historic world records, platforms,
-  active years, and each game's standout run
+- Passport stats for PB count, categories, platforms, active years, and each
+  game's standout run
 - Copyable share links for feed and passport pages
 
 ### Embeds

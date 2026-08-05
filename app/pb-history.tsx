@@ -29,7 +29,6 @@ export type Run = {
   emulated: boolean;
   detail: string | null;
   current: boolean;
-  worldRecordAtTime?: boolean;
 };
 
 export type History = {
@@ -573,7 +572,7 @@ type PassportGame = ArchiveGame & {
   latestYear: number | null;
   platforms: string[];
   pbCount: number;
-  worldRecords: number;
+  categories: number;
   totalSaved: number;
   biggestSave: {
     seconds: number;
@@ -624,11 +623,7 @@ function passportGame(game: ArchiveGame): PassportGame {
       (total, history) => total + history.runs.length,
       0,
     ),
-    worldRecords: game.histories.reduce(
-      (total, history) =>
-        total + history.runs.filter((run) => run.worldRecordAtTime).length,
-      0,
-    ),
+    categories: game.histories.length,
     totalSaved,
     biggestSave,
   };
@@ -789,8 +784,8 @@ export function SpeedrunPassport({
               <strong>{compactDuration(game.totalSaved)}</strong>
             </div>
             <div>
-              <span>HISTORIC WRS</span>
-              <strong>{game.worldRecords}</strong>
+              <span>CATEGORIES</span>
+              <strong>{game.categories}</strong>
             </div>
           </div>
 
@@ -1217,9 +1212,6 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
       }
     }
 
-    const worldRecordsAtTime = runs.filter(
-      (run) => run.worldRecordAtTime,
-    ).length;
     const yearsActive =
       yearEntries.length > 0
         ? yearEntries.at(-1)![0] - yearEntries[0][0] + 1
@@ -1238,19 +1230,6 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
         : yearsActive >= 5
           ? "LONG HAUL"
           : "MOMENTUM";
-    const worldRecordName =
-      worldRecordsAtTime >= 50
-        ? "ALL-TIME GREAT"
-        : worldRecordsAtTime >= 25
-          ? "RECORD LEGEND"
-          : worldRecordsAtTime >= 10
-            ? "WORLD BEATER"
-            : worldRecordsAtTime >= 5
-              ? "RECORD BREAKER"
-              : worldRecordsAtTime >= 1
-                ? "RECORD SETTER"
-                : "ON THE HUNT";
-
     return {
       runs,
       years: yearEntries,
@@ -1302,11 +1281,6 @@ function ArchiveOverview({ histories }: { histories: History[] }) {
           name: enduranceName,
           value: `${yearsActive} yr`,
           detail: "Calendar years represented",
-        },
-        {
-          name: worldRecordName,
-          value: String(worldRecordsAtTime),
-          detail: "World records when set",
         },
       ],
     };
