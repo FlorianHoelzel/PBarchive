@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { warmUserArchive } from "../../archive-cache";
 import { requestSpeedrunJson, SpeedrunApiError } from "../../speedrun-api";
 
 const LOOKUP_FRESH_MS = 5 * 60 * 1_000;
@@ -66,7 +65,6 @@ async function lookupUser(username: string, signal: AbortSignal) {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const username = searchParams.get("username")?.trim().replace(/^@/, "");
-  const prepareArchive = searchParams.get("prepare") === "1";
 
   if (!username || username.length > 64) {
     return NextResponse.json(
@@ -87,7 +85,6 @@ export async function GET(request: Request) {
     }
 
     const name = user.names?.international ?? username;
-    if (prepareArchive) warmUserArchive(name);
     const country = user.location?.country?.names?.international ?? null;
     const sourceAvatar =
       user.assets?.image?.uri ?? user.assets?.icon?.uri ?? null;
@@ -117,9 +114,8 @@ export async function GET(request: Request) {
       },
       {
         headers: {
-          "Cache-Control": prepareArchive
-            ? "no-store"
-            : "public, max-age=60, s-maxage=300, stale-while-revalidate=86400",
+          "Cache-Control":
+            "public, max-age=60, s-maxage=300, stale-while-revalidate=86400",
           "X-Speedrun-Data": lookup.stale ? "stale" : "live",
         },
       },
@@ -136,7 +132,15 @@ export async function GET(request: Request) {
     }
     return NextResponse.json(
       { error: "Speedrun.com is temporarily unavailable. Try again shortly." },
-      { status: 502, headers: { "Cache-Control": "no-store" } },
+      {
+        status: 502,
+        headers: {
+          "Cache-Control": "no-store",
+          ...(error instanceof SpeedrunApiError && error.status
+            ? { "X-Speedrun-Status": String(error.status) }
+            : {}),
+        },
+      },
     );
   }
 }

@@ -25,10 +25,8 @@ type LookupPhase =
 async function lookupUser(
   username: string,
   signal: AbortSignal,
-  prepareArchive = false,
 ) {
   const params = new URLSearchParams({ username });
-  if (prepareArchive) params.set("prepare", "1");
 
   const response = await fetch(`/api/lookup?${params.toString()}`, {
     signal,
@@ -151,7 +149,13 @@ export default function LandingPage() {
     setAvatarFailed(false);
 
     try {
-      const payload = await lookupUser(cleanUsername, controller.signal, true);
+      if (result?.archiveUrl) {
+        setMessage("Profile found. Opening the archive builder.");
+        router.push(result.archiveUrl);
+        return;
+      }
+
+      const payload = await lookupUser(cleanUsername, controller.signal);
       setResult(payload);
       if (payload.archiveUrl) {
         setMessage("Profile found. Opening the archive builder.");
