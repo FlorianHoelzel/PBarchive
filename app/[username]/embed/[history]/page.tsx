@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import speedrunData from "../../../data/speedruns.json";
 import EmbedViewer from "../../../embed-viewer";
@@ -5,6 +6,9 @@ import { getUserArchive } from "../../../archive-cache";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+};
 
 function safelyDecode(value: string) {
   try {

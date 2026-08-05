@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import speedrunData from "../data/speedruns.json";
@@ -7,18 +8,70 @@ import { getUserArchive } from "../archive-cache";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+async function archiveFor(username: string) {
+  const decodedUsername = decodeURIComponent(username);
+  return decodedUsername.toLowerCase() === speedrunData.profile.name.toLowerCase()
+    ? speedrunData
+    : getUserArchive(decodedUsername);
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}): Promise<Metadata> {
+  const { username } = await params;
+  const requestedName = decodeURIComponent(username);
+  const data = await archiveFor(username);
+
+  if (!data) {
+    return {
+      title: `${requestedName}'s speedrun archive`,
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const name = data.profile.name;
+  const canonical = `/${encodeURIComponent(name)}`;
+  const socialImage = `${canonical}/social-card`;
+  const title = `${name}'s speedrun PB history`;
+  const description = `${data.stats.pbRuns} personal-best milestones across ${data.stats.games} games and ${data.stats.histories} categories, including current and obsolete speedruns.`;
+  const image = {
+    url: socialImage,
+    width: 1200,
+    height: 630,
+    alt: `${name}'s Sum of Best speedrun archive`,
+  };
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: canonical,
+      siteName: "Sum of Best",
+      locale: "en_US",
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
+
 export default async function UserArchive({
   params,
 }: {
   params: Promise<{ username: string }>;
 }) {
   const { username } = await params;
-  const decodedUsername = decodeURIComponent(username);
-
-  const data =
-    decodedUsername.toLowerCase() === speedrunData.profile.name.toLowerCase()
-      ? speedrunData
-      : await getUserArchive(decodedUsername);
+  const data = await archiveFor(username);
 
   if (!data) notFound();
 
@@ -43,5 +96,35 @@ export default async function UserArchive({
     );
   }
 
-  return <PBHistory data={data} />;
+  const profileJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    url: `https://sumof.best/${encodeURIComponent(data.profile.name)}`,
+    name: `${data.profile.name}'s speedrun PB history`,
+    description: `${data.stats.pbRuns} personal-best milestones across ${data.stats.games} games.`,
+    dateModified: data.generatedAt,
+    mainEntity: {
+      "@type": "Person",
+      name: data.profile.name,
+      url: data.profile.profileUrl,
+      image: data.profile.avatar ?? undefined,
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Sum of Best",
+      url: "https://sumof.best",
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(profileJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <PBHistory data={data} />
+    </>
+  );
 }

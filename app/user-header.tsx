@@ -13,10 +13,7 @@ export default function UserHeader({
 }) {
   const [avatarFailed, setAvatarFailed] = useState(false);
   const archivePath = `/${encodeURIComponent(profile.name)}`;
-  const profileAvatar =
-    profile.name.toLowerCase() === "volpey"
-      ? "/volpey-avatar.png"
-      : profile.avatar;
+  const profileAvatar = profile.avatar;
 
   return (
     <header className="site-header">

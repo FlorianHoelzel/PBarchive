@@ -14,9 +14,27 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { username } = await params;
   const name = decodeURIComponent(username);
+  const canonical = `/${encodeURIComponent(name)}/feed`;
+  const socialImage = `/${encodeURIComponent(name)}/social-card`;
+  const title = `${name}'s PB Feed`;
+  const description = `The latest speedrun personal bests from ${name}, newest first.`;
   return {
-    title: `${name}'s PB Feed — Sum of Best`,
-    description: `The latest speedrun personal bests from ${name}, newest first.`,
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: canonical,
+      images: [{ url: socialImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [socialImage],
+    },
   };
 }
 

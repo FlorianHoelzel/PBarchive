@@ -127,14 +127,9 @@ export default function LandingPage() {
             </p>
             {result && (
               <div className="lookup-result">
-                {(result.name.toLowerCase() === "volpey" || result.avatar) &&
-                !avatarFailed ? (
+                {result.avatar && !avatarFailed ? (
                   <img
-                    src={
-                      result.name.toLowerCase() === "volpey"
-                        ? "/volpey-avatar.png"
-                        : result.avatar!
-                    }
+                    src={result.avatar}
                     alt=""
                     width="54"
                     height="54"

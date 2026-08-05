@@ -1756,10 +1756,7 @@ export default function PBHistory({ data }: { data: SiteData }) {
   const yearsTracked = latestYear - earliestYear + 1;
   const totalHours = Math.floor(data.stats.totalRunSeconds / 3600);
   const totalMinutes = Math.floor((data.stats.totalRunSeconds % 3600) / 60);
-  const profileAvatar =
-    data.profile.name.toLowerCase() === "volpey"
-      ? "/volpey-avatar.png"
-      : data.profile.avatar;
+  const profileAvatar = data.profile.avatar;
   const heroTitleMode =
     data.profile.name.length <= 6
       ? "short"

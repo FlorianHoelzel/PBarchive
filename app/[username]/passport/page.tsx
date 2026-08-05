@@ -14,9 +14,27 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { username } = await params;
   const name = decodeURIComponent(username);
+  const canonical = `/${encodeURIComponent(name)}/passport`;
+  const socialImage = `/${encodeURIComponent(name)}/social-card`;
+  const title = `${name}'s Speedrun Passport`;
+  const description = `A shareable game-by-game passport through ${name}'s speedrun personal best history.`;
   return {
-    title: `${name}'s Speedrun Passport — Sum of Best`,
-    description: `A shareable game-by-game passport through ${name}'s speedrun personal best history.`,
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: canonical,
+      images: [{ url: socialImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [socialImage],
+    },
   };
 }
 

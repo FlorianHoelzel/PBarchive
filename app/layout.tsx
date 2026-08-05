@@ -2,24 +2,51 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Sum of Best - Your personal PB archive";
+  const title = "Sum of Best — Your speedrun PB history";
   const description =
-    "Turn a speedrun.com profile into a playable history of personal bests, including obsolete runs.";
+    "Turn any public speedrun.com profile into an interactive history of current and obsolete personal bests.";
 
   return {
     metadataBase: new URL("https://sumof.best"),
-    title,
+    title: {
+      default: title,
+      template: "%s | Sum of Best",
+    },
     description,
+    applicationName: "Sum of Best",
+    keywords: [
+      "speedrunning",
+      "speedrun personal bests",
+      "PB history",
+      "speedrun.com",
+      "obsolete runs",
+    ],
+    authors: [{ name: "Sum of Best", url: "https://sumof.best" }],
+    creator: "Sum of Best",
+    publisher: "Sum of Best",
+    referrer: "origin-when-cross-origin",
     verification: {
       google: "JeLkuzRbmBwi5uiI3t9g6JZV1r75RKrejPkG7kxkiy0",
     },
     alternates: { canonical: "/" },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     openGraph: {
       title,
       description,
       type: "website",
       url: "https://sumof.best",
       siteName: "Sum of Best",
+      locale: "en_US",
     },
     twitter: {
       card: "summary",
@@ -34,6 +61,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Sum of Best",
+    url: "https://sumof.best",
+    description:
+      "Interactive histories of current and obsolete speedrun personal bests.",
+    inLanguage: "en",
+    isAccessibleForFree: true,
+  };
+
   return (
     <html lang="en">
       <head>
@@ -46,7 +84,15 @@ export default function RootLayout({
           data-domains="sumof.best,www.sumof.best"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

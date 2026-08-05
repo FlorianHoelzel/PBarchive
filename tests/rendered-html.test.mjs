@@ -44,7 +44,6 @@ test("server-renders the Sum of Best landing page", async () => {
     html,
     /<meta name="google-site-verification" content="JeLkuzRbmBwi5uiI3t9g6JZV1r75RKrejPkG7kxkiy0"/i,
   );
-  assert.doesNotMatch(html, /property="og:image"|name="twitter:image"/i);
   assert.doesNotMatch(html, /Your site is taking shape/i);
 });
 
@@ -63,11 +62,7 @@ test("serves search-engine discovery files", async () => {
 });
 
 test("keeps the required public assets", async () => {
-  await Promise.all([
-    access(new URL("public/favicon.svg", projectRoot)),
-    access(new URL("public/og-v2.png", projectRoot)),
-    access(new URL("public/volpey-avatar.png", projectRoot)),
-  ]);
+  await access(new URL("public/favicon.svg", projectRoot));
 });
 
 test("server-renders shareable PB feed routes", async () => {
@@ -75,7 +70,13 @@ test("server-renders shareable PB feed routes", async () => {
   assert.equal(feed.status, 200);
   const feedHtml = await feed.text();
   assert.match(feedHtml, /PB FEED/i);
-  assert.match(feedHtml, /class="brand-avatar"[^>]+src="\/volpey-avatar\.png"/);
+  assert.match(feedHtml, /<link rel="canonical" href="https:\/\/sumof\.best\/volpey\/feed"/i);
+  const feedTitle = feedHtml.match(/<title>(.*?)<\/title>/i)?.[1] ?? "";
+  assert.equal(feedTitle.match(/Sum of Best/gi)?.length, 1);
+  assert.match(
+    feedHtml,
+    /class="brand-avatar"[^>]+src="https:\/\/www\.speedrun\.com\/static\/user\//,
+  );
   assert.match(feedHtml, /href="\/">SUM OF BEST<\/a>/);
   assert.match(
     feedHtml,
@@ -101,7 +102,9 @@ test("server-renders shareable PB feed routes", async () => {
 
   const embed = await render("/volpey/embed/feed");
   assert.equal(embed.status, 200);
-  assert.match(await embed.text(), /RECENT PERSONAL BESTS/i);
+  const embedHtml = await embed.text();
+  assert.match(embedHtml, /RECENT PERSONAL BESTS/i);
+  assert.match(embedHtml, /name="robots" content="noindex, follow"/i);
 });
 
 test("serves the public Twitch PB feed API with CORS", async () => {
@@ -139,6 +142,14 @@ test("shows the tiered historical world-record achievement", async () => {
   assert.equal(response.status, 200);
 
   const html = await response.text();
+  assert.match(html, /<title>Volpey[^<]+speedrun PB history[^<]+Sum of Best<\/title>/i);
+  assert.match(html, /<link rel="canonical" href="https:\/\/sumof\.best\/Volpey"/i);
+  assert.match(
+    html,
+    /property="og:image" content="https:\/\/sumof\.best\/Volpey\/social-card"/i,
+  );
+  assert.match(html, /name="twitter:card" content="summary_large_image"/i);
+  assert.match(html, /"@type":"ProfilePage"/i);
   assert.match(html, /href="\/">SUM OF BEST<\/a>/);
   assert.match(html, /class="accent-name" href="\/volpey">VOLPEY<\/a>/i);
   assert.match(html, /href="\/volpey\/passport"/i);
@@ -149,6 +160,11 @@ test("shows the tiered historical world-record achievement", async () => {
   assert.match(html, /World records when set/);
   assert.doesNotMatch(html, /WORLD RECORDS/);
   assert.doesNotMatch(html, /UNTOUCHABLE/);
+
+  const socialCard = await render("/Volpey/social-card");
+  assert.equal(socialCard.status, 200);
+  assert.match(socialCard.headers.get("content-type") ?? "", /^image\/png\b/i);
+  assert.match(socialCard.headers.get("cache-control") ?? "", /s-maxage=86400/i);
 });
 
 test("serves a fresh generated archive from the durable cache", async () => {
