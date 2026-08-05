@@ -49,6 +49,9 @@ export default function LandingPage() {
   const [phase, setPhase] = useState<LookupPhase>("idle");
   const [avatarFailed, setAvatarFailed] = useState(false);
   const requestRef = useRef<AbortController | null>(null);
+  const glowRef = useRef<HTMLSpanElement>(null);
+  const pointerFrameRef = useRef<number | null>(null);
+  const pointerPositionRef = useRef({ x: 0, y: 0 });
   const cleanUsername = username.trim().replace(/^@/, "");
   const isLoading = phase === "loading" || phase === "submitting";
 
@@ -84,6 +87,15 @@ export default function LandingPage() {
     };
   }, [cleanUsername]);
 
+  useEffect(
+    () => () => {
+      if (pointerFrameRef.current !== null) {
+        window.cancelAnimationFrame(pointerFrameRef.current);
+      }
+    },
+    [],
+  );
+
   function updateUsername(value: string) {
     const cleanValue = value.trim().replace(/^@/, "");
     requestRef.current?.abort();
@@ -106,15 +118,18 @@ export default function LandingPage() {
   function trackPointer(event: PointerEvent<HTMLElement>) {
     if (event.pointerType === "touch") return;
 
-    const bounds = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty(
-      "--pointer-x",
-      `${((event.clientX - bounds.left) / bounds.width) * 100}%`,
-    );
-    event.currentTarget.style.setProperty(
-      "--pointer-y",
-      `${((event.clientY - bounds.top) / bounds.height) * 100}%`,
-    );
+    pointerPositionRef.current = { x: event.clientX, y: event.clientY };
+    if (pointerFrameRef.current !== null) return;
+
+    const landing = event.currentTarget;
+    pointerFrameRef.current = window.requestAnimationFrame(() => {
+      pointerFrameRef.current = null;
+      if (!glowRef.current) return;
+
+      const bounds = landing.getBoundingClientRect();
+      const { x, y } = pointerPositionRef.current;
+      glowRef.current.style.transform = `translate3d(${x - bounds.left}px, ${y - bounds.top}px, 0) translate(-50%, -50%)`;
+    });
   }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -155,7 +170,7 @@ export default function LandingPage() {
   return (
     <main className="landing" onPointerMove={trackPointer}>
       <div className="landing-atmosphere" aria-hidden="true">
-        <span className="landing-glow" />
+        <span ref={glowRef} className="landing-glow" />
       </div>
 
       <header className="landing-header">

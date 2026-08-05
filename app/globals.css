@@ -3087,13 +3087,11 @@ footer p {
 }
 
 .landing {
-  --pointer-x: 72%;
-  --pointer-y: 42%;
   background: transparent;
   display: flex;
   flex-direction: column;
   isolation: isolate;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
   position: relative;
 }
@@ -3113,14 +3111,15 @@ footer p {
     color-mix(in srgb, var(--acid) 3%, transparent) 34%,
     transparent 70%
   );
+  contain: strict;
   height: min(72vw, 980px);
-  left: var(--pointer-x);
+  left: 0;
   opacity: 0.8;
   position: absolute;
-  top: var(--pointer-y);
-  transform: translate(-50%, -50%);
-  transition: left 700ms cubic-bezier(0.16, 1, 0.3, 1),
-    top 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  top: 0;
+  transform: translate3d(72vw, 42vh, 0) translate(-50%, -50%);
+  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
   width: min(72vw, 980px);
 }
 
@@ -3174,7 +3173,7 @@ footer p {
   margin: 0 auto;
   max-width: 1600px;
   min-height: 0;
-  padding: clamp(70px, 9vw, 140px) clamp(24px, 7vw, 110px);
+  padding: clamp(34px, 5vh, 58px) clamp(24px, 7vw, 110px);
   width: 100%;
 }
 
@@ -3198,7 +3197,7 @@ footer p {
   font-size: clamp(54px, 7.5vw, 112px);
   letter-spacing: -0.07em;
   line-height: 0.92;
-  margin: 28px 0 34px;
+  margin: 22px 0 28px;
 }
 
 .title-line {
@@ -3254,7 +3253,7 @@ footer p {
 }
 
 .username-search {
-  margin-top: clamp(48px, 6vw, 78px);
+  margin-top: clamp(32px, 4vh, 48px);
   max-width: 790px;
 }
 
