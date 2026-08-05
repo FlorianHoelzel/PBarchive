@@ -1,8 +1,16 @@
 "use client";
 
-import { FormEvent, PointerEvent, useEffect, useRef, useState } from "react";
+import {
+  FormEvent,
+  MouseEvent,
+  PointerEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import ArchiveLoadingView from "./archive-loading-view";
 
 type LookupResult = {
   id: string;
@@ -47,6 +55,7 @@ export default function LandingPage() {
   const [result, setResult] = useState<LookupResult | null>(null);
   const [phase, setPhase] = useState<LookupPhase>("idle");
   const [avatarFailed, setAvatarFailed] = useState(false);
+  const [archiveTarget, setArchiveTarget] = useState<string | null>(null);
   const requestRef = useRef<AbortController | null>(null);
   const glowRef = useRef<HTMLSpanElement>(null);
   const pointerFrameRef = useRef<number | null>(null);
@@ -95,6 +104,10 @@ export default function LandingPage() {
     [],
   );
 
+  useEffect(() => {
+    if (archiveTarget) router.push(archiveTarget);
+  }, [archiveTarget, router]);
+
   function updateUsername(value: string) {
     const cleanValue = value.trim().replace(/^@/, "");
     requestRef.current?.abort();
@@ -131,6 +144,33 @@ export default function LandingPage() {
     });
   }
 
+  function openArchive(url: string) {
+    requestRef.current?.abort();
+    setPhase("submitting");
+    setMessage("Profile found. Opening the archive builder.");
+    setArchiveTarget(url);
+  }
+
+  function openArchiveLink(
+    event: MouseEvent<HTMLAnchorElement>,
+    url: string | null,
+  ) {
+    if (!url) return;
+
+    if (
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    openArchive(url);
+  }
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -150,16 +190,14 @@ export default function LandingPage() {
 
     try {
       if (result?.archiveUrl) {
-        setMessage("Profile found. Opening the archive builder.");
-        router.push(result.archiveUrl);
+        openArchive(result.archiveUrl);
         return;
       }
 
       const payload = await lookupUser(cleanUsername, controller.signal);
       setResult(payload);
       if (payload.archiveUrl) {
-        setMessage("Profile found. Opening the archive builder.");
-        router.push(payload.archiveUrl);
+        openArchive(payload.archiveUrl);
       } else {
         setPhase("success");
         setMessage("Profile found, but the archive could not be opened.");
@@ -176,6 +214,8 @@ export default function LandingPage() {
       if (requestRef.current === controller) requestRef.current = null;
     }
   }
+
+  if (archiveTarget) return <ArchiveLoadingView />;
 
   return (
     <main className="landing" onPointerMove={trackPointer}>
@@ -264,7 +304,13 @@ export default function LandingPage() {
                 {result && (
                   <span className="lookup-actions">
                     {result.archiveUrl && (
-                      <Link href={result.archiveUrl} prefetch={false}>
+                      <Link
+                        href={result.archiveUrl}
+                        prefetch={false}
+                        onClick={(event) =>
+                          openArchiveLink(event, result.archiveUrl)
+                        }
+                      >
                         VIEW ARCHIVE
                       </Link>
                     )}
