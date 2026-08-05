@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Arimo";
+  src: url("/fonts/arimo-variable.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 :root {
   --ink: #0e0e0e;
   --paper: #f1f0ec;
@@ -30,7 +38,7 @@ body {
     var(--ink);
   background-size: 38px 38px;
   color: var(--paper);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Arimo", Arial, Helvetica, sans-serif;
 }
 
 a {

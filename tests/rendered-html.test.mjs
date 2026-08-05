@@ -62,7 +62,12 @@ test("serves search-engine discovery files", async () => {
 });
 
 test("keeps the required public assets", async () => {
-  await access(new URL("public/favicon.svg", projectRoot));
+  await Promise.all([
+    access(new URL("public/favicon.svg", projectRoot)),
+    access(new URL("public/fonts/arimo-variable.ttf", projectRoot)),
+    access(new URL("public/fonts/arimo-bold.ttf", projectRoot)),
+    access(new URL("public/fonts/OFL.txt", projectRoot)),
+  ]);
 });
 
 test("server-renders shareable PB feed routes", async () => {
@@ -165,6 +170,7 @@ test("shows the tiered historical world-record achievement", async () => {
   assert.equal(socialCard.status, 200);
   assert.match(socialCard.headers.get("content-type") ?? "", /^image\/png\b/i);
   assert.match(socialCard.headers.get("cache-control") ?? "", /s-maxage=86400/i);
+  assert.ok((await socialCard.arrayBuffer()).byteLength > 10_000);
 });
 
 test("serves a fresh generated archive from the durable cache", async () => {
