@@ -1,9 +1,9 @@
 import { ImageResponse } from "next/og";
-import manropeFontDataUrl from "@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?inline";
+import arimoBoldFontDataUrl from "../../../public/fonts/arimo-bold.ttf?inline";
 import speedrunData from "../../data/speedruns.json";
 import { getUserArchive } from "../../archive-cache";
 
-const manropeFont = fetch(manropeFontDataUrl).then((response) =>
+const arimoBoldFont = fetch(arimoBoldFontDataUrl).then((response) =>
   response.arrayBuffer(),
 );
 
@@ -37,7 +37,7 @@ export async function GET(
   const gridColumns = Array.from({ length: 32 }, (_, index) => index * 38);
   const gridRows = Array.from({ length: 17 }, (_, index) => index * 38);
 
-  return new ImageResponse(
+  const image = new ImageResponse(
     (
       <div
         style={{
@@ -47,7 +47,7 @@ export async function GET(
           flexDirection: "column",
           background: "#0e0e0e",
           color: "#f1f0ec",
-          fontFamily: "Manrope",
+          fontFamily: "Arimo",
           position: "relative",
           overflow: "hidden",
         }}
@@ -255,8 +255,8 @@ export async function GET(
       height: 630,
       fonts: [
         {
-          name: "Manrope",
-          data: await manropeFont,
+          name: "Arimo",
+          data: await arimoBoldFont,
           weight: 700,
           style: "normal",
         },
@@ -267,4 +267,16 @@ export async function GET(
       },
     },
   );
+
+  // Materialize the lazy ImageResponse body before returning so renderer
+  // failures become normal route errors instead of dropped HTTP connections.
+  const png = await image.arrayBuffer();
+
+  return new Response(png, {
+    headers: {
+      "Content-Type": "image/png",
+      "Cache-Control":
+        "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+    },
+  });
 }
