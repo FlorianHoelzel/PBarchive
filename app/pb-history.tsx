@@ -738,7 +738,7 @@ export function SpeedrunPassport({
                 {game.firstYear && game.latestYear
                   ? game.firstYear === game.latestYear
                     ? game.firstYear
-                    : `${game.firstYear}—${game.latestYear}`
+                    : `${game.firstYear}-${game.latestYear}`
                   : "UNKNOWN"}
               </strong>
             </div>
