@@ -30,7 +30,6 @@ async function lookupUser(
   if (prepareArchive) params.set("prepare", "1");
 
   const response = await fetch(`/api/lookup?${params.toString()}`, {
-    cache: "no-store",
     signal,
   });
   const payload = (await response.json()) as LookupResult & { error?: string };
@@ -79,7 +78,7 @@ export default function LandingPage() {
       } finally {
         if (requestRef.current === controller) requestRef.current = null;
       }
-    }, 350);
+    }, 650);
 
     return () => {
       window.clearTimeout(timeout);

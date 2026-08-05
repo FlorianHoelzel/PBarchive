@@ -1,5 +1,14 @@
 import { NextResponse } from "next/server";
 import { warmUserArchive } from "../../archive-cache";
+import { requestSpeedrunJson, SpeedrunApiError } from "../../speedrun-api";
+
+const LOOKUP_FRESH_MS = 5 * 60 * 1_000;
+const LOOKUP_STALE_MS = 24 * 60 * 60 * 1_000;
+const NOT_FOUND_FRESH_MS = 30 * 1_000;
+const lookupCache = new Map<
+  string,
+  { storedAt: number; user: SpeedrunUser | null }
+>();
 
 type SpeedrunUser = {
   id: string;
@@ -22,6 +31,38 @@ type SpeedrunUser = {
   };
 };
 
+async function lookupUser(username: string, signal: AbortSignal) {
+  const key = username.normalize("NFKC").toLowerCase();
+  const cached = lookupCache.get(key);
+  const freshFor = cached?.user ? LOOKUP_FRESH_MS : NOT_FOUND_FRESH_MS;
+
+  if (cached && Date.now() - cached.storedAt < freshFor) {
+    return { stale: false, user: cached.user };
+  }
+
+  try {
+    const payload = await requestSpeedrunJson<{ data?: SpeedrunUser[] }>(
+      `/users?lookup=${encodeURIComponent(username)}`,
+      {
+        signal,
+        userAgent: "SumOfBest/0.1 (username lookup; https://sumof.best)",
+      },
+    );
+    const user = payload?.data?.[0] ?? null;
+    lookupCache.set(key, { storedAt: Date.now(), user });
+    return { stale: false, user };
+  } catch (error) {
+    if (
+      cached?.user &&
+      Date.now() - cached.storedAt < LOOKUP_STALE_MS
+    ) {
+      console.warn(`Using a stale speedrun.com lookup for ${username}`);
+      return { stale: true, user: cached.user };
+    }
+    throw error;
+  }
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const username = searchParams.get("username")?.trim().replace(/^@/, "");
@@ -35,26 +76,8 @@ export async function GET(request: Request) {
   }
 
   try {
-    const response = await fetch(
-      `https://www.speedrun.com/api/v1/users?lookup=${encodeURIComponent(username)}`,
-      {
-        cache: "no-store",
-        headers: {
-          Accept: "application/json",
-          "User-Agent": "SumOfBest/0.1 (username lookup; https://sumof.best)",
-        },
-      },
-    );
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { error: "Speedrun.com could not be reached. Try again in a moment." },
-        { status: 502, headers: { "Cache-Control": "no-store" } },
-      );
-    }
-
-    const payload = (await response.json()) as { data?: SpeedrunUser[] };
-    const user = payload.data?.[0];
+    const lookup = await lookupUser(username, request.signal);
+    const user = lookup.user;
 
     if (!user) {
       return NextResponse.json(
@@ -92,11 +115,27 @@ export async function GET(request: Request) {
         profileUrl: user.weblink ?? `https://www.speedrun.com/users/${name}`,
         archiveUrl: `/${encodeURIComponent(name)}`,
       },
-      { headers: { "Cache-Control": "no-store, max-age=0" } },
+      {
+        headers: {
+          "Cache-Control": prepareArchive
+            ? "no-store"
+            : "public, max-age=60, s-maxage=300, stale-while-revalidate=86400",
+          "X-Speedrun-Data": lookup.stale ? "stale" : "live",
+        },
+      },
     );
-  } catch {
+  } catch (error) {
+    if (error instanceof SpeedrunApiError) {
+      console.error("Unable to look up speedrun.com user", {
+        username,
+        status: error.status,
+        rayId: error.rayId,
+      });
+    } else {
+      console.error(`Unable to look up speedrun.com user ${username}`, error);
+    }
     return NextResponse.json(
-      { error: "The lookup failed. Check your connection and try again." },
+      { error: "Speedrun.com is temporarily unavailable. Try again shortly." },
       { status: 502, headers: { "Cache-Control": "no-store" } },
     );
   }

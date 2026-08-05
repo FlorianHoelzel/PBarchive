@@ -1,28 +1,18 @@
 import type { History, SiteData } from "./pb-history";
+import { requestSpeedrunJson } from "./speedrun-api";
 
-const API = "https://www.speedrun.com/api/v1";
-const requestHeaders = {
-  Accept: "application/json",
-  "User-Agent": "SumOfBest/0.1 (live archive preview; https://sumof.best)",
-};
+const USER_AGENT =
+  "SumOfBest/0.1 (live archive preview; https://sumof.best)";
 
 // speedrun.com responses are schemaless at this boundary and are normalized below.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ApiRecord = Record<string, any>;
 
 async function request(path: string, allowNotFound = false) {
-  const response = await fetch(`${API}${path}`, {
-    cache: "no-store",
-    headers: requestHeaders,
+  return requestSpeedrunJson<ApiRecord>(path, {
+    allowNotFound,
+    userAgent: USER_AGENT,
   });
-
-  if (allowNotFound && response.status === 404) return null;
-
-  if (!response.ok) {
-    throw new Error(`speedrun.com returned ${response.status} for ${path}`);
-  }
-
-  return response.json() as Promise<ApiRecord>;
 }
 
 async function get(path: string) {
