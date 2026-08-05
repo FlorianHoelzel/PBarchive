@@ -1145,7 +1145,7 @@ footer a:hover {
 .passport-open,
 .passport-controls button,
 .passport-counter {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.14em;
 }
@@ -1174,7 +1174,7 @@ footer a:hover {
   color: var(--passport-ink);
   display: flex;
   flex-direction: column;
-  min-height: 438px;
+  min-height: 470px;
   overflow: hidden;
   padding: 24px 26px 22px;
   position: relative;
@@ -1294,10 +1294,10 @@ footer a:hover {
 
 .passport-identity small {
   color: var(--passport-muted);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.1em;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .passport-fields {
@@ -1322,11 +1322,11 @@ footer a:hover {
 
 .passport-fields span {
   color: var(--passport-muted);
-  font-size: 7px;
+  font-size: 9px;
 }
 
 .passport-fields strong {
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.3;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1338,7 +1338,7 @@ footer a:hover {
 
 .passport-record-title > span {
   color: var(--acid);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.14em;
 }
@@ -1373,7 +1373,7 @@ footer a:hover {
 .passport-stats span,
 .passport-landmark > span {
   color: var(--passport-muted);
-  font-size: 7px;
+  font-size: 9px;
 }
 
 .passport-stats strong {
@@ -1394,7 +1394,7 @@ footer a:hover {
 
 .passport-landmark small {
   color: var(--passport-muted);
-  font-size: 9px;
+  font-size: 11px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1421,18 +1421,18 @@ footer a:hover {
 }
 
 .passport-stamp span {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 950;
   line-height: 1;
 }
 
 .passport-stamp b {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.2;
 }
 
 .passport-stamp small {
-  font-size: 6px;
+  font-size: 8px;
 }
 
 .passport-open {
@@ -1535,6 +1535,7 @@ footer a:hover {
 }
 
 .passport-route-shell {
+  font-family: "Arimo", Arial, Helvetica, sans-serif;
   min-height: 100vh;
 }
 
@@ -1569,7 +1570,7 @@ footer a:hover {
 
 .passport-route-hero > div:first-child > span,
 .passport-route-actions button {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.14em;
 }
@@ -1579,17 +1580,19 @@ footer a:hover {
 }
 
 .passport-route-hero h1 {
-  font-size: clamp(42px, 6vw, 84px);
+  font-family: inherit;
+  font-size: clamp(44px, 5.6vw, 84px);
   font-weight: 800;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.065em;
   line-height: 0.92;
   margin: 18px 0 22px;
 }
 
 .passport-route-hero p {
   color: var(--muted);
-  font-size: 15px;
-  line-height: 1.6;
+  font-family: inherit;
+  font-size: clamp(17px, 1.35vw, 20px);
+  line-height: 1.55;
   margin: 0;
   max-width: 670px;
 }
@@ -3957,7 +3960,7 @@ footer p {
   }
 
   .passport-page {
-    min-height: 410px;
+    min-height: 450px;
     padding: 22px 24px;
   }
 
