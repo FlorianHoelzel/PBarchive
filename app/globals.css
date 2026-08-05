@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Arimo";
-  src: url("/fonts/arimo-variable.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400 700;
+  font-family: "Manrope";
+  src: url("../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2") format("woff2");
   font-display: swap;
+  font-style: normal;
+  font-weight: 200 800;
 }
 
 :root {
@@ -19,13 +19,17 @@
   --panel: #181817;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+  font-family: inherit;
 }
 
 html {
   scroll-behavior: smooth;
   background: var(--ink);
+  font-family: "Manrope", sans-serif;
 }
 
 body {
@@ -38,7 +42,7 @@ body {
     var(--ink);
   background-size: 38px 38px;
   color: var(--paper);
-  font-family: "Arimo", Arial, Helvetica, sans-serif;
+  font-family: inherit;
 }
 
 a {
@@ -46,7 +50,10 @@ a {
   text-decoration: none;
 }
 
-button {
+button,
+input,
+select,
+textarea {
   font: inherit;
 }
 
@@ -261,6 +268,8 @@ footer a:hover {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  margin-inline-end: -0.06em;
+  padding-inline-end: 0.06em;
 }
 
 .hero-intro p {
@@ -332,7 +341,7 @@ footer a:hover {
 .hero-note small {
   color: var(--muted);
   display: block;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: inherit;
   font-size: 17px;
   font-style: italic;
   margin-top: 34px;
@@ -1113,7 +1122,7 @@ footer a:hover {
 .passport {
   --passport-ink: var(--paper);
   --passport-muted: var(--muted);
-  font-family: "Arimo", Arial, Helvetica, sans-serif;
+  font-family: inherit;
   background: #090a09;
   border: 1px solid var(--line);
   margin-top: 24px;
@@ -1535,7 +1544,7 @@ footer a:hover {
 }
 
 .passport-route-shell {
-  font-family: "Arimo", Arial, Helvetica, sans-serif;
+  font-family: inherit;
   min-height: 100vh;
 }
 
@@ -2301,7 +2310,9 @@ footer a:hover {
   background: #090a09;
   border: 1px solid var(--line);
   color: #c8cac3;
-  font: 11px/1.55 Consolas, monospace;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1.55;
   min-height: 112px;
   padding: 14px;
   resize: vertical;
@@ -3211,12 +3222,12 @@ footer p {
 
 @keyframes title-rise {
   from {
-    clip-path: inset(100% 0 0);
+    clip-path: inset(100% -0.08em -0.14em 0);
     opacity: 0;
     transform: translateY(0.75em);
   }
   to {
-    clip-path: inset(0 0 0);
+    clip-path: inset(0 -0.08em -0.14em 0);
     opacity: 1;
     transform: none;
   }

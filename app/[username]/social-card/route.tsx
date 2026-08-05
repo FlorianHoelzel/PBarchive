@@ -1,9 +1,11 @@
 import { ImageResponse } from "next/og";
-import arimoFontDataUrl from "../../../public/fonts/arimo-bold.ttf?inline";
+import manropeFontDataUrl from "@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?inline";
 import speedrunData from "../../data/speedruns.json";
 import { getUserArchive } from "../../archive-cache";
 
-const arimoFont = fetch(arimoFontDataUrl).then((response) => response.arrayBuffer());
+const manropeFont = fetch(manropeFontDataUrl).then((response) =>
+  response.arrayBuffer(),
+);
 
 function safeAccent(value: string | null | undefined) {
   return value && /^#[0-9a-f]{6}$/i.test(value) ? value : "#c8c7c2";
@@ -45,7 +47,7 @@ export async function GET(
           flexDirection: "column",
           background: "#0e0e0e",
           color: "#f1f0ec",
-          fontFamily: "Arimo",
+          fontFamily: "Manrope",
           position: "relative",
           overflow: "hidden",
         }}
@@ -253,8 +255,8 @@ export async function GET(
       height: 630,
       fonts: [
         {
-          name: "Arimo",
-          data: await arimoFont,
+          name: "Manrope",
+          data: await manropeFont,
           weight: 700,
           style: "normal",
         },
