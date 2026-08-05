@@ -2,6 +2,7 @@
 
 import { FormEvent, PointerEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type LookupResult = {
   id: string;
@@ -42,6 +43,7 @@ async function lookupUser(
 }
 
 export default function LandingPage() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const [result, setResult] = useState<LookupResult | null>(null);
@@ -151,8 +153,13 @@ export default function LandingPage() {
     try {
       const payload = await lookupUser(cleanUsername, controller.signal, true);
       setResult(payload);
-      setPhase("success");
-      setMessage("Profile found. Your archive is being prepared.");
+      if (payload.archiveUrl) {
+        setMessage("Profile found. Opening the archive builder.");
+        router.push(payload.archiveUrl);
+      } else {
+        setPhase("success");
+        setMessage("Profile found, but the archive could not be opened.");
+      }
     } catch (error) {
       if (controller.signal.aborted) return;
       setPhase("error");
@@ -253,7 +260,9 @@ export default function LandingPage() {
                 {result && (
                   <span className="lookup-actions">
                     {result.archiveUrl && (
-                      <Link href={result.archiveUrl}>VIEW ARCHIVE</Link>
+                      <Link href={result.archiveUrl} prefetch={false}>
+                        VIEW ARCHIVE
+                      </Link>
                     )}
                     <a
                       href={result.profileUrl}
