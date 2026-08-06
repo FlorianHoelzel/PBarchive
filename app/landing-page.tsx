@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import ArchiveLoadingView from "./archive-loading-view";
 import LandingShell from "./landing-shell";
 
@@ -48,6 +49,7 @@ async function lookupUser(
 }
 
 export default function LandingPage() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const [result, setResult] = useState<LookupResult | null>(null);
@@ -91,8 +93,8 @@ export default function LandingPage() {
   }, [cleanUsername]);
 
   useEffect(() => {
-    if (archiveTarget) window.location.assign(archiveTarget);
-  }, [archiveTarget]);
+    if (archiveTarget) router.push(archiveTarget);
+  }, [archiveTarget, router]);
 
   function updateUsername(value: string) {
     const cleanValue = value.trim().replace(/^@/, "");
