@@ -1,16 +1,13 @@
 import Link from "next/link";
+import LandingShell from "./landing-shell";
 
 export default function ArchiveLoadingView() {
   return (
-    <main
+    <LandingShell
       className="landing archive-loading"
       aria-busy="true"
       aria-live="polite"
     >
-      <div className="landing-atmosphere" aria-hidden="true">
-        <span className="landing-glow" />
-      </div>
-
       <header className="landing-header">
         <Link
           className="brand landing-brand"
@@ -51,6 +48,6 @@ export default function ArchiveLoadingView() {
         <span>LIVE DATA FROM SPEEDRUN.COM</span>
         <span aria-hidden="true">PLEASE STAY ON THIS PAGE</span>
       </footer>
-    </main>
+    </LandingShell>
   );
 }

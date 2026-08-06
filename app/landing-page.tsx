@@ -3,13 +3,13 @@
 import {
   FormEvent,
   MouseEvent,
-  PointerEvent,
   useEffect,
   useRef,
   useState,
 } from "react";
 import Link from "next/link";
 import ArchiveLoadingView from "./archive-loading-view";
+import LandingShell from "./landing-shell";
 
 type LookupResult = {
   id: string;
@@ -55,9 +55,6 @@ export default function LandingPage() {
   const [avatarFailed, setAvatarFailed] = useState(false);
   const [archiveTarget, setArchiveTarget] = useState<string | null>(null);
   const requestRef = useRef<AbortController | null>(null);
-  const glowRef = useRef<HTMLSpanElement>(null);
-  const pointerFrameRef = useRef<number | null>(null);
-  const pointerPositionRef = useRef({ x: 0, y: 0 });
   const cleanUsername = username.trim().replace(/^@/, "");
   const isLoading = phase === "loading" || phase === "submitting";
 
@@ -93,15 +90,6 @@ export default function LandingPage() {
     };
   }, [cleanUsername]);
 
-  useEffect(
-    () => () => {
-      if (pointerFrameRef.current !== null) {
-        window.cancelAnimationFrame(pointerFrameRef.current);
-      }
-    },
-    [],
-  );
-
   useEffect(() => {
     if (archiveTarget) window.location.assign(archiveTarget);
   }, [archiveTarget]);
@@ -123,23 +111,6 @@ export default function LandingPage() {
       setPhase("loading");
       setMessage(`Looking for @${cleanValue}...`);
     }
-  }
-
-  function trackPointer(event: PointerEvent<HTMLElement>) {
-    if (event.pointerType === "touch") return;
-
-    pointerPositionRef.current = { x: event.clientX, y: event.clientY };
-    if (pointerFrameRef.current !== null) return;
-
-    const landing = event.currentTarget;
-    pointerFrameRef.current = window.requestAnimationFrame(() => {
-      pointerFrameRef.current = null;
-      if (!glowRef.current) return;
-
-      const bounds = landing.getBoundingClientRect();
-      const { x, y } = pointerPositionRef.current;
-      glowRef.current.style.transform = `translate3d(${x - bounds.left}px, ${y - bounds.top}px, 0) translate(-50%, -50%)`;
-    });
   }
 
   function openArchive(url: string) {
@@ -216,11 +187,7 @@ export default function LandingPage() {
   if (archiveTarget) return <ArchiveLoadingView />;
 
   return (
-    <main className="landing" onPointerMove={trackPointer}>
-      <div className="landing-atmosphere" aria-hidden="true">
-        <span ref={glowRef} className="landing-glow" />
-      </div>
-
+    <LandingShell>
       <header className="landing-header">
         <Link className="brand landing-brand" href="/" aria-label="Sum of Best home">
           <span className="brand-wordmark">SUM OF BEST</span>
@@ -334,6 +301,6 @@ export default function LandingPage() {
           DATA FROM SPEEDRUN.COM ↗
         </a>
       </footer>
-    </main>
+    </LandingShell>
   );
 }
