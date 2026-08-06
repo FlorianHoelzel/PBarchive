@@ -1,4 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
+import {
+  chooseTimingMethod,
+  timingSeconds,
+} from "../app/speedrun-timing.mjs";
 
 const API = "https://www.speedrun.com/api/v1";
 const USERNAME = "Volpey";
@@ -127,7 +131,8 @@ async function markHistoricalWorldRecords(histories) {
             return candidateDate && candidateDate <= run.date
               ? Math.min(
                   fastest,
-                  Number(candidate.times?.primary_t ?? Number.POSITIVE_INFINITY),
+                  timingSeconds(candidate.times, history.timingMethod) ??
+                    Number.POSITIVE_INFINITY,
                 )
               : fastest;
           }, Number.POSITIVE_INFINITY);
@@ -225,6 +230,7 @@ for (const run of runs) {
       categoryName: category.name,
       levelName: level?.name ?? null,
       variant: valueLabels.join(" · ") || null,
+      defaultTimingMethod: game.ruleset?.["default-time"] ?? null,
       runs: [],
     });
   }
@@ -233,8 +239,7 @@ for (const run of runs) {
     id: run.id,
     date: run.date ?? run.submitted?.slice(0, 10) ?? "Unknown",
     submitted: run.submitted ?? null,
-    seconds: run.times.primary_t,
-    time: formatTime(run.times.primary_t),
+    timings: run.times ?? {},
     video: videoFor(run),
     runUrl: run.weblink,
     platform: platforms[run.system?.platform]?.name ?? null,
@@ -254,8 +259,20 @@ for (const history of grouped.values()) {
     return dateOrder || (a.submitted ?? "").localeCompare(b.submitted ?? "");
   });
 
+  const timingMethod = chooseTimingMethod(
+    history.runs,
+    history.defaultTimingMethod,
+  );
+  const timedRuns = history.runs.flatMap((run) => {
+    const seconds = timingSeconds(run.timings, timingMethod);
+    if (seconds === null) return [];
+    const { timings, ...publicRun } = run;
+    void timings;
+    return [{ ...publicRun, seconds, time: formatTime(seconds) }];
+  });
+
   const seen = new Set();
-  const uniqueRuns = history.runs.filter((run) => {
+  const uniqueRuns = timedRuns.filter((run) => {
     const fingerprint = `${run.date}|${run.seconds}`;
     if (seen.has(fingerprint)) return false;
     seen.add(fingerprint);
@@ -272,8 +289,12 @@ for (const history of grouped.values()) {
   });
 
   if (progression.length) {
+    const { defaultTimingMethod, runs: rawRuns, ...publicHistory } = history;
+    void defaultTimingMethod;
+    void rawRuns;
     histories.push({
-      ...history,
+      ...publicHistory,
+      timingMethod,
       runs: progression.map((run, index) => ({
         ...run,
         current: index === progression.length - 1,

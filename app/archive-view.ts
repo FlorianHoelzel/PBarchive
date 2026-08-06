@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import type { History, SiteData } from "./pb-history";
+import type { History, SiteData, TimingMethod } from "./pb-history";
 
 export function displayDate(value: string) {
   if (value === "Unknown") return value;
@@ -27,6 +27,13 @@ export function archiveId(value: string) {
 
 export function historyAnchor(history: History) {
   return `history-${archiveId(history.id)}`;
+}
+
+export function timingMethodLabel(method?: TimingMethod) {
+  if (method === "realtime") return "RTA";
+  if (method === "realtime_noloads") return "LRT";
+  if (method === "ingame") return "IGT";
+  return "TIME";
 }
 
 export function archiveStyle(

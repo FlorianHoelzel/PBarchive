@@ -1,7 +1,7 @@
 "use client";
 
 import { CSSProperties, useId, useState } from "react";
-import { displayDate } from "./archive-view";
+import { displayDate, timingMethodLabel } from "./archive-view";
 import type { History, Run, SiteData } from "./pb-history";
 
 function EmbedChart({
@@ -130,7 +130,9 @@ export default function EmbedViewer({
       <div className="embed-layout">
         <section className="embed-chart-panel">
           <div className="embed-runs-heading">
-            <span>PB PROGRESSION</span>
+            <span>
+              PB PROGRESSION · {timingMethodLabel(history.timingMethod)}
+            </span>
             <span>{history.runs.length} PB{history.runs.length === 1 ? "" : "S"}</span>
           </div>
           <EmbedChart

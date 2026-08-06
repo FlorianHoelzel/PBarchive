@@ -1,5 +1,9 @@
-import type { History, SiteData } from "./pb-history";
+import type { History, Run, SiteData, TimingMethod } from "./pb-history";
 import { requestSpeedrunJson } from "./speedrun-api";
+import {
+  chooseTimingMethod,
+  timingSeconds,
+} from "./speedrun-timing.mjs";
 
 const USER_AGENT =
   "SumOfBest/0.1 (live archive preview; https://sumof.best)";
@@ -82,8 +86,14 @@ async function mapById(
   return Object.fromEntries(entries) as Record<string, ApiRecord>;
 }
 
-type InternalRun = History["runs"][number] & {
+type InternalRun = Omit<Run, "seconds" | "time" | "current"> & {
   submitted?: string | null;
+  timings: ApiRecord;
+};
+
+type InternalHistory = Omit<History, "runs" | "timingMethod"> & {
+  defaultTimingMethod: string | null;
+  runs: InternalRun[];
 };
 
 function formatTime(totalSeconds: number) {
@@ -127,10 +137,7 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
     ]),
   ) as Record<string, ApiRecord[]>;
 
-  const grouped = new Map<
-    string,
-    Omit<History, "runs"> & { runs: InternalRun[] }
-  >();
+  const grouped = new Map<string, InternalHistory>();
 
   for (const run of runs) {
     const game = games[run.game];
@@ -177,6 +184,7 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
         categoryName: category.name,
         levelName: level?.name ?? null,
         variant: valueLabels.join(" · ") || null,
+        defaultTimingMethod: game.ruleset?.["default-time"] ?? null,
         runs: [],
       });
     }
@@ -185,8 +193,7 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
       id: run.id,
       date: run.date ?? run.submitted?.slice(0, 10) ?? "Unknown",
       submitted: run.submitted ?? null,
-      seconds: run.times.primary_t,
-      time: formatTime(run.times.primary_t),
+      timings: run.times ?? {},
       video: run.videos?.links?.[0]?.uri ?? null,
       runUrl: run.weblink,
       platform: platforms[run.system?.platform]?.name ?? null,
@@ -203,8 +210,21 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
       return dateOrder || (a.submitted ?? "").localeCompare(b.submitted ?? "");
     });
 
+    const timingMethod = chooseTimingMethod(
+      history.runs,
+      history.defaultTimingMethod,
+    ) as TimingMethod;
+    const timedRuns = history.runs.flatMap((run) => {
+      const seconds = timingSeconds(run.timings, timingMethod);
+      if (seconds === null) return [];
+      const { submitted: _submitted, timings: _timings, ...publicRun } = run;
+      void _submitted;
+      void _timings;
+      return [{ ...publicRun, seconds, time: formatTime(seconds) }];
+    });
+
     const seen = new Set<string>();
-    const uniqueRuns = history.runs.filter((run) => {
+    const uniqueRuns = timedRuns.filter((run) => {
       const fingerprint = `${run.date}|${run.seconds}`;
       if (seen.has(fingerprint)) return false;
       seen.add(fingerprint);
@@ -221,8 +241,16 @@ export async function buildUserArchive(username: string): Promise<SiteData | nul
     });
 
     if (progression.length) {
+      const {
+        defaultTimingMethod: _defaultTimingMethod,
+        runs: _rawRuns,
+        ...publicHistory
+      } = history;
+      void _defaultTimingMethod;
+      void _rawRuns;
       histories.push({
-        ...history,
+        ...publicHistory,
+        timingMethod,
         runs: progression.map((run, index) => ({
           ...run,
           current: index === progression.length - 1,

@@ -112,6 +112,7 @@ function categoryPayload(data: SiteData) {
       cover: history.gameCover,
       pbCount: history.runs.length,
       currentTime: history.runs.at(-1)!.time,
+      timingMethod: history.timingMethod ?? "primary",
     })),
   };
 }
@@ -129,6 +130,7 @@ function historyPayload(data: SiteData, history: History) {
       cover: history.gameCover,
       archiveUrl: `${PUBLIC_ORIGIN}/${encodedUsername}#history-${archiveId(history.id)}`,
       embedUrl: `${PUBLIC_ORIGIN}/${encodedUsername}/embed/${encodedHistory}`,
+      timingMethod: history.timingMethod ?? "primary",
       runs: history.runs.map((run) => ({
         id: run.id,
         date: run.date,

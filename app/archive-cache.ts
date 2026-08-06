@@ -1,10 +1,18 @@
 import { createHash, randomUUID } from "node:crypto";
-import { mkdir, readFile, rename, stat, unlink, writeFile } from "node:fs/promises";
+import {
+  access,
+  mkdir,
+  readFile,
+  rename,
+  stat,
+  unlink,
+  writeFile,
+} from "node:fs/promises";
 import path from "node:path";
 import type { SiteData } from "./pb-history";
 import { buildUserArchive } from "./speedrun-archive";
 
-const CACHE_SCHEMA_VERSION = 2;
+const CACHE_SCHEMA_VERSION = 4;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const FRESH_MS = numberFromEnv("ARCHIVE_CACHE_FRESH_DAYS", 1) * DAY_MS;
 const RETENTION_MS = numberFromEnv("ARCHIVE_CACHE_RETENTION_DAYS", 180) * DAY_MS;
@@ -23,6 +31,16 @@ type CacheEnvelope = {
 };
 
 const builds = new Map<string, Promise<SiteData | null>>();
+const memoryCache = new Map<string, CacheEnvelope>();
+
+async function ensureDirectory(directory: string) {
+  try {
+    await access(directory);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    await mkdir(directory, { recursive: true });
+  }
+}
 
 function numberFromEnv(name: string, fallback: number) {
   const value = Number(process.env[name]);
@@ -51,6 +69,31 @@ function pathsFor(key: string) {
     archive: path.join(directory, `${key}.json`),
     lock: path.join(directory, `${key}.lock`),
   };
+}
+
+function cacheEnvelope(key: string, data: SiteData | null): CacheEnvelope {
+  const now = Date.now();
+  const freshFor = data === null
+    ? NOT_FOUND_MS
+    : data.histories.length
+      ? FRESH_MS
+      : EMPTY_FRESH_MS;
+  const expiresIn = data === null ? NOT_FOUND_MS : RETENTION_MS;
+
+  return {
+    version: CACHE_SCHEMA_VERSION,
+    key,
+    storedAt: new Date(now).toISOString(),
+    refreshAfter: new Date(now + freshFor).toISOString(),
+    expiresAt: new Date(now + expiresIn).toISOString(),
+    data,
+  };
+}
+
+function lacksWritableFileSystem(error: unknown) {
+  return ["EPERM", "EROFS", "ENOSYS"].includes(
+    (error as NodeJS.ErrnoException).code ?? "",
+  );
 }
 
 async function readEnvelope(file: string): Promise<CacheEnvelope | null> {
@@ -115,7 +158,14 @@ async function acquireLock(lockFile: string, archiveFile: string, startedAt: num
 
 async function buildAndStore(username: string, key: string) {
   const files = pathsFor(key);
-  await mkdir(files.directory, { recursive: true });
+  try {
+    await ensureDirectory(files.directory);
+  } catch (error) {
+    if (!lacksWritableFileSystem(error)) throw error;
+    const data = await buildUserArchive(username);
+    memoryCache.set(key, cacheEnvelope(key, data));
+    return data;
+  }
   const startedAt = Date.now();
   const ownsLock = await acquireLock(files.lock, files.archive, startedAt);
 
@@ -123,21 +173,7 @@ async function buildAndStore(username: string, key: string) {
 
   try {
     const data = await buildUserArchive(username);
-    const now = Date.now();
-    const freshFor = data === null
-      ? NOT_FOUND_MS
-      : data.histories.length
-        ? FRESH_MS
-        : EMPTY_FRESH_MS;
-    const expiresIn = data === null ? NOT_FOUND_MS : RETENTION_MS;
-    const envelope: CacheEnvelope = {
-      version: CACHE_SCHEMA_VERSION,
-      key,
-      storedAt: new Date(now).toISOString(),
-      refreshAfter: new Date(now + freshFor).toISOString(),
-      expiresAt: new Date(now + expiresIn).toISOString(),
-      data,
-    };
+    const envelope = cacheEnvelope(key, data);
     await writeEnvelope(files.archive, envelope);
     return data;
   } finally {
@@ -161,7 +197,7 @@ export async function getUserArchive(username: string): Promise<SiteData | null>
   if (!cleanUsername) return null;
 
   const key = cacheKey(cleanUsername);
-  const cached = await readEnvelope(pathsFor(key).archive);
+  const cached = memoryCache.get(key) ?? await readEnvelope(pathsFor(key).archive);
   const now = Date.now();
 
   if (cached && now < Date.parse(cached.refreshAfter)) return cached.data;

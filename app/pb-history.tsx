@@ -15,6 +15,7 @@ import {
   displayDate,
   historyAnchor,
   historyLabel,
+  timingMethodLabel,
 } from "./archive-view";
 import UserHeader from "./user-header";
 
@@ -31,6 +32,12 @@ export type Run = {
   current: boolean;
 };
 
+export type TimingMethod =
+  | "realtime"
+  | "realtime_noloads"
+  | "ingame"
+  | "primary";
+
 export type History = {
   id: string;
   gameId: string;
@@ -40,6 +47,7 @@ export type History = {
   categoryName: string;
   levelName: string | null;
   variant: string | null;
+  timingMethod?: TimingMethod;
   runs: Run[];
 };
 
@@ -115,12 +123,14 @@ function ProgressChart({
   onSelect,
   gameName,
   categoryLabel,
+  timeLabel,
 }: {
   runs: Run[];
   selected: number;
   onSelect: (index: number) => void;
   gameName: string;
   categoryLabel: string;
+  timeLabel: string;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const gradientId = `chart-accent-${useId().replace(/:/g, "")}`;
@@ -147,7 +157,7 @@ function ProgressChart({
   return (
     <div className="chart-wrap">
       <div className="chart-labels">
-        <span>TIME</span>
+        <span>{timeLabel}</span>
         <span>{runs.length} PB{runs.length === 1 ? "" : "S"}</span>
       </div>
       <div className="chart-stage">
@@ -333,6 +343,7 @@ function HistoryBlock({
             onSelect={chooseRun}
             gameName={history.gameName}
             categoryLabel={title}
+            timeLabel={timingMethodLabel(history.timingMethod)}
           />
           <section className="runs-panel">
             <div className="table-heading">

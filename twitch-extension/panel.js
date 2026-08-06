@@ -265,7 +265,12 @@ function renderHistory(data) {
   elements.subtitle.textContent = history.category;
   elements.subtitle.hidden = false;
   elements.pbCount.textContent = `${runs.length} PB${runs.length === 1 ? "" : "S"}`;
-  elements.historyCount.textContent = `${runs.length} PB${runs.length === 1 ? "" : "S"}`;
+  const timingLabel = {
+    realtime: "RTA",
+    realtime_noloads: "LRT",
+    ingame: "IGT",
+  }[history.timingMethod] ?? "TIME";
+  elements.historyCount.textContent = `${timingLabel} · ${runs.length} PB${runs.length === 1 ? "" : "S"}`;
   elements.archiveLink.href = history.archiveUrl;
   elements.footerLabel.textContent = "CATEGORY ARCHIVE";
   elements.startDate.textContent = displayDate(runs[0].date);

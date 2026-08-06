@@ -183,7 +183,7 @@ test("serves a fresh generated archive from the durable cache", async () => {
   await writeFile(
     path.join(directory, `${key}.json`),
     JSON.stringify({
-      version: 2,
+      version: 4,
       key,
       storedAt: new Date(now).toISOString(),
       refreshAfter: new Date(now + 60_000).toISOString(),
@@ -235,20 +235,46 @@ test("builds an uncached archive without per-resource or leaderboard requests", 
     if (url.pathname === "/api/v1/runs") {
       assert.equal(url.searchParams.get("embed"), "category,level,platform");
       return json({
-        data: [{
-          id: "run-1",
-          weblink: "https://www.speedrun.com/run/run-1",
-          game: "game-1",
-          category: { data: { id: "category-1", name: "Any%" } },
-          level: { data: null },
-          platform: { data: { id: "platform-1", name: "PC" } },
-          date: "2026-01-02",
-          submitted: "2026-01-02T12:00:00Z",
-          times: { primary_t: 62.5 },
-          system: { platform: "platform-1", emulated: false },
-          values: { "variable-1": "value-1" },
-          videos: null,
-        }],
+        data: [
+          {
+            id: "run-legacy-igt",
+            weblink: "https://www.speedrun.com/run/run-legacy-igt",
+            game: "game-1",
+            category: { data: { id: "category-1", name: "100%" } },
+            level: { data: null },
+            platform: { data: { id: "platform-1", name: "PC" } },
+            date: "2017-05-24",
+            submitted: "2017-05-24T12:00:00Z",
+            times: {
+              primary_t: 3033,
+              realtime_t: 0,
+              realtime_noloads_t: 0,
+              ingame_t: 3033,
+            },
+            system: { platform: "platform-1", emulated: true },
+            values: { "variable-1": "value-1" },
+            videos: null,
+          },
+          {
+            id: "run-current-rta-and-igt",
+            weblink: "https://www.speedrun.com/run/run-current-rta-and-igt",
+            game: "game-1",
+            category: { data: { id: "category-1", name: "100%" } },
+            level: { data: null },
+            platform: { data: { id: "platform-1", name: "PC" } },
+            date: "2024-06-10",
+            submitted: "2024-06-10T12:00:00Z",
+            times: {
+              primary_t: 3921,
+              realtime_t: 3921,
+              realtime_noloads_t: 0,
+              ingame_t: 2750,
+            },
+            system: { platform: "platform-1", emulated: false },
+            values: { "variable-1": "value-1" },
+            videos: null,
+          },
+        ],
         pagination: { max: 200, links: [] },
       });
     }
@@ -261,6 +287,7 @@ test("builds an uncached archive without per-resource or leaderboard requests", 
           names: { international: "Mock Game" },
           abbreviation: "mock-game",
           assets: {},
+          ruleset: { "default-time": "realtime" },
           variables: {
             data: [{
               id: "variable-1",
@@ -282,6 +309,11 @@ test("builds an uncached archive without per-resource or leaderboard requests", 
     const html = await response.text();
     assert.match(html, /MOCKRUNNER/i);
     assert.match(html, /Mock Game/i);
+    assert.match(html, />RTA</i);
+    assert.match(html, /1:05:21/);
+    assert.doesNotMatch(html, /45:50/);
+    assert.doesNotMatch(html, /50:33/);
+    assert.match(html, /1(?:<!-- -->)? PB(?!S)/i);
     assert.equal(requestedPaths.filter((item) => item.includes("/runs?")).length, 1);
     assert.equal(requestedPaths.filter((item) => item.includes("/games/")).length, 1);
     assert.ok(requestedPaths.every((item) => !item.includes("leaderboard")));
